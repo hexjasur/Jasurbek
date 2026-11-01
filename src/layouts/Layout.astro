@@ -196,11 +196,11 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
       function openModal(e: Event) {
         e.preventDefault();
-        modal.style.display = 'flex';
+        modal!.style.display = 'flex';
       }
 
       function closeModal() {
-        modal.style.display = 'none';
+        modal!.style.display = 'none';
         if (copySuccess) copySuccess.style.display = 'none';
       }
 
