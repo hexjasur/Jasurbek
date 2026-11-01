@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'contrast-checker',
+    num: 5,
+    title: 'WCAG Color Contrast Checker',
+    description: 'Check the contrast ratio of any two colors against WCAG 2.2 AA and AAA for normal text, large text and UI components.',
+    slug: 'contrast-checker',
+  },
+  {
     id: 'minifier',
     num: 4,
     title: 'Code & Data Minifier / Beautifier',
