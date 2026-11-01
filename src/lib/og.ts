@@ -54,11 +54,11 @@ let assetsPromise: Promise<{ flora: string; avatar: string }> | undefined;
 function loadAssets() {
   assetsPromise ??= (async () => {
     const pub = (p: string) => path.join(root, 'public', 'images', p);
-    const flora = await sharp(pub('flora/floral-corner.png'))
+    const flora = await sharp(pub('flora/floral-corner.webp'))
       .resize({ width: 460 })
       .png()
       .toBuffer();
-    const avatar = await sharp(pub('jasur-flora.png'))
+    const avatar = await sharp(pub('jasur-flora.webp'))
       .resize(180, 180, { fit: 'cover', position: 'top' })
       .png()
       .toBuffer();

@@ -137,9 +137,9 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 </head>
 <body>
   <div class="site-wrapper">
-    <img src={`${baseUrl}images/flora/floral-corner.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-corner" />
-    <img src={`${baseUrl}images/flora/floral-left.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-left" />
-    <img src={`${baseUrl}images/flora/floral-bloom.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-bloom" />
+    <img src={`${baseUrl}images/flora/floral-corner.webp`} alt="" aria-hidden="true" width="720" height="720" decoding="async" class="flora-decoration flora-decoration-corner" />
+    <img src={`${baseUrl}images/flora/floral-left.webp`} alt="" aria-hidden="true" width="480" height="720" loading="lazy" decoding="async" class="flora-decoration flora-decoration-left" />
+    <img src={`${baseUrl}images/flora/floral-bloom.webp`} alt="" aria-hidden="true" width="280" height="280" loading="lazy" decoding="async" class="flora-decoration flora-decoration-bloom" />
     <Header activePage={activePage} headerTitle={headerTitle} />
     <main class="site-content" transition:animate="fade">
       <slot />

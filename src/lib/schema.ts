@@ -15,7 +15,7 @@ export function personSchema(): SchemaNode {
     '@id': personId(),
     name: SITE_CONFIG.author,
     url: absoluteUrl(),
-    image: absoluteUrl('images/jasur-flora.png'),
+    image: absoluteUrl('images/jasur-flora.webp'),
     jobTitle: SITE_CONFIG.jobTitle,
     description: SITE_CONFIG.description,
     sameAs: [SITE_CONFIG.github, SITE_CONFIG.telegram],
