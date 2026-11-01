@@ -114,6 +114,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <script type="application/ld+json" set:html={jsonLd} />
   <meta name="google-site-verification" content="TMBKLG3n0XFX-qsZDiZj1IE8RP4azFETRj5TwL0WsYE" />
   <link rel="sitemap" type="application/xml" href={`${baseUrl}sitemap-index.xml`} />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE_CONFIG.author} — Tech Blog`} href={`${baseUrl}rss.xml`} />
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
   <title>{title}</title>
   <ClientRouter />
