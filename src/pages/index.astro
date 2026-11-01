@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout 
@@ -9,7 +13,7 @@ import Layout from '../layouts/Layout.astro';
 >
   <div class="profile-layout">
     <aside class="profile-sidebar">
-      <img src="/images/jasur.jpg" alt="Jasurbek Haydarov" class="profile-avatar" />
+      <img src={`${baseUrl}images/jasur.jpg`} alt="Jasurbek Haydarov" class="profile-avatar" />
       <div class="profile-socials">
         <div>
           <a href="https://github.com/hexjasur" target="_blank" rel="noopener noreferrer">GitHub</a>
