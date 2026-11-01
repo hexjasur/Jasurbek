@@ -100,6 +100,22 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script is:inline>
+    // Apply the saved (or system) theme before first paint to avoid a flash.
+    (function () {
+      var read = function () {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+      };
+      var preferred = function () {
+        return read() || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      };
+      document.documentElement.dataset.theme = preferred();
+      // Keep the theme across Astro view transitions.
+      document.addEventListener('astro:before-swap', function (event) {
+        event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme;
+      });
+    })();
+  </script>
   <Seo
     title={title}
     description={description}
@@ -197,6 +213,31 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     }
 
     document.addEventListener('astro:page-load', setupEmailModal);
+
+    const THEME_COLORS: Record<string, string> = { light: '#d8cfc0', dark: '#0f1512' };
+
+    function setupThemeToggle() {
+      const button = document.getElementById('theme-toggle');
+      if (!button) return;
+
+      const sync = () => {
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        button.setAttribute('aria-pressed', String(theme === 'dark'));
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
+      };
+
+      button.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+        sync();
+      });
+
+      sync();
+    }
+
+    document.addEventListener('astro:page-load', setupThemeToggle);
   </script>
 </body>
 </html>
