@@ -1454,3 +1454,26 @@ textarea[readonly] { background: var(--surface-2); }
 .toc-item a { color: var(--link-color); }
 
 .prose :is(h2, h3) { scroll-margin-top: 1rem; }
+
+/* ===== Code block copy button ===== */
+.prose pre.has-copy { position: relative; }
+
+.code-copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #f0f6fc;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.prose pre:hover .code-copy-btn,
+.code-copy-btn:focus-visible { opacity: 1; background: rgba(255, 255, 255, 0.22); }
