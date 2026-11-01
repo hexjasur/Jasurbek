@@ -1631,3 +1631,7 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ===== Comments ===== */
+.comments { margin-top: 2.75rem; }
+.comments-note { margin: 0 0 1rem; font-size: 0.88rem; color: var(--text-faint); }

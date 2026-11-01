@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Toc from '../../components/Toc.astro';
 import CodeCopy from '../../components/CodeCopy.astro';
+import Comments from '../../components/Comments.astro';
 import { render } from 'astro:content';
 import { SITE_CONFIG } from '../../config';
 import { absoluteUrl, BASE_URL as baseUrl } from '../../lib/url';
@@ -92,6 +93,8 @@ const postSchema = blogPostingSchema({
       ) : <span />}
     </nav>
   )}
+
+  <Comments />
 
   <div class="page-footer-nav">
     <a href={`${baseUrl}blog`} class="back-link">&larr; Back to all blog entries</a>

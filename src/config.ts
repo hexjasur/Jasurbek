@@ -29,4 +29,14 @@ export const SITE_CONFIG = {
   github: 'https://github.com/hexjasur',
   telegram: 'https://t.me/jasurhaydarovcode',
   email: 'jasurhaydarovcode@gmail.com',
+
+  // Giscus comments (GitHub Discussions). Comments stay hidden until `categoryId` is filled in.
+  // Setup: 1) enable Discussions in the repo settings, 2) install https://github.com/apps/giscus,
+  // 3) open https://giscus.app, pick the repo + category, then paste the generated category id below.
+  comments: {
+    repo: 'hexjasur/Jasurbek',
+    repoId: 'R_kgDOVe23Jw',
+    category: 'Announcements',
+    categoryId: '',
+  },
 };
