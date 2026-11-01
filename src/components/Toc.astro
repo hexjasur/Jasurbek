@@ -1,0 +1,25 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+// Only h2/h3 are useful in a table of contents; skip it for very short posts.
+const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{items.length >= 3 && (
+  <nav class="toc" aria-label="Table of contents">
+    <details open>
+      <summary class="toc-title">On this page</summary>
+      <ol class="toc-list">
+        {items.map((h) => (
+          <li class:list={['toc-item', { 'toc-sub': h.depth === 3 }]}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  </nav>
+)}

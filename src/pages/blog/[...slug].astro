@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Toc from '../../components/Toc.astro';
 import { render } from 'astro:content';
 import { SITE_CONFIG } from '../../config';
 import { absoluteUrl, BASE_URL as baseUrl } from '../../lib/url';
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 }
 
 const { post, newer, older } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const formattedDate = formatDate(post.data.pubDate);
 const minutes = readingTime(post.body);
@@ -66,6 +67,8 @@ const postSchema = blogPostingSchema({
         ))}
       </div>
     )}
+
+    <Toc headings={headings} />
 
     <div class="prose">
       <Content />
