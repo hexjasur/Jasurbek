@@ -9,6 +9,13 @@ export interface PlaygroundEntry {
 /** Single source of truth for the playground demos (index page, OG images, breadcrumbs). */
 export const playgroundList: PlaygroundEntry[] = [
   {
+    id: 'reaction-time',
+    num: 2,
+    title: 'Reaction Time Test',
+    description: 'Click the moment the panel turns green and measure your reflexes in milliseconds, with best and rolling average scores.',
+    slug: 'reaction-time',
+  },
+  {
     id: 'snake',
     num: 1,
     title: 'Snake',

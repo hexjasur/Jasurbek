@@ -1675,3 +1675,28 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
 }
 .dpad .btn { padding: 0.55rem 0; font-size: 1.1rem; line-height: 1; }
 .dpad-up { grid-area: up; } .dpad-left { grid-area: left; } .dpad-down { grid-area: down; } .dpad-right { grid-area: right; }
+
+/* ===== Reaction time test ===== */
+.rt-panel {
+  display: grid;
+  place-items: center;
+  width: min(100%, 520px);
+  min-height: 240px;
+  margin: 0 auto;
+  padding: 1rem;
+  font: inherit;
+  color: #fff;
+  border: 2px solid var(--card-shadow-color);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--card-shadow-color);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.1s ease;
+}
+.rt-label { font-size: clamp(1.4rem, 5vw, 2.1rem); font-weight: 800; }
+.rt-idle { background: #3b6a8f; }
+.rt-waiting { background: #b3402f; }
+.rt-ready { background: #2f8f4e; }
+.rt-result { background: #3b6a8f; }
+.rt-early { background: #8a6d1a; }
+.rt-status { min-height: 1.4rem; margin: 0.9rem 0 0; font-size: 0.92rem; color: var(--text-soft); }
