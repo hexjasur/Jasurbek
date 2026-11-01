@@ -34,6 +34,7 @@
   --accent-soft: #eef3ff;
   --accent-line: #cfe0fc;
   --code-color: #cf222e;
+  --code-block-bg: #24292f;
   --success: #1a7f37;
   --focus: #0969da;
   --focus-strong: #0856b3;
@@ -830,7 +831,7 @@ a:hover {
 }
 
 .prose pre {
-  background: var(--text-body) !important;
+  background: var(--code-block-bg) !important;
   border-radius: 6px;
   padding: 1.15rem;
   overflow-x: auto;
@@ -1340,6 +1341,7 @@ textarea[readonly] { background: var(--surface-2); }
   --accent-soft: #2a3b33;
   --accent-line: #4a6356;
   --code-color: #f2a897;
+  --code-block-bg: #161d19;
   --success: #6fcf8e;
   --focus: #86bbff;
   --focus-strong: #a9cfff;
