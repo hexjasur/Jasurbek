@@ -1,0 +1,173 @@
+---
+import { BASE_URL } from '../lib/url';
+---
+
+<dialog id="search-dialog" class="search-dialog" aria-label="Search the site" data-base={BASE_URL}>
+  <form method="dialog" class="search-dialog-inner" onsubmit="return false">
+    <div class="search-dialog-bar">
+      <svg class="search-dialog-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.8" cy="10.8" r="6.3" />
+        <path d="m15.4 15.4 4.1 4.1" />
+      </svg>
+      <input
+        id="search-dialog-input"
+        class="search-dialog-input"
+        type="search"
+        placeholder="Search articles, projects and tools..."
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search query"
+        aria-controls="search-dialog-results"
+      />
+      <button type="button" class="search-dialog-close" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <ul id="search-dialog-results" class="search-dialog-results" aria-live="polite"></ul>
+    <p class="search-dialog-hint" id="search-dialog-hint">Runs entirely in your browser. Tip: press <kbd>/</kbd> or <kbd>Ctrl</kbd>+<kbd>K</kbd> anywhere.</p>
+  </form>
+</dialog>
+
+<script>
+  type PagefindResult = { url: string; meta: { title?: string }; excerpt: string };
+  type PagefindApi = {
+    options: (opts: Record<string, unknown>) => Promise<void>;
+    search: (q: string) => Promise<{ results: { data: () => Promise<PagefindResult> }[] }>;
+  };
+
+  let pagefind: PagefindApi | null = null;
+  let loadFailed = false;
+  let timer: number | undefined;
+
+  const getDialog = () => document.getElementById('search-dialog') as HTMLDialogElement | null;
+  const getInput = () => document.getElementById('search-dialog-input') as HTMLInputElement | null;
+  const getList = () => document.getElementById('search-dialog-results');
+  const getHint = () => document.getElementById('search-dialog-hint');
+
+  async function loadPagefind(base: string): Promise<PagefindApi | null> {
+    if (pagefind || loadFailed) return pagefind;
+    try {
+      pagefind = (await import(/* @vite-ignore */ `${base}pagefind/pagefind.js`)) as PagefindApi;
+      await pagefind.options({ baseUrl: base });
+    } catch {
+      loadFailed = true;
+    }
+    return pagefind;
+  }
+
+  // Pagefind URLs are relative to the site root; make sure the deploy base path is present.
+  function withBase(url: string, base: string): string {
+    const root = base.replace(/\/$/, '');
+    return root && !url.startsWith(`${root}/`) ? `${root}${url}` : url;
+  }
+
+  function setHint(text: string) {
+    const hint = getHint();
+    if (hint) hint.textContent = text;
+  }
+
+  async function runSearch(query: string) {
+    const dialog = getDialog();
+    const list = getList();
+    if (!dialog || !list) return;
+    const base = dialog.dataset.base ?? '/';
+
+    if (!query.trim()) {
+      list.replaceChildren();
+      setHint('Runs entirely in your browser. Tip: press / or Ctrl+K anywhere.');
+      return;
+    }
+
+    const api = await loadPagefind(base);
+    if (!api) {
+      list.replaceChildren();
+      setHint('Search index not found. It is generated during the production build (bun run build), so it is not available in dev mode.');
+      return;
+    }
+
+    const search = await api.search(query);
+    const items = await Promise.all(search.results.slice(0, 8).map((r) => r.data()));
+    list.replaceChildren();
+
+    if (items.length === 0) {
+      setHint(`No results for "${query}".`);
+      return;
+    }
+    setHint(`${items.length} result${items.length === 1 ? '' : 's'}`);
+
+    for (const item of items) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = withBase(item.url, base);
+      a.className = 'search-result';
+      const title = document.createElement('span');
+      title.className = 'search-result-title';
+      title.textContent = item.meta.title ?? item.url;
+      const excerpt = document.createElement('span');
+      excerpt.className = 'search-result-excerpt';
+      // Pagefind excerpts only contain escaped text plus <mark> tags.
+      excerpt.innerHTML = item.excerpt;
+      a.append(title, excerpt);
+      li.append(a);
+      list.append(li);
+    }
+  }
+
+  function openSearch() {
+    const dialog = getDialog();
+    const input = getInput();
+    if (!dialog || dialog.open) return;
+    dialog.showModal();
+    input?.focus();
+    input?.select();
+    // Warm up the index so the first keystroke feels instant.
+    void loadPagefind(dialog.dataset.base ?? '/');
+  }
+
+  function closeSearch() {
+    getDialog()?.close();
+  }
+
+  function isTyping(target: EventTarget | null): boolean {
+    const el = target as HTMLElement | null;
+    return !!el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
+  }
+
+  // Registered once; ClientRouter keeps this module alive across navigations.
+  document.addEventListener('keydown', (e) => {
+    const dialog = getDialog();
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      dialog?.open ? closeSearch() : openSearch();
+    } else if (e.key === '/' && !isTyping(e.target) && !dialog?.open) {
+      e.preventDefault();
+      openSearch();
+    } else if (dialog?.open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      const links = [...document.querySelectorAll<HTMLAnchorElement>('#search-dialog-results a')];
+      if (links.length === 0) return;
+      e.preventDefault();
+      const input = getInput();
+      const current = links.indexOf(document.activeElement as HTMLAnchorElement);
+      const step = e.key === 'ArrowDown' ? 1 : -1;
+      const next = current === -1 ? (step === 1 ? 0 : links.length - 1) : current + step;
+      (next < 0 || next >= links.length ? input : links[next])?.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('[data-search-open]')) {
+      e.preventDefault();
+      openSearch();
+    } else if (target.closest('[data-search-close]') || target === getDialog()) {
+      closeSearch();
+    } else if (target.closest('.search-result')) {
+      closeSearch();
+    }
+  });
+
+  document.addEventListener('input', (e) => {
+    if ((e.target as HTMLElement).id !== 'search-dialog-input') return;
+    window.clearTimeout(timer);
+    const value = (e.target as HTMLInputElement).value;
+    timer = window.setTimeout(() => void runSearch(value), 120);
+  });
+</script>

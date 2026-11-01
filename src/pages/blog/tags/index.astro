@@ -13,6 +13,7 @@ const tags = [...(await getTagMap()).entries()].sort(
   title={`Blog Tags | ${SITE_CONFIG.author}`}
   description="Browse all topics covered on the blog: web development, tooling, AI agents, desktop and mobile apps, and the Uzbek alphabet."
   activePage="blog"
+  searchable={false}
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="back-link-wrap">

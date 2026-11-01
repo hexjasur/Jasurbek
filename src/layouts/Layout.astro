@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
+import SearchPalette from '../components/SearchPalette.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
 import { toolsList } from '../data/tools';
@@ -28,6 +29,8 @@ interface Props {
   modifiedTime?: Date | string;
   tags?: string[];
   noindex?: boolean;
+  /** Include this page in the on-site search index (Pagefind). */
+  searchable?: boolean;
   /** Extra schema.org nodes (e.g. BlogPosting) merged into the page's JSON-LD graph. */
   schema?: SchemaNode | SchemaNode[];
 }
@@ -43,6 +46,7 @@ const {
   modifiedTime,
   tags,
   noindex = false,
+  searchable = true,
   schema,
 } = Astro.props;
 
@@ -141,11 +145,18 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <img src={`${baseUrl}images/flora/floral-left.webp`} alt="" aria-hidden="true" width="480" height="720" loading="lazy" decoding="async" class="flora-decoration flora-decoration-left" />
     <img src={`${baseUrl}images/flora/floral-bloom.webp`} alt="" aria-hidden="true" width="280" height="280" loading="lazy" decoding="async" class="flora-decoration flora-decoration-bloom" />
     <Header activePage={activePage} headerTitle={headerTitle} />
-    <main class="site-content" transition:animate="fade">
+    <main
+      class="site-content"
+      transition:animate="fade"
+      data-pagefind-body={searchable ? '' : undefined}
+      data-pagefind-meta={searchable ? `title:${title.replace(` | ${SITE_CONFIG.author}`, '')}` : undefined}
+    >
       <slot />
     </main>
     <Footer />
   </div>
+
+  <SearchPalette />
 
   <!-- Email BOM / Modal -->
   <div id="email-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">

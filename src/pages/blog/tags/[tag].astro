@@ -19,6 +19,7 @@ const { label, posts } = Astro.props;
   title={`Posts tagged #${label} | ${SITE_CONFIG.author}`}
   description={`${posts.length} ${posts.length === 1 ? 'article' : 'articles'} tagged ${label} on the blog of ${SITE_CONFIG.author}.`}
   activePage="blog"
+  searchable={false}
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="back-link-wrap">
