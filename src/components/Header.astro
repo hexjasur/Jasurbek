@@ -20,6 +20,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 <nav class="site-nav">
   <a href={baseUrl} class:list={[{ active: activePage === 'profile' }]}>Profile</a>
   <span class="sep">|</span>
+  <a href={`${baseUrl}projects`} class:list={[{ active: activePage === 'projects' }]}>Projects</a>
+  <span class="sep">|</span>
   <a href={`${baseUrl}blog`} class:list={[{ active: activePage === 'blog' }]}>Blog</a>
   <span class="sep">|</span>
   <a href={`${baseUrl}tools`} class:list={[{ active: activePage === 'tools' }]}>Tools</a>
