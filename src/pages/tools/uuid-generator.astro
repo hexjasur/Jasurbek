@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout 
+  title={`UUID & NanoID Generator | ${SITE_CONFIG.author}`} 
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div style="margin-bottom: 1.25rem;">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+      🔑 Cryptographic UUID & NanoID Generator
+    </h2>
+    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+      Generate cryptographically secure version 4 UUIDs or URL-friendly NanoIDs using your browser's native Web Crypto API (<code style="font-size: 0.9em; background: #eef; padding: 2px 4px; border-radius: 3px;">crypto.randomUUID()</code>).
+    </p>
+
+    <div class="tools-row">
+      <div>
+        <label for="uuid-count" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+          Quantity:
+        </label>
+        <select id="uuid-count" class="tools-select">
+          <option value="1">1 ID</option>
+          <option value="5" selected>5 IDs</option>
+          <option value="10">10 IDs</option>
+          <option value="25">25 IDs</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="uuid-format" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+          Format:
+        </label>
+        <select id="uuid-format" class="tools-select">
+          <option value="uuid-standard">Standard UUID v4 (hyphenated)</option>
+          <option value="uuid-nohyphen">UUID v4 (without hyphens)</option>
+          <option value="uuid-upper">UUID v4 (UPPERCASE)</option>
+          <option value="nanoid">NanoID (21 chars, URL-safe)</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <label for="uuid-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        Generated Identifiers:
+      </label>
+      <textarea id="uuid-output" readonly style="min-height: 160px; background: #fafbfc; font-family: ui-monospace, monospace;" placeholder="Click 'Generate IDs' to generate..."></textarea>
+    </div>
+
+    <div class="tools-buttons">
+      <button class="btn" id="uuid-generate-btn">Generate New IDs</button>
+      <button class="btn btn-secondary" id="uuid-copy-btn">Copy All</button>
+      <button class="btn btn-secondary" id="uuid-clear-btn">Clear</button>
+      <span id="uuid-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+        ✓ Copied IDs to clipboard!
+      </span>
+    </div>
+  </section>
+
+  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<script>
+  function setupUuidGen() {
+    const uuidCountEl = document.getElementById('uuid-count') as HTMLSelectElement;
+    const uuidFormatEl = document.getElementById('uuid-format') as HTMLSelectElement;
+    const uuidOutput = document.getElementById('uuid-output') as HTMLTextAreaElement;
+    const uuidGenBtn = document.getElementById('uuid-generate-btn');
+    const uuidCopyBtn = document.getElementById('uuid-copy-btn');
+    const uuidClearBtn = document.getElementById('uuid-clear-btn');
+    const copyToast = document.getElementById('uuid-copy-toast');
+
+    if (!uuidCountEl || !uuidFormatEl || !uuidOutput) return;
+
+    function generateNanoId(size = 21): string {
+      const chars = 'useandom-26T1983_40PX75pxJACKVERYMINDBUSHWOLFGQZbfghjklqvwyzrict';
+      const bytes = crypto.getRandomValues(new Uint8Array(size));
+      let id = '';
+      for (let i = 0; i < size; i++) {
+        id += chars[bytes[i] & 63];
+      }
+      return id;
+    }
+
+    function runUuidGenerate() {
+      const count = parseInt(uuidCountEl.value || '5', 10);
+      const format = uuidFormatEl.value || 'uuid-standard';
+      const list: string[] = [];
+
+      for (let i = 0; i < count; i++) {
+        let val = '';
+        if (format === 'nanoid') {
+          val = generateNanoId(21);
+        } else {
+          val = crypto.randomUUID();
+          if (format === 'uuid-nohyphen') val = val.replace(/-/g, '');
+          else if (format === 'uuid-upper') val = val.toUpperCase();
+        }
+        list.push(val);
+      }
+      uuidOutput.value = list.join('\n');
+    }
+
+    uuidGenBtn?.addEventListener('click', runUuidGenerate);
+    uuidCountEl.addEventListener('change', runUuidGenerate);
+    uuidFormatEl.addEventListener('change', runUuidGenerate);
+    uuidCopyBtn?.addEventListener('click', () => {
+      if (uuidOutput.value) {
+        navigator.clipboard.writeText(uuidOutput.value);
+        if (copyToast) {
+          copyToast.style.display = 'inline';
+          setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
+        }
+      }
+    });
+    uuidClearBtn?.addEventListener('click', () => {
+      uuidOutput.value = '';
+    });
+
+    runUuidGenerate();
+  }
+
+  document.addEventListener('astro:page-load', setupUuidGen);
+</script>

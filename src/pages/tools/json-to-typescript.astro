@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout 
+  title={`JSON to TypeScript Generator | ${SITE_CONFIG.author}`} 
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div style="margin-bottom: 1.25rem;">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+      ⚡ JSON to TypeScript Interface Generator
+    </h2>
+    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+      Paste any JSON payload to instantly generate clean, type-safe TypeScript interfaces with proper nested object and array type resolution.
+    </p>
+
+    <div class="tools-row">
+      <label for="ts-root-name" style="font-weight: 600; font-size: 0.95rem; color: #1f2328;">
+        Root Interface Name:
+      </label>
+      <input 
+        type="text" 
+        id="ts-root-name" 
+        value="RootResponse" 
+        class="tools-select" 
+        style="min-width: 180px;"
+      />
+      <button class="btn btn-secondary" id="ts-sample-btn" style="padding: 0.45rem 0.85rem; font-size: 0.88rem;">
+        Load Sample JSON
+      </button>
+    </div>
+
+    <div class="converter-split">
+      <div>
+        <label for="json-input" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          JSON Payload:
+        </label>
+        <textarea id="json-input" placeholder='Paste JSON here, e.g.: {"id": 1, "name": "Jasurbek"}' spellcheck="false"></textarea>
+      </div>
+      <div>
+        <label for="ts-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          Generated TypeScript Types:
+        </label>
+        <textarea id="ts-output" readonly placeholder="TypeScript interfaces will generate here..." style="background: #fafbfc;"></textarea>
+      </div>
+    </div>
+
+    <div class="tools-buttons">
+      <button class="btn" id="ts-generate-btn">Generate Interfaces</button>
+      <button class="btn btn-secondary" id="ts-copy-btn">Copy TypeScript</button>
+      <button class="btn btn-secondary" id="ts-clear-btn">Clear All</button>
+      <span id="ts-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+        ✓ Copied TypeScript to clipboard!
+      </span>
+    </div>
+  </section>
+
+  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<script>
+  function setupJsonToTs() {
+    const jsonInput = document.getElementById('json-input') as HTMLTextAreaElement;
+    const tsOutput = document.getElementById('ts-output') as HTMLTextAreaElement;
+    const rootNameInput = document.getElementById('ts-root-name') as HTMLInputElement;
+    const tsGenBtn = document.getElementById('ts-generate-btn');
+    const tsCopyBtn = document.getElementById('ts-copy-btn');
+    const tsClearBtn = document.getElementById('ts-clear-btn');
+    const tsSampleBtn = document.getElementById('ts-sample-btn');
+    const copyToast = document.getElementById('ts-copy-toast');
+
+    if (!jsonInput || !tsOutput) return;
+
+    function capitalize(str: string) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function inferType(val: any, key: string, interfaces: Map<string, string>): string {
+      if (val === null) return 'unknown';
+      if (Array.isArray(val)) {
+        if (val.length === 0) return 'unknown[]';
+        const first = val[0];
+        if (typeof first === 'object' && first !== null) {
+          const subName = capitalize(key.replace(/s$/, '') || 'Item');
+          generateInterface(first, subName, interfaces);
+          return `${subName}[]`;
+        }
+        return `${typeof first}[]`;
+      }
+      if (typeof val === 'object') {
+        const subName = capitalize(key || 'SubObject');
+        generateInterface(val, subName, interfaces);
+        return subName;
+      }
+      return typeof val;
+    }
+
+    function generateInterface(obj: Record<string, any>, name: string, interfaces: Map<string, string>) {
+      if (interfaces.has(name)) return;
+      let body = `export interface ${name} {\n`;
+      for (const [k, v] of Object.entries(obj)) {
+        const cleanKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : JSON.stringify(k);
+        const typeStr = inferType(v, k, interfaces);
+        body += `  ${cleanKey}: ${typeStr};\n`;
+      }
+      body += `}\n`;
+      interfaces.set(name, body);
+    }
+
+    function runJsonToTs() {
+      const raw = jsonInput.value.trim();
+      if (!raw) {
+        tsOutput.value = '';
+        return;
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        const rootName = (rootNameInput?.value.trim() || 'RootResponse').replace(/[^a-zA-Z0-9_$]/g, '');
+        const interfaces = new Map<string, string>();
+
+        if (Array.isArray(parsed)) {
+          if (parsed.length > 0 && typeof parsed[0] === 'object' && parsed[0] !== null) {
+            generateInterface(parsed[0], rootName, interfaces);
+          } else {
+            tsOutput.value = `export type ${rootName} = ${typeof (parsed[0] ?? 'unknown')}[];\n`;
+            return;
+          }
+        } else if (typeof parsed === 'object' && parsed !== null) {
+          generateInterface(parsed, rootName, interfaces);
+        } else {
+          tsOutput.value = `export type ${rootName} = ${typeof parsed};\n`;
+          return;
+        }
+
+        tsOutput.value = Array.from(interfaces.values()).join('\n');
+      } catch (err: any) {
+        tsOutput.value = `// Error parsing JSON:\n// ${err.message}`;
+      }
+    }
+
+    jsonInput.addEventListener('input', runJsonToTs);
+    tsGenBtn?.addEventListener('click', runJsonToTs);
+    tsCopyBtn?.addEventListener('click', () => {
+      if (tsOutput.value) {
+        navigator.clipboard.writeText(tsOutput.value);
+        if (copyToast) {
+          copyToast.style.display = 'inline';
+          setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
+        }
+      }
+    });
+    tsClearBtn?.addEventListener('click', () => {
+      jsonInput.value = '';
+      tsOutput.value = '';
+      jsonInput.focus();
+    });
+    tsSampleBtn?.addEventListener('click', () => {
+      jsonInput.value = JSON.stringify({
+        id: 101,
+        username: "hexjasur",
+        verified: true,
+        profile: {
+          firstName: "Jasurbek",
+          lastName: "Haydarov",
+          skills: ["TypeScript", "Astro", "Docker"]
+        },
+        projectsCount: 12
+      }, null, 2);
+      runJsonToTs();
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupJsonToTs);
+</script>

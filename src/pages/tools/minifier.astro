@@ -1,0 +1,205 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout 
+  title={`Code Minifier & Beautifier | ${SITE_CONFIG.author}`} 
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div style="margin-bottom: 1.25rem;">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+      📦 Code & Data Minifier / Beautifier
+    </h2>
+    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+      Minify or beautify JSON payloads, CSS stylesheets, JavaScript scripts, or plain text to reduce payload sizes or improve code readability.
+    </p>
+
+    <div class="tools-row">
+      <div>
+        <label for="minify-type" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+          Language:
+        </label>
+        <select id="minify-type" class="tools-select">
+          <option value="json" selected>JSON</option>
+          <option value="css">CSS</option>
+          <option value="js">JavaScript / General</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="minify-action" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+          Action:
+        </label>
+        <select id="minify-action" class="tools-select">
+          <option value="minify" selected>Minify (Compress)</option>
+          <option value="beautify">Beautify (Format 2 spaces)</option>
+        </select>
+      </div>
+
+      <button class="btn btn-secondary" id="minify-sample-btn" style="padding: 0.45rem 0.85rem; font-size: 0.88rem;">
+        Load Sample
+      </button>
+
+      <span id="minify-stats" class="stats-badge" style="display: none;"></span>
+    </div>
+
+    <div class="converter-split">
+      <div>
+        <label for="minify-input" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          Input Source:
+        </label>
+        <textarea id="minify-input" placeholder="Paste source code or JSON here..." spellcheck="false"></textarea>
+      </div>
+      <div>
+        <label for="minify-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          Processed Result:
+        </label>
+        <textarea id="minify-output" readonly placeholder="Result will appear here..." style="background: #fafbfc;"></textarea>
+      </div>
+    </div>
+
+    <div class="tools-buttons">
+      <button class="btn" id="minify-run-btn">Process Code</button>
+      <button class="btn btn-secondary" id="minify-copy-btn">Copy Result</button>
+      <button class="btn btn-secondary" id="minify-clear-btn">Clear</button>
+      <span id="minify-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+        ✓ Copied result to clipboard!
+      </span>
+    </div>
+  </section>
+
+  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<script>
+  function setupMinifier() {
+    const minTypeEl = document.getElementById('minify-type') as HTMLSelectElement;
+    const minActionEl = document.getElementById('minify-action') as HTMLSelectElement;
+    const minInput = document.getElementById('minify-input') as HTMLTextAreaElement;
+    const minOutput = document.getElementById('minify-output') as HTMLTextAreaElement;
+    const minRunBtn = document.getElementById('minify-run-btn');
+    const minCopyBtn = document.getElementById('minify-copy-btn');
+    const minClearBtn = document.getElementById('minify-clear-btn');
+    const minSampleBtn = document.getElementById('minify-sample-btn');
+    const minStats = document.getElementById('minify-stats');
+    const copyToast = document.getElementById('minify-copy-toast');
+
+    if (!minTypeEl || !minActionEl || !minInput || !minOutput) return;
+
+    function runMinification() {
+      const text = minInput.value;
+      if (!text.trim()) {
+        minOutput.value = '';
+        if (minStats) minStats.style.display = 'none';
+        return;
+      }
+
+      const type = minTypeEl.value || 'json';
+      const action = minActionEl.value || 'minify';
+      let result = '';
+
+      try {
+        if (type === 'json') {
+          const parsed = JSON.parse(text);
+          result = action === 'minify' ? JSON.stringify(parsed) : JSON.stringify(parsed, null, 2);
+        } else if (type === 'css') {
+          if (action === 'minify') {
+            result = text
+              .replace(/\/\*[\s\S]*?\*\//g, '')
+              .replace(/\s+/g, ' ')
+              .replace(/\s*([\{\};:,])\s*/g, '$1')
+              .trim();
+          } else {
+            result = text
+              .replace(/\s*\{\s*/g, ' {\n  ')
+              .replace(/\s*;\s*/g, ';\n  ')
+              .replace(/\s*\}\s*/g, '\n}\n')
+              .replace(/\n\s*\n/g, '\n')
+              .trim();
+          }
+        } else {
+          // JS / text
+          if (action === 'minify') {
+            result = text
+              .replace(/\/\*[\s\S]*?\*\//g, '')
+              .replace(/\/\/.*$/gm, '')
+              .replace(/^\s+/gm, '')
+              .replace(/\r?\n+/g, ' ')
+              .replace(/\s{2,}/g, ' ')
+              .trim();
+          } else {
+            result = text
+              .split('\n')
+              .map(line => line.trim())
+              .filter(Boolean)
+              .join('\n');
+          }
+        }
+
+        minOutput.value = result;
+
+        if (minStats) {
+          const originalBytes = new Blob([text]).size;
+          const resultBytes = new Blob([result]).size;
+          if (action === 'minify' && originalBytes > 0) {
+            const saved = Math.max(0, originalBytes - resultBytes);
+            const pct = ((saved / originalBytes) * 100).toFixed(1);
+            minStats.textContent = `${originalBytes}B → ${resultBytes}B (Saved ${pct}%)`;
+            minStats.style.display = 'inline-block';
+          } else {
+            minStats.textContent = `Formatted: ${resultBytes} bytes`;
+            minStats.style.display = 'inline-block';
+          }
+        }
+      } catch (err: any) {
+        minOutput.value = `// Processing Error:\n// ${err.message}`;
+        if (minStats) minStats.style.display = 'none';
+      }
+    }
+
+    minInput.addEventListener('input', runMinification);
+    minTypeEl.addEventListener('change', runMinification);
+    minActionEl.addEventListener('change', runMinification);
+    minRunBtn?.addEventListener('click', runMinification);
+    minCopyBtn?.addEventListener('click', () => {
+      if (minOutput.value) {
+        navigator.clipboard.writeText(minOutput.value);
+        if (copyToast) {
+          copyToast.style.display = 'inline';
+          setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
+        }
+      }
+    });
+    minClearBtn?.addEventListener('click', () => {
+      minInput.value = '';
+      minOutput.value = '';
+      if (minStats) minStats.style.display = 'none';
+      minInput.focus();
+    });
+    minSampleBtn?.addEventListener('click', () => {
+      const type = minTypeEl.value || 'json';
+      if (type === 'json') {
+        minInput.value = '{\n  "service": "api-gateway",\n  "status": 200,\n  "cache": false,\n  "endpoints": [\n    "/users",\n    "/health"\n  ]\n}';
+      } else if (type === 'css') {
+        minInput.value = '/* Main Navigation */\n.nav-container {\n  display: flex;\n  justify-content: space-between;\n  padding: 12px 24px;\n  background: #ffffff;\n}';
+      } else {
+        minInput.value = '// Calculate sum\nfunction addNumbers(a, b) {\n  const result = a + b;\n  return result;\n}';
+      }
+      runMinification();
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupMinifier);
+</script>
