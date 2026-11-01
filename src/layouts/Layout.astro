@@ -21,6 +21,14 @@ const {
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+const basePath = baseUrl.replace(/\/$/, '');
+const pagePath = Astro.url.pathname;
+const canonicalPath = pagePath === basePath
+  ? baseUrl
+  : pagePath.startsWith(`${basePath}/`)
+    ? pagePath
+    : `${baseUrl}${pagePath.replace(/^\/+/, '')}`;
+const canonicalUrl = new URL(canonicalPath, Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -30,6 +38,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="google-site-verification" content="TMBKLG3n0XFX-qsZDiZj1IE8RP4azFETRj5TwL0WsYE" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="sitemap" type="application/xml" href={`${baseUrl}sitemap-index.xml`} />
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
   <title>{title}</title>
   <ClientRouter />
