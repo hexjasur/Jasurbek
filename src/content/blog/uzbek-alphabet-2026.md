@@ -53,4 +53,4 @@ Reformed Standard (October 21, 2026):
 
 ## Online Conversion Tool
 
-To facilitate automatic document conversion between the legacy 1995 spelling, the October 21, 2026 standard, and Cyrillic script, I have integrated a client-side converter on this website. You can access it anytime under the [Tools](/tools) section.
+To facilitate automatic document conversion between the legacy 1995 spelling, the October 21, 2026 standard, and Cyrillic script, I have integrated a client-side converter on this website. You can access it anytime under the [Tools](/Jasurbek/tools/uzbek-alphabet) section.

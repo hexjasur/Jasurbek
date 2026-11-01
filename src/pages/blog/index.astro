@@ -23,7 +23,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
       Personal Tech Blog | {SITE_CONFIG.domain}
     </h2>
-    <div class="blog-meta-date">First Published: 2024-06-01</div>
+    <div class="blog-meta-date">First Published: 2026-11-01</div>
     <div class="blog-meta-date">Last Updated: 2026-11-01</div>
 
     <p class="blog-desc">
@@ -35,7 +35,10 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <div class="search-field-row">
       <label for="site-search-input">Search this site:</label>
       <div class="search-input-wrapper">
-        <span class="search-icon-symbol">🔍</span>
+        <svg class="search-icon-symbol" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <circle cx="10.8" cy="10.8" r="6.3" />
+          <path d="m15.4 15.4 4.1 4.1" />
+        </svg>
         <input
           type="text"
           id="site-search-input"
