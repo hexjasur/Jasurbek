@@ -21,7 +21,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="blog-intro">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       Personal Tech Blog | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
@@ -73,7 +73,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     ))}
   </div>
 
-  <div id="no-results-msg" style="display: none; text-align: center; padding: 2.5rem 1rem; color: #6e7781; font-size: 1rem;">
+  <div id="no-results-msg" class="no-results" style="display: none;">
     No matching articles found. Try another search term.
   </div>
 </Layout>

@@ -13,20 +13,20 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div style="margin-bottom: 1.25rem;">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
   <section class="tools-box">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       ⚡ JSON to TypeScript Interface Generator
     </h2>
-    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+    <p class="page-lead">
       Paste any JSON payload to instantly generate clean, type-safe TypeScript interfaces with proper nested object and array type resolution.
     </p>
 
     <div class="tools-row">
-      <label for="ts-root-name" style="font-weight: 600; font-size: 0.95rem; color: #1f2328;">
+      <label for="ts-root-name" class="field-label">
         Root Interface Name:
       </label>
       <input 
@@ -36,23 +36,23 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         class="tools-select" 
         style="min-width: 180px;"
       />
-      <button class="btn btn-secondary" id="ts-sample-btn" style="padding: 0.45rem 0.85rem; font-size: 0.88rem;">
+      <button class="btn btn-secondary btn-sm" id="ts-sample-btn">
         Load Sample JSON
       </button>
     </div>
 
     <div class="converter-split">
       <div>
-        <label for="json-input" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="json-input" class="field-label field-label-block">
           JSON Payload:
         </label>
         <textarea id="json-input" placeholder='Paste JSON here, e.g.: {"id": 1, "name": "Jasurbek"}' spellcheck="false"></textarea>
       </div>
       <div>
-        <label for="ts-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="ts-output" class="field-label field-label-block">
           Generated TypeScript Types:
         </label>
-        <textarea id="ts-output" readonly placeholder="TypeScript interfaces will generate here..." style="background: #fafbfc;"></textarea>
+        <textarea id="ts-output" readonly placeholder="TypeScript interfaces will generate here..."></textarea>
       </div>
     </div>
 
@@ -60,14 +60,14 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       <button class="btn" id="ts-generate-btn">Generate Interfaces</button>
       <button class="btn btn-secondary" id="ts-copy-btn">Copy TypeScript</button>
       <button class="btn btn-secondary" id="ts-clear-btn">Clear All</button>
-      <span id="ts-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+      <span id="ts-copy-toast" class="copy-toast" style="display: none;">
         ✓ Copied TypeScript to clipboard!
       </span>
     </div>
   </section>
 
-  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 </Layout>
 

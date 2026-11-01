@@ -13,21 +13,21 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div style="margin-bottom: 1.25rem;">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
   <section class="tools-box">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       📦 Code & Data Minifier / Beautifier
     </h2>
-    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+    <p class="page-lead">
       Minify or beautify JSON payloads, CSS stylesheets, JavaScript scripts, or plain text to reduce payload sizes or improve code readability.
     </p>
 
     <div class="tools-row">
       <div>
-        <label for="minify-type" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+        <label for="minify-type" class="field-label field-label-inline">
           Language:
         </label>
         <select id="minify-type" class="tools-select">
@@ -38,7 +38,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       </div>
 
       <div>
-        <label for="minify-action" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+        <label for="minify-action" class="field-label field-label-inline">
           Action:
         </label>
         <select id="minify-action" class="tools-select">
@@ -47,7 +47,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         </select>
       </div>
 
-      <button class="btn btn-secondary" id="minify-sample-btn" style="padding: 0.45rem 0.85rem; font-size: 0.88rem;">
+      <button class="btn btn-secondary btn-sm" id="minify-sample-btn">
         Load Sample
       </button>
 
@@ -56,16 +56,16 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
     <div class="converter-split">
       <div>
-        <label for="minify-input" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="minify-input" class="field-label field-label-block">
           Input Source:
         </label>
         <textarea id="minify-input" placeholder="Paste source code or JSON here..." spellcheck="false"></textarea>
       </div>
       <div>
-        <label for="minify-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="minify-output" class="field-label field-label-block">
           Processed Result:
         </label>
-        <textarea id="minify-output" readonly placeholder="Result will appear here..." style="background: #fafbfc;"></textarea>
+        <textarea id="minify-output" readonly placeholder="Result will appear here..."></textarea>
       </div>
     </div>
 
@@ -73,14 +73,14 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       <button class="btn" id="minify-run-btn">Process Code</button>
       <button class="btn btn-secondary" id="minify-copy-btn">Copy Result</button>
       <button class="btn btn-secondary" id="minify-clear-btn">Clear</button>
-      <span id="minify-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+      <span id="minify-copy-toast" class="copy-toast" style="display: none;">
         ✓ Copied result to clipboard!
       </span>
     </div>
   </section>
 
-  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 </Layout>
 

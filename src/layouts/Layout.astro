@@ -139,7 +139,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
         <button id="close-modal-btn" class="modal-close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="margin: 0 0 0.5rem; color: #57606a; font-size: 0.92rem;">Direct Email Address:</p>
+        <p class="modal-label">Direct Email Address:</p>
         <div class="email-display-card">
           <code id="email-text">jasurhaydarovcode@gmail.com</code>
         </div>
@@ -147,7 +147,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
           <button id="copy-email-btn" class="btn">Copy Email</button>
           <a id="mail-app-link" href="mailto:jasurhaydarovcode@gmail.com" class="btn btn-secondary">Open Mail App</a>
         </div>
-        <div id="copy-success-msg" style="display: none; color: #1a7f37; font-size: 0.85rem; text-align: center; margin-top: 0.75rem; font-weight: 500;">
+        <div id="copy-success-msg" class="copy-success" style="display: none;">
           ✓ Email copied to clipboard!
         </div>
       </div>

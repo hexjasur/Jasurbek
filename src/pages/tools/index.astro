@@ -12,7 +12,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="blog-intro">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       Tools & Utilities | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">Category: In-Browser Developer Utilities</div>
@@ -23,7 +23,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     </p>
   </div>
 
-  <h3 class="blog-entries-title" style="margin-top: 2rem;">Available Developer Tools</h3>
+  <h3 class="blog-entries-title section-gap">Available Developer Tools</h3>
 
   <div class="blog-grid">
     {toolsList.map((tool) => (
@@ -32,7 +32,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
           <span class="blog-card-num">{tool.num}.</span>
           <a href={`${baseUrl}tools/${tool.slug}`}>{tool.title}</a>
         </div>
-        <p style="font-size: 0.93rem; color: #57606a; margin: 0.65rem 0 0; line-height: 1.55;">
+        <p class="card-desc">
           {tool.description}
         </p>
       </article>
