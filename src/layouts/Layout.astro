@@ -35,6 +35,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </head>
 <body>
   <div class="site-wrapper">
+    <img src={`${baseUrl}images/flora/floral-corner.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-corner" />
+    <img src={`${baseUrl}images/flora/floral-left.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-left" />
+    <img src={`${baseUrl}images/flora/floral-bloom.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-bloom" />
     <Header activePage={activePage} headerTitle={headerTitle} />
     <main class="site-content" transition:animate="fade">
       <slot />
