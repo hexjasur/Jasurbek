@@ -1,0 +1,253 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Tools & Utilities | Jasurbek Haydarov" 
+  activePage="tools"
+  headerTitle="jasurbek-haydarov.uz"
+>
+  <div style="margin-bottom: 1.5rem;">
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 700; color: #1f2328;">
+      Tools & Utilities
+    </h2>
+    <p style="font-size: 0.95rem; line-height: 1.6; color: #57606a; margin: 0;">
+      A collection of client-side web tools. All calculations and text processing are performed directly inside your browser — zero data is transmitted to external servers.
+    </p>
+  </div>
+
+  <section class="tools-box">
+    <h3 style="margin: 0 0 0.5rem; font-size: 1.1rem; font-weight: 700; color: #1f2328;">
+      🔤 Uzbek Alphabet Converter (October 21, 2026 Reform)
+    </h3>
+    <p style="font-size: 0.92rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+      Convert text seamlessly between the legacy Latin orthography (1995), the official reformed Latin standard finalized on <strong>October 21, 2026</strong> (featuring <strong>Ö, Ğ, Ç, Ş</strong>), and Uzbek Cyrillic script.
+    </p>
+
+    <div class="tools-row">
+      <label for="conversion-direction" style="font-weight: 600; font-size: 0.92rem; margin-right: 0.5rem;">
+        Conversion Direction:
+      </label>
+      <select id="conversion-direction" class="tools-select">
+        <option value="old-to-new">Old Latin (1995) &rarr; Reformed Latin (October 21, 2026)</option>
+        <option value="new-to-old">Reformed Latin (October 21, 2026) &rarr; Old Latin (1995)</option>
+        <option value="cyrillic-to-new">Cyrillic &rarr; Reformed Latin (October 21, 2026)</option>
+        <option value="cyrillic-to-old">Cyrillic &rarr; Old Latin (1995)</option>
+      </select>
+    </div>
+
+    <div class="converter-split">
+      <div>
+        <label for="input-text" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          Input Text:
+        </label>
+        <textarea id="input-text" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
+      </div>
+      <div>
+        <label for="output-text" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+          Converted Output:
+        </label>
+        <textarea id="output-text" readonly placeholder="Output will appear here instantly..." style="background: #ffffff;"></textarea>
+      </div>
+    </div>
+
+    <div class="tools-buttons">
+      <button class="btn" id="convert-btn">Convert Now</button>
+      <button class="btn btn-secondary" id="copy-btn">Copy Output</button>
+      <button class="btn btn-secondary" id="clear-btn">Clear All</button>
+      <span id="copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+        ✓ Copied to clipboard!
+      </span>
+    </div>
+  </section>
+
+  <section style="margin-top: 2.5rem;">
+    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #1f2328;">
+      Official Character Correspondence Table
+    </h3>
+    <p style="font-size: 0.92rem; color: #57606a; margin-bottom: 0.75rem;">
+      Reference comparison between Uzbek Cyrillic, the 1995 standard, and the October 21, 2026 standard:
+    </p>
+
+    <div style="overflow-x: auto;">
+      <table class="alphabet-table">
+        <thead>
+          <tr>
+            <th>Cyrillic</th>
+            <th>Old Latin (1995)</th>
+            <th>Reformed Latin (Oct 21, 2026)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ў ў</strong></td>
+            <td>Oʻ oʻ (or O' o')</td>
+            <td class="reformed-char">Ö ö</td>
+            <td>Replaces apostrophe-modified vowel</td>
+          </tr>
+          <tr>
+            <td><strong>Ғ ғ</strong></td>
+            <td>Gʻ gʻ (or G' g')</td>
+            <td class="reformed-char">Ğ ğ</td>
+            <td>Replaces apostrophe-modified voiced velar fricative</td>
+          </tr>
+          <tr>
+            <td><strong>Ш ш</strong></td>
+            <td>Sh sh</td>
+            <td class="reformed-char">Ş ş</td>
+            <td>Replaces digraph with cedilla / s-comma</td>
+          </tr>
+          <tr>
+            <td><strong>Ч ч</strong></td>
+            <td>Ch ch</td>
+            <td class="reformed-char">Ç ç</td>
+            <td>Replaces digraph with c-cedilla</td>
+          </tr>
+          <tr>
+            <td>Ж ж</td>
+            <td>J j</td>
+            <td>J j</td>
+            <td>Unchanged</td>
+          </tr>
+          <tr>
+            <td>Қ қ</td>
+            <td>Q q</td>
+            <td>Q q</td>
+            <td>Unchanged</td>
+          </tr>
+          <tr>
+            <td>Ҳ ҳ</td>
+            <td>H h</td>
+            <td>H h</td>
+            <td>Unchanged</td>
+          </tr>
+          <tr>
+            <td>Х х</td>
+            <td>X x</td>
+            <td>X x</td>
+            <td>Unchanged</td>
+          </tr>
+          <tr>
+            <td>Ъ ъ</td>
+            <td>ʼ</td>
+            <td>ʼ</td>
+            <td>Tuturug' belgisi (Apostrophe for glottal stop / hardness)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function setupConverter() {
+    const directionEl = document.getElementById('conversion-direction') as HTMLSelectElement;
+    const inputEl = document.getElementById('input-text') as HTMLTextAreaElement;
+    const outputEl = document.getElementById('output-text') as HTMLTextAreaElement;
+    const convertBtn = document.getElementById('convert-btn');
+    const copyBtn = document.getElementById('copy-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const copyToast = document.getElementById('copy-toast');
+
+    if (!directionEl || !inputEl || !outputEl) return;
+
+    // Comprehensive Cyrillic mapping
+    const cyrillicToLatinMap: Record<string, string> = {
+      'А': 'A', 'а': 'a', 'Б': 'B', 'б': 'b', 'В': 'V', 'в': 'v',
+      'Г': 'G', 'г': 'g', 'Д': 'D', 'д': 'd', 'Е': 'E', 'е': 'e',
+      'Ё': 'Yo', 'ё': 'yo', 'Ж': 'J', 'ж': 'j', 'З': 'Z', 'з': 'z',
+      'И': 'I', 'и': 'i', 'Й': 'Y', 'й': 'y', 'К': 'K', 'к': 'k',
+      'Л': 'L', 'l': 'l', 'М': 'M', 'м': 'm', 'Н': 'N', 'н': 'n',
+      'О': 'O', 'о': 'o', 'П': 'P', 'п': 'p', 'Р': 'R', 'р': 'r',
+      'С': 'S', 'с': 's', 'Т': 'T', 'т': 't', 'У': 'U', 'у': 'u',
+      'Ф': 'F', 'ф': 'f', 'Х': 'X', 'х': 'x', 'Ц': 'Ts', 'ц': 'ts',
+      'Ч': 'Ç', 'ч': 'ç', 'Ш': 'Ş', 'ш': 'ş', 'Ъ': 'ʼ', 'ъ': 'ʼ',
+      'Ь': '', 'ь': '', 'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu',
+      'Я': 'Ya', 'я': 'ya', 'Ў': 'Ö', 'ў': 'ö', 'Қ': 'Q', 'қ': 'q',
+      'Ғ': 'Ğ', 'ғ': 'ğ', 'Ҳ': 'H', 'ҳ': 'h',
+    };
+
+    function oldToNew(text: string): string {
+      return text
+        // Diacritics
+        .replace(/O[ʻ'’`‘]/g, 'Ö')
+        .replace(/o[ʻ'’`‘]/g, 'ö')
+        .replace(/G[ʻ'’`‘]/g, 'Ğ')
+        .replace(/g[ʻ'’`‘]/g, 'ğ')
+        // Digraphs
+        .replace(/SH/g, 'Ş')
+        .replace(/Sh/g, 'Ş')
+        .replace(/sh/g, 'ş')
+        .replace(/CH/g, 'Ç')
+        .replace(/Ch/g, 'Ç')
+        .replace(/ch/g, 'ç');
+    }
+
+    function newToOld(text: string): string {
+      return text
+        .replace(/Ö/g, 'Oʻ')
+        .replace(/ö/g, 'oʻ')
+        .replace(/Ğ/g, 'Gʻ')
+        .replace(/ğ/g, 'gʻ')
+        .replace(/Ş/g, 'Sh')
+        .replace(/ş/g, 'sh')
+        .replace(/Ç/g, 'Ch')
+        .replace(/ç/g, 'ch');
+    }
+
+    function cyrillicToNew(text: string): string {
+      let result = '';
+      for (const char of text) {
+        result += cyrillicToLatinMap[char] !== undefined ? cyrillicToLatinMap[char] : char;
+      }
+      return result;
+    }
+
+    function cyrillicToOld(text: string): string {
+      const newLatin = cyrillicToNew(text);
+      return newToOld(newLatin);
+    }
+
+    function executeConversion() {
+      const dir = directionEl.value;
+      const input = inputEl.value;
+      let output = '';
+
+      if (dir === 'old-to-new') {
+        output = oldToNew(input);
+      } else if (dir === 'new-to-old') {
+        output = newToOld(input);
+      } else if (dir === 'cyrillic-to-new') {
+        output = cyrillicToNew(input);
+      } else if (dir === 'cyrillic-to-old') {
+        output = cyrillicToOld(input);
+      }
+
+      outputEl.value = output;
+    }
+
+    inputEl.addEventListener('input', executeConversion);
+    directionEl.addEventListener('change', executeConversion);
+    convertBtn?.addEventListener('click', executeConversion);
+
+    copyBtn?.addEventListener('click', () => {
+      if (!outputEl.value) return;
+      navigator.clipboard.writeText(outputEl.value);
+      if (copyToast) {
+        copyToast.style.display = 'inline';
+        setTimeout(() => {
+          if (copyToast) copyToast.style.display = 'none';
+        }, 2500);
+      }
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      inputEl.value = '';
+      outputEl.value = '';
+      inputEl.focus();
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupConverter);
+</script>

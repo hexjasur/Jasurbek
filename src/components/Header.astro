@@ -1,0 +1,22 @@
+---
+interface Props {
+  activePage?: string;
+  headerTitle?: string;
+}
+
+const { 
+  activePage = '', 
+  headerTitle = 'Jasurbek Haydarov - Profile / Biography' 
+} = Astro.props;
+---
+
+<header class="site-header">
+  <h1 class="site-title">{headerTitle}</h1>
+</header>
+<nav class="site-nav">
+  <a href="/" class:list={[{ active: activePage === 'profile' }]}>Profile</a>
+  <span class="sep">|</span>
+  <a href="/blog" class:list={[{ active: activePage === 'blog' }]}>Blog</a>
+  <span class="sep">|</span>
+  <a href="/tools" class:list={[{ active: activePage === 'tools' }]}>Tools</a>
+</nav>

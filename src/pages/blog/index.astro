@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) =>
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+const totalPosts = sortedPosts.length;
+---
+
+<Layout 
+  title="Personal Tech Blog | Jasurbek Haydarov" 
+  activePage="blog"
+  headerTitle="jasurbek-haydarov.uz"
+>
+  <div class="blog-intro">
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 700; color: #1f2328;">
+      Personal Tech Blog | jasurbek-haydarov.uz
+    </h2>
+    <div class="blog-meta-date">First Published: 2024-06-01</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-01</div>
+
+    <p class="blog-desc">
+      Here I share technical knowledge, architectural patterns, and practical software engineering experiences. This tech blog serves as a personal archive where I record real-world learning, library installation benchmarks, and technical explorations across modern web and cloud systems.
+    </p>
+  </div>
+
+  <div class="search-container">
+    <div class="search-field-row">
+      <label for="site-search-input">Search this site:</label>
+      <input
+        type="text"
+        id="site-search-input"
+        class="search-input"
+        placeholder="Search articles..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <p class="search-disclaimer">
+      Your search query is processed entirely in your browser and never sent to a server.
+    </p>
+  </div>
+
+  <h3 class="blog-entries-title">Personal Tech Blog Entries</h3>
+
+  <div class="blog-grid" id="blog-grid">
+    {sortedPosts.map((post, index) => {
+      const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+      return (
+        <article 
+          class="blog-card" 
+          data-title={post.data.title.toLowerCase()} 
+          data-desc={post.data.description.toLowerCase()}
+          data-tags={post.data.tags?.join(' ').toLowerCase() || ''}
+        >
+          <div class="blog-card-header">
+            <span class="blog-card-num">{totalPosts - index}.</span>
+            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+          </div>
+          <div class="blog-card-date">{formattedDate}</div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div id="no-results-msg" style="display: none; text-align: center; padding: 2.5rem 1rem; color: #6e7781; font-size: 0.95rem;">
+    No matching articles found. Try another search term.
+  </div>
+</Layout>
+
+<script>
+  function setupSearch() {
+    const searchInput = document.getElementById('site-search-input') as HTMLInputElement;
+    const grid = document.getElementById('blog-grid');
+    const noResults = document.getElementById('no-results-msg');
+    if (!searchInput || !grid || !noResults) return;
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      const cards = grid.querySelectorAll('.blog-card') as NodeListOf<HTMLElement>;
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.dataset.title || '';
+        const desc = card.dataset.desc || '';
+        const tags = card.dataset.tags || '';
+        const matches = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+        card.style.display = matches ? 'flex' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupSearch);
+</script>

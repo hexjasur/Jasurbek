@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout 
+  title={`${post.data.title} | Jasurbek Haydarov`} 
+  activePage="blog"
+  headerTitle="jasurbek-haydarov.uz"
+>
+  <div style="margin-bottom: 1.25rem;">
+    <a href="/blog" style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>
+  </div>
+
+  <article>
+    <h1 style="font-size: 1.45rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; color: #1f2328;">
+      {post.data.title}
+    </h1>
+    <div style="font-size: 0.88rem; color: #57606a; margin-bottom: 0.75rem;">
+      Published on: {formattedDate}
+    </div>
+
+    {post.data.tags && (
+      <div style="margin-bottom: 1.5rem;">
+        {post.data.tags.map((tag: string) => (
+          <span class="tag-badge">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+    <a href="/blog" style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>
+  </div>
+</Layout>
