@@ -16,6 +16,15 @@ export const SITE_CONFIG = {
   author: 'Jasurbek Haydarov',
   description: 'Jasurbek Haydarov — Software Engineer, Personal Portfolio & Tech Blog',
 
+  // SEO
+  language: 'en',
+  locale: 'en_US',
+  jobTitle: 'Software Engineer',
+  themeColor: '#d8cfc0',
+  keywords: ['Jasurbek Haydarov', 'software engineer', 'web developer', 'TypeScript', 'React', 'Astro', 'portfolio', 'tech blog'],
+  // Default social preview image (generated at build time, see src/pages/og/)
+  defaultOgImage: 'og/default.png',
+
   // Ijtimoiy tarmoqlar
   github: 'https://github.com/hexjasur',
   telegram: 'https://t.me/jasurhaydarovcode',

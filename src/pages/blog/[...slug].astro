@@ -30,6 +30,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   description={post.data.description}
   activePage="blog"
   headerTitle={SITE_CONFIG.domain}
+  type="article"
+  publishedTime={post.data.pubDate}
+  tags={post.data.tags}
 >
   <div style="margin-bottom: 1.25rem;">
     <a href={`${baseUrl}blog`} style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>

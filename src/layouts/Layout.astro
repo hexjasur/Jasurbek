@@ -1,7 +1,9 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Seo from '../components/Seo.astro';
 import { ClientRouter } from 'astro:transitions';
+import { SITE_CONFIG } from '../config';
 import '../styles/global.css';
 
 interface Props {
@@ -9,13 +11,26 @@ interface Props {
   description?: string;
   activePage?: string;
   headerTitle?: string;
+  /** Site-relative OG image path. Derived from the route when omitted. */
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date | string;
+  modifiedTime?: Date | string;
+  tags?: string[];
+  noindex?: boolean;
 }
 
 const { 
   title, 
-  description = "Jasurbek Haydarov — Software Engineer, Personal Portfolio & Tech Blog", 
+  description = SITE_CONFIG.description, 
   activePage = '',
-  headerTitle
+  headerTitle,
+  image,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  tags,
+  noindex = false,
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
@@ -29,6 +44,17 @@ const canonicalPath = pagePath === basePath
     ? pagePath
     : `${baseUrl}${pagePath.replace(/^\/+/, '')}`;
 const canonicalUrl = new URL(canonicalPath, Astro.site);
+
+// Map a route to its generated OG image (see src/pages/og/[...slug].png.ts).
+const routeKey = canonicalPath.slice(baseUrl.length).replace(/\/+$/, '');
+const knownOgRoutes = ['blog', 'projects', 'tools'];
+const derivedImage =
+  routeKey === ''
+    ? SITE_CONFIG.defaultOgImage
+    : knownOgRoutes.includes(routeKey) || /^(blog|tools)\/[^/]+$/.test(routeKey)
+      ? `og/${routeKey}.png`
+      : SITE_CONFIG.defaultOgImage;
+const ogImage = image ?? derivedImage;
 ---
 
 <!DOCTYPE html>
@@ -36,9 +62,18 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
+  <Seo
+    title={title}
+    description={description}
+    canonicalUrl={canonicalUrl.href}
+    image={ogImage}
+    type={type}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+    tags={tags}
+    noindex={noindex}
+  />
   <meta name="google-site-verification" content="TMBKLG3n0XFX-qsZDiZj1IE8RP4azFETRj5TwL0WsYE" />
-  <link rel="canonical" href={canonicalUrl} />
   <link rel="sitemap" type="application/xml" href={`${baseUrl}sitemap-index.xml`} />
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
   <title>{title}</title>
