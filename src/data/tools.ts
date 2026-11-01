@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'base64-url',
+    num: 7,
+    title: 'Base64 & URL Encoder / Decoder',
+    description: 'Encode and decode Base64, URL-safe Base64URL and percent-encoded URL components with full UTF-8 support.',
+    slug: 'base64-url',
+  },
+  {
     id: 'clamp-generator',
     num: 6,
     title: 'CSS clamp() Fluid Typography Generator',
