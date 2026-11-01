@@ -6,7 +6,7 @@ import { render } from 'astro:content';
 import { SITE_CONFIG } from '../../config';
 import { absoluteUrl, BASE_URL as baseUrl } from '../../lib/url';
 import { blogPostingSchema } from '../../lib/schema';
-import { getSortedPosts, readingTime, formatDate } from '../../lib/blog';
+import { getSortedPosts, readingTime, formatDate, tagSlug } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
@@ -64,7 +64,7 @@ const postSchema = blogPostingSchema({
     {post.data.tags && (
       <div class="post-tags">
         {post.data.tags.map((tag: string) => (
-          <span class="tag-badge">#{tag}</span>
+          <a class="tag-badge" href={`${baseUrl}blog/tags/${tagSlug(tag)}`}>#{tag}</a>
         ))}
       </div>
     )}

@@ -1477,3 +1477,10 @@ textarea[readonly] { background: var(--surface-2); }
 
 .prose pre:hover .code-copy-btn,
 .code-copy-btn:focus-visible { opacity: 1; background: rgba(255, 255, 255, 0.22); }
+
+/* ===== Tags ===== */
+a.tag-badge { text-decoration: none; transition: background-color 0.15s ease; }
+a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
+.tag-cloud { list-style: none; margin: 1.25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 0.2rem; }
+.tag-count { opacity: 0.7; font-weight: 500; margin-left: 0.15rem; }
+.tags-link-row { margin: -0.9rem 0 1.5rem; font-size: 0.95rem; }

@@ -1,0 +1,34 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../../config';
+import { BASE_URL as baseUrl } from '../../../lib/url';
+import { getTagMap } from '../../../lib/blog';
+
+const tags = [...(await getTagMap()).entries()].sort(
+  (a, b) => b[1].posts.length - a[1].posts.length || a[1].label.localeCompare(b[1].label),
+);
+---
+
+<Layout
+  title={`Blog Tags | ${SITE_CONFIG.author}`}
+  description="Browse all topics covered on the blog: web development, tooling, AI agents, desktop and mobile apps, and the Uzbek alphabet."
+  activePage="blog"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}blog`} class="back-link">&larr; Back to all blog entries</a>
+  </div>
+
+  <h2 class="page-title">Browse by tag</h2>
+  <p class="page-lead">{tags.length} topics across the blog.</p>
+
+  <ul class="tag-cloud">
+    {tags.map(([slug, { label, posts }]) => (
+      <li>
+        <a class="tag-badge" href={`${baseUrl}blog/tags/${slug}`}>
+          #{label} <span class="tag-count">{posts.length}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
