@@ -170,16 +170,6 @@ a:hover {
   color: #24292f;
 }
 
-.tech-stack-box {
-  margin-top: 1.75rem;
-  padding: 1.1rem 1.35rem;
-  background: #f6f8fa;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 0.95rem;
-  line-height: 1.65;
-}
-
 /* ===== Projects ===== */
 .projects-intro {
   margin-bottom: 1.75rem;
