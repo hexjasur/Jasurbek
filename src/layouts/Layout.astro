@@ -4,6 +4,16 @@ import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
+import { toolsList } from '../data/tools';
+import { absoluteUrl } from '../lib/url';
+import {
+  breadcrumbSchema,
+  personSchema,
+  webAppSchema,
+  websiteSchema,
+  type Crumb,
+  type SchemaNode,
+} from '../lib/schema';
 import '../styles/global.css';
 
 interface Props {
@@ -18,6 +28,8 @@ interface Props {
   modifiedTime?: Date | string;
   tags?: string[];
   noindex?: boolean;
+  /** Extra schema.org nodes (e.g. BlogPosting) merged into the page's JSON-LD graph. */
+  schema?: SchemaNode | SchemaNode[];
 }
 
 const { 
@@ -31,6 +43,7 @@ const {
   modifiedTime,
   tags,
   noindex = false,
+  schema,
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
@@ -55,6 +68,31 @@ const derivedImage =
       ? `og/${routeKey}.png`
       : SITE_CONFIG.defaultOgImage;
 const ogImage = image ?? derivedImage;
+
+// --- Structured data (JSON-LD) ---
+const sectionNames: Record<string, string> = {
+  blog: 'Blog',
+  projects: 'Projects',
+  tools: 'Tools',
+};
+const segments = routeKey === '' ? [] : routeKey.split('/');
+const crumbs: Crumb[] = [
+  { name: 'Home', url: absoluteUrl() },
+  ...segments.map((segment, index) => ({
+    name:
+      index === segments.length - 1 && segments.length > 1
+        ? title.replace(` | ${SITE_CONFIG.author}`, '')
+        : (sectionNames[segment] ?? title.replace(` | ${SITE_CONFIG.author}`, '')),
+    url: absoluteUrl(`${segments.slice(0, index + 1).join('/')}/`),
+  })),
+];
+const tool = toolsList.find((entry) => routeKey === `tools/${entry.slug}`);
+const graph: SchemaNode[] = [];
+if (routeKey === '') graph.push(personSchema(), websiteSchema());
+else graph.push(breadcrumbSchema(crumbs));
+if (tool) graph.push(webAppSchema(tool, canonicalUrl.href, absoluteUrl(ogImage)));
+if (schema) graph.push(...[schema].flat());
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 ---
 
 <!DOCTYPE html>
@@ -73,6 +111,7 @@ const ogImage = image ?? derivedImage;
     tags={tags}
     noindex={noindex}
   />
+  <script type="application/ld+json" set:html={jsonLd} />
   <meta name="google-site-verification" content="TMBKLG3n0XFX-qsZDiZj1IE8RP4azFETRj5TwL0WsYE" />
   <link rel="sitemap" type="application/xml" href={`${baseUrl}sitemap-index.xml`} />
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />

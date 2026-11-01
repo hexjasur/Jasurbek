@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 import { SITE_CONFIG } from '../../config';
+import { absoluteUrl } from '../../lib/url';
+import { blogPostingSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -23,6 +25,15 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+
+const postSchema = blogPostingSchema({
+  title: post.data.title,
+  description: post.data.description,
+  url: absoluteUrl(`blog/${post.id}/`),
+  image: absoluteUrl(`og/blog/${post.id}.png`),
+  datePublished: post.data.pubDate,
+  tags: post.data.tags,
+});
 ---
 
 <Layout 
@@ -33,6 +44,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   type="article"
   publishedTime={post.data.pubDate}
   tags={post.data.tags}
+  schema={postSchema}
 >
   <div style="margin-bottom: 1.25rem;">
     <a href={`${baseUrl}blog`} style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>
