@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { SITE_CONFIG } from '../../config';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) =>
@@ -14,13 +15,13 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 ---
 
 <Layout 
-  title="Personal Tech Blog | Jasurbek Haydarov" 
+  title={`Personal Tech Blog | ${SITE_CONFIG.author}`} 
   activePage="blog"
-  headerTitle="jasurbek-haydarov.uz"
+  headerTitle={SITE_CONFIG.domain}
 >
   <div class="blog-intro">
     <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 700; color: #1f2328;">
-      Personal Tech Blog | jasurbek-haydarov.uz
+      Personal Tech Blog | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2024-06-01</div>
     <div class="blog-meta-date">Last Updated: 2026-11-01</div>

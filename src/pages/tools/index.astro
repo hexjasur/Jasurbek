@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
 ---
 
 <Layout 
-  title="Tools & Utilities | Jasurbek Haydarov" 
+  title={`Tools & Utilities | ${SITE_CONFIG.author}`} 
   activePage="tools"
-  headerTitle="jasurbek-haydarov.uz"
+  headerTitle={SITE_CONFIG.domain}
 >
   <div style="margin-bottom: 1.5rem;">
     <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 700; color: #1f2328;">
