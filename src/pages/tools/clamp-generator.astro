@@ -1,0 +1,132 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`CSS clamp() Generator | ${SITE_CONFIG.author}`}
+  description="Generate fluid typography and spacing with CSS clamp(). Set min and max size and viewport widths, get accessible rem-based output with a live preview."
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 class="page-title">📐 CSS clamp() Generator</h2>
+    <p class="page-lead">
+      Build fluid font sizes and spacing that scale smoothly between two viewport widths.
+      The output uses <code>rem</code> so it still respects the user's browser font-size setting.
+    </p>
+
+    <div class="clamp-grid">
+      <div>
+        <label for="cl-min" class="field-label field-label-block">Min size (px)</label>
+        <input id="cl-min" type="number" class="tools-select" value="16" min="1" step="0.5" inputmode="decimal" />
+      </div>
+      <div>
+        <label for="cl-max" class="field-label field-label-block">Max size (px)</label>
+        <input id="cl-max" type="number" class="tools-select" value="32" min="1" step="0.5" inputmode="decimal" />
+      </div>
+      <div>
+        <label for="cl-min-vw" class="field-label field-label-block">Min viewport (px)</label>
+        <input id="cl-min-vw" type="number" class="tools-select" value="360" min="1" step="10" inputmode="numeric" />
+      </div>
+      <div>
+        <label for="cl-max-vw" class="field-label field-label-block">Max viewport (px)</label>
+        <input id="cl-max-vw" type="number" class="tools-select" value="1280" min="1" step="10" inputmode="numeric" />
+      </div>
+    </div>
+
+    <p id="cl-error" class="error-text" hidden>Max values must be larger than min values.</p>
+
+    <label for="cl-output" class="field-label field-label-block section-gap">CSS output</label>
+    <textarea id="cl-output" readonly spellcheck="false" class="clamp-output"></textarea>
+
+    <div class="tools-buttons">
+      <button class="btn" id="cl-copy-btn" type="button">Copy CSS</button>
+      <span id="cl-toast" class="copy-toast" hidden>✓ Copied!</span>
+    </div>
+
+    <h3 class="section-title section-gap">Live preview</h3>
+    <p id="cl-preview" class="clamp-preview">Fluid text scales with the viewport</p>
+
+    <h3 class="section-title section-gap">Computed size at common widths</h3>
+    <div class="table-scroll">
+      <table class="alphabet-table">
+        <thead><tr><th>Viewport</th><th>Size</th></tr></thead>
+        <tbody id="cl-table"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<script>
+  const round = (n: number) => Number.parseFloat(n.toFixed(4)).toString();
+
+  function setupClamp() {
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+    const min = $<HTMLInputElement>('cl-min');
+    const max = $<HTMLInputElement>('cl-max');
+    const minVw = $<HTMLInputElement>('cl-min-vw');
+    const maxVw = $<HTMLInputElement>('cl-max-vw');
+    const out = $<HTMLTextAreaElement>('cl-output');
+    const preview = $('cl-preview');
+    const table = $('cl-table');
+    const error = $('cl-error');
+    const copy = $('cl-copy-btn');
+    const toast = $('cl-toast');
+    if (!min || !max || !minVw || !maxVw || !out || !preview || !table || !error) return;
+
+    function compute() {
+      const a = parseFloat(min!.value);
+      const b = parseFloat(max!.value);
+      const w1 = parseFloat(minVw!.value);
+      const w2 = parseFloat(maxVw!.value);
+      const valid = [a, b, w1, w2].every((n) => Number.isFinite(n) && n > 0) && b > a && w2 > w1;
+      error!.hidden = valid;
+      if (!valid) return;
+
+      const slope = (b - a) / (w2 - w1);          // px per px of viewport
+      const intercept = a - slope * w1;           // px
+      const preferred = `${round(intercept / 16)}rem + ${round(slope * 100)}vw`;
+      const value = `clamp(${round(a / 16)}rem, ${preferred}, ${round(b / 16)}rem)`;
+
+      out!.value = `font-size: ${value};`;
+      preview!.style.fontSize = value;
+
+      table!.replaceChildren();
+      for (const vw of [320, 480, 768, 1024, 1280, 1536]) {
+        const px = Math.min(b, Math.max(a, intercept + slope * vw));
+        const row = document.createElement('tr');
+        const c1 = document.createElement('td');
+        const c2 = document.createElement('td');
+        c1.textContent = `${vw}px`;
+        c2.textContent = `${px.toFixed(2)}px (${round(px / 16)}rem)`;
+        row.append(c1, c2);
+        table!.append(row);
+      }
+    }
+
+    [min, max, minVw, maxVw].forEach((el) => el.addEventListener('input', compute));
+
+    copy?.addEventListener('click', async () => {
+      if (!out!.value) return;
+      try { await navigator.clipboard.writeText(out!.value); } catch { out!.select(); }
+      if (toast) {
+        toast.hidden = false;
+        setTimeout(() => { toast.hidden = true; }, 2200);
+      }
+    });
+
+    compute();
+  }
+
+  document.addEventListener('astro:page-load', setupClamp);
+</script>

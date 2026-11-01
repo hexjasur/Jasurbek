@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_CONFIG } from '../config';
+import { BASE_URL as baseUrl } from '../lib/url';
+---
+
+<Layout
+  title={`Page not found | ${SITE_CONFIG.author}`}
+  description="This page does not exist. Use the links below to find what you were looking for."
+  headerTitle={SITE_CONFIG.domain}
+  noindex={true}
+  searchable={false}
+>
+  <section class="not-found">
+    <p class="not-found-code" aria-hidden="true">404</p>
+    <h2 class="page-title">This page wandered off</h2>
+    <p class="page-lead">
+      The link may be outdated or mistyped. Try searching, or head back to one of the main sections.
+    </p>
+
+    <div class="tools-buttons not-found-actions">
+      <button type="button" class="btn" data-search-open>Search the site</button>
+      <a class="btn btn-secondary" href={baseUrl}>Go home</a>
+    </div>
+
+    <ul class="not-found-links">
+      <li><a href={`${baseUrl}blog`}>Read the blog</a></li>
+      <li><a href={`${baseUrl}projects`}>See my projects</a></li>
+      <li><a href={`${baseUrl}tools`}>Try the tools</a></li>
+    </ul>
+  </section>
+</Layout>

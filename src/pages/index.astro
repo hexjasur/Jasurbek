@@ -15,7 +15,15 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 >
   <div class="profile-layout">
     <aside class="profile-sidebar">
-      <img src={`${baseUrl}images/jasur-flora.png`} alt={SITE_CONFIG.author} class="profile-avatar" />
+      <img
+        src={`${baseUrl}images/jasur-flora.webp`}
+        alt={SITE_CONFIG.author}
+        width="480"
+        height="640"
+        fetchpriority="high"
+        decoding="async"
+        class="profile-avatar"
+      />
       <div class="profile-socials">
         <a href={SITE_CONFIG.github} target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href={SITE_CONFIG.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>

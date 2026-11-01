@@ -1,0 +1,66 @@
+---
+import { SITE_CONFIG } from '../config';
+
+const { repo, repoId, category, categoryId } = SITE_CONFIG.comments;
+const enabled = Boolean(repo && repoId && categoryId);
+---
+
+{enabled && (
+  <section
+    class="comments"
+    aria-labelledby="comments-title"
+    data-giscus-repo={repo}
+    data-giscus-repo-id={repoId}
+    data-giscus-category={category}
+    data-giscus-category-id={categoryId}
+  >
+    <h2 id="comments-title" class="section-title">Comments</h2>
+    <p class="comments-note">Powered by GitHub Discussions. You need a free GitHub account to comment.</p>
+    <div id="giscus-container"></div>
+  </section>
+)}
+
+<script>
+  const GISCUS_ORIGIN = 'https://giscus.app';
+  const currentTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  function loadComments() {
+    const section = document.querySelector<HTMLElement>('.comments[data-giscus-repo]');
+    const container = document.getElementById('giscus-container');
+    if (!section || !container || container.querySelector('iframe, script')) return;
+
+    const script = document.createElement('script');
+    script.src = `${GISCUS_ORIGIN}/client.js`;
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    const attrs: Record<string, string> = {
+      'data-repo': section.dataset.giscusRepo ?? '',
+      'data-repo-id': section.dataset.giscusRepoId ?? '',
+      'data-category': section.dataset.giscusCategory ?? '',
+      'data-category-id': section.dataset.giscusCategoryId ?? '',
+      'data-mapping': 'pathname',
+      'data-strict': '1',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '0',
+      'data-input-position': 'top',
+      'data-theme': currentTheme(),
+      'data-lang': 'en',
+      'data-loading': 'lazy',
+    };
+    for (const [key, value] of Object.entries(attrs)) script.setAttribute(key, value);
+    container.append(script);
+  }
+
+  // Keep the Giscus iframe in sync with the site's manual light/dark toggle.
+  function syncTheme() {
+    const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme: currentTheme() } } }, GISCUS_ORIGIN);
+  }
+
+  new MutationObserver(syncTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+
+  document.addEventListener('astro:page-load', loadComments);
+</script>

@@ -1,17 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getSortedPosts } from '../../lib/blog';
+import { BASE_URL as baseUrl } from '../../lib/url';
 import { SITE_CONFIG } from '../../config';
 
-const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) =>
-  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-);
+const sortedPosts = await getSortedPosts();
 const totalPosts = sortedPosts.length;
-
-const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
-  ? import.meta.env.BASE_URL 
-  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout 
@@ -21,7 +15,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="blog-intro">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       Personal Tech Blog | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
@@ -34,7 +28,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
   <div class="search-container">
     <div class="search-field-row">
-      <label for="site-search-input">Search this site:</label>
+      <label for="site-search-input">Filter articles:</label>
       <div class="search-input-wrapper">
         <svg class="search-icon-symbol" aria-hidden="true" viewBox="0 0 24 24" fill="none">
           <circle cx="10.8" cy="10.8" r="6.3" />
@@ -51,9 +45,11 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       </div>
     </div>
     <p class="search-disclaimer">
-      Your search query is processed entirely in your browser and never sent to a server.
+      Filtering happens entirely in your browser. For full-text search across the whole site press <kbd>Ctrl</kbd>+<kbd>K</kbd> or <kbd>/</kbd>.
     </p>
   </div>
+
+  <p class="tags-link-row">Looking for a topic? <a href={`${baseUrl}blog/tags`}>Browse all tags &rarr;</a></p>
 
   <h3 class="blog-entries-title">Personal Tech Blog Entries</h3>
 
@@ -73,7 +69,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     ))}
   </div>
 
-  <div id="no-results-msg" style="display: none; text-align: center; padding: 2.5rem 1rem; color: #6e7781; font-size: 1rem;">
+  <div id="no-results-msg" class="no-results" style="display: none;">
     No matching articles found. Try another search term.
   </div>
 </Layout>

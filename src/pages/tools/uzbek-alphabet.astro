@@ -13,21 +13,21 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div style="margin-bottom: 1.25rem;">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
   <section class="tools-box">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       <span class="alphabet-heading-mark" aria-hidden="true">ABC ⇄ АБВ</span>
       Uzbek Alphabet Converter (October 21, 2026 Reform)
     </h2>
-    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
+    <p class="page-lead">
       Convert text seamlessly between the legacy Latin orthography (1995), the official reformed Latin standard finalized on <strong>October 21, 2026</strong> (featuring <strong>Ö, Ğ, Ç, Ş</strong>), and Uzbek Cyrillic script.
     </p>
 
     <div class="tools-row">
-      <label for="conversion-direction" style="font-weight: 600; font-size: 0.95rem; color: #1f2328;">
+      <label for="conversion-direction" class="field-label">
         Conversion Direction:
       </label>
       <select id="conversion-direction" class="tools-select">
@@ -40,16 +40,16 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
     <div class="converter-split">
       <div>
-        <label for="input-text" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="input-text" class="field-label field-label-block">
           Input Text:
         </label>
         <textarea id="input-text" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
       </div>
       <div>
-        <label for="output-text" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+        <label for="output-text" class="field-label field-label-block">
           Converted Output:
         </label>
-        <textarea id="output-text" readonly placeholder="Output will appear here instantly..." style="background: #fafbfc;"></textarea>
+        <textarea id="output-text" readonly placeholder="Output will appear here instantly..."></textarea>
       </div>
     </div>
 
@@ -57,17 +57,17 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       <button class="btn" id="convert-btn">Convert Now</button>
       <button class="btn btn-secondary" id="copy-btn">Copy Output</button>
       <button class="btn btn-secondary" id="clear-btn">Clear All</button>
-      <span id="copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+      <span id="copy-toast" class="copy-toast" style="display: none;">
         ✓ Copied to clipboard!
       </span>
     </div>
   </section>
 
-  <section style="margin-top: 2rem;">
-    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #1f2328;">
+  <section class="section-gap">
+    <h3 class="section-title">
       Official Character Correspondence Table
     </h3>
-    <div style="overflow-x: auto;">
+    <div class="table-scroll">
       <table class="alphabet-table">
         <thead>
           <tr>
@@ -137,8 +137,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     </div>
   </section>
 
-  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 </Layout>
 

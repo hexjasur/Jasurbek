@@ -1,7 +1,20 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Seo from '../components/Seo.astro';
+import SearchPalette from '../components/SearchPalette.astro';
 import { ClientRouter } from 'astro:transitions';
+import { SITE_CONFIG } from '../config';
+import { toolsList } from '../data/tools';
+import { absoluteUrl } from '../lib/url';
+import {
+  breadcrumbSchema,
+  personSchema,
+  webAppSchema,
+  websiteSchema,
+  type Crumb,
+  type SchemaNode,
+} from '../lib/schema';
 import '../styles/global.css';
 
 interface Props {
@@ -9,13 +22,32 @@ interface Props {
   description?: string;
   activePage?: string;
   headerTitle?: string;
+  /** Site-relative OG image path. Derived from the route when omitted. */
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date | string;
+  modifiedTime?: Date | string;
+  tags?: string[];
+  noindex?: boolean;
+  /** Include this page in the on-site search index (Pagefind). */
+  searchable?: boolean;
+  /** Extra schema.org nodes (e.g. BlogPosting) merged into the page's JSON-LD graph. */
+  schema?: SchemaNode | SchemaNode[];
 }
 
 const { 
   title, 
-  description = "Jasurbek Haydarov — Software Engineer, Personal Portfolio & Tech Blog", 
+  description = SITE_CONFIG.description, 
   activePage = '',
-  headerTitle
+  headerTitle,
+  image,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  tags,
+  noindex = false,
+  searchable = true,
+  schema,
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
@@ -29,6 +61,43 @@ const canonicalPath = pagePath === basePath
     ? pagePath
     : `${baseUrl}${pagePath.replace(/^\/+/, '')}`;
 const canonicalUrl = new URL(canonicalPath, Astro.site);
+
+// Map a route to its generated OG image (see src/pages/og/[...slug].png.ts).
+const routeKey = canonicalPath.slice(baseUrl.length).replace(/\/+$/, '');
+const knownOgRoutes = ['blog', 'projects', 'tools', 'playground'];
+const derivedImage =
+  routeKey === ''
+    ? SITE_CONFIG.defaultOgImage
+    : knownOgRoutes.includes(routeKey) || /^(blog|tools|playground)\/[^/]+$/.test(routeKey)
+      ? `og/${routeKey}.png`
+      : SITE_CONFIG.defaultOgImage;
+const ogImage = image ?? derivedImage;
+
+// --- Structured data (JSON-LD) ---
+const sectionNames: Record<string, string> = {
+  blog: 'Blog',
+  projects: 'Projects',
+  tools: 'Tools',
+  playground: 'Playground',
+};
+const segments = routeKey === '' ? [] : routeKey.split('/');
+const crumbs: Crumb[] = [
+  { name: 'Home', url: absoluteUrl() },
+  ...segments.map((segment, index) => ({
+    name:
+      index === segments.length - 1 && segments.length > 1
+        ? title.replace(` | ${SITE_CONFIG.author}`, '')
+        : (sectionNames[segment] ?? title.replace(` | ${SITE_CONFIG.author}`, '')),
+    url: absoluteUrl(`${segments.slice(0, index + 1).join('/')}/`),
+  })),
+];
+const tool = toolsList.find((entry) => routeKey === `tools/${entry.slug}`);
+const graph: SchemaNode[] = [];
+if (routeKey === '') graph.push(personSchema(), websiteSchema());
+else graph.push(breadcrumbSchema(crumbs));
+if (tool) graph.push(webAppSchema(tool, canonicalUrl.href, absoluteUrl(ogImage)));
+if (schema) graph.push(...[schema].flat());
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 ---
 
 <!DOCTYPE html>
@@ -36,25 +105,62 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
+  <script is:inline>
+    // Apply the saved (or system) theme before first paint to avoid a flash.
+    (function () {
+      var read = function () {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+      };
+      var preferred = function () {
+        return read() || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      };
+      document.documentElement.dataset.theme = preferred();
+      // Keep the theme across Astro view transitions.
+      document.addEventListener('astro:before-swap', function (event) {
+        event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme;
+      });
+    })();
+  </script>
+  <Seo
+    title={title}
+    description={description}
+    canonicalUrl={canonicalUrl.href}
+    image={ogImage}
+    type={type}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+    tags={tags}
+    noindex={noindex}
+  />
+  <script type="application/ld+json" set:html={jsonLd} />
   <meta name="google-site-verification" content="TMBKLG3n0XFX-qsZDiZj1IE8RP4azFETRj5TwL0WsYE" />
-  <link rel="canonical" href={canonicalUrl} />
   <link rel="sitemap" type="application/xml" href={`${baseUrl}sitemap-index.xml`} />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE_CONFIG.author} — Tech Blog`} href={`${baseUrl}rss.xml`} />
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
   <title>{title}</title>
   <ClientRouter />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="site-wrapper">
-    <img src={`${baseUrl}images/flora/floral-corner.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-corner" />
-    <img src={`${baseUrl}images/flora/floral-left.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-left" />
-    <img src={`${baseUrl}images/flora/floral-bloom.png`} alt="" aria-hidden="true" class="flora-decoration flora-decoration-bloom" />
+    <img src={`${baseUrl}images/flora/floral-corner.webp`} alt="" aria-hidden="true" width="720" height="720" decoding="async" class="flora-decoration flora-decoration-corner" />
+    <img src={`${baseUrl}images/flora/floral-left.webp`} alt="" aria-hidden="true" width="480" height="720" loading="lazy" decoding="async" class="flora-decoration flora-decoration-left" />
+    <img src={`${baseUrl}images/flora/floral-bloom.webp`} alt="" aria-hidden="true" width="280" height="280" loading="lazy" decoding="async" class="flora-decoration flora-decoration-bloom" />
     <Header activePage={activePage} headerTitle={headerTitle} />
-    <main class="site-content" transition:animate="fade">
+    <main
+      id="main-content"
+      tabindex="-1"
+      class="site-content"
+      transition:animate="fade"
+      data-pagefind-body={searchable ? '' : undefined}
+      data-pagefind-meta={searchable ? `title:${title.replace(` | ${SITE_CONFIG.author}`, '')}` : undefined}
+    >
       <slot />
     </main>
     <Footer />
   </div>
+
+  <SearchPalette />
 
   <!-- Email BOM / Modal -->
   <div id="email-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -64,7 +170,7 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
         <button id="close-modal-btn" class="modal-close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="margin: 0 0 0.5rem; color: #57606a; font-size: 0.92rem;">Direct Email Address:</p>
+        <p class="modal-label">Direct Email Address:</p>
         <div class="email-display-card">
           <code id="email-text">jasurhaydarovcode@gmail.com</code>
         </div>
@@ -72,7 +178,7 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
           <button id="copy-email-btn" class="btn">Copy Email</button>
           <a id="mail-app-link" href="mailto:jasurhaydarovcode@gmail.com" class="btn btn-secondary">Open Mail App</a>
         </div>
-        <div id="copy-success-msg" style="display: none; color: #1a7f37; font-size: 0.85rem; text-align: center; margin-top: 0.75rem; font-weight: 500;">
+        <div id="copy-success-msg" class="copy-success" style="display: none;">
           ✓ Email copied to clipboard!
         </div>
       </div>
@@ -91,11 +197,11 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
 
       function openModal(e: Event) {
         e.preventDefault();
-        modal.style.display = 'flex';
+        modal!.style.display = 'flex';
       }
 
       function closeModal() {
-        modal.style.display = 'none';
+        modal!.style.display = 'none';
         if (copySuccess) copySuccess.style.display = 'none';
       }
 
@@ -122,6 +228,31 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
     }
 
     document.addEventListener('astro:page-load', setupEmailModal);
+
+    const THEME_COLORS: Record<string, string> = { light: '#d8cfc0', dark: '#0f1512' };
+
+    function setupThemeToggle() {
+      const button = document.getElementById('theme-toggle');
+      if (!button) return;
+
+      const sync = () => {
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        button.setAttribute('aria-pressed', String(theme === 'dark'));
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
+      };
+
+      button.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+        sync();
+      });
+
+      sync();
+    }
+
+    document.addEventListener('astro:page-load', setupThemeToggle);
   </script>
 </body>
 </html>

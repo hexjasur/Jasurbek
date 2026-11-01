@@ -1,0 +1,34 @@
+---
+// Adds a "Copy" button to every code block inside `.prose`. No markup is needed in the posts.
+---
+
+<script>
+  function setupCodeCopy() {
+    document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((pre) => {
+      if (pre.dataset.copyReady) return;
+      pre.dataset.copyReady = 'true';
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-btn';
+      button.textContent = 'Copy';
+      button.setAttribute('aria-label', 'Copy code to clipboard');
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText ?? pre.innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'Copied!';
+        } catch {
+          button.textContent = 'Press Ctrl+C';
+        }
+        setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+      });
+
+      pre.classList.add('has-copy');
+      pre.appendChild(button);
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupCodeCopy);
+</script>

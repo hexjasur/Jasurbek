@@ -12,7 +12,7 @@
 </div>
 
 <div align="center">
-  <img src="./public/images/flora/floral-corner.png" alt="Flora decoration" width="180" />
+  <img src="./public/images/flora/floral-corner.webp" alt="Flora decoration" width="180" />
 </div>
 
 ## About this repository
@@ -25,8 +25,20 @@ The visual direction combines a warm editorial canvas with a botanical flora mot
 
 - **Profile** — a short biography, social links, and contact access.
 - **Projects** — selected work with repository links, live websites, and real project screenshots.
-- **Blog** — technical notes about software engineering, tooling, AI-assisted workflows, and practical experiments.
-- **Tools** — privacy-first browser utilities for JSON, TypeScript, UUIDs, minification, and Uzbek alphabet conversion.
+- **Blog** — technical notes about software engineering, tooling, AI-assisted workflows, and practical experiments. Posts have reading time, a table of contents, copy buttons on code blocks, older/newer navigation, tag pages, and optional Giscus comments.
+- **Tools** — privacy-first browser utilities: color contrast checker, CSS `clamp()` generator, Base64/URL encoder, UUID generator, JSON to TypeScript, minifier, and Uzbek alphabet converter.
+- **Playground** — small games and experiments in vanilla TypeScript (Snake, reaction time test).
+- **Search** — full-text, in-browser search powered by Pagefind. Press `Ctrl` + `K` or `/` on any page.
+- **Dark mode** — follows the system setting, with a manual toggle and no flash on load.
+
+## SEO and performance
+
+- Per-page meta tags, canonical URLs, Open Graph and Twitter cards.
+- Branded 1200x630 Open Graph images generated at build time for every page and post.
+- JSON-LD structured data (`Person`, `WebSite`, `BlogPosting`, `WebApplication`, breadcrumbs).
+- Sitemap, `robots.txt` and an RSS feed (`/rss.xml`) generated from `src/config.ts`.
+- WebP images with explicit dimensions, system font stack, and almost no client-side JavaScript.
+- Accessibility basics: skip link, visible focus ring, `aria-current` navigation, reduced-motion support.
 
 ## Selected projects
 
@@ -41,8 +53,8 @@ A Tauri-powered desktop workspace that gathers developer, network, media, image,
 - Repository: [hexjasur/Yolnoma-App](https://github.com/hexjasur/Yolnoma-App)
 
 <div align="center">
-  <img src="./public/images/projects/yolnoma-app/yolnoma-dashboard.png" alt="Yolnoma dashboard" width="48%" />
-  <img src="./public/images/projects/yolnoma-app/yolnoma-workspace.png" alt="Yolnoma developer workspace" width="48%" />
+  <img src="./public/images/projects/yolnoma-app/yolnoma-dashboard.webp" alt="Yolnoma dashboard" width="48%" />
+  <img src="./public/images/projects/yolnoma-app/yolnoma-workspace.webp" alt="Yolnoma developer workspace" width="48%" />
 </div>
 
 ### Numeric Methods
@@ -56,8 +68,8 @@ An interactive laboratory for numerical methods and computational mathematics. I
 - Repository: [hexjasur/numeric-methods](https://github.com/hexjasur/numeric-methods)
 
 <div align="center">
-  <img src="./public/images/projects/nm/numeric-methods-main.png" alt="Numeric Methods main interface" width="48%" />
-  <img src="./public/images/projects/nm/numeric-methods-home.png" alt="Numeric Methods calculation view" width="48%" />
+  <img src="./public/images/projects/nm/numeric-methods-main.webp" alt="Numeric Methods main interface" width="48%" />
+  <img src="./public/images/projects/nm/numeric-methods-home.webp" alt="Numeric Methods calculation view" width="48%" />
 </div>
 
 ### AGENTS.md
@@ -67,7 +79,7 @@ A documentation project for installing and maintaining `AGENTS.md` instructions 
 - Repository: [hexjasur/AGENTS.md](https://github.com/hexjasur/AGENTS.md)
 
 <div align="center">
-  <img src="./public/images/projects/agents-md/agents-md-readme.png" alt="AGENTS.md repository preview" width="82%" />
+  <img src="./public/images/projects/agents-md/agents-md-readme.webp" alt="AGENTS.md repository preview" width="82%" />
 </div>
 
 ## Built with
@@ -77,6 +89,9 @@ A documentation project for installing and maintaining `AGENTS.md` instructions 
 | Framework | [Astro 5](https://astro.build/) |
 | Styling | [Tailwind CSS 4](https://tailwindcss.com/) and custom CSS |
 | Content | Astro Content Collections with Markdown |
+| Search | [Pagefind](https://pagefind.app/) (static, runs in the browser) |
+| Open Graph images | [Satori](https://github.com/vercel/satori) + [sharp](https://sharp.pixelplumbing.com/) at build time |
+| Comments | [Giscus](https://giscus.app/) (GitHub Discussions) |
 | Navigation | Astro Client Router and view transitions |
 | Deployment | GitHub Pages via GitHub Actions |
 | Package manager | Bun or pnpm |
@@ -90,8 +105,14 @@ bun install
 # Start the development server
 bun run dev
 
-# Create a production build
+# Type-check the project
+bun run check
+
+# Create a production build (also builds the Pagefind search index)
 bun run build
+
+# Preview the production build (search only works here, not in dev mode)
+bun run preview
 ```
 
 The development site is available at `http://localhost:4321`.
@@ -100,11 +121,13 @@ The development site is available at `http://localhost:4321`.
 
 ```text
 src/
-├── components/       # Header and footer
+├── components/       # Header, footer, SEO head, search dialog, TOC, comments
 ├── content/blog/     # Markdown articles
+├── data/             # Tools and playground lists (single source of truth)
+├── lib/              # Blog helpers, JSON-LD, Open Graph rendering, URL helpers
 ├── layouts/          # Shared page shell and contact modal
-├── pages/            # Profile, projects, blog, and tools routes
-└── styles/           # Global flora theme and responsive styles
+├── pages/            # Profile, projects, blog, tools, playground, OG, RSS routes
+└── styles/           # Global flora theme, dark mode and responsive styles
 public/
 ├── images/flora/     # Botanical decorative assets
 ├── images/projects/  # Project screenshots
@@ -121,6 +144,27 @@ The site uses the following core flora palette:
 - `#DDA095` — dusty rose accent
 - `#B86752` — terracotta accent
 - `#2F4038` — deep green ink
+
+## Configuration
+
+Everything site-wide (domain, author, social links, SEO defaults) lives in `src/config.ts`.
+When a custom domain is connected, update `siteUrl` and `domain` there and remove `base` from `astro.config.mjs`.
+
+### Enabling comments
+
+Comments stay hidden until a Giscus category id is set:
+
+1. Enable **Discussions** in the repository settings.
+2. Install the [Giscus app](https://github.com/apps/giscus) on the repository.
+3. Open [giscus.app](https://giscus.app), choose the repository and category, and copy the generated `data-category-id`.
+4. Paste it into `comments.categoryId` in `src/config.ts`.
+
+## Adding content
+
+- **Blog post:** add a Markdown file to `src/content/blog/` with `title`, `description`, `pubDate` and optional `tags`.
+  Its page, Open Graph image, RSS entry, sitemap entry, tag pages and search entry are generated automatically.
+- **Tool or playground demo:** add the page under `src/pages/tools/` or `src/pages/playground/` and register it in
+  `src/data/tools.ts` or `src/data/playground.ts`.
 
 The portfolio portrait and decorative assets are kept local so the static site remains self-contained and can be deployed directly to GitHub Pages.
 

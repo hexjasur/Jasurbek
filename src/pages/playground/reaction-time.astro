@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Reaction Time Test | ${SITE_CONFIG.author}`}
+  description="How fast are your reflexes? Click as soon as the panel turns green and see your reaction time in milliseconds. Built with vanilla TypeScript."
+  activePage="playground"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+
+  <section class="tools-box game-box">
+    <h2 class="page-title">⚡ Reaction Time Test</h2>
+    <p class="page-lead">
+      Click the panel to begin. Wait for it to turn green, then click as fast as you can. Clicking too early restarts the round.
+      You can also press <kbd>Space</kbd> or <kbd>Enter</kbd>.
+    </p>
+
+    <div class="game-stats">
+      <span>Last: <strong id="rt-last">--</strong></span>
+      <span>Best: <strong id="rt-best">--</strong></span>
+      <span>Average (last 5): <strong id="rt-avg">--</strong></span>
+    </div>
+
+    <button type="button" id="rt-panel" class="rt-panel rt-idle" aria-describedby="rt-status">
+      <span id="rt-label" class="rt-label">Click to start</span>
+    </button>
+    <p id="rt-status" class="rt-status" role="status" aria-live="polite"></p>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+</Layout>
+
+<script>
+  type Phase = 'idle' | 'waiting' | 'ready' | 'result' | 'early';
+  const BEST_KEY = 'reaction-best';
+
+  let cleanup: (() => void) | undefined;
+
+  function setupReaction() {
+    cleanup?.();
+
+    const panel = document.getElementById('rt-panel');
+    const label = document.getElementById('rt-label');
+    const status = document.getElementById('rt-status');
+    const lastEl = document.getElementById('rt-last');
+    const bestEl = document.getElementById('rt-best');
+    const avgEl = document.getElementById('rt-avg');
+    if (!panel || !label || !status || !lastEl || !bestEl || !avgEl) return;
+
+    let phase: Phase = 'idle';
+    let timer: number | undefined;
+    let startedAt = 0;
+    let best = 0;
+    const history: number[] = [];
+
+    try { best = Number(localStorage.getItem(BEST_KEY)) || 0; } catch {}
+    if (best) bestEl.textContent = `${best} ms`;
+
+    function render(next: Phase, text: string, hint = '') {
+      phase = next;
+      panel!.className = `rt-panel rt-${next}`;
+      label!.textContent = text;
+      status!.textContent = hint;
+    }
+
+    function begin() {
+      render('waiting', 'Wait for green...');
+      const delay = 1500 + Math.random() * 3000;
+      timer = window.setTimeout(() => {
+        startedAt = performance.now();
+        render('ready', 'Click now!');
+      }, delay);
+    }
+
+    function onPress() {
+      if (phase === 'idle' || phase === 'result' || phase === 'early') {
+        begin();
+      } else if (phase === 'waiting') {
+        window.clearTimeout(timer);
+        render('early', 'Too soon!', 'You clicked before it turned green. Click to try again.');
+      } else if (phase === 'ready') {
+        const ms = Math.round(performance.now() - startedAt);
+        history.push(ms);
+        if (history.length > 5) history.shift();
+        const avg = Math.round(history.reduce((a, b) => a + b, 0) / history.length);
+        lastEl!.textContent = `${ms} ms`;
+        avgEl!.textContent = `${avg} ms`;
+        if (!best || ms < best) {
+          best = ms;
+          bestEl!.textContent = `${ms} ms`;
+          try { localStorage.setItem(BEST_KEY, String(ms)); } catch {}
+        }
+        render('result', `${ms} ms`, `Your reaction time was ${ms} milliseconds. Click to play again.`);
+      }
+    }
+
+    panel.addEventListener('click', onPress);
+
+    cleanup = () => {
+      window.clearTimeout(timer);
+      panel.removeEventListener('click', onPress);
+      cleanup = undefined;
+    };
+  }
+
+  document.addEventListener('astro:page-load', setupReaction);
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+</script>

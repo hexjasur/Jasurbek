@@ -13,21 +13,21 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div style="margin-bottom: 1.25rem;">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
   <section class="tools-box">
-    <h2 style="margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 700; color: #1f2328;">
+    <h2 class="page-title">
       🔑 Cryptographic UUID & NanoID Generator
     </h2>
-    <p style="font-size: 0.95rem; color: #57606a; margin-bottom: 1.25rem; line-height: 1.6;">
-      Generate cryptographically secure version 4 UUIDs or URL-friendly NanoIDs using your browser's native Web Crypto API (<code style="font-size: 0.9em; background: #eef; padding: 2px 4px; border-radius: 3px;">crypto.randomUUID()</code>).
+    <p class="page-lead">
+      Generate cryptographically secure version 4 UUIDs or URL-friendly NanoIDs using your browser's native Web Crypto API (<code>crypto.randomUUID()</code>).
     </p>
 
     <div class="tools-row">
       <div>
-        <label for="uuid-count" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+        <label for="uuid-count" class="field-label field-label-inline">
           Quantity:
         </label>
         <select id="uuid-count" class="tools-select">
@@ -39,7 +39,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       </div>
 
       <div>
-        <label for="uuid-format" style="font-weight: 600; font-size: 0.95rem; margin-right: 0.35rem; color: #1f2328;">
+        <label for="uuid-format" class="field-label field-label-inline">
           Format:
         </label>
         <select id="uuid-format" class="tools-select">
@@ -52,24 +52,24 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     </div>
 
     <div style="margin-top: 1rem;">
-      <label for="uuid-output" style="font-weight: 600; font-size: 0.92rem; display: block; margin-bottom: 0.35rem; color: #1f2328;">
+      <label for="uuid-output" class="field-label field-label-block">
         Generated Identifiers:
       </label>
-      <textarea id="uuid-output" readonly style="min-height: 160px; background: #fafbfc; font-family: ui-monospace, monospace;" placeholder="Click 'Generate IDs' to generate..."></textarea>
+      <textarea id="uuid-output" readonly style="min-height: 160px; font-family: ui-monospace, monospace;" placeholder="Click 'Generate IDs' to generate..."></textarea>
     </div>
 
     <div class="tools-buttons">
       <button class="btn" id="uuid-generate-btn">Generate New IDs</button>
       <button class="btn btn-secondary" id="uuid-copy-btn">Copy All</button>
       <button class="btn btn-secondary" id="uuid-clear-btn">Clear</button>
-      <span id="uuid-copy-toast" style="display: none; font-size: 0.88rem; color: #1a7f37; font-weight: 600; margin-left: 0.5rem;">
+      <span id="uuid-copy-toast" class="copy-toast" style="display: none;">
         ✓ Copied IDs to clipboard!
       </span>
     </div>
   </section>
 
-  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-    <a href={`${baseUrl}tools`} style="font-size: 0.92rem; font-weight: 600;">&larr; Back to all tools</a>
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 </Layout>
 

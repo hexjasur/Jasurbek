@@ -1,0 +1,271 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Snake Game | ${SITE_CONFIG.author}`}
+  description="Play Snake in your browser. Arrow keys, WASD, swipe or on-screen buttons. Built with vanilla TypeScript and canvas, no frameworks."
+  activePage="playground"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+
+  <section class="tools-box game-box">
+    <h2 class="page-title">🐍 Snake</h2>
+    <p class="page-lead">
+      Eat the food, grow longer, avoid the walls and your own tail. Use the arrow keys or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>,
+      swipe on the board, or tap the buttons. Press <kbd>Space</kbd> to start or pause.
+    </p>
+
+    <div class="game-stats" aria-live="polite">
+      <span>Score: <strong id="snake-score">0</strong></span>
+      <span>Best: <strong id="snake-best">0</strong></span>
+    </div>
+
+    <div class="game-stage">
+      <canvas id="snake-canvas" class="game-canvas" width="400" height="400" role="img" aria-label="Snake game board"></canvas>
+      <div id="snake-overlay" class="game-overlay">
+        <p id="snake-message" class="game-message">Press Space or tap Start</p>
+        <button type="button" class="btn" id="snake-start">Start</button>
+      </div>
+    </div>
+
+    <div class="dpad" aria-label="On-screen controls">
+      <button type="button" class="btn btn-secondary dpad-up" data-dir="up" aria-label="Up">&uarr;</button>
+      <button type="button" class="btn btn-secondary dpad-left" data-dir="left" aria-label="Left">&larr;</button>
+      <button type="button" class="btn btn-secondary dpad-down" data-dir="down" aria-label="Down">&darr;</button>
+      <button type="button" class="btn btn-secondary dpad-right" data-dir="right" aria-label="Right">&rarr;</button>
+    </div>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+</Layout>
+
+<script>
+  type Dir = 'up' | 'down' | 'left' | 'right';
+  type Cell = { x: number; y: number };
+
+  const GRID = 20;
+  const VECTORS: Record<Dir, Cell> = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
+  const OPPOSITE: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
+  const KEYS: Record<string, Dir> = {
+    ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+    w: 'up', s: 'down', a: 'left', d: 'right', W: 'up', S: 'down', A: 'left', D: 'right',
+  };
+  const BEST_KEY = 'snake-best';
+
+  let cleanup: (() => void) | undefined;
+
+  function setupSnake() {
+    cleanup?.();
+
+    const canvas = document.getElementById('snake-canvas') as HTMLCanvasElement | null;
+    const overlay = document.getElementById('snake-overlay');
+    const message = document.getElementById('snake-message');
+    const startBtn = document.getElementById('snake-start');
+    const scoreEl = document.getElementById('snake-score');
+    const bestEl = document.getElementById('snake-best');
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx || !overlay || !message || !startBtn || !scoreEl || !bestEl) return;
+
+    const cell = canvas.width / GRID;
+    let snake: Cell[] = [];
+    let dir: Dir = 'right';
+    let queue: Dir[] = [];
+    let food: Cell = { x: 0, y: 0 };
+    let score = 0;
+    let best = 0;
+    let state: 'idle' | 'running' | 'paused' | 'over' = 'idle';
+    let timer: number | undefined;
+
+    try { best = Number(localStorage.getItem(BEST_KEY)) || 0; } catch {}
+    bestEl.textContent = String(best);
+
+    const color = (name: string, fallback: string) =>
+      getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+
+    function placeFood() {
+      const free: Cell[] = [];
+      for (let x = 0; x < GRID; x++) for (let y = 0; y < GRID; y++) {
+        if (!snake.some((s) => s.x === x && s.y === y)) free.push({ x, y });
+      }
+      food = free[Math.floor(Math.random() * free.length)] ?? { x: 0, y: 0 };
+    }
+
+    function draw() {
+      ctx!.fillStyle = color('--surface-2', '#f6f8fa');
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
+
+      ctx!.strokeStyle = color('--line-soft', '#d0d7de');
+      ctx!.globalAlpha = 0.35;
+      ctx!.lineWidth = 1;
+      for (let i = 1; i < GRID; i++) {
+        ctx!.beginPath(); ctx!.moveTo(i * cell, 0); ctx!.lineTo(i * cell, canvas!.height); ctx!.stroke();
+        ctx!.beginPath(); ctx!.moveTo(0, i * cell); ctx!.lineTo(canvas!.width, i * cell); ctx!.stroke();
+      }
+      ctx!.globalAlpha = 1;
+
+      ctx!.fillStyle = color('--btn-bg', '#b86752');
+      ctx!.beginPath();
+      ctx!.arc((food.x + 0.5) * cell, (food.y + 0.5) * cell, cell * 0.36, 0, Math.PI * 2);
+      ctx!.fill();
+
+      snake.forEach((part, i) => {
+        ctx!.fillStyle = i === 0 ? color('--text-strong', '#1f2328') : color('--card-shadow-color', '#1c2430');
+        ctx!.globalAlpha = i === 0 ? 1 : 0.82;
+        ctx!.fillRect(part.x * cell + 1, part.y * cell + 1, cell - 2, cell - 2);
+      });
+      ctx!.globalAlpha = 1;
+    }
+
+    function showOverlay(text: string, button: string) {
+      message!.textContent = text;
+      startBtn!.textContent = button;
+      overlay!.hidden = false;
+    }
+
+    function stopTimer() {
+      if (timer !== undefined) { window.clearTimeout(timer); timer = undefined; }
+    }
+
+    function schedule() {
+      stopTimer();
+      const delay = Math.max(70, 140 - score * 4);
+      timer = window.setTimeout(tick, delay);
+    }
+
+    function reset() {
+      const mid = Math.floor(GRID / 2);
+      snake = [{ x: mid, y: mid }, { x: mid - 1, y: mid }, { x: mid - 2, y: mid }];
+      dir = 'right';
+      queue = [];
+      score = 0;
+      scoreEl!.textContent = '0';
+      placeFood();
+      draw();
+    }
+
+    function start() {
+      if (state === 'idle' || state === 'over') reset();
+      state = 'running';
+      overlay!.hidden = true;
+      schedule();
+    }
+
+    function pause() {
+      if (state !== 'running') return;
+      state = 'paused';
+      stopTimer();
+      showOverlay('Paused', 'Resume');
+    }
+
+    function gameOver() {
+      state = 'over';
+      stopTimer();
+      if (score > best) {
+        best = score;
+        bestEl!.textContent = String(best);
+        try { localStorage.setItem(BEST_KEY, String(best)); } catch {}
+      }
+      draw();
+      showOverlay(`Game over. Score: ${score}`, 'Play again');
+    }
+
+    function tick() {
+      if (state !== 'running') return;
+      const next = queue.shift();
+      if (next && next !== OPPOSITE[dir]) dir = next;
+
+      const v = VECTORS[dir];
+      const head = { x: snake[0].x + v.x, y: snake[0].y + v.y };
+      const eats = head.x === food.x && head.y === food.y;
+      const body = eats ? snake : snake.slice(0, -1); // the tail moves away unless we grow
+
+      const hitWall = head.x < 0 || head.y < 0 || head.x >= GRID || head.y >= GRID;
+      if (hitWall || body.some((s) => s.x === head.x && s.y === head.y)) return gameOver();
+
+      snake.unshift(head);
+      if (eats) {
+        score += 1;
+        scoreEl!.textContent = String(score);
+        if (snake.length === GRID * GRID) return gameOver(); // board full: you win
+        placeFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+      schedule();
+    }
+
+    function steer(next: Dir) {
+      if (state === 'idle' || state === 'over' || state === 'paused') start();
+      const last = queue.length ? queue[queue.length - 1] : dir;
+      if (next !== last && next !== OPPOSITE[last] && queue.length < 2) queue.push(next);
+    }
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const target = e.target as HTMLElement;
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+      const key = KEYS[e.key];
+      if (key) {
+        e.preventDefault();
+        steer(key);
+      } else if (e.key === ' ' && !(target instanceof HTMLButtonElement)) {
+        e.preventDefault();
+        state === 'running' ? pause() : start();
+      }
+    };
+
+    // Swipe on the board (pointer events cover touch and pen).
+    let touchStart: { x: number; y: number } | null = null;
+    const onPointerDown = (e: PointerEvent) => { touchStart = { x: e.clientX, y: e.clientY }; };
+    const onPointerUp = (e: PointerEvent) => {
+      if (!touchStart) return;
+      const dx = e.clientX - touchStart.x;
+      const dy = e.clientY - touchStart.y;
+      touchStart = null;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+      steer(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+    };
+
+    const onDpad = (e: Event) => {
+      const dirName = (e.currentTarget as HTMLElement).dataset.dir as Dir;
+      steer(dirName);
+    };
+    const onVisibility = () => { if (document.hidden) pause(); };
+    const onStart = () => start();
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('visibilitychange', onVisibility);
+    canvas.addEventListener('pointerdown', onPointerDown);
+    canvas.addEventListener('pointerup', onPointerUp);
+    startBtn.addEventListener('click', onStart);
+    const dpadButtons = document.querySelectorAll<HTMLButtonElement>('.dpad [data-dir]');
+    dpadButtons.forEach((b) => b.addEventListener('click', onDpad));
+
+    // Redraw when the theme is toggled so the board always matches the site colors.
+    const themeObserver = new MutationObserver(draw);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    reset();
+    showOverlay('Press Space or tap Start', 'Start');
+
+    cleanup = () => {
+      stopTimer();
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('visibilitychange', onVisibility);
+      themeObserver.disconnect();
+      cleanup = undefined;
+    };
+  }
+
+  document.addEventListener('astro:page-load', setupSnake);
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+</script>

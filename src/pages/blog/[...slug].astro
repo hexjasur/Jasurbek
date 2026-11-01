@@ -1,62 +1,103 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import Toc from '../../components/Toc.astro';
+import CodeCopy from '../../components/CodeCopy.astro';
+import Comments from '../../components/Comments.astro';
+import { render } from 'astro:content';
 import { SITE_CONFIG } from '../../config';
+import { absoluteUrl, BASE_URL as baseUrl } from '../../lib/url';
+import { blogPostingSchema } from '../../lib/schema';
+import { getSortedPosts, readingTime, formatDate, tagSlug } from '../../lib/blog';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
+  const posts = await getSortedPosts();
+  return posts.map((post, index) => ({
     params: { slug: post.id },
-    props: { post },
+    props: {
+      post,
+      // Posts are sorted newest first, so "older" is the next index.
+      newer: index > 0 ? posts[index - 1] : undefined,
+      older: index < posts.length - 1 ? posts[index + 1] : undefined,
+    },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
 
-const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const formattedDate = formatDate(post.data.pubDate);
+const minutes = readingTime(post.body);
+
+const postSchema = blogPostingSchema({
+  title: post.data.title,
+  description: post.data.description,
+  url: absoluteUrl(`blog/${post.id}/`),
+  image: absoluteUrl(`og/blog/${post.id}.png`),
+  datePublished: post.data.pubDate,
+  tags: post.data.tags,
 });
-
-const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
-  ? import.meta.env.BASE_URL 
-  : `${import.meta.env.BASE_URL}/`;
 ---
 
-<Layout 
-  title={`${post.data.title} | ${SITE_CONFIG.author}`} 
+<Layout
+  title={`${post.data.title} | ${SITE_CONFIG.author}`}
   description={post.data.description}
   activePage="blog"
   headerTitle={SITE_CONFIG.domain}
+  type="article"
+  publishedTime={post.data.pubDate}
+  tags={post.data.tags}
+  schema={postSchema}
 >
-  <div style="margin-bottom: 1.25rem;">
-    <a href={`${baseUrl}blog`} style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}blog`} class="back-link">&larr; Back to all blog entries</a>
   </div>
 
   <article>
-    <h1 style="font-size: 1.45rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; color: #1f2328;">
+    <h1 class="post-title">
       {post.data.title}
     </h1>
-    <div style="font-size: 0.88rem; color: #57606a; margin-bottom: 0.75rem;">
-      Published on: {formattedDate}
+    <div class="post-meta">
+      <time datetime={new Date(post.data.pubDate).toISOString()}>Published on: {formattedDate}</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>{minutes} min read</span>
     </div>
 
     {post.data.tags && (
-      <div style="margin-bottom: 1.5rem;">
+      <div class="post-tags">
         {post.data.tags.map((tag: string) => (
-          <span class="tag-badge">#{tag}</span>
+          <a class="tag-badge" href={`${baseUrl}blog/tags/${tagSlug(tag)}`}>#{tag}</a>
         ))}
       </div>
     )}
+
+    <Toc headings={headings} />
 
     <div class="prose">
       <Content />
     </div>
   </article>
 
-  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-    <a href={`${baseUrl}blog`} style="font-size: 0.9rem; font-weight: 500;">&larr; Back to all blog entries</a>
+  {(newer || older) && (
+    <nav class="post-nav" aria-label="More articles">
+      {older ? (
+        <a class="post-nav-link" rel="prev" href={`${baseUrl}blog/${older.id}`}>
+          <span class="post-nav-label">&larr; Older</span>
+          <span class="post-nav-title">{older.data.title}</span>
+        </a>
+      ) : <span />}
+      {newer ? (
+        <a class="post-nav-link post-nav-next" rel="next" href={`${baseUrl}blog/${newer.id}`}>
+          <span class="post-nav-label">Newer &rarr;</span>
+          <span class="post-nav-title">{newer.data.title}</span>
+        </a>
+      ) : <span />}
+    </nav>
+  )}
+
+  <Comments />
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}blog`} class="back-link">&larr; Back to all blog entries</a>
   </div>
+  <CodeCopy />
 </Layout>
