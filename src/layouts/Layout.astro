@@ -64,11 +64,11 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
 
 // Map a route to its generated OG image (see src/pages/og/[...slug].png.ts).
 const routeKey = canonicalPath.slice(baseUrl.length).replace(/\/+$/, '');
-const knownOgRoutes = ['blog', 'projects', 'tools'];
+const knownOgRoutes = ['blog', 'projects', 'tools', 'playground'];
 const derivedImage =
   routeKey === ''
     ? SITE_CONFIG.defaultOgImage
-    : knownOgRoutes.includes(routeKey) || /^(blog|tools)\/[^/]+$/.test(routeKey)
+    : knownOgRoutes.includes(routeKey) || /^(blog|tools|playground)\/[^/]+$/.test(routeKey)
       ? `og/${routeKey}.png`
       : SITE_CONFIG.defaultOgImage;
 const ogImage = image ?? derivedImage;
@@ -78,6 +78,7 @@ const sectionNames: Record<string, string> = {
   blog: 'Blog',
   projects: 'Projects',
   tools: 'Tools',
+  playground: 'Playground',
 };
 const segments = routeKey === '' ? [] : routeKey.split('/');
 const crumbs: Crumb[] = [

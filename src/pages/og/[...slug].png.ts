@@ -2,6 +2,7 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { renderOgImage, type OgEntry } from '../../lib/og';
 import { toolsList } from '../../data/tools';
+import { playgroundList } from '../../data/playground';
 import { SITE_CONFIG } from '../../config';
 
 /**
@@ -36,12 +37,24 @@ export const getStaticPaths = (async () => {
       title: 'Free In-Browser Tools',
       description: 'Fast, private developer utilities. Everything runs locally in your browser.',
     },
+    {
+      slug: 'playground',
+      kicker: 'Playground',
+      title: 'Playground',
+      description: 'Small interactive experiments and games built with vanilla TypeScript.',
+    },
     ...posts.map((post) => ({
       slug: `blog/${post.id}`,
       kicker: 'Blog',
       title: post.data.title,
       description: post.data.description,
       tags: post.data.tags,
+    })),
+    ...playgroundList.map((demo) => ({
+      slug: `playground/${demo.slug}`,
+      kicker: 'Playground',
+      title: demo.title,
+      description: demo.description,
     })),
     ...toolsList.map((tool) => ({
       slug: `tools/${tool.slug}`,

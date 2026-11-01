@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { playgroundList } from '../../data/playground';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Playground | ${SITE_CONFIG.author}`}
+  description="Small interactive experiments and browser games built with vanilla TypeScript: Snake, a reaction time test and more."
+  activePage="playground"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="blog-intro">
+    <h2 class="page-title">Playground | {SITE_CONFIG.domain}</h2>
+    <div class="blog-meta-date">Category: Games &amp; Interactive Experiments</div>
+
+    <p class="blog-desc">
+      A place for small things I build for fun: games, interaction experiments and UI ideas. No frameworks and no tracking,
+      just a bit of TypeScript running in your browser.
+    </p>
+  </div>
+
+  <h3 class="blog-entries-title section-gap">Experiments</h3>
+
+  <div class="blog-grid">
+    {playgroundList.map((demo) => (
+      <article class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-card-num">{demo.num}.</span>
+          <a href={`${baseUrl}playground/${demo.slug}`}>{demo.title}</a>
+        </div>
+        <p class="card-desc">{demo.description}</p>
+      </article>
+    ))}
+  </div>
+</Layout>
