@@ -1607,3 +1607,27 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
 .not-found .page-lead { max-width: 34rem; margin-inline: auto; }
 .not-found-actions { justify-content: center; }
 .not-found-links { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+
+/* ===== Accessibility ===== */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--btn-bg-hover);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0.75rem; color: #fff; text-decoration: none; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.site-content:focus { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

@@ -19,13 +19,13 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </header>
 <nav class="site-nav" aria-label="Main navigation">
   <div class="nav-links">
-    <a href={baseUrl} class:list={[{ active: activePage === 'profile' }]}>Profile</a>
+    <a href={baseUrl} class:list={[{ active: activePage === 'profile' }]} aria-current={activePage === 'profile' ? 'page' : undefined}>Profile</a>
     <span class="sep">|</span>
-    <a href={`${baseUrl}projects`} class:list={[{ active: activePage === 'projects' }]}>Projects</a>
+    <a href={`${baseUrl}projects`} class:list={[{ active: activePage === 'projects' }]} aria-current={activePage === 'projects' ? 'page' : undefined}>Projects</a>
     <span class="sep">|</span>
-    <a href={`${baseUrl}blog`} class:list={[{ active: activePage === 'blog' }]}>Blog</a>
+    <a href={`${baseUrl}blog`} class:list={[{ active: activePage === 'blog' }]} aria-current={activePage === 'blog' ? 'page' : undefined}>Blog</a>
     <span class="sep">|</span>
-    <a href={`${baseUrl}tools`} class:list={[{ active: activePage === 'tools' }]}>Tools</a>
+    <a href={`${baseUrl}tools`} class:list={[{ active: activePage === 'tools' }]} aria-current={activePage === 'tools' ? 'page' : undefined}>Tools</a>
   </div>
   <div class="nav-actions">
     <button type="button" class="theme-toggle search-trigger" data-search-open aria-label="Search the site (Ctrl+K)" title="Search (Ctrl+K or /)">
