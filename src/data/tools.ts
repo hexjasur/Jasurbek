@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'clamp-generator',
+    num: 6,
+    title: 'CSS clamp() Fluid Typography Generator',
+    description: 'Generate accessible, rem-based clamp() values for fluid font sizes and spacing, with a live preview and a table of computed sizes.',
+    slug: 'clamp-generator',
+  },
+  {
     id: 'contrast-checker',
     num: 5,
     title: 'WCAG Color Contrast Checker',
