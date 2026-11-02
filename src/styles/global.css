@@ -83,6 +83,8 @@ a:hover {
 /* ===== Site Container (Centered Card) ===== */
 .site-wrapper {
   max-width: 900px;
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
   background: var(--surface);
   min-height: 100vh;
@@ -107,6 +109,7 @@ a:hover {
 
 /* Navigation */
 .site-nav {
+  min-width: 0;
   padding: 0.6rem 2rem 1.4rem;
   text-align: left;
   font-size: 1.08rem;
@@ -277,10 +280,40 @@ a:hover {
   font-size: 0.92rem;
   line-height: 1.65;
 }
+.project-case-study {
+  grid-column: 1 / -1;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line-soft);
+}
+.project-case-study h4 {
+  margin: 0 0 0.65rem;
+  color: var(--text-strong);
+  font-size: 1.02rem;
+}
+.project-case-study dl {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+}
+.project-case-study dl > div {
+  display: grid;
+  grid-template-columns: minmax(105px, 0.3fr) minmax(0, 1fr);
+  gap: 0.7rem;
+}
+.project-case-study dt {
+  color: var(--text-strong);
+  font-weight: 700;
+}
+.project-case-study dd {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
 .project-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
+  margin-top: 1rem;
 }
 .project-media {
   align-self: start;
@@ -330,6 +363,126 @@ a:hover {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background: var(--surface-2);
+}
+
+/* ===== Contact ===== */
+.contact-intro {
+  margin-bottom: 1.5rem;
+}
+.contact-intro h2 {
+  margin: 0 0 0.5rem;
+  color: var(--text-strong);
+  font-size: clamp(1.25rem, 5vw, 1.5rem);
+  line-height: 1.3;
+}
+.contact-intro > p:last-child {
+  max-width: 700px;
+  margin: 0;
+  color: var(--text-soft);
+}
+.contact-card {
+  min-width: 0;
+  padding: 1.2rem;
+  border: 1.5px solid var(--line-soft);
+  border-radius: 7px;
+  background: var(--surface);
+  box-shadow: 3px 3px 0 var(--card-shadow-color);
+}
+.contact-form-card {
+  width: min(100%, 600px);
+  margin: 0 auto;
+}
+.contact-card h3 {
+  margin: 0 0 1rem;
+  color: var(--text-strong);
+  font-size: 1.2rem;
+}
+.contact-form fieldset {
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.contact-form label {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 0.3rem;
+}
+.contact-form input:not([type="hidden"]),
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: 16px;
+}
+.contact-form textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.contact-form fieldset:disabled {
+  opacity: 0.7;
+}
+.contact-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.form-setup-note {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border-left: 3px solid var(--flora-orange);
+  background: var(--surface-2);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+.form-setup-note code {
+  color: var(--text-strong);
+  font-size: 0.9em;
+}
+.form-feedback {
+  margin: 0.85rem 0 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+.form-feedback[data-state="sending"] {
+  background: var(--surface-2);
+  color: var(--text-soft);
+}
+.form-feedback[data-state="success"] {
+  background: rgba(26, 127, 55, 0.1);
+  color: var(--success);
+}
+.form-feedback[data-state="error"] {
+  background: rgba(207, 34, 46, 0.1);
+  color: var(--code-color);
+}
+.turnstile-widget {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 65px;
+}
+.contact-honeypot {
+  position: absolute;
+  left: -5000px;
 }
 .projects-note {
   margin: 1.5rem 0 0;
@@ -553,6 +706,13 @@ a:hover {
   font-family: inherit;
   background: var(--surface);
   color: var(--text-strong);
+}
+
+#conversion-direction {
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .converter-split {
@@ -854,6 +1014,16 @@ a:hover {
   border: 1px solid var(--border-color);
   padding: 0.55rem 0.9rem;
 }
+.prose table {
+  color: var(--text-body);
+}
+.prose table th {
+  background: var(--surface-2);
+  color: var(--text-strong);
+}
+.prose table td strong {
+  color: var(--text-strong);
+}
 
 .prose th {
   background: var(--surface-2);
@@ -881,6 +1051,18 @@ a:hover {
   .site-nav {
     padding: 0.5rem 1.25rem 1.1rem;
     font-size: 1rem;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.55rem;
+    min-width: 0;
+  }
+
+  .nav-links .sep {
+    display: none;
   }
   
   .site-content {
@@ -923,6 +1105,45 @@ a:hover {
     text-align: center;
   }
 
+  .site-header {
+    padding: 1rem 1rem 0.4rem;
+  }
+
+  .site-title {
+    font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.5rem 1rem 1rem;
+  }
+
+  .nav-links {
+    flex: 1 1 100%;
+    justify-content: center;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .nav-links a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav-actions {
+    align-self: flex-end;
+    margin-left: auto;
+    gap: 0.65rem;
+  }
+
+  .nav-actions .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
   .profile-sidebar {
     width: 160px;
   }
@@ -943,6 +1164,11 @@ a:hover {
     flex-direction: column;
   }
 
+  .project-case-study dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
   .tool-tab {
     width: 100%;
     text-align: center;
@@ -952,6 +1178,28 @@ a:hover {
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;
+  }
+
+  .site-content {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .contact-form fieldset,
+  .contact-form label,
+  .contact-form input:not([type="hidden"]),
+  .contact-form textarea {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .contact-form button[type="submit"] {
+    width: 100%;
+    min-height: 2.9rem;
   }
 }
 

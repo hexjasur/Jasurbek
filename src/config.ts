@@ -1,8 +1,5 @@
 /**
  * Global Site Configuration
- * 
- * Kelajakda o'z shaxsiy domeningizni (masalan: jasurbek-haydarov.uz) ulasangiz,
- * faqatgina shu bitta fayldagi qiymatlarni o'zgartirishingiz kifoya!
  */
 export const SITE_CONFIG = {
   // Sayt sarlavhalari va footerda ko'rinadigan domen nomi
@@ -29,6 +26,8 @@ export const SITE_CONFIG = {
   github: 'https://github.com/hexjasur',
   telegram: 'https://t.me/jasurhaydarovcode',
   email: 'jasurhaydarovcode@gmail.com',
+  formspreeFormId: 'mzzpozok',
+  turnstileSiteKey: '0x4AAAAAAFwsHifRv5JhQIOd',
 
   // Giscus comments (GitHub Discussions). Comments stay hidden until `categoryId` is filled in.
   // Setup: 1) enable Discussions in the repo settings, 2) install https://github.com/apps/giscus,

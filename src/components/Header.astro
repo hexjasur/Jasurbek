@@ -27,7 +27,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <span class="sep">|</span>
     <a href={`${baseUrl}tools`} class:list={[{ active: activePage === 'tools' }]} aria-current={activePage === 'tools' ? 'page' : undefined}>Tools</a>
     <span class="sep">|</span>
-        <a href={`${baseUrl}playground`} class:list={[{ active: activePage === 'playground' }]} aria-current={activePage === 'playground' ? 'page' : undefined}>Playground</a>
+    <a href={`${baseUrl}playground`} class:list={[{ active: activePage === 'playground' }]} aria-current={activePage === 'playground' ? 'page' : undefined}>Playground</a>
+    <span class="sep">|</span>
+    <a href={`${baseUrl}contact`} class:list={[{ active: activePage === 'contact' }]} aria-current={activePage === 'contact' ? 'page' : undefined}>Contact</a>
   </div>
   <div class="nav-actions">
     <button type="button" class="theme-toggle search-trigger" data-search-open aria-label="Search the site (Ctrl+K)" title="Search (Ctrl+K or /)">

@@ -17,6 +17,13 @@ const projects = [
       'Local-first account and AI chat session storage',
       'Developer tools, network inspection and media workflows'
     ],
+    caseStudy: {
+      problem: 'Useful developer, network, media, image, AI, and gaming utilities are often spread across separate apps, making everyday workflows feel fragmented.',
+      solution: 'Yolnoma brings these utility categories together in a Tauri desktop workspace, with local-first storage for account data and AI chat sessions.',
+      contribution: 'I built the application around a React and TypeScript interface, connected it to a Tauri v2 and Rust desktop layer, and brought multiple utility workflows into one product.',
+      decisions: 'I chose a web-based React interface with Tauri for native desktop delivery, and kept key application data local-first rather than making the desktop workspace depend on a remote account service.',
+      outcome: 'The result is a single desktop workspace for several everyday utility workflows, supported by a live web presence. No usage or performance figures are published yet.'
+    },
     website: 'https://app.yolnoma.uz',
     repository: 'https://github.com/hexjasur/Yolnoma-App',
     image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
@@ -36,6 +43,13 @@ const projects = [
       'Bisection, Newton, interpolation, quadrature and ODE solvers',
       'Interactive charts, formulas, audit tables and export tools'
     ],
+    caseStudy: {
+      problem: 'Solving numerical-method problems by hand can take hours, especially when finding roots requires many iterations or working through a long sequence of calculations.',
+      solution: 'Numeric Methods automates these calculations and presents approximate results alongside exact or reference values where applicable, with step-by-step formulas, charts, and audit tables.',
+      contribution: 'I built an interactive computational-mathematics application that helps users solve and inspect problems across root-finding, interpolation, quadrature, and ODE workflows.',
+      decisions: 'I focused on making each calculation transparent rather than returning only a final answer, so users can follow the steps, compare results, and check how a method arrived at its solution. The application is available on the web, desktop, and Android.',
+      outcome: 'The application reduces time spent on repetitive manual calculations and lets users focus more on understanding and verifying numerical methods.'
+    },
     website: 'https://sonli-usullar.uz',
     repository: 'https://github.com/hexjasur/numeric-methods',
     image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
@@ -54,6 +68,13 @@ const projects = [
       'Helps teams keep AI-assisted coding workflows consistent',
       'A documentation and engineering-process project rather than a visual app'
     ],
+    caseStudy: {
+      problem: 'AI coding agents need reliable repository context and consistent project conventions; without shared instructions, setup and expectations can vary between projects.',
+      solution: 'The repository documents how to install and maintain AGENTS.md instructions, with an emphasis on repeatable conventions and repository context.',
+      contribution: 'I created a focused documentation resource for setting up and updating agent instructions so teams can make their AI-assisted engineering workflows more consistent.',
+      decisions: 'I kept the project centered on practical repository-level guidance and reusable instructions, rather than building a separate application or prescribing one agent-specific workflow.',
+      outcome: 'The result is a reusable reference for maintaining agent guidance across software repositories. Its impact is described qualitatively because public usage metrics are not available.'
+    },
     image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
     repository: 'https://github.com/hexjasur/AGENTS.md',
     imageAlt: 'AGENTS.md documentation project placeholder'
@@ -98,6 +119,16 @@ const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200,
           <ul class="project-details">
             {project.details.map((detail) => <li>{detail}</li>)}
           </ul>
+          <div class="project-case-study">
+            <h4>Case study</h4>
+            <dl>
+              <div><dt>Problem</dt><dd>{project.caseStudy.problem}</dd></div>
+              <div><dt>Solution</dt><dd>{project.caseStudy.solution}</dd></div>
+              <div><dt>My contribution</dt><dd>{project.caseStudy.contribution}</dd></div>
+              <div><dt>Key decisions</dt><dd>{project.caseStudy.decisions}</dd></div>
+              <div><dt>Outcome</dt><dd>{project.caseStudy.outcome}</dd></div>
+            </dl>
+          </div>
           <div class="project-links">
             {project.website && <a class="btn" href={project.website} target="_blank" rel="noopener noreferrer">Open website</a>}
             <a class="btn btn-secondary" href={project.repository} target="_blank" rel="noopener noreferrer">View repository</a>

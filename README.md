@@ -23,7 +23,7 @@ The visual direction combines a warm editorial canvas with a botanical flora mot
 
 ## What is inside
 
-- **Profile** — a short biography, social links, and contact access.
+- **Profile and contact** — a short biography, social links, and a Formspree-powered contact form.
 - **Projects** — selected work with repository links, live websites, and real project screenshots.
 - **Blog** — technical notes about software engineering, tooling, AI-assisted workflows, and practical experiments. Posts have reading time, a table of contents, copy buttons on code blocks, older/newer navigation, tag pages, and optional Giscus comments.
 - **Tools** — privacy-first browser utilities: color contrast checker, CSS `clamp()` generator, Base64/URL encoder, UUID generator, JSON to TypeScript, minifier, and Uzbek alphabet converter.
@@ -158,6 +158,18 @@ Comments stay hidden until a Giscus category id is set:
 2. Install the [Giscus app](https://github.com/apps/giscus) on the repository.
 3. Open [giscus.app](https://giscus.app), choose the repository and category, and copy the generated `data-category-id`.
 4. Paste it into `comments.categoryId` in `src/config.ts`.
+
+### Enabling the contact form
+
+1. Create a form at [Formspree](https://formspree.io/) and copy its form ID.
+2. Set `formspreeFormId` in `src/config.ts` to that ID.
+3. The contact form at `/contact/` will then submit directly to Formspree.
+
+To protect the contact form with Cloudflare Turnstile:
+
+1. Create a Turnstile widget for your site's domain in the [Cloudflare dashboard](https://dash.cloudflare.com/).
+2. Enable CAPTCHA in the Formspree form settings, select Cloudflare Turnstile, and enter the Turnstile **secret key** there.
+3. Set the Turnstile **site key** as `turnstileSiteKey` in `src/config.ts`. Keep the secret key in Formspree; never add it to the site code.
 
 ## Adding content
 

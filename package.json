@@ -1,9 +1,10 @@
 {
-  "name": "jasurbek-portfolio",
+  "name": "jasurbek-haydarov",
   "type": "module",
-  "version": "3.3.0",
+  "version": "3.5.0",
   "scripts": {
     "dev": "astro dev",
+    "dev:ip": "bun run dev -- --host 0.0.0.0",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check"
