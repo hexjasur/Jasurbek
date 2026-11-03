@@ -960,6 +960,28 @@ a:hover {
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-body);
+  --tw-prose-body: var(--text-body);
+  --tw-prose-headings: var(--text-strong);
+  --tw-prose-lead: var(--text-body);
+  --tw-prose-links: var(--link-color);
+  --tw-prose-bold: var(--text-strong);
+  --tw-prose-counters: var(--text-faint);
+  --tw-prose-bullets: var(--text-faint);
+  --tw-prose-hr: var(--border-color);
+  --tw-prose-quotes: var(--text-strong);
+  --tw-prose-quote-borders: var(--border-color);
+  --tw-prose-captions: var(--text-faint);
+  --tw-prose-code: var(--code-color);
+  --tw-prose-pre-code: #f0f6fc;
+  --tw-prose-pre-bg: var(--code-block-bg);
+  --tw-prose-th-borders: var(--border-color);
+  --tw-prose-td-borders: var(--border-color);
+}
+
+.prose strong,
+.prose b {
+  color: var(--text-strong);
+  font-weight: 600;
 }
 
 .prose h1, .prose h2, .prose h3 {
@@ -981,7 +1003,7 @@ a:hover {
   font-size: 1.18rem;
 }
 
-.prose code {
+.prose :not(pre) > code {
   background: var(--surface-2);
   border: 1px solid var(--border-color);
   padding: 0.15rem 0.4rem;
@@ -998,8 +1020,11 @@ a:hover {
 }
 
 .prose pre code {
-  background: none;
-  border: none;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 0.9em;
   color: #f0f6fc;
 }
 
