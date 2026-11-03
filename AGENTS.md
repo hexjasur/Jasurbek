@@ -26,7 +26,7 @@ Run `bun run build` before pushing. It validates frontmatter against the content
 
 ```text
 src/content/blog/   Markdown posts (one file per post)
-src/content.config.ts   Blog schema: title, description, pubDate, tags?
+src/content.config.ts   Blog schema: title, description, pubDate, updatedDate?, tags?
 src/pages/          Routes (blog, tools, playground, projects, og, rss)
 src/data/           tools.ts and playground.ts (register new tools/demos here)
 src/lib/            Blog helpers, JSON-LD, OG rendering, URL helpers
@@ -72,9 +72,12 @@ Rules:
   title: "..."
   description: "..."
   pubDate: YYYY-MM-DD
+  updatedDate: YYYY-MM-DD   # optional, add only when a published post is meaningfully revised
   tags: ["tag-one", "tag-two"]
   ---
   ```
+
+- When you revise an already published post (corrected facts, new sections, new rates), set `updatedDate` to the revision day. The post then shows "Updated on: ..." next to the publish date and the date is used for `dateModified` / `article:modified_time`. It is hidden when it equals `pubDate`. Do not change `pubDate` for revisions.
 
 - Start body sections at `##` (the page title is the `h1`). Use `###` for subsections so the table of contents works.
 - Post page, OG image, RSS entry, sitemap entry, tag pages and search entry are generated automatically. Do not add them by hand.
@@ -84,6 +87,7 @@ Rules:
 ## General conventions
 
 - Keep the client-side JavaScript footprint small; prefer static Astro components.
+- Search (Pagefind) is loaded in `src/components/SearchPalette.astro` through a native `import()` created with `new Function`. Do not replace it with a plain `import(...)`: Vite wraps it in a preload helper whose `__VITE_PRELOAD__` placeholder is left undefined in the inlined production script, which silently breaks search on the deployed site. After touching search code, run `bun run build` + `bun run preview` and test search in a browser (it never works in `bun run dev`).
 - Reuse the flora theme tokens from `src/styles/global.css`; do not introduce new colors ad hoc.
 - Register new tools in `src/data/tools.ts` and new playground demos in `src/data/playground.ts`.
 - Keep user-facing copy accessible: alt text, visible focus states, reduced-motion support.

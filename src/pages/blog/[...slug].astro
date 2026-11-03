@@ -25,7 +25,13 @@ export async function getStaticPaths() {
 const { post, newer, older } = Astro.props;
 const { Content, headings } = await render(post);
 
-const formattedDate = formatDate(post.data.pubDate);
+const { pubDate, updatedDate } = post.data;
+const formattedDate = formatDate(pubDate);
+// Only show "Updated" when it falls on a different day than the publish date.
+const dayOf = (d: Date | string) => new Date(d).toISOString().slice(0, 10);
+const showUpdated = !!updatedDate && dayOf(updatedDate) !== dayOf(pubDate);
+const updatedISO = showUpdated ? new Date(updatedDate).toISOString() : undefined;
+const formattedUpdated = showUpdated ? formatDate(updatedDate) : undefined;
 const minutes = readingTime(post.body);
 
 const postSchema = blogPostingSchema({
@@ -33,7 +39,8 @@ const postSchema = blogPostingSchema({
   description: post.data.description,
   url: absoluteUrl(`blog/${post.id}/`),
   image: absoluteUrl(`og/blog/${post.id}.png`),
-  datePublished: post.data.pubDate,
+  datePublished: pubDate,
+  dateModified: updatedDate,
   tags: post.data.tags,
 });
 ---
@@ -44,7 +51,8 @@ const postSchema = blogPostingSchema({
   activePage="blog"
   headerTitle={SITE_CONFIG.domain}
   type="article"
-  publishedTime={post.data.pubDate}
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
   tags={post.data.tags}
   schema={postSchema}
 >
@@ -57,7 +65,13 @@ const postSchema = blogPostingSchema({
       {post.data.title}
     </h1>
     <div class="post-meta">
-      <time datetime={new Date(post.data.pubDate).toISOString()}>Published on: {formattedDate}</time>
+      <time datetime={new Date(pubDate).toISOString()}>Published on: {formattedDate}</time>
+      {formattedUpdated && (
+        <>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <time datetime={updatedISO}>Updated on: {formattedUpdated}</time>
+        </>
+      )}
       <span class="meta-dot" aria-hidden="true">·</span>
       <span>{minutes} min read</span>
     </div>

@@ -42,13 +42,22 @@ import { BASE_URL } from '../lib/url';
   const getList = () => document.getElementById('search-dialog-results');
   const getHint = () => document.getElementById('search-dialog-hint');
 
+  // Do NOT write `import(\`${base}pagefind/pagefind.js\`)` directly here. Vite wraps every dynamic
+  // import in a preload helper, and in the inlined production script the helper's
+  // `__VITE_PRELOAD__` placeholder is never replaced. That throws a ReferenceError in the browser
+  // and the search silently reports "index not found". Hiding the import from the bundler keeps it
+  // a native browser import of the Pagefind bundle that `bun run build` writes to `dist/pagefind/`.
+  const nativeImport = new Function('url', 'return import(url)') as (url: string) => Promise<PagefindApi>;
+
   async function loadPagefind(base: string): Promise<PagefindApi | null> {
     if (pagefind || loadFailed) return pagefind;
     try {
-      pagefind = (await import(/* @vite-ignore */ `${base}pagefind/pagefind.js`)) as PagefindApi;
-      await pagefind.options({ baseUrl: base });
-    } catch {
+      const api = await nativeImport(`${base}pagefind/pagefind.js`);
+      await api.options({ baseUrl: base });
+      pagefind = api;
+    } catch (error) {
       loadFailed = true;
+      console.error('Search index failed to load:', error);
     }
     return pagefind;
   }
