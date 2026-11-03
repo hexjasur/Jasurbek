@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'credit-module-calculator',
+    num: 8,
+    title: 'Kredit-Modul Hisoblagich (HEMIS / ECTS)',
+    description: "OTM talabalari uchun akademik qarzdorlik (qayta o'qish), fanlar farqi va 1 kredit qiymatini yillik kontrakt asosida aniq hisoblash kalkulyatori.",
+    slug: 'credit-module-calculator',
+  },
+  {
     id: 'base64-url',
     num: 7,
     title: 'Base64 & URL Encoder / Decoder',
