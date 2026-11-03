@@ -40,48 +40,6 @@ The visual direction combines a warm editorial canvas with a botanical flora mot
 - WebP images with explicit dimensions, system font stack, and almost no client-side JavaScript.
 - Accessibility basics: skip link, visible focus ring, `aria-current` navigation, reduced-motion support.
 
-## Selected projects
-
-### Yolnoma-App
-
-A Tauri-powered desktop workspace that gathers developer, network, media, image, AI, and gaming utilities in one native application.
-
-- React, TypeScript, Vite, Tailwind CSS
-- Tauri v2 and Rust
-- Local-first application data
-- Live website: [app.yolnoma.uz](https://app.yolnoma.uz)
-- Repository: [hexjasur/Yolnoma-App](https://github.com/hexjasur/Yolnoma-App)
-
-<div align="center">
-  <img src="./public/images/projects/yolnoma-app/yolnoma-dashboard.webp" alt="Yolnoma dashboard" width="48%" />
-  <img src="./public/images/projects/yolnoma-app/yolnoma-workspace.webp" alt="Yolnoma developer workspace" width="48%" />
-</div>
-
-### Numeric Methods
-
-An interactive laboratory for numerical methods and computational mathematics. It explains algorithms step by step with formulas, charts, audit tables, and export options.
-
-- Next.js 16, React 19, Tailwind CSS 4
-- Tauri v2 builds for web, Windows, Linux, and Android
-- Bisection, Newton, interpolation, quadrature, and ODE solvers
-- Live website: [sonli-usullar.uz](https://sonli-usullar.uz)
-- Repository: [hexjasur/numeric-methods](https://github.com/hexjasur/numeric-methods)
-
-<div align="center">
-  <img src="./public/images/projects/nm/numeric-methods-main.webp" alt="Numeric Methods main interface" width="48%" />
-  <img src="./public/images/projects/nm/numeric-methods-home.webp" alt="Numeric Methods calculation view" width="48%" />
-</div>
-
-### AGENTS.md
-
-A documentation project for installing and maintaining `AGENTS.md` instructions used by AI coding agents. It focuses on repeatable conventions, repository context, and consistent AI-assisted engineering workflows.
-
-- Repository: [hexjasur/AGENTS.md](https://github.com/hexjasur/AGENTS.md)
-
-<div align="center">
-  <img src="./public/images/projects/agents-md/agents-md-readme.webp" alt="AGENTS.md repository preview" width="82%" />
-</div>
-
 ## Built with
 
 | Layer | Technology |
