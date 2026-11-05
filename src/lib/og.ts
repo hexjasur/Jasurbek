@@ -59,7 +59,7 @@ function loadAssets() {
       .png()
       .toBuffer();
     const avatar = await sharp(pub('jasur-flora.webp'))
-      .resize(180, 180, { fit: 'cover', position: 'top' })
+      .resize(180, 180, { fit: 'cover', position: 'centre' })
       .png()
       .toBuffer();
     const uri = (b: Buffer) => `data:image/png;base64,${b.toString('base64')}`;
