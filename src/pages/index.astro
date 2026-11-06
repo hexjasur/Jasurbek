@@ -8,48 +8,695 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 ---
 
 <Layout 
-  title={`${SITE_CONFIG.author} - Profile / Biography`} 
-  description="Meet Jasurbek Haydarov, a developer exploring JavaScript, TypeScript, React, Node.js, desktop apps, and practical software projects."
+  title={`${SITE_CONFIG.author} - Profile & Biography`} 
+  description="Meet Jasurbek Haydarov — software engineer exploring TypeScript, React, Tauri desktop workspaces, computational systems, and Flora design aesthetics."
   activePage="profile" 
   headerTitle={`${SITE_CONFIG.author} - Profile / Biography`}
 >
-  <div class="profile-layout">
-    <aside class="profile-sidebar">
+  <div class="profile-v2">
+    <!-- Top Decorative Banner -->
+    <div class="profile-banner">
       <img
-        src={`${baseUrl}images/jasur-flora.webp`}
-        alt={SITE_CONFIG.author}
-        width="480"
-        height="640"
+        src={`${baseUrl}images/flora/hero-banner.jpg`}
+        alt="Flora vintage botanical banner"
+        width="1200"
+        height="350"
         fetchpriority="high"
         decoding="async"
-        class="profile-avatar"
+        class="banner-img"
       />
-      <div class="profile-socials">
-        <a href={SITE_CONFIG.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href={SITE_CONFIG.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="https://steamcommunity.com/id/ROCKSTAR_TTV" target="_blank" rel="noopener noreferrer">Steam</a>
-        <a href="#" class="email-trigger" title="Click to view Email">Email</a>
+      <div class="banner-gradient"></div>
+      <div class="banner-badge">
+        <span class="badge-kanji">技術者</span>
+        <span class="badge-sub">Software Artisan</span>
       </div>
-    </aside>
+    </div>
 
-    <div class="profile-main">
-      <h2>About <strong>{SITE_CONFIG.author}</strong></h2>
-      
-      <p>
-        Hi, I'm Jasurbek Haydarov — a developer who enjoys building things, exploring new technologies, and learning how things work.
-      </p>
+    <!-- Main Two-Column Layout -->
+    <div class="profile-content-grid">
+      <!-- Left Column: Avatar & Quick Info -->
+      <aside class="profile-aside">
+        <div class="avatar-frame">
+          <img
+            src={`${baseUrl}images/jasur-flora.webp`}
+            alt={SITE_CONFIG.author}
+            width="480"
+            height="640"
+            fetchpriority="high"
+            decoding="async"
+            class="profile-avatar"
+          />
+          <div class="hanko-seal" title="Jasurbek Seal (判子)">
+            <span>駿</span>
+          </div>
+        </div>
 
-      <p>
-        I mainly work with JavaScript and TypeScript, using tools like React and Node.js to create web applications. I also enjoy working on desktop apps, trying out new libraries, and building small tools that make everyday tasks easier.
-      </p>
+        <div class="profile-identity">
+          <h2 class="profile-name">{SITE_CONFIG.author}</h2>
+          <p class="profile-katakana">ジャスルベック・ハイダロフ</p>
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span>Crafting in Public</span>
+          </div>
+        </div>
 
-      <p>
-        I spend most of my time learning through personal projects. I like starting with an idea, experimenting with different approaches, and seeing where it leads. Not everything has to be a big project — sometimes even a small experiment can teach me something new.
-      </p>
+        <div class="profile-socials-v2">
+          <a href={SITE_CONFIG.github} target="_blank" rel="noopener noreferrer" class="social-chip">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href={SITE_CONFIG.telegram} target="_blank" rel="noopener noreferrer" class="social-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.73-.53.37-1.02.55-1.45.54-.48-.01-1.4-.27-2.08-.49-.84-.27-1.51-.42-1.45-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.54 3.92-1.63 4.74-1.92 5.27-1.93.12 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.2-.04.35z"/></svg>
+            <span>Telegram</span>
+          </a>
+          <a href="https://steamcommunity.com/id/ROCKSTAR_TTV" target="_blank" rel="noopener noreferrer" class="social-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.005.105.005.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.733L.439 15.27C1.862 20.307 6.494 24 11.979 24c6.627 0 12-5.373 12-12s-5.373-12-12-12zm-3.613 16.545l-1.924-.796c.307.747 1.011 1.291 1.859 1.343.34-.343.432-.472.065-.547zm7.575-9.878c-1.396 0-2.533 1.137-2.533 2.533 0 1.398 1.137 2.533 2.533 2.533 1.398 0 2.533-1.135 2.533-2.533 0-1.396-1.135-2.533-2.533-2.533zm0 .845c.932 0 1.688.756 1.688 1.688s-.756 1.688-1.688 1.688-1.688-.756-1.688-1.688.756-1.688 1.688-1.688z"/></svg>
+            <span>Steam</span>
+          </a>
+          <button type="button" class="social-chip email-trigger" title="Click to view Email">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span>Email</span>
+          </button>
+        </div>
+      </aside>
 
-      <p>
-        This website is where I share my projects, experiments, and things I've learned along the way. It's a little collection of what I do, what I enjoy, and what I'm currently exploring.
-      </p>
+      <!-- Right Column: Biography, Bento Grid & Philosophy -->
+      <main class="profile-main-v2">
+        <section class="bio-section">
+          <div class="bio-eyebrow">
+            <span class="kanji-accent">自己紹介</span>
+            <span class="eyebrow-text">Introduction</span>
+          </div>
+          <h1 class="bio-heading">
+            Building software with <span class="flora-italic">purpose</span>, depth, and tactile craftsmanship.
+          </h1>
+
+          <p class="bio-lead">
+            Hi, I'm <strong>{SITE_CONFIG.author}</strong> — a software engineer focused on building robust web applications, native desktop workspaces, and computational tools.
+          </p>
+
+          <p class="bio-text">
+            I specialize in the modern TypeScript ecosystem (React 19, Next.js, Astro) and native cross-platform delivery with Tauri v2 and Rust. My philosophy balances performance and clarity: code should be reliable, interfaces should feel tactile and intentional, and technology should quietly solve real problems.
+          </p>
+        </section>
+
+        <!-- Japanese Bento-Style Micro Grid (Space Efficient & Dense) -->
+        <section class="bento-section">
+          <div class="section-label-inline">
+            <span class="label-line"></span>
+            <span class="label-title">Specializations & Disciplines</span>
+            <span class="label-line"></span>
+          </div>
+
+          <div class="bento-grid">
+            <!-- Box 1: Full-Stack & Desktop -->
+            <div class="bento-card">
+              <div class="bento-icon">⚡</div>
+              <div class="bento-body">
+                <h3 class="bento-title">Full-Stack & Desktop</h3>
+                <p class="bento-desc">
+                  Building cross-platform desktop workspaces with Tauri v2 & Rust, paired with React 19, Next.js, and TypeScript.
+                </p>
+                <div class="bento-tags">
+                  <span>Tauri v2</span>
+                  <span>Rust</span>
+                  <span>React</span>
+                  <span>TypeScript</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box 2: Flora Aesthetics -->
+            <div class="bento-card card-accent-sage">
+              <div class="bento-icon">🌿</div>
+              <div class="bento-body">
+                <h3 class="bento-title">Flora Design System</h3>
+                <p class="bento-desc">
+                  Blending Japanese spatial minimalism (<em>Ma</em>) with retro botanical textures, custom CSS borders, and fluid micro-interactions.
+                </p>
+                <div class="bento-tags">
+                  <span>Aesthetics</span>
+                  <span>CSS Mastery</span>
+                  <span>Spatial UI</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box 3: Mathematics & Algorithms -->
+            <div class="bento-card">
+              <div class="bento-icon">📐</div>
+              <div class="bento-body">
+                <h3 class="bento-title">Numerical Systems</h3>
+                <p class="bento-desc">
+                  Creating computational labs for numerical methods, differential equations, and algorithm visualization tools.
+                </p>
+                <div class="bento-tags">
+                  <span>Algorithms</span>
+                  <span>ODE Solvers</span>
+                  <span>Analysis</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box 4: Gaming & Systems -->
+            <div class="bento-card card-accent-terracotta">
+              <div class="bento-icon">🎮</div>
+              <div class="bento-body">
+                <h3 class="bento-title">Gaming & Low Latency</h3>
+                <p class="bento-desc">
+                  Studying game HUD design, input latency optimization, and tactile interactive feedback inspired by gaming engines.
+                </p>
+                <div class="bento-tags">
+                  <span>HUD Design</span>
+                  <span>Steam Community</span>
+                  <span>Feedback</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Featured Spotlight Row -->
+        <section class="spotlight-section">
+          <div class="spotlight-card">
+            <div class="spotlight-content">
+              <div class="spotlight-badge">New Essay</div>
+              <h3 class="spotlight-title">
+                <a href={`${baseUrl}blog/engineering-flora-retro-design-system`}>
+                  Engineering Aesthetic Retro Interfaces: The Flora Design System & Spatial UI →
+                </a>
+              </h3>
+              <p class="spotlight-desc">
+                A deep dive into merging Japanese spatial minimalism, retro-botanical styling, and zero-bloat CSS borders.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quick Navigation / CTA -->
+        <div class="profile-cta-bar">
+          <a href={`${baseUrl}projects`} class="btn btn-flora">
+            <span>Explore Projects</span>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href={`${baseUrl}blog`} class="btn btn-secondary">
+            Read Articles
+          </a>
+          <a href={`${baseUrl}contact`} class="btn btn-ghost">
+            Get in Touch
+          </a>
+        </div>
+      </main>
     </div>
   </div>
 </Layout>
+
+<style>
+  .profile-v2 {
+    max-width: 100%;
+  }
+
+  /* ===== Banner ===== */
+  .profile-banner {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    filter: saturate(0.9);
+  }
+
+  .banner-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(28, 36, 48, 0.45), transparent 70%);
+  }
+
+  .banner-badge {
+    position: absolute;
+    bottom: 0.85rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(251, 246, 236, 0.94);
+    border: 1.5px solid var(--border-color);
+    border-radius: 999px;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+    backdrop-filter: blur(4px);
+  }
+
+  :root[data-theme='dark'] .banner-badge {
+    background: rgba(27, 36, 32, 0.94);
+  }
+
+  .badge-kanji {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--flora-orange, #b86752);
+    font-family: Georgia, serif;
+  }
+
+  .badge-sub {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-strong);
+  }
+
+  /* ===== Content Grid ===== */
+  .profile-content-grid {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  /* Aside / Avatar */
+  .profile-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar-frame {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 1rem;
+  }
+
+  .profile-avatar {
+    width: 100%;
+    aspect-ratio: 1 / 1.15;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2.5px solid var(--border-color);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    display: block;
+  }
+
+  .hanko-seal {
+    position: absolute;
+    bottom: -10px;
+    right: -8px;
+    width: 34px;
+    height: 34px;
+    background: #b86752;
+    border: 2px solid #8f4d3e;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    color: #fffaf1;
+    font-size: 1.05rem;
+    font-weight: 800;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+    user-select: none;
+    transform: rotate(-6deg);
+  }
+
+  .profile-identity {
+    margin-bottom: 1.1rem;
+  }
+
+  .profile-name {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, serif;
+  }
+
+  .profile-katakana {
+    margin: 0.15rem 0 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    background: var(--chip-bg);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success, #1a7f37);
+    box-shadow: 0 0 0 2px rgba(26, 127, 55, 0.2);
+    animation: pulse-dot 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .profile-socials-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .social-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--text-main);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1.5px 1.5px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .social-chip:hover {
+    background: var(--flora-sage);
+    transform: translate(-1px, -1px);
+    box-shadow: 2.5px 2.5px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  /* ===== Main Column ===== */
+  .profile-main-v2 {
+    min-width: 0;
+  }
+
+  .bio-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .kanji-accent {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--flora-orange, #b86752);
+  }
+
+  .eyebrow-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+
+  .bio-heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.35rem, 3.8vw, 1.75rem);
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text-strong);
+    line-height: 1.3;
+  }
+
+  .flora-italic {
+    color: var(--flora-orange, #b86752);
+    font-style: italic;
+  }
+
+  .bio-lead {
+    margin: 0 0 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-strong);
+  }
+
+  .bio-text {
+    margin: 0 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: var(--text-copy, var(--text-body));
+  }
+
+  /* ===== Bento Grid ===== */
+  .bento-section {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-label-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+  }
+
+  .label-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .bento-card {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .bento-card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .card-accent-sage {
+    border-top: 3px solid var(--flora-sage, #c7d2b1);
+  }
+
+  .card-accent-terracotta {
+    border-top: 3px solid var(--flora-orange, #b86752);
+  }
+
+  .bento-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .bento-body {
+    min-width: 0;
+  }
+
+  .bento-title {
+    margin: 0 0 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, serif;
+  }
+
+  .bento-desc {
+    margin: 0 0 0.55rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .bento-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .bento-tags span {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text-faint);
+  }
+
+  /* ===== Spotlight ===== */
+  .spotlight-section {
+    margin-bottom: 1.75rem;
+  }
+
+  .spotlight-card {
+    border: 2px solid var(--border-color);
+    border-left: 4px solid var(--flora-orange, #b86752);
+    border-radius: 10px;
+    padding: 0.95rem 1.15rem;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .spotlight-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fffaf1;
+    background: var(--flora-orange, #b86752);
+    border-radius: 4px;
+    margin-bottom: 0.4rem;
+  }
+
+  .spotlight-title {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .spotlight-title a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .spotlight-title a:hover {
+    text-decoration: underline;
+  }
+
+  .spotlight-desc {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+
+  /* ===== CTA Bar ===== */
+  .profile-cta-bar {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+  }
+
+  .btn-flora {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: var(--btn-bg, var(--focus));
+    color: #fffaf1;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 2.5px 2.5px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-flora:hover {
+    background: var(--btn-bg-hover);
+    transform: translate(-1px, -1px);
+    box-shadow: 3.5px 3.5px 0 var(--card-shadow-color);
+    text-decoration: none;
+    color: #fffaf1;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.95rem;
+    background: var(--flora-sage, #c7d2b1);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--sage-hover);
+    text-decoration: none;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.95rem;
+    background: transparent;
+    color: var(--link-color);
+    border: 1.5px solid var(--line-soft);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--flora-orange, #b86752);
+    background: var(--chip-bg);
+    text-decoration: none;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .profile-content-grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .profile-aside {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .profile-banner {
+      height: 140px;
+    }
+  }
+</style>

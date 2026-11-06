@@ -1975,3 +1975,205 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
 .rt-result { background: #3b6a8f; }
 .rt-early { background: #8a6d1a; }
 .rt-status { min-height: 1.4rem; margin: 0.9rem 0 0; font-size: 0.92rem; color: var(--text-soft); }
+
+/* ===== Enchanted Bloom — Japanese-inspired creative borders & decorations ===== */
+
+/* Decorative dot pattern border (washi-tape style) */
+.border-washi {
+  border: 2px solid var(--border-color);
+  border-image: repeating-linear-gradient(
+    45deg,
+    var(--flora-orange) 0 3px,
+    transparent 3px 8px,
+    var(--flora-sage) 8px 11px,
+    transparent 11px 16px
+  ) 4;
+}
+
+/* Double-line frame (traditional Japanese panel) */
+.border-nihon {
+  border: 3px double var(--border-color);
+  outline: 1px solid var(--line-soft);
+  outline-offset: 3px;
+}
+
+/* Stamp/Hanko style corner accent */
+.stamp-accent {
+  position: relative;
+}
+
+.stamp-accent::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--flora-orange, #b86752);
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Ink-brush underline effect */
+.ink-underline {
+  background-image: linear-gradient(
+    transparent calc(100% - 3px),
+    var(--flora-orange, #b86752) 3px
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.4s ease;
+}
+
+.ink-underline:hover {
+  background-size: 100% 100%;
+}
+
+/* Botanical divider between sections */
+.flora-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  color: var(--flora-sage, #c7d2b1);
+}
+
+.flora-divider::before,
+.flora-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+.flora-divider-icon {
+  font-size: 1.1rem;
+  opacity: 0.5;
+}
+
+/* Blog card enhanced hover with botanical vibe */
+.blog-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--flora-orange, #b86752), var(--flora-sage, #c7d2b1));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Enhanced blog grid with masonry feel */
+.blog-grid .blog-card:nth-child(3n+1) {
+  border-left: 3px solid var(--flora-orange, #b86752);
+}
+
+.blog-grid .blog-card:nth-child(3n+2) {
+  border-left: 3px solid var(--flora-sage, #c7d2b1);
+}
+
+.blog-grid .blog-card:nth-child(3n) {
+  border-left: 3px solid var(--flora-pink, #dda095);
+}
+
+/* Blog card reading time & date enhancement */
+.blog-card-date {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.blog-card-date::before {
+  content: '✦';
+  font-size: 0.65rem;
+  color: var(--flora-orange, #b86752);
+}
+
+/* ===== Creative micro-interactions ===== */
+
+/* Subtle parallax-ready background for sections */
+.section-botanical-bg {
+  position: relative;
+}
+
+.section-botanical-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, var(--flora-sage) 0%, transparent 70%);
+  opacity: 0.08;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Enhanced profile page socials */
+.profile-socials a {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.profile-socials a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--flora-orange, #b86752);
+  transition: all 0.2s ease;
+  transform: translateX(-50%);
+}
+
+.profile-socials a:hover::after {
+  width: 60%;
+}
+
+/* ===== Hero banner image support ===== */
+.hero-banner-wrap {
+  margin: -0.5rem -2rem 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.hero-banner-wrap img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  filter: saturate(0.85);
+}
+
+:root[data-theme='dark'] .hero-banner-wrap img {
+  filter: saturate(0.7) brightness(0.7);
+}
+
+/* ===== Animated noise/grain texture overlay ===== */
+.site-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.018;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme='dark'] .site-wrapper::before {
+  opacity: 0.03;
+}

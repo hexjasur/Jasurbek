@@ -6,6 +6,9 @@ import { SITE_CONFIG } from '../../config';
 
 const sortedPosts = await getSortedPosts();
 const totalPosts = sortedPosts.length;
+
+// Group posts by category/tag for better organization
+const categories = ['all', ...new Set(sortedPosts.flatMap(p => p.data.tags || []))];
 ---
 
 <Layout 
@@ -14,65 +17,446 @@ const totalPosts = sortedPosts.length;
   activePage="blog"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div class="blog-intro">
-    <h2 class="page-title">
-      Personal Tech Blog | {SITE_CONFIG.domain}
-    </h2>
-    <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-05</div>
+  <!-- Blog Hero with Flora aesthetic -->
+  <div class="blog-page">
+    <header class="blog-hero">
+      <div class="blog-hero-badge">
+        <span class="blog-kanji">記事</span>
+        <span class="blog-badge-text">Articles & Notes</span>
+      </div>
+      <h2 class="blog-hero-title">
+        Thoughts, <span class="flora-accent-text">code</span> & discoveries
+      </h2>
+      <p class="blog-hero-desc">
+        Real experiences, practical guides, and creative explorations in software engineering, 
+        design, gaming, and beyond. Not just theory — things I've built, broken, and learned from.
+      </p>
 
-    <p class="blog-desc">
-      Here I share technical knowledge, architectural patterns, and practical software engineering experiences. This tech blog serves as a personal archive where I record real-world learning, library installation benchmarks, and technical explorations across modern web and cloud systems.
-    </p>
-  </div>
+      <div class="blog-hero-meta">
+        <div class="meta-pill">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M2 7h10M2 10.5h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <span>{totalPosts} articles</span>
+        </div>
+        <div class="meta-pill">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 4v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <span>Updated regularly</span>
+        </div>
+      </div>
+    </header>
 
-  <div class="search-container">
-    <div class="search-field-row">
-      <label for="site-search-input">Filter articles:</label>
-      <div class="search-input-wrapper">
-        <svg class="search-icon-symbol" aria-hidden="true" viewBox="0 0 24 24" fill="none">
-          <circle cx="10.8" cy="10.8" r="6.3" />
-          <path d="m15.4 15.4 4.1 4.1" />
+    <!-- Search -->
+    <div class="blog-search-wrap">
+      <div class="blog-search-inner">
+        <svg class="blog-search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 12l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <input
           type="text"
           id="site-search-input"
-          class="search-input"
-          placeholder="Search..."
+          class="blog-search-input"
+          placeholder="Filter by title, topic, or tag..."
           autocomplete="off"
           spellcheck="false"
         />
+        <kbd class="blog-search-kbd">Ctrl+K</kbd>
       </div>
+      <p class="blog-search-hint">
+        For full-text search press <kbd>Ctrl</kbd>+<kbd>K</kbd> or <kbd>/</kbd>
+      </p>
     </div>
-    <p class="search-disclaimer">
-      Filtering happens entirely in your browser. For full-text search across the whole site press <kbd>Ctrl</kbd>+<kbd>K</kbd> or <kbd>/</kbd>.
-    </p>
-  </div>
 
-  <p class="tags-link-row">Looking for a topic? <a href={`${baseUrl}blog/tags`}>Browse all tags &rarr;</a></p>
+    <!-- Tags row -->
+    <div class="blog-tags-row">
+      <span class="blog-tags-label">Topics:</span>
+      <a href={`${baseUrl}blog/tags`} class="blog-tags-link">Browse all tags →</a>
+    </div>
 
-  <h3 class="blog-entries-title">Personal Tech Blog Entries</h3>
+    <!-- Blog Grid -->
+    <div class="blog-section-label">
+      <span class="blog-section-line"></span>
+      <span class="blog-section-text">{totalPosts} Entries</span>
+      <span class="blog-section-line"></span>
+    </div>
 
-  <div class="blog-grid" id="blog-grid">
-    {sortedPosts.map((post, index) => (
-      <article 
-        class="blog-card" 
-        data-title={post.data.title.toLowerCase()} 
-        data-desc={post.data.description.toLowerCase()}
-        data-tags={post.data.tags?.join(' ').toLowerCase() || ''}
-      >
-        <div class="blog-card-header">
-          <span class="blog-card-num">{totalPosts - index}.</span>
-          <a href={`${baseUrl}blog/${post.id}`}>{post.data.title}</a>
-        </div>
-      </article>
-    ))}
-  </div>
+    <div class="blog-grid-v2" id="blog-grid">
+      {sortedPosts.map((post, index) => (
+        <article 
+          class="blog-card-v2" 
+          data-title={post.data.title.toLowerCase()} 
+          data-desc={post.data.description.toLowerCase()}
+          data-tags={post.data.tags?.join(' ').toLowerCase() || ''}
+        >
+          <div class="card-left-accent"></div>
+          <div class="card-content-v2">
+            <div class="card-number">
+              <span>{String(totalPosts - index).padStart(2, '0')}</span>
+            </div>
+            <div class="card-main">
+              <a href={`${baseUrl}blog/${post.id}`} class="card-title-link">
+                {post.data.title}
+              </a>
+              {post.data.description && (
+                <p class="card-desc-v2">{post.data.description.substring(0, 120)}{post.data.description.length > 120 ? '...' : ''}</p>
+              )}
+              <div class="card-footer-v2">
+                {post.data.tags && post.data.tags.slice(0, 3).map((tag: string) => (
+                  <span class="card-tag">{tag}</span>
+                ))}
+                {post.data.date && (
+                  <time class="card-date-v2">{new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                )}
+              </div>
+            </div>
+            <div class="card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
 
-  <div id="no-results-msg" class="no-results" style="display: none;">
-    No matching articles found. Try another search term.
+    <div id="no-results-msg" class="no-results" style="display: none;">
+      No matching articles found. Try another search term.
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="blog-cta">
+      <p>Have a topic suggestion? <a href={`${baseUrl}contact`}>Let me know</a>.</p>
+    </div>
   </div>
 </Layout>
+
+<style>
+  .blog-page {
+    --card-radius: 12px;
+  }
+
+  /* Hero */
+  .blog-hero {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+
+  .blog-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.3rem 0.9rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--chip-bg);
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-kanji {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--flora-orange, var(--btn-bg));
+    font-family: Georgia, serif;
+  }
+
+  .blog-badge-text {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-faint);
+  }
+
+  .blog-hero-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.5rem, 4.5vw, 2rem);
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text-strong);
+    line-height: 1.25;
+  }
+
+  .flora-accent-text {
+    color: var(--flora-orange, var(--btn-bg));
+    font-style: italic;
+  }
+
+  .blog-hero-desc {
+    max-width: 520px;
+    margin: 0 auto 1.25rem;
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .blog-hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--surface-2);
+  }
+
+  .meta-pill svg { color: var(--flora-orange, var(--btn-bg)); }
+
+  /* Search */
+  .blog-search-wrap {
+    margin: 0 0 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--card-radius);
+    padding: 0.85rem 1rem;
+    background: var(--card-bg, var(--surface-2));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .blog-search-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .blog-search-icon {
+    flex-shrink: 0;
+    color: var(--text-faint);
+  }
+
+  .blog-search-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--text-strong);
+  }
+
+  .blog-search-kbd {
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--line-soft);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text-faint);
+  }
+
+  .blog-search-hint {
+    margin: 0.5rem 0 0;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .blog-search-hint kbd {
+    font: inherit;
+    font-size: 0.85em;
+    padding: 0 0.25rem;
+    border: 1px solid var(--line-soft);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    background: var(--surface-2);
+  }
+
+  /* Tags row */
+  .blog-tags-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+
+  .blog-tags-label {
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+
+  .blog-tags-link {
+    font-weight: 600;
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .blog-tags-link:hover { text-decoration: underline; }
+
+  /* Section label */
+  .blog-section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+  }
+
+  .blog-section-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  /* ===== Blog Cards V2 ===== */
+  .blog-grid-v2 {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .blog-card-v2 {
+    display: grid;
+    grid-template-columns: 4px 1fr;
+    border: 2px solid var(--border-color);
+    border-radius: var(--card-radius);
+    background: var(--card-bg, var(--surface));
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .blog-card-v2:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    border-color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .card-left-accent {
+    background: linear-gradient(to bottom, var(--flora-orange, #b86752), var(--flora-sage, #c7d2b1));
+  }
+
+  .blog-card-v2:nth-child(3n+2) .card-left-accent {
+    background: linear-gradient(to bottom, var(--flora-sage, #c7d2b1), var(--flora-pink, #dda095));
+  }
+
+  .blog-card-v2:nth-child(3n) .card-left-accent {
+    background: linear-gradient(to bottom, var(--flora-pink, #dda095), var(--flora-orange, #b86752));
+  }
+
+  .card-content-v2 {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .card-number {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 8px;
+    background: var(--chip-bg);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-title-link {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--link-color);
+    text-decoration: none;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-title-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .card-desc-v2 {
+    margin: 0 0 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer-v2 {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .card-tag {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    color: var(--text-faint);
+    background: var(--surface-2);
+  }
+
+  .card-date-v2 {
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    margin-left: auto;
+  }
+
+  .card-arrow {
+    flex-shrink: 0;
+    color: var(--text-faint);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.15s ease;
+  }
+
+  .blog-card-v2:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* CTA */
+  .blog-cta {
+    text-align: center;
+    padding: 1.5rem 0 0;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+
+  .blog-cta a {
+    color: var(--link-color);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .blog-hero-title { font-size: 1.35rem; }
+    .card-number { display: none; }
+    .card-arrow { display: none; }
+    .blog-hero-meta { flex-direction: column; align-items: center; gap: 0.5rem; }
+  }
+</style>
 
 <script>
   function setupSearch() {
@@ -83,7 +467,7 @@ const totalPosts = sortedPosts.length;
 
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.toLowerCase().trim();
-      const cards = grid.querySelectorAll('.blog-card') as NodeListOf<HTMLElement>;
+      const cards = grid.querySelectorAll('.blog-card-v2') as NodeListOf<HTMLElement>;
       let visibleCount = 0;
 
       cards.forEach(card => {
@@ -91,7 +475,7 @@ const totalPosts = sortedPosts.length;
         const desc = card.dataset.desc || '';
         const tags = card.dataset.tags || '';
         const matches = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
-        card.style.display = matches ? 'flex' : 'none';
+        card.style.display = matches ? 'grid' : 'none';
         if (matches) visibleCount++;
       });
 

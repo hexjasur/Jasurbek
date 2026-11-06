@@ -8,87 +8,51 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 const projects = [
   {
+    slug: 'yolnoma-app',
     title: 'Yolnoma-App',
     eyebrow: 'Desktop application',
+    tagline: 'Developer workspace. Unified utilities. Tauri-powered.',
     description: 'A Tauri-powered desktop workspace that brings developer, network, media, image, AI, and gaming utilities into one practical application.',
-    details: [
-      'React, TypeScript, Vite and Tailwind CSS frontend',
-      'Tauri v2 and Rust native desktop layer',
-      'Local-first account and AI chat session storage',
-      'Developer tools, network inspection and media workflows'
-    ],
-    caseStudy: {
-      problem: 'Useful developer, network, media, image, AI, and gaming utilities are often spread across separate apps, making everyday workflows feel fragmented.',
-      solution: 'Yolnoma brings these utility categories together in a Tauri desktop workspace, with local-first storage for account data and AI chat sessions.',
-      contribution: 'I built the application around a React and TypeScript interface, connected it to a Tauri v2 and Rust desktop layer, and brought multiple utility workflows into one product.',
-      decisions: 'I chose a web-based React interface with Tauri for native desktop delivery, and kept key application data local-first rather than making the desktop workspace depend on a remote account service.',
-      outcome: 'The result is a single desktop workspace for several everyday utility workflows, supported by a live web presence. No usage or performance figures are published yet.'
-    },
-    website: 'https://app.yolnoma.uz',
-    repository: 'https://github.com/hexjasur/Yolnoma-App',
+    tags: ['React', 'TypeScript', 'Tauri v2', 'Rust', 'Vite'],
     image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
     imageAlt: 'Yolnoma desktop workspace preview',
-    screenshots: [
-      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-dashboard.webp`, alt: 'Yolnoma dashboard screenshot' },
-      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-workspace.webp`, alt: 'Yolnoma developer workspace screenshot' }
-    ]
+    featured: true,
+    year: '2025–Present',
+    website: 'https://app.yolnoma.uz',
+    repository: 'https://github.com/hexjasur/Yolnoma-App',
   },
   {
+    slug: 'numeric-methods',
     title: 'Numeric Methods',
     eyebrow: 'Web, desktop and Android',
+    tagline: 'Interactive algorithms. Step-by-step computation. Cross-platform.',
     description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step.',
-    details: [
-      'Next.js 16, React 19 and Tailwind CSS 4',
-      'Tauri v2 builds for Windows, Linux and Android',
-      'Bisection, Newton, interpolation, quadrature and ODE solvers',
-      'Interactive charts, formulas, audit tables and export tools'
-    ],
-    caseStudy: {
-      problem: 'Solving numerical-method problems by hand can take hours, especially when finding roots requires many iterations or working through a long sequence of calculations.',
-      solution: 'Numeric Methods automates these calculations and presents approximate results alongside exact or reference values where applicable, with step-by-step formulas, charts, and audit tables.',
-      contribution: 'I built an interactive computational-mathematics application that helps users solve and inspect problems across root-finding, interpolation, quadrature, and ODE workflows.',
-      decisions: 'I focused on making each calculation transparent rather than returning only a final answer, so users can follow the steps, compare results, and check how a method arrived at its solution. The application is available on the web, desktop, and Android.',
-      outcome: 'The application reduces time spent on repetitive manual calculations and lets users focus more on understanding and verifying numerical methods.'
-    },
-    website: 'https://sonli-usullar.uz',
-    repository: 'https://github.com/hexjasur/numeric-methods',
+    tags: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Tauri v2'],
     image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
     imageAlt: 'Numeric Methods application preview',
-    screenshots: [
-      { src: `${baseUrl}images/projects/nm/numeric-methods-home.webp`, alt: 'Numeric Methods calculating state preview' },
-      { src: `${baseUrl}images/projects/nm/numeric-methods-ode.webp`, alt: 'Numeric Methods ODE solver preview' }
-    ]
+    featured: true,
+    year: '2025–Present',
+    website: 'https://sonli-usullar.uz',
+    repository: 'https://github.com/hexjasur/numeric-methods',
   },
   {
+    slug: 'agents-md',
     title: 'AGENTS.md',
     eyebrow: 'Developer documentation',
+    tagline: 'AI agent instructions. Consistent workflows. Team standards.',
     description: 'A focused repository for installing and updating AGENTS.md instructions used by AI coding agents across software projects.',
-    details: [
-      'Documents repeatable agent instructions and project conventions',
-      'Helps teams keep AI-assisted coding workflows consistent',
-      'A documentation and engineering-process project rather than a visual app'
-    ],
-    caseStudy: {
-      problem: 'AI coding agents need reliable repository context and consistent project conventions; without shared instructions, setup and expectations can vary between projects.',
-      solution: 'The repository documents how to install and maintain AGENTS.md instructions, with an emphasis on repeatable conventions and repository context.',
-      contribution: 'I created a focused documentation resource for setting up and updating agent instructions so teams can make their AI-assisted engineering workflows more consistent.',
-      decisions: 'I kept the project centered on practical repository-level guidance and reusable instructions, rather than building a separate application or prescribing one agent-specific workflow.',
-      outcome: 'The result is a reusable reference for maintaining agent guidance across software repositories. Its impact is described qualitatively because public usage metrics are not available.'
-    },
+    tags: ['Documentation', 'AI', 'Engineering'],
     image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
+    imageAlt: 'AGENTS.md documentation project',
+    featured: false,
+    year: '2025',
     repository: 'https://github.com/hexjasur/AGENTS.md',
-    imageAlt: 'AGENTS.md documentation project placeholder'
-  }
+  },
 ];
 
-// Intrinsic sizes (px) so the browser can reserve space before images load.
 const imageSizes: Record<string, [number, number]> = {
   'yolnoma-brand.webp': [1200, 675],
-  'yolnoma-dashboard.webp': [1200, 724],
-  'yolnoma-workspace.webp': [1200, 782],
   'numeric-methods-main.webp': [1200, 600],
-  'numeric-methods-home.webp': [1200, 600],
-  'numeric-methods-ode.webp': [1200, 601],
   'agents-md-readme.webp': [817, 696],
 };
 const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200, 675];
@@ -100,77 +64,648 @@ const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200,
   activePage="projects"
   headerTitle={SITE_CONFIG.domain}
 >
-  <section class="projects-intro">
-    <p class="eyebrow">Selected work</p>
-    <h2>Projects by {SITE_CONFIG.author}</h2>
-    <p>
-      A selection of software and documentation projects covering native desktop applications,
-      computational mathematics, developer tooling, and AI-assisted engineering workflows.
-    </p>
-  </section>
+  <!-- Decorative flora elements for projects page -->
+  <div class="projects-page">
 
-  <div class="projects-list">
-    {projects.map((project) => (
-      <article class="project-card">
-        <div class="project-card-copy">
-          <p class="project-eyebrow">{project.eyebrow}</p>
-          <h3>{project.title}</h3>
-          <p class="project-description">{project.description}</p>
-          <ul class="project-details">
-            {project.details.map((detail) => <li>{detail}</li>)}
-          </ul>
-          <div class="project-case-study">
-            <h4>Case study</h4>
-            <dl>
-              <div><dt>Problem</dt><dd>{project.caseStudy.problem}</dd></div>
-              <div><dt>Solution</dt><dd>{project.caseStudy.solution}</dd></div>
-              <div><dt>My contribution</dt><dd>{project.caseStudy.contribution}</dd></div>
-              <div><dt>Key decisions</dt><dd>{project.caseStudy.decisions}</dd></div>
-              <div><dt>Outcome</dt><dd>{project.caseStudy.outcome}</dd></div>
-            </dl>
-          </div>
-          <div class="project-links">
-            {project.website && <a class="btn" href={project.website} target="_blank" rel="noopener noreferrer">Open website</a>}
-            <a class="btn btn-secondary" href={project.repository} target="_blank" rel="noopener noreferrer">View repository</a>
-          </div>
+    <!-- Hero Section with Japanese-inspired minimal layout -->
+    <section class="projects-hero">
+      <div class="projects-hero-badge">
+        <span class="hero-kanji">作品</span>
+        <span class="hero-badge-text">Selected Work</span>
+      </div>
+      <h2 class="projects-hero-title">
+        Crafted with <span class="flora-accent">intention</span>
+      </h2>
+      <p class="projects-hero-subtitle">
+        Each project starts with curiosity and grows through deliberate design decisions.
+        Here are the ones I'm most proud of.
+      </p>
+      <div class="projects-hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">{projects.length}</span>
+          <span class="stat-label">Projects</span>
         </div>
-        <div class:list={["project-media", { "project-media-placeholder": !project.image }]}>
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={project.imageAlt}
-              width={sizeOf(project.image)[0]}
-              height={sizeOf(project.image)[1]}
-              loading="lazy"
-              decoding="async"
-            />
-          ) : (
-            <div class="project-placeholder-content">
-              <span class="project-placeholder-mark">AGENTS.md</span>
-              <span>Documentation repository</span>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">{projects.reduce((acc, p) => acc + p.tags.length, 0)}+</span>
+          <span class="stat-label">Technologies</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">{projects.filter(p => p.website).length}</span>
+          <span class="stat-label">Live Sites</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Grid -->
+    <section class="projects-section">
+      <div class="section-label">
+        <span class="section-label-line"></span>
+        <span class="section-label-text">Featured</span>
+        <span class="section-label-line"></span>
+      </div>
+
+      <div class="projects-grid">
+        {projects.filter(p => p.featured).map((project, i) => (
+          <article class={`project-card-v2 ${i === 0 ? 'card-wide' : ''}`}>
+            <div class="card-border-accent"></div>
+            <div class="card-corner-deco card-corner-tl">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 2C2 2 2 12 12 22" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="6" cy="6" r="2" fill="currentColor" opacity="0.2"/></svg>
             </div>
-          )}
-        </div>
-        {project.screenshots && (
-          <div class="project-screenshots" aria-label={`${project.title} screenshots`}>
-            {project.screenshots.map((screenshot) => (
+            <div class="card-corner-deco card-corner-br">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 22C22 22 22 12 12 2" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="18" cy="18" r="2" fill="currentColor" opacity="0.2"/></svg>
+            </div>
+
+            <div class="card-media-v2">
               <img
-                src={screenshot.src}
-                alt={screenshot.alt}
-                width={sizeOf(screenshot.src)[0]}
-                height={sizeOf(screenshot.src)[1]}
-                loading="lazy"
+                src={project.image}
+                alt={project.imageAlt}
+                width={sizeOf(project.image)[0]}
+                height={sizeOf(project.image)[1]}
+                loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
               />
-            ))}
-          </div>
-        )}
-      </article>
-    ))}
-  </div>
+              <div class="card-media-overlay">
+                <span class="card-year">{project.year}</span>
+              </div>
+            </div>
 
-  <p class="projects-note">
-    Screenshots are sourced from the linked project repositories. Visit each repository for releases,
-    installation instructions, source code, and the latest updates.
-  </p>
+            <div class="card-body-v2">
+              <p class="card-eyebrow-v2">{project.eyebrow}</p>
+              <h3 class="card-title-v2">{project.title}</h3>
+              <p class="card-tagline">{project.tagline}</p>
+
+              <div class="card-tags-v2">
+                {project.tags.map(tag => (
+                  <span class="tag-chip">{tag}</span>
+                ))}
+              </div>
+
+              <div class="card-actions-v2">
+                <a href={`${baseUrl}projects/${project.slug}`} class="btn btn-flora">
+                  <span>View Details</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                {project.website && (
+                  <a href={project.website} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Live ↗</a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Other Projects -->
+    <section class="projects-section">
+      <div class="section-label">
+        <span class="section-label-line"></span>
+        <span class="section-label-text">More Work</span>
+        <span class="section-label-line"></span>
+      </div>
+
+      <div class="projects-list-compact">
+        {projects.filter(p => !p.featured).map(project => (
+          <article class="project-row">
+            <div class="row-indicator"></div>
+            <div class="row-content">
+              <div class="row-header">
+                <h3 class="row-title">{project.title}</h3>
+                <span class="row-year">{project.year}</span>
+              </div>
+              <p class="row-description">{project.description}</p>
+              <div class="row-tags">
+                {project.tags.map(tag => (
+                  <span class="tag-chip tag-chip-sm">{tag}</span>
+                ))}
+              </div>
+              <div class="row-actions">
+                <a href={`${baseUrl}projects/${project.slug}`} class="row-link">Details →</a>
+                <a href={project.repository} target="_blank" rel="noopener noreferrer" class="row-link">Repository ↗</a>
+              </div>
+            </div>
+            {project.image && (
+              <div class="row-thumb">
+                <img src={project.image} alt={project.imageAlt} width="120" height="80" loading="lazy" decoding="async" />
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <div class="projects-cta">
+      <div class="cta-deco">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M24 4C24 4 4 16 4 28c0 8 8 16 20 16s20-8 20-16C44 16 24 4 24 4z" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+          <circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.15"/>
+          <path d="M20 20c0-4 4-8 4-8s4 4 4 8" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+        </svg>
+      </div>
+      <p class="cta-text">
+        More projects live on <a href={SITE_CONFIG.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
+        Got something in mind? <a href={`${baseUrl}contact`}>Let's talk</a>.
+      </p>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  /* ===== Projects Page — Enchanted Bloom Redesign ===== */
+
+  .projects-page {
+    --card-radius: 14px;
+    --flora-border: 2px solid var(--border-color);
+  }
+
+  /* Hero */
+  .projects-hero {
+    text-align: center;
+    padding: 1.5rem 0 2.5rem;
+    position: relative;
+  }
+
+  .projects-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--chip-bg);
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+
+  .hero-kanji {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--flora-orange, var(--btn-bg));
+    font-family: Georgia, serif;
+  }
+
+  .hero-badge-text {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+  }
+
+  .projects-hero-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.25;
+  }
+
+  .flora-accent {
+    color: var(--flora-orange, var(--btn-bg));
+    font-style: italic;
+  }
+
+  .projects-hero-subtitle {
+    max-width: 500px;
+    margin: 0 auto 1.75rem;
+    color: var(--text-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .projects-hero-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: var(--flora-border);
+    border-radius: 12px;
+    background: var(--card-bg, var(--surface-2));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .stat-number {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 600;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 2rem;
+    background: var(--line-soft);
+  }
+
+  /* Section Labels */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section-label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+  }
+
+  .section-label-text {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .projects-section {
+    margin-bottom: 2.5rem;
+  }
+
+  /* ===== Grid Cards V2 ===== */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.35rem;
+  }
+
+  .project-card-v2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: var(--flora-border);
+    border-radius: var(--card-radius);
+    background: var(--card-bg, var(--surface));
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .project-card-v2:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--card-shadow-color);
+  }
+
+  .card-wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  /* Accent border top */
+  .card-border-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--flora-orange, #b86752), var(--flora-sage, #c7d2b1), var(--flora-orange, #b86752));
+    z-index: 2;
+  }
+
+  /* Corner decorations */
+  .card-corner-deco {
+    position: absolute;
+    z-index: 3;
+    color: var(--flora-sage, #c7d2b1);
+    pointer-events: none;
+  }
+
+  .card-corner-tl { top: 6px; left: 6px; }
+  .card-corner-br { bottom: 6px; right: 6px; }
+
+  /* Card media */
+  .card-media-v2 {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+    aspect-ratio: 16 / 9;
+  }
+
+  .card-wide .card-media-v2 {
+    border-bottom: none;
+    border-right: 1px solid var(--border-color);
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+
+  .card-media-v2 img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card-v2:hover .card-media-v2 img {
+    transform: scale(1.03);
+  }
+
+  .card-media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0.75rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.5));
+  }
+
+  .card-year {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,0.35);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  /* Card body */
+  .card-body-v2 {
+    padding: 1.15rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-eyebrow-v2 {
+    margin: 0 0 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .card-title-v2 {
+    margin: 0 0 0.45rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.3;
+  }
+
+  .card-tagline {
+    margin: 0 0 0.85rem;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .card-tags-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag-chip {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--surface-2, var(--chip-bg));
+    color: var(--text-soft);
+    letter-spacing: 0.02em;
+  }
+
+  .tag-chip-sm {
+    padding: 0.15rem 0.45rem;
+    font-size: 0.68rem;
+  }
+
+  .card-actions-v2 {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+    flex-wrap: wrap;
+  }
+
+  /* Flora Buttons */
+  .btn-flora {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: var(--btn-bg, var(--focus));
+    color: #fffaf1;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-flora:hover {
+    background: var(--btn-bg-hover, var(--focus-strong));
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    text-decoration: none;
+    color: #fffaf1;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.85rem;
+    background: transparent;
+    color: var(--link-color);
+    border: 1.5px solid var(--line-soft);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--flora-orange, var(--btn-bg));
+    background: var(--chip-bg);
+    text-decoration: none;
+    color: var(--link-color);
+  }
+
+  /* ===== Compact List (More Work) ===== */
+  .projects-list-compact {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 4px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.15rem;
+    border: var(--flora-border);
+    border-radius: 10px;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .project-row:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .row-indicator {
+    width: 4px;
+    height: 100%;
+    min-height: 3rem;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, var(--flora-orange, #b86752), var(--flora-sage, #c7d2b1));
+  }
+
+  .row-content { min-width: 0; }
+
+  .row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .row-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .row-year {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .row-description {
+    margin: 0 0 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.55;
+  }
+
+  .row-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .row-actions {
+    display: flex;
+    gap: 0.85rem;
+  }
+
+  .row-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .row-link:hover { text-decoration: underline; }
+
+  .row-thumb {
+    width: 100px;
+    height: 68px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+    flex-shrink: 0;
+  }
+
+  .row-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ===== CTA ===== */
+  .projects-cta {
+    text-align: center;
+    padding: 1.5rem 0;
+    color: var(--text-soft);
+  }
+
+  .cta-deco {
+    color: var(--flora-sage, #c7d2b1);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .cta-text a {
+    color: var(--link-color);
+    font-weight: 600;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card-wide {
+      grid-template-columns: 1fr;
+    }
+
+    .card-wide .card-media-v2 {
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+      aspect-ratio: 16 / 9;
+    }
+
+    .projects-hero-stats {
+      gap: 1rem;
+      padding: 0.65rem 1rem;
+    }
+
+    .stat-number { font-size: 1.15rem; }
+  }
+
+  @media (max-width: 600px) {
+    .project-row {
+      grid-template-columns: 4px 1fr;
+    }
+
+    .row-thumb { display: none; }
+
+    .projects-hero-title {
+      font-size: 1.4rem;
+    }
+  }
+</style>

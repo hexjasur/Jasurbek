@@ -1,0 +1,608 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+// Project data store — matches index.astro slugs
+const allProjects: Record<string, any> = {
+  'yolnoma-app': {
+    title: 'Yolnoma-App',
+    eyebrow: 'Desktop application',
+    tagline: 'Developer workspace. Unified utilities. Tauri-powered.',
+    description: 'A Tauri-powered desktop workspace that brings developer, network, media, image, AI, and gaming utilities into one practical application.',
+    longDescription: `Yolnoma is a native desktop application that unifies multiple developer workflows into a single polished experience. Instead of juggling separate apps for network tools, media conversion, AI chat, and developer utilities, Yolnoma brings them together with a cohesive interface and local-first data storage.
+
+The application is built with React and TypeScript on the frontend, using Vite for fast iteration and Tailwind CSS for styling. The native layer is powered by Tauri v2 with Rust, providing system-level access while keeping the bundle size minimal compared to Electron-based alternatives.`,
+    details: [
+      'React, TypeScript, Vite and Tailwind CSS frontend',
+      'Tauri v2 and Rust native desktop layer',
+      'Local-first account and AI chat session storage',
+      'Developer tools, network inspection and media workflows',
+    ],
+    tags: ['React', 'TypeScript', 'Tauri v2', 'Rust', 'Vite', 'Tailwind CSS'],
+    caseStudy: {
+      problem: 'Useful developer, network, media, image, AI, and gaming utilities are often spread across separate apps, making everyday workflows feel fragmented.',
+      solution: 'Yolnoma brings these utility categories together in a Tauri desktop workspace, with local-first storage for account data and AI chat sessions.',
+      contribution: 'I built the application around a React and TypeScript interface, connected it to a Tauri v2 and Rust desktop layer, and brought multiple utility workflows into one product.',
+      decisions: 'I chose a web-based React interface with Tauri for native desktop delivery, and kept key application data local-first rather than making the desktop workspace depend on a remote account service.',
+      outcome: 'The result is a single desktop workspace for several everyday utility workflows, supported by a live web presence.',
+    },
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://app.yolnoma.uz',
+    repository: 'https://github.com/hexjasur/Yolnoma-App',
+    image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
+    imageAlt: 'Yolnoma desktop workspace preview',
+    screenshots: [
+      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-dashboard.webp`, alt: 'Yolnoma dashboard screenshot' },
+      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-workspace.webp`, alt: 'Yolnoma developer workspace screenshot' },
+    ],
+  },
+  'numeric-methods': {
+    title: 'Numeric Methods',
+    eyebrow: 'Web, desktop and Android',
+    tagline: 'Interactive algorithms. Step-by-step computation. Cross-platform.',
+    description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step.',
+    longDescription: `Numeric Methods is a cross-platform educational application that automates the tedious manual calculations students encounter in numerical analysis courses. Every algorithm shows its work — from initial setup through each iteration to the final result — so users can verify each step.
+
+The project covers root-finding (bisection, Newton's method), interpolation, numerical integration (quadrature), and ODE solvers. Each method is presented with interactive inputs, live charts, step-by-step formula display, and exportable audit tables.`,
+    details: [
+      'Next.js 16, React 19 and Tailwind CSS 4',
+      'Tauri v2 builds for Windows, Linux and Android',
+      'Bisection, Newton, interpolation, quadrature and ODE solvers',
+      'Interactive charts, formulas, audit tables and export tools',
+    ],
+    tags: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Tauri v2', 'Mathematics'],
+    caseStudy: {
+      problem: 'Solving numerical-method problems by hand can take hours, especially when finding roots requires many iterations or working through a long sequence of calculations.',
+      solution: 'Numeric Methods automates these calculations and presents approximate results alongside exact or reference values where applicable, with step-by-step formulas, charts, and audit tables.',
+      contribution: 'I built an interactive computational-mathematics application that helps users solve and inspect problems across root-finding, interpolation, quadrature, and ODE workflows.',
+      decisions: 'I focused on making each calculation transparent rather than returning only a final answer. The application is available on the web, desktop, and Android.',
+      outcome: 'The application reduces time spent on repetitive manual calculations and lets users focus more on understanding and verifying numerical methods.',
+    },
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://sonli-usullar.uz',
+    repository: 'https://github.com/hexjasur/numeric-methods',
+    image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
+    imageAlt: 'Numeric Methods application preview',
+    screenshots: [
+      { src: `${baseUrl}images/projects/nm/numeric-methods-home.webp`, alt: 'Numeric Methods home preview' },
+      { src: `${baseUrl}images/projects/nm/numeric-methods-ode.webp`, alt: 'Numeric Methods ODE solver preview' },
+    ],
+  },
+  'agents-md': {
+    title: 'AGENTS.md',
+    eyebrow: 'Developer documentation',
+    tagline: 'AI agent instructions. Consistent workflows. Team standards.',
+    description: 'A focused repository for installing and updating AGENTS.md instructions used by AI coding agents across software projects.',
+    longDescription: `AGENTS.md is a documentation project that addresses the growing need for consistent AI-assisted coding workflows across teams and repositories. As AI coding agents become more common, having a standard way to define project conventions, coding standards, and agent instructions becomes essential.
+
+The repository provides templates and guidance for creating AGENTS.md files that AI agents can reference when contributing to a project, ensuring consistency whether a human or AI is making changes.`,
+    details: [
+      'Documents repeatable agent instructions and project conventions',
+      'Helps teams keep AI-assisted coding workflows consistent',
+      'A documentation and engineering-process project rather than a visual app',
+    ],
+    tags: ['Documentation', 'AI', 'Engineering', 'Open Source'],
+    caseStudy: {
+      problem: 'AI coding agents need reliable repository context and consistent project conventions; without shared instructions, setup and expectations can vary between projects.',
+      solution: 'The repository documents how to install and maintain AGENTS.md instructions, with an emphasis on repeatable conventions and repository context.',
+      contribution: 'I created a focused documentation resource for setting up and updating agent instructions so teams can make their AI-assisted engineering workflows more consistent.',
+      decisions: 'I kept the project centered on practical repository-level guidance and reusable instructions, rather than building a separate application.',
+      outcome: 'The result is a reusable reference for maintaining agent guidance across software repositories.',
+    },
+    year: '2025',
+    status: 'Maintained',
+    repository: 'https://github.com/hexjasur/AGENTS.md',
+    image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
+    imageAlt: 'AGENTS.md documentation project',
+    screenshots: [],
+  },
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'yolnoma-app' } },
+    { params: { slug: 'numeric-methods' } },
+    { params: { slug: 'agents-md' } },
+  ];
+}
+
+const { slug } = Astro.params;
+const project = allProjects[slug!];
+
+if (!project) return Astro.redirect(`${baseUrl}projects`);
+
+const allSlugs = Object.keys(allProjects);
+const currentIndex = allSlugs.indexOf(slug!);
+const prevProject = currentIndex > 0 ? { slug: allSlugs[currentIndex - 1], title: allProjects[allSlugs[currentIndex - 1]].title } : null;
+const nextProject = currentIndex < allSlugs.length - 1 ? { slug: allSlugs[currentIndex + 1], title: allProjects[allSlugs[currentIndex + 1]].title } : null;
+---
+
+<Layout
+  title={`${project.title} | ${SITE_CONFIG.author}`}
+  description={project.description}
+  activePage="projects"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="project-detail">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${baseUrl}projects`}>← Projects</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{project.title}</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="detail-hero">
+      <div class="detail-hero-meta">
+        <span class="detail-eyebrow">{project.eyebrow}</span>
+        <span class="detail-status" data-status={project.status.toLowerCase()}>{project.status}</span>
+      </div>
+      <h1 class="detail-title">{project.title}</h1>
+      <p class="detail-tagline">{project.tagline}</p>
+
+      <div class="detail-tags">
+        {project.tags.map((tag: string) => (
+          <span class="tag-chip">{tag}</span>
+        ))}
+      </div>
+
+      <div class="detail-actions">
+        {project.website && (
+          <a href={project.website} target="_blank" rel="noopener noreferrer" class="btn btn-flora">
+            <span>Visit Website</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        )}
+        <a href={project.repository} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          Source Code ↗
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Image -->
+    <div class="detail-image-wrap">
+      <div class="detail-image-frame">
+        <img
+          src={project.image}
+          alt={project.imageAlt}
+          width="1200"
+          height="675"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="detail-section">
+      <div class="section-label-left">
+        <span class="section-label-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="section-label-text">About this project</span>
+      </div>
+      <div class="detail-prose">
+        {project.longDescription.split('\n\n').map((para: string) => (
+          <p>{para}</p>
+        ))}
+      </div>
+
+      <div class="detail-features">
+        <h3 class="features-title">Key Features</h3>
+        <ul class="features-list">
+          {project.details.map((detail: string) => (
+            <li>
+              <svg class="feature-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    {project.screenshots.length > 0 && (
+      <section class="detail-section">
+        <div class="section-label-left">
+          <span class="section-label-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="section-label-text">Screenshots</span>
+        </div>
+        <div class="detail-screenshots">
+          {project.screenshots.map((ss: any) => (
+            <div class="screenshot-frame">
+              <img src={ss.src} alt={ss.alt} width="600" height="400" loading="lazy" decoding="async" />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Case Study -->
+    <section class="detail-section">
+      <div class="section-label-left">
+        <span class="section-label-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12M2 6h12M2 9h8M2 12h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="section-label-text">Case Study</span>
+      </div>
+      <div class="case-study-grid">
+        {Object.entries(project.caseStudy).map(([key, value]) => (
+          <div class="case-item">
+            <dt class="case-label">{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</dt>
+            <dd class="case-value">{value}</dd>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="detail-nav" aria-label="Project navigation">
+      {prevProject ? (
+        <a href={`${baseUrl}projects/${prevProject.slug}`} class="detail-nav-link detail-nav-prev">
+          <span class="detail-nav-label">← Previous</span>
+          <span class="detail-nav-title">{prevProject.title}</span>
+        </a>
+      ) : <div></div>}
+      {nextProject ? (
+        <a href={`${baseUrl}projects/${nextProject.slug}`} class="detail-nav-link detail-nav-next">
+          <span class="detail-nav-label">Next →</span>
+          <span class="detail-nav-title">{nextProject.title}</span>
+        </a>
+      ) : <div></div>}
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  .project-detail {
+    max-width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text-faint);
+  }
+  .breadcrumb a {
+    color: var(--link-color);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb-sep { margin: 0 0.4rem; color: var(--text-faint); }
+  .breadcrumb-current { font-weight: 600; color: var(--text-soft); }
+
+  /* Hero */
+  .detail-hero {
+    margin-bottom: 2rem;
+  }
+
+  .detail-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .detail-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .detail-status {
+    padding: 0.15rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .detail-status[data-status="active"] {
+    background: rgba(26, 127, 55, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(26, 127, 55, 0.25);
+  }
+
+  .detail-status[data-status="maintained"] {
+    background: var(--accent-soft);
+    color: var(--focus);
+    border: 1px solid var(--accent-line);
+  }
+
+  .detail-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text-strong);
+    line-height: 1.2;
+  }
+
+  .detail-tagline {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag-chip {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--surface-2, var(--chip-bg));
+    color: var(--text-soft);
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-flora {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.15rem;
+    background: var(--btn-bg, var(--focus));
+    color: #fffaf1;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-flora:hover {
+    background: var(--btn-bg-hover);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+    color: #fffaf1;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1rem;
+    background: transparent;
+    color: var(--link-color);
+    border: 1.5px solid var(--line-soft);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--flora-orange, var(--btn-bg));
+    background: var(--chip-bg);
+    text-decoration: none;
+  }
+
+  /* Image Frame */
+  .detail-image-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .detail-image-frame {
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 5px 5px 0 var(--card-shadow-color);
+    background: var(--surface-2);
+  }
+
+  .detail-image-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Sections */
+  .detail-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-label-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--chip-bg);
+    color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .section-label-text {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+
+  .detail-prose p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-body, var(--text-copy));
+  }
+
+  /* Features */
+  .features-title {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+
+  .features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    color: var(--text-body, var(--text-copy));
+    line-height: 1.55;
+  }
+
+  .feature-check {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    color: var(--success, #1a7f37);
+  }
+
+  /* Screenshots */
+  .detail-screenshots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .screenshot-frame {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    background: var(--surface-2);
+  }
+
+  .screenshot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Case Study */
+  .case-study-grid {
+    display: grid;
+    gap: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .case-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .case-item:last-child { border-bottom: none; }
+
+  .case-label {
+    font-weight: 700;
+    color: var(--text-strong);
+    font-size: 0.92rem;
+  }
+
+  .case-value {
+    margin: 0;
+    color: var(--text-soft);
+    line-height: 1.6;
+    font-size: 0.92rem;
+  }
+
+  /* Navigation */
+  .detail-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+  }
+
+  .detail-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--surface-2);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+  }
+
+  .detail-nav-link:hover {
+    text-decoration: none;
+    border-color: var(--flora-orange, var(--btn-bg));
+    transform: translateY(-2px);
+  }
+
+  .detail-nav-next { text-align: right; }
+
+  .detail-nav-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+  }
+
+  .detail-nav-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .detail-screenshots { grid-template-columns: 1fr; }
+    .case-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  @media (max-width: 600px) {
+    .detail-nav { grid-template-columns: 1fr; }
+    .detail-nav-next { text-align: left; }
+  }
+</style>
