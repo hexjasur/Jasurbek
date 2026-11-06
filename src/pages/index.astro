@@ -80,132 +80,27 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         </div>
       </aside>
 
-      <!-- Right Column: Biography, Bento Grid & Philosophy -->
+      <!-- Right Column: Biography -->
       <main class="profile-main-v2">
         <section class="bio-section">
-          <div class="bio-eyebrow">
-            <span class="kanji-accent">自己紹介</span>
-            <span class="eyebrow-text">Introduction</span>
-          </div>
-          <h1 class="bio-heading">
-            Building software with <span class="flora-italic">purpose</span>, depth, and tactile craftsmanship.
-          </h1>
-
-          <p class="bio-lead">
-            Hi, I'm <strong>{SITE_CONFIG.author}</strong> — a software engineer focused on building robust web applications, native desktop workspaces, and computational tools.
+          <h2>About <strong>{SITE_CONFIG.author}</strong></h2>
+          
+          <p>
+            Hi, I'm Jasurbek Haydarov — a developer who enjoys building things, exploring new technologies, and learning how things work.
           </p>
 
-          <p class="bio-text">
-            I specialize in the modern TypeScript ecosystem (React 19, Next.js, Astro) and native cross-platform delivery with Tauri v2 and Rust. My philosophy balances performance and clarity: code should be reliable, interfaces should feel tactile and intentional, and technology should quietly solve real problems.
+          <p>
+            I mainly work with JavaScript and TypeScript, using tools like React and Node.js to create web applications. I also enjoy working on desktop apps, trying out new libraries, and building small tools that make everyday tasks easier.
+          </p>
+
+          <p>
+            I spend most of my time learning through personal projects. I like starting with an idea, experimenting with different approaches, and seeing where it leads. Not everything has to be a big project — sometimes even a small experiment can teach me something new.
+          </p>
+
+          <p>
+            This website is where I share my projects, experiments, and things I've learned along the way. It's a little collection of what I do, what I enjoy, and what I'm currently exploring.
           </p>
         </section>
-
-        <!-- Japanese Bento-Style Micro Grid (Space Efficient & Dense) -->
-        <section class="bento-section">
-          <div class="section-label-inline">
-            <span class="label-line"></span>
-            <span class="label-title">Specializations & Disciplines</span>
-            <span class="label-line"></span>
-          </div>
-
-          <div class="bento-grid">
-            <!-- Box 1: Full-Stack & Desktop -->
-            <div class="bento-card">
-              <div class="bento-icon">⚡</div>
-              <div class="bento-body">
-                <h3 class="bento-title">Full-Stack & Desktop</h3>
-                <p class="bento-desc">
-                  Building cross-platform desktop workspaces with Tauri v2 & Rust, paired with React 19, Next.js, and TypeScript.
-                </p>
-                <div class="bento-tags">
-                  <span>Tauri v2</span>
-                  <span>Rust</span>
-                  <span>React</span>
-                  <span>TypeScript</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Box 2: Flora Aesthetics -->
-            <div class="bento-card card-accent-sage">
-              <div class="bento-icon">🌿</div>
-              <div class="bento-body">
-                <h3 class="bento-title">Flora Design System</h3>
-                <p class="bento-desc">
-                  Blending Japanese spatial minimalism (<em>Ma</em>) with retro botanical textures, custom CSS borders, and fluid micro-interactions.
-                </p>
-                <div class="bento-tags">
-                  <span>Aesthetics</span>
-                  <span>CSS Mastery</span>
-                  <span>Spatial UI</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Box 3: Mathematics & Algorithms -->
-            <div class="bento-card">
-              <div class="bento-icon">📐</div>
-              <div class="bento-body">
-                <h3 class="bento-title">Numerical Systems</h3>
-                <p class="bento-desc">
-                  Creating computational labs for numerical methods, differential equations, and algorithm visualization tools.
-                </p>
-                <div class="bento-tags">
-                  <span>Algorithms</span>
-                  <span>ODE Solvers</span>
-                  <span>Analysis</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Box 4: Gaming & Systems -->
-            <div class="bento-card card-accent-terracotta">
-              <div class="bento-icon">🎮</div>
-              <div class="bento-body">
-                <h3 class="bento-title">Gaming & Low Latency</h3>
-                <p class="bento-desc">
-                  Studying game HUD design, input latency optimization, and tactile interactive feedback inspired by gaming engines.
-                </p>
-                <div class="bento-tags">
-                  <span>HUD Design</span>
-                  <span>Steam Community</span>
-                  <span>Feedback</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Featured Spotlight Row -->
-        <section class="spotlight-section">
-          <div class="spotlight-card">
-            <div class="spotlight-content">
-              <div class="spotlight-badge">New Essay</div>
-              <h3 class="spotlight-title">
-                <a href={`${baseUrl}blog/engineering-flora-retro-design-system`}>
-                  Engineering Aesthetic Retro Interfaces: The Flora Design System & Spatial UI →
-                </a>
-              </h3>
-              <p class="spotlight-desc">
-                A deep dive into merging Japanese spatial minimalism, retro-botanical styling, and zero-bloat CSS borders.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Quick Navigation / CTA -->
-        <div class="profile-cta-bar">
-          <a href={`${baseUrl}projects`} class="btn btn-flora">
-            <span>Explore Projects</span>
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href={`${baseUrl}blog`} class="btn btn-secondary">
-            Read Articles
-          </a>
-          <a href={`${baseUrl}contact`} class="btn btn-ghost">
-            Get in Touch
-          </a>
-        </div>
       </main>
     </div>
   </div>
@@ -336,7 +231,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     margin: 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-strong);
+    color: #b86752;
     font-family: Georgia, serif;
   }
 
@@ -411,272 +306,26 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     min-width: 0;
   }
 
-  .bio-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .kanji-accent {
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: var(--flora-orange, #b86752);
-  }
-
-  .eyebrow-text {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-  }
-
-  .bio-heading {
-    margin: 0 0 1rem;
-    font-size: clamp(1.35rem, 3.8vw, 1.75rem);
+  .bio-section h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
     font-weight: 700;
     font-family: Georgia, "Times New Roman", serif;
     color: var(--text-strong);
-    line-height: 1.3;
   }
 
-  .flora-italic {
-    color: var(--flora-orange, #b86752);
-    font-style: italic;
+  .bio-section h2 strong {
+    color: #b86752;
+    font-weight: 700;
   }
 
-  .bio-lead {
-    margin: 0 0 0.85rem;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text-strong);
-  }
-
-  .bio-text {
-    margin: 0 0 1.75rem;
-    font-size: 0.95rem;
-    line-height: 1.72;
+  .bio-section p {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.02rem;
+    line-height: 1.75;
     color: var(--text-copy, var(--text-body));
-  }
-
-  /* ===== Bento Grid ===== */
-  .bento-section {
-    margin-bottom: 1.75rem;
-  }
-
-  .section-label-inline {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.1rem;
-  }
-
-  .label-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border-color), transparent);
-  }
-
-  .label-title {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-faint);
-    white-space: nowrap;
-  }
-
-  .bento-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.85rem;
-  }
-
-  .bento-card {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.85rem 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    background: var(--card-bg, var(--surface));
-    box-shadow: 3px 3px 0 var(--card-shadow-color);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .bento-card:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--card-shadow-color);
-  }
-
-  .card-accent-sage {
-    border-top: 3px solid var(--flora-sage, #c7d2b1);
-  }
-
-  .card-accent-terracotta {
-    border-top: 3px solid var(--flora-orange, #b86752);
-  }
-
-  .bento-icon {
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .bento-body {
-    min-width: 0;
-  }
-
-  .bento-title {
-    margin: 0 0 0.3rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-strong);
-    font-family: Georgia, serif;
-  }
-
-  .bento-desc {
-    margin: 0 0 0.55rem;
-    font-size: 0.82rem;
-    line-height: 1.5;
-    color: var(--text-soft);
-  }
-
-  .bento-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
-
-  .bento-tags span {
-    padding: 0.1rem 0.4rem;
-    font-size: 0.68rem;
-    font-weight: 600;
-    border: 1px solid var(--line-soft);
-    border-radius: 4px;
-    background: var(--surface-2);
-    color: var(--text-faint);
-  }
-
-  /* ===== Spotlight ===== */
-  .spotlight-section {
-    margin-bottom: 1.75rem;
-  }
-
-  .spotlight-card {
-    border: 2px solid var(--border-color);
-    border-left: 4px solid var(--flora-orange, #b86752);
-    border-radius: 10px;
-    padding: 0.95rem 1.15rem;
-    background: var(--card-bg, var(--surface));
-    box-shadow: 3px 3px 0 var(--card-shadow-color);
-  }
-
-  .spotlight-badge {
-    display: inline-block;
-    padding: 0.15rem 0.5rem;
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #fffaf1;
-    background: var(--flora-orange, #b86752);
-    border-radius: 4px;
-    margin-bottom: 0.4rem;
-  }
-
-  .spotlight-title {
-    margin: 0 0 0.35rem;
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
-  .spotlight-title a {
-    color: var(--link-color);
-    text-decoration: none;
-  }
-
-  .spotlight-title a:hover {
-    text-decoration: underline;
-  }
-
-  .spotlight-desc {
-    margin: 0;
-    font-size: 0.85rem;
-    line-height: 1.55;
-    color: var(--text-soft);
-  }
-
-  /* ===== CTA Bar ===== */
-  .profile-cta-bar {
-    display: flex;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-    padding-top: 0.75rem;
-  }
-
-  .btn-flora {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    background: var(--btn-bg, var(--focus));
-    color: #fffaf1;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 2.5px 2.5px 0 var(--card-shadow-color);
-    transition: all 0.15s ease;
-  }
-
-  .btn-flora:hover {
-    background: var(--btn-bg-hover);
-    transform: translate(-1px, -1px);
-    box-shadow: 3.5px 3.5px 0 var(--card-shadow-color);
-    text-decoration: none;
-    color: #fffaf1;
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 0.95rem;
-    background: var(--flora-sage, #c7d2b1);
-    color: var(--text-main);
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 2px 2px 0 var(--card-shadow-color);
-    transition: all 0.15s ease;
-  }
-
-  .btn-secondary:hover {
-    background: var(--sage-hover);
-    text-decoration: none;
-  }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 0.95rem;
-    background: transparent;
-    color: var(--link-color);
-    border: 1.5px solid var(--line-soft);
-    border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--flora-orange, #b86752);
-    background: var(--chip-bg);
-    text-decoration: none;
   }
 
   /* ===== Responsive ===== */
@@ -689,10 +338,6 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     .profile-aside {
       max-width: 280px;
       margin: 0 auto;
-    }
-
-    .bento-grid {
-      grid-template-columns: 1fr;
     }
 
     .profile-banner {

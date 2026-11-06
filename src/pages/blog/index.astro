@@ -119,11 +119,6 @@ const categories = ['all', ...new Set(sortedPosts.flatMap(p => p.data.tags || []
     <div id="no-results-msg" class="no-results" style="display: none;">
       No matching articles found. Try another search term.
     </div>
-
-    <!-- Bottom CTA -->
-    <div class="blog-cta">
-      <p>Have a topic suggestion? <a href={`${baseUrl}contact`}>Let me know</a>.</p>
-    </div>
   </div>
 </Layout>
 
