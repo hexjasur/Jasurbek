@@ -36,7 +36,13 @@ const seoTags = [
 
   <section class="tools-box credit-calculator-section">
     <div class="calc-header">
-      <div class="calc-badge">HEMIS / ECTS Standarti</div>
+      <div class="calc-badge-row">
+        <span class="calc-badge">HEMIS / ECTS Standarti</span>
+        <span class="calc-updated-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Oxirgi yangilanish: 6-noyabr, 2026-yil
+        </span>
+      </div>
       <h1 class="page-title calc-title">
         <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="4" y="2" width="16" height="20" rx="2" />
@@ -443,6 +449,28 @@ const seoTags = [
 
   .calc-header {
     margin-bottom: 1.4rem;
+  }
+
+  .calc-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .calc-updated-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font-mono, monospace);
+    color: var(--text-soft, #555);
+    background: var(--surface-2, rgba(0, 0, 0, 0.04));
+    border: 1px solid var(--line-soft, rgba(0, 0, 0, 0.12));
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
   }
 
   .calc-badge {

@@ -65,6 +65,12 @@ Rules:
 
 ## Blog posts
 
+> **CRITICAL DATE RULE FOR AGENTS**: Every agent working in this repo MUST maintain dates strictly whenever creating or modifying blog content:
+> 1. **New post**: MUST set pubDate: YYYY-MM-DD to the CURRENT local date of creation. Never use past dates or placeholders.
+> 2. **Editing / Updating a post**: Whenever you touch, edit, expand, or revise an existing blog post, you **MUST ALWAYS** set or update updatedDate: YYYY-MM-DD to the CURRENT date of the revision. Do NOT change pubDate on updates; only set updatedDate.
+> 3. **Sync metadata**: If a post references tools, releases, or projects, ensure their corresponding 'Last Updated' or version dates match.
+
+
 - Create `src/content/blog/<ascii-slug>.md` with frontmatter:
 
   ```yaml

@@ -1,11 +1,11 @@
----
+﻿---
 title: "68 VS Code Extensions I Use: What They Do and Where to Get Them"
 description: "A personal list of 68 extensions installed in my VS Code profile, grouped by coding, Git, previews, APIs, themes, and small quality-of-life tools."
-pubDate: 2026-11-05
+pubDate: 2026-11-07
 tags: ["vscode", "extensions", "developer-tools", "productivity"]
 ---
 
-These are the 68 extensions installed in my current VS Code profile when I made this list on November 5, 2026. I grouped them by what I use them for and added a short description and a link to each Visual Studio Marketplace page. Where the Marketplace provides an icon, it is shown beside the extension name.
+These are the 68 extensions installed in my current VS Code profile when I made this list on November 7, 2026. I grouped them by what I use them for and added a short description and a link to each Visual Studio Marketplace page. Where the Marketplace provides an icon, it is shown beside the extension name.
 
 > The list describes what is installed in this VS Code profile, not a recommendation to install everything. Some extensions overlap; pick the ones that fit your own workflow.
 

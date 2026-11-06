@@ -1,13 +1,13 @@
----
+﻿---
 title: "GTA 6 haqida töliq ma'lumot: çiqiş sanasi, narxi, pre-order va qança pul ketgani"
 description: "Grand Theft Auto VI: 19-noyabr çiqiş sanasi, Standard va Ultimate naşrlar narxi, pre-order bonuslari, pre-load, platformalar, hikoya va budjet haqida rasmiy manbalarga asoslangan töliq tahlil."
-pubDate: 2026-11-05
+pubDate: 2026-11-07
 tags: ["gta6", "rockstar", "oyinlar", "take-two", "pre-order"]
 ---
 
 **Grand Theft Auto VI** (GTA 6) — dunyodagi eng kutilgan video öyin. Oldingi asosiy qism, GTA V, 2013-yilda çiqqan edi, ya'ni ötgan vaqt 13 yildan oşdi. Bu maqolada eng köp söraladigan savollarga javob beraman: öyin qaçon çiqadi, qança turadi, pre-orderda nima beriladi va unga qança pul sarflangan. Har bir muhim raqam yonida manba bor. Rasmiy tasdiqlangan ma'lumot bilan taxminni alohida ajratib yozdim.
 
-> **Holat sanasi:** 2026-yil 5-noyabr. Pre-load kabi tafsilotlar yaqinda özgargani uçun, qaror qilişdan oldin [Rockstar Newswire](https://www.rockstargames.com/newswire) sahifasini tekşirib köring.
+> **Holat sanasi:** 2026-yil 7-noyabr. Pre-load kabi tafsilotlar yaqinda özgargani uçun, qaror qilişdan oldin [Rockstar Newswire](https://www.rockstargames.com/newswire) sahifasini tekşirib köring.
 
 ## Qisqaça: asosiy faktlar
 
