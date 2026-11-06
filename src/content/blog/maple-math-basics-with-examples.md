@@ -1,8 +1,9 @@
 ---
-title: "Maple'da matematika: ifodani soddalashtirish, yoyish, ko'paytuvchilarga ajratish, trigonometrik tenglamalar, matritsalar va hosila (misollar bilan)"
-description: "Maple darsida işlagan misollarim: ifodani soddalaştiriş, yoyiş, köpaytuvçilarga ajratiş, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, vektorlar va hosilalar (oddiy, yuqori tartibli, xususiy)."
+title: "Maple'da matematika: algebradan hosila va integralgaça — darsdan misollar"
+description: "Maple darsida işlagan misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila"]
+updatedDate: 2026-11-06
+tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
 Bu semestrda **Maple** dasturida laboratoriya maşğulotlari ötkazdik. Maple — qölda işlaş qiyin bölgan ifodalarni soddalaştiradigan, tenglamalarni yeçadigan, hosila hisoblaydigan va grafik çizadigan kompyuter algebra tizimi. Bu maqolada darsda işlagan misollarimni mavzular böyiça tartib bilan yozib çiqdim. Har bir mavzuga bitta aniq misol bor: kod, natija va qisqa izoh.
@@ -332,6 +333,89 @@ Natijalar:
 
 Aralaş hosila `diff(f, x, y)` — avval `x`, keyin `y` böyiça. Bu yerda `diff(f, y, x)` ham xuddi şu natijani beradi, çunki funksiya uzluksiz hosilalarga ega. `simplify` esa natijani ixçam kasr körinişiga keltiradi.
 
+## 14. Integral: int va Int
+
+Hosiladan keyin teskari amal — **integral**. Maple'da integral `int(ifoda, x)` bilan hisoblanadi. Hosiladagi qoida bu yerda ham işlaydi: `Int` (boş harf bilan) integralni **hisoblamasdan**, faqat çiroyli yozib körsatadi, `int` esa hisoblaydi. Ikkisini tenglik bilan yozsak, tayyor formula hosil böladi:
+
+```maple
+Int(x^2, x = 0 .. 1) = int(x^2, x = 0 .. 1);
+```
+
+Natija: `∫₀¹ x² dx = 1/3`. Chegaralar `x = a .. b` körinişida beriladi. Chegara berilmasa, **aniqmas integral** hisoblanadi.
+
+### Aniq integral: köphad
+
+```maple
+Int(3*x^2 + 2*x + 1, x = 0 .. 2) = int(3*x^2 + 2*x + 1, x = 0 .. 2);
+int(x^4 - 2*x^2 + 3*x - 1, x = 0 .. 1);
+```
+
+Natijalar: `14` va `1/30`. Qölda tekşiramiz: birinçisining boşlanğiç funksiyasi `x³ + x² + x`, uni `2` da hisoblasak `8 + 4 + 2 = 14`, `0` da esa nol. Ikkinçisida `1/5 − 2/3 + 3/2 − 1 = 1/30`. Bu Nyuton–Leybnis formulasi: `∫ₐᵇ f(x) dx = F(b) − F(a)`.
+
+### Aniq integral: trigonometrik funksiyalar
+
+```maple
+Int(sin(x), x = 0 .. Pi) = int(sin(x), x = 0 .. Pi);
+int(cos(x), x = 0 .. Pi);
+Int((1 + cos(x))^2, x = 0 .. Pi) = int((1 + cos(x))^2, x = 0 .. Pi);
+```
+
+Natijalar: `2`, `0` va `3*Pi/2`. `sin x` ning `[0, π]` dagi yuzi `2` ga teng. `cos x` esa `[0, π/2]` da musbat, `[π/2, π]` da manfiy bölgani uçun yuzlar bir-birini bekor qiladi va yiğindi nol çiqadi.
+
+Uçinçi misolda qavsni avval oçamiz: `(1 + cos x)² = 1 + 2cos x + cos² x`. Ularning integrallari ketma-ket `π`, `0` va `π/2` beradi, yiğindisi `3π/2`.
+
+> Eslatma: `int(cos(x), x = 0 .. Pi)` ning nol çiqişi «yuz nol» degani emas. Integral işorali yuzni hisoblaydi.
+
+### Aniqmas integral: köpaytmani yiğindiga aylantiriş
+
+Aniqmas integralda natija funksiya böladi (özgarmas `C` Maple tomonidan yozilmaydi):
+
+```maple
+Int(cos(x)*cos(2*x)*cos(3*x), x) = int(cos(x)*cos(2*x)*cos(3*x), x);
+```
+
+Natija:
+
+```text
+∫ cos(x) cos(2x) cos(3x) dx = (1/8) sin(2x) + (1/16) sin(4x) + (1/24) sin(6x) + x/4
+```
+
+Qölda bu integralni olişda avval köpaytmani yiğindiga aylantiriş kerak: `cos x cos 3x = (cos 2x + cos 4x)/2`, keyin yana `cos 2x` ga köpaytirib, yana bir marta formulani qöllaymiz. Maple bu bütün zanjirni bir qadamda bajaradi. Natijani tekşiriş uçun uni differensiallaş yetarli: `diff` bizni boşlanğiç funksiyaga qaytarişi kerak.
+
+### Aniqmas integral: ratsional kasr
+
+Eng murakkab misol — ratsional funksiya:
+
+```maple
+Int((3*x^4 + 4)/(x^2*(x^2 + 1)^3), x) = int((3*x^4 + 4)/(x^2*(x^2 + 1)^3), x);
+```
+
+Natija:
+
+```text
+-(57/8) arctan(x) - 25x/(8(x²+1)) - 4/x - 7x/(4(x²+1)²)
+```
+
+Qölda bu misol oddiy kasrlarga ajratiş (`4/x²`, `(…)/(x²+1)`, `(…)/(x²+1)²`, `(…)/(x²+1)³`) va har birini alohida integrallaşni talab qiladi. Maple esa `arctan(x)` ni va qolgan ratsional qismlarni darhol topadi. Ajratişni körmoqçi bölsak, `convert(f, parfrac, x)` buyruği işlatiladi.
+
+### Aniq integral, lekin elementar emas: evalf
+
+Hamma integralning javobi elementar funksiyalar bilan yozilavermaydi. Misol uçun `cos(x)/x` ning boşlanğiç funksiyasi — kosinus-integral `Ci(x)`. Bunday holda ham aniq integralning **sonli qiymatini** olişimiz mumkin:
+
+```maple
+restart;
+Int(cos(x)/x, x = Pi/6 .. Pi/4) = evalf(int(cos(x)/x, x = Pi/6 .. Pi/4), 15);
+```
+
+Natija: `0.322922981113732`. `evalf(ifoda, 15)` ifodani `15` xonali aniqlikda hisoblaydi. Buyruq nomi `evalf` — «evaluate float» (kasr songa hisobla) degani. `restart;` esa Maple xotirasini tozalaydi: oldin berilgan barça özgaruvçilar va muhit sozlamalari (`_EnvAllSolutions` ham) tozalanadi.
+
+### Integral bilan işlaşda foydali odatlar
+
+- Avval `Int(...) = int(...)` körinişida yozing: natija formula körinişida çiqadi va daftarga köçiriş oson.
+- Natijani tekşiriş uçun `diff(javob, x)` ni hisoblang. Aniqmas integralda u boşlanğiç funksiyani qaytarişi kerak.
+- Javob çiqmasa yoki murakkab bölsa, `evalf(int(...))` bilan sonli qiymatini oling.
+- Aniq integral işorali yuzni beradi: `cos x` misolidagi kabi nol çiqişi mumkin.
+
 ## Xulosa
 
 Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
@@ -346,6 +430,8 @@ Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
 | `plot` | grafik çiziş |
 | `diff` / `Diff` | hosilani hisoblaş / yozib körsatiş |
 | `D` | funksiyaning hosilasi |
+| `int` / `Int` | integralni hisoblaş / yozib körsatiş |
+| `evalf` | kasr (sonli) qiymatini hisoblaş |
 | `det`, `inverse`, `eigenvalues` | matritsa xossalari |
 
 Natijani doim qölda ham tekşirib köriş kerak: Maple xato qilmaydi, lekin kiritişda xato qiliş oson.
