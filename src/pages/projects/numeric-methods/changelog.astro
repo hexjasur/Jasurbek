@@ -1,0 +1,435 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const changelogEntries = [
+  {
+    version: 'v3.4.0',
+    type: 'Release',
+    tagColor: 'text-[#b86752]',
+    bulletBorderColor: '#b86752',
+    author: 'hexjasur',
+    date: 'Nov 4, 2026',
+    active: true,
+    lineStyle: 'solid',
+    title: 'Cross-platform native parity & algorithm pipeline upgrades',
+    summary: 'Shipped comprehensive native installers for Windows (MSI, NSIS x64), Linux (AppImage, DEB, RPM), and Android (ARM64, Universal APK). Upgraded calculation engine with adaptive step-size Runge-Kutta 4th order ODE solvers and real-time error estimation.',
+    highlights: [
+      'Multi-architecture build artifacts published to GitHub Releases with SHA-256 integrity checksums.',
+      'Refactored numerical integration module: Simpson 1/3, 3/8, and adaptive Gauss-Legendre quadrature.',
+      'Interactive formula inspector rendered with KaTeX and synchronized iteration audit logs.',
+      'Automated release packaging via Tauri v2 action matrix with signed binaries (.sig).',
+    ],
+    assets: [
+      { name: 'Numeric.Methods_3.4.0_x64-setup.exe', size: '35.81 MB', type: 'Windows Installer' },
+      { name: 'Numeric.Methods_3.4.0_amd64.AppImage', size: '181.5 MB', type: 'Linux AppImage' },
+      { name: 'Numeric.Methods_3.4.0_arm64.apk', size: '19.71 MB', type: 'Android APK' },
+    ],
+  },
+  {
+    version: 'v3.3.0',
+    type: 'Feature',
+    tagColor: 'text-amber-600 dark:text-amber-400',
+    bulletBorderColor: '#d97706',
+    author: 'hexjasur',
+    date: 'Oct 18, 2026',
+    active: true,
+    lineStyle: 'dotted',
+    title: 'Interactive Root-Finding Laboratory & Visual Convergence',
+    summary: 'Introduced visual step-by-step root finding for non-linear equations with real-time graph plotting of intermediate tangents, secant chords, and interval brackets.',
+    highlights: [
+      'Newton-Raphson method with derivative validation and diverging function warnings.',
+      'Bisection and Secant methods with convergence rate comparisons and error delta graphs.',
+      'Export calculation history to formatted CSV and clean printable PDF reports.',
+      'Responsive canvas chart rendering powered by modern SVG/Canvas rendering pipeline.',
+    ],
+    assets: [
+      { name: 'Numeric.Methods_3.3.0_x64-setup.exe', size: '34.2 MB', type: 'Windows' },
+      { name: 'Numeric.Methods_3.3.0_amd64.deb', size: '16.1 MB', type: 'Linux' },
+    ],
+  },
+  {
+    version: 'v3.2.0',
+    type: 'Enhancement',
+    tagColor: 'text-emerald-600 dark:text-emerald-400',
+    bulletBorderColor: '#059669',
+    author: 'hexjasur',
+    date: 'Sep 29, 2026',
+    active: false,
+    lineStyle: 'dotted',
+    title: 'Polynomial Interpolation & Spline Approximation',
+    summary: 'Added Lagrange polynomial interpolation, Newton divided differences, and Natural Cubic Spline solvers with curve fitting visualization.',
+    highlights: [
+      'Dynamic coordinate matrix input with instant matrix rank and determinant analysis.',
+      'Runge phenomenon demonstration with uniform vs. Chebyshev node distribution comparison.',
+      'Polynomial formula expansion up to degree 12 with precision coefficient formatting.',
+    ],
+    assets: [],
+  },
+  {
+    version: 'v3.1.0',
+    type: 'Refactor',
+    tagColor: 'text-sky-600 dark:text-sky-400',
+    bulletBorderColor: '#0284c7',
+    author: 'hexjasur',
+    date: 'Aug 14, 2026',
+    active: false,
+    lineStyle: 'dotted',
+    title: 'Tauri v2 Migration & High-DPI UI Overhaul',
+    summary: 'Migrated desktop architecture from Tauri v1 to Tauri v2 stable, delivering lower memory footprint, native menu bars, and seamless Android APK compilation.',
+    highlights: [
+      '40% reduction in desktop memory footprint through optimized Rust interop serialization.',
+      'Cross-platform touch support with smooth gestures for mobile/Android viewports.',
+      'System dark mode and retro theme synchronizer with persistent preferences.',
+    ],
+    assets: [],
+  },
+  {
+    version: 'v3.0.0',
+    type: 'Major Release',
+    tagColor: 'text-purple-600 dark:text-purple-400',
+    bulletBorderColor: '#9333ea',
+    author: 'hexjasur',
+    date: 'Jul 2, 2026',
+    active: false,
+    lineStyle: 'solid',
+    title: 'Initial Cross-Platform Launch of Numeric Methods',
+    summary: 'First major public release uniting web, desktop, and mobile under a single high-performance codebase designed for university computational mathematics students.',
+    highlights: [
+      'Comprehensive computational suite: Linear algebra (Gaussian elimination, LU decomposition).',
+      'Step-by-step computation mode breaking down each arithmetic step.',
+      'Open-source repository licensed under MIT on GitHub.',
+    ],
+    assets: [],
+  },
+];
+---
+
+<Layout
+  title="Changelog — Numeric Methods | Jasurbek Haydarov"
+  description="Full release history, commit milestones, and changelog updates for the Numeric Methods computational mathematics platform."
+>
+  <main class="changelog-page">
+    <!-- Header / Breadcrumbs -->
+    <header class="page-header">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href={`${baseUrl}projects`} class="breadcrumb-link">Projects</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href={`${baseUrl}projects/numeric-methods`} class="breadcrumb-link">Numeric Methods</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Changelog</span>
+      </nav>
+
+      <div class="header-content">
+        <div class="header-badge-row">
+          <span class="version-pill">Current: v3.4.0</span>
+          <span class="dot-divider">•</span>
+          <span class="release-count">{changelogEntries.length} releases documented</span>
+        </div>
+        <h1 class="page-title">Release Changelog & Commits</h1>
+        <p class="page-description">
+          A granular record of all releases, algorithm enhancements, multi-platform binary builds, and engineering milestones for <strong>Numeric Methods</strong>.
+        </p>
+
+        <div class="header-actions">
+          <a href={`${baseUrl}projects/numeric-methods#downloads`} class="btn btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download v3.4.0</span>
+          </a>
+          <a href="https://github.com/hexjasur/numeric-methods/releases" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <span>GitHub Releases ↗</span>
+          </a>
+          <a href="https://github.com/hexjasur/numeric-methods/commits/main" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <span>Commit History ↗</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Timeline Wrapper (Built on Uiverse.io Component Spec) -->
+    <section class="timeline-section" aria-label="Release Timeline">
+      <div
+        class="[--background:#fff] [--color:#000] [--muted:#242424] [--muted-foreground:#9c9c9c] [--border:#2e2e2e] [--shadow:rgba(60,64,67,0.15)_0_1px_3px_0,rgba(60,64,67,0.1)_0_2px_8px_2px] w-full max-w-4xl h-auto rounded-2xl bg-white dark:bg-[#1a231e] border-2 border-[#2e2e2e] dark:border-[#38483e] p-4 sm:p-6 shadow-[4px_4px_0_rgba(28,38,33,0.85)] dark:shadow-[4px_4px_0_rgba(0,0,0,0.6)]"
+      >
+        <div
+          class="[--tl-color:#b86752] [--tl-rounded:9999px] [--tl-bullet-size:26px] [--tl-line-width:3px] [--offset:calc(var(--tl-bullet-size)/2+var(--tl-line-width)/2)] [&_[data-child=bullet]]:left-[calc((var(--tl-bullet-size)/2+var(--tl-line-width)/2)*-1)] [&_[data-child=bullet]]:right-auto [&_[data-child=body]]:pl-[var(--offset)] [&_[data-tl=item]]:before:[--timeline-line-left:calc(var(--tl-line-width)*-1)] [&_[data-tl=item]]:before:[var(--timeline-line-right:auto)] [&_[data-tl=item]]:pl-[var(--offset)] p-3 sm:p-4 pl-7 sm:pl-9"
+          data-align="left"
+          role="group"
+        >
+          {changelogEntries.map((item, index) => (
+            <div
+              class="[--item-border-color:#424242] dark:[--item-border-color:#4a5c50] group relative text-left text-zinc-700 dark:text-zinc-300 [&:where(:not(:last-of-type))]:[--timeline-line-display:block] [&:where(:not(:first-of-type))]:mt-10 pb-6 before:absolute before:pointer-events-none before:top-0 before:left-[var(--timeline-line-left,0)] before:right-[var(--timeline-line-right,0)] before:-bottom-10 before:[display:var(--timeline-line-display,none)] before:[border-inline-start:var(--item-line)] [&:where([data-line-active=true])]:before:border-[var(--tli-color,var(--tl-color))]"
+              style={`--tli-border-style:${item.lineStyle}; --item-line:var(--tl-line-width) var(--tli-border-style,solid) var(--item-border-color); --tli-color:${item.bulletBorderColor};`}
+              data-line-active={item.active ? "true" : "false"}
+              data-tl="item"
+            >
+              <!-- Bullet Node -->
+              <div
+                class="bg-white dark:bg-[#151c18] border-[var(--tli-color,var(--tl-color))] text-[var(--tli-color,var(--tl-color))] border-solid [border-width:var(--tl-line-width)] absolute top-0 h-[var(--tl-bullet-size)] w-[var(--tl-bullet-size)] rounded-[var(--tl-rounded)] flex items-center justify-center cursor-pointer shadow-sm transition-transform duration-150 hover:scale-110"
+                data-active={item.active ? "true" : "false"}
+                data-child="bullet"
+                title={`${item.version} - ${item.type}`}
+              >
+                {item.type === 'Release' || item.type === 'Major Release' ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="13"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                    <path d="M12 3l0 6"></path>
+                    <path d="M12 15l0 6"></path>
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="13"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M7 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M7 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M7 8l0 8"></path>
+                    <path d="M9 18h6a2 2 0 0 0 2 -2v-5"></path>
+                    <path d="M14 14l3 -3l3 3"></path>
+                  </svg>
+                )}
+              </div>
+
+              <!-- Body -->
+              <div class="timeline-body pl-2" data-child="body">
+                <!-- Tag & Author Line -->
+                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                  <span class={`font-bold font-mono text-xs px-2 py-0.5 rounded border border-current ${item.tagColor}`}>
+                    {item.version}
+                  </span>
+                  <span class="font-semibold text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                    {item.type}
+                  </span>
+                  <span class="text-zinc-400 dark:text-zinc-600 text-xs">•</span>
+                  <p class="flex flex-row items-center gap-1.5 text-zinc-600 dark:text-zinc-400 text-xs font-mono">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>{item.author}</span>
+                  </p>
+                  <span class="text-zinc-400 dark:text-zinc-600 text-xs">•</span>
+                  <time class="text-xs font-mono text-zinc-500 dark:text-zinc-400">{item.date}</time>
+                </div>
+
+                <!-- Title & Summary -->
+                <h3 class="text-base sm:text-lg font-bold font-mono text-zinc-900 dark:text-zinc-100 tracking-tight mt-1">
+                  {item.title}
+                </h3>
+                <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
+                  {item.summary}
+                </p>
+
+                <!-- Detailed Highlights (Collapsible / Toggleable) -->
+                <details class="changelog-details mt-3 group/detail">
+                  <summary class="cursor-pointer text-xs font-mono font-semibold text-[#b86752] hover:underline list-none flex items-center gap-1.5 select-none">
+                    <span class="toggle-icon inline-block transition-transform duration-150 group-open/detail:rotate-90">▸</span>
+                    <span>Show changes & details ({item.highlights.length} items)</span>
+                  </summary>
+                  
+                  <div class="mt-2.5 pl-3 border-l-2 border-[#b86752]/30 space-y-1.5">
+                    <ul class="list-disc list-outside pl-4 text-xs font-mono text-zinc-600 dark:text-zinc-400 space-y-1">
+                      {item.highlights.map((point) => (
+                        <li class="leading-relaxed">{point}</li>
+                      ))}
+                    </ul>
+
+                    {item.assets && item.assets.length > 0 && (
+                      <div class="mt-3 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                        <span class="text-[11px] font-mono uppercase tracking-wider text-zinc-500 font-semibold block mb-1.5">
+                          Binary Assets
+                        </span>
+                        <div class="flex flex-wrap gap-2">
+                          {item.assets.map((asset) => (
+                            <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-100 dark:bg-[#151c18] border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                              <span>{asset.name}</span>
+                              <span class="text-zinc-400">({asset.size})</span>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </details>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .changelog-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.825rem;
+    font-family: var(--font-mono, monospace);
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .breadcrumb-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-sep {
+    color: var(--border-color);
+  }
+
+  .breadcrumb-current {
+    color: var(--flora-orange, #b86752);
+    font-weight: 700;
+  }
+
+  .page-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed var(--border-color);
+  }
+
+  .header-badge-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .version-pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    background: var(--flora-orange, #b86752);
+    color: #fff;
+    border-radius: 9999px;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+  }
+
+  .dot-divider {
+    color: var(--border-color);
+  }
+
+  .release-count {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+    margin: 0 0 0.75rem;
+  }
+
+  .page-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 65ch;
+    margin: 0 0 1.5rem;
+  }
+
+  .page-description strong {
+    color: var(--text-main);
+  }
+
+  .header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: var(--font-mono, monospace);
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .btn-primary {
+    background: var(--flora-sage, #c7d2b1);
+    color: var(--text-main);
+  }
+
+  .btn-primary:hover {
+    background: var(--sage-hover, #b8c59f);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  .btn-ghost {
+    background: var(--chip-bg, #fff);
+    color: var(--text-main);
+  }
+
+  .btn-ghost:hover {
+    background: var(--bg-hover, #f3ede2);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  .timeline-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .changelog-details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .changelog-page {
+      padding: 1.25rem 0.75rem 3rem;
+    }
+  }
+</style>

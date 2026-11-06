@@ -164,6 +164,10 @@ const nextProject = currentIndex < allSlugs.length - 1 ? { slug: allSlugs[curren
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>Download Release</span>
           </a>
+          <a href={`${baseUrl}projects/numeric-methods/changelog`} class="btn btn-changelog-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+            <span>Changelog</span>
+          </a>
         )}
         <a href={project.repository} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
           Source Code ↗
@@ -584,6 +588,30 @@ const nextProject = currentIndex < allSlugs.length - 1 ? { slug: allSlugs[curren
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px 0 var(--card-shadow-color);
     text-decoration: none;
+
+  .btn-changelog-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    background: var(--chip-bg);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-changelog-link:hover {
+    background: var(--bg-hover);
+    border-color: var(--flora-orange, #b86752);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
   }
 
   /* ===== Downloads Section Styles ===== */
