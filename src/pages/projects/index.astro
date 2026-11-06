@@ -8,169 +8,401 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 const projects = [
   {
-    title: 'Yolnoma-App',
-    eyebrow: 'Desktop application',
-    description: 'A Tauri-powered desktop workspace that brings developer, network, media, image, AI, and gaming utilities into one practical application.',
-    details: [
-      'React, TypeScript, Vite and Tailwind CSS frontend',
-      'Tauri v2 and Rust native desktop layer',
-      'Local-first account and AI chat session storage',
-      'Developer tools, network inspection and media workflows'
-    ],
-    caseStudy: {
-      problem: 'Useful developer, network, media, image, AI, and gaming utilities are often spread across separate apps, making everyday workflows feel fragmented.',
-      solution: 'Yolnoma brings these utility categories together in a Tauri desktop workspace, with local-first storage for account data and AI chat sessions.',
-      contribution: 'I built the application around a React and TypeScript interface, connected it to a Tauri v2 and Rust desktop layer, and brought multiple utility workflows into one product.',
-      decisions: 'I chose a web-based React interface with Tauri for native desktop delivery, and kept key application data local-first rather than making the desktop workspace depend on a remote account service.',
-      outcome: 'The result is a single desktop workspace for several everyday utility workflows, supported by a live web presence. No usage or performance figures are published yet.'
-    },
-    website: 'https://app.yolnoma.uz',
-    repository: 'https://github.com/hexjasur/Yolnoma-App',
-    image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
-    imageAlt: 'Yolnoma desktop workspace preview',
-    screenshots: [
-      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-dashboard.webp`, alt: 'Yolnoma dashboard screenshot' },
-      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-workspace.webp`, alt: 'Yolnoma developer workspace screenshot' }
-    ]
-  },
-  {
+    slug: 'numeric-methods',
     title: 'Numeric Methods',
     eyebrow: 'Web, desktop and Android',
-    description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step.',
-    details: [
-      'Next.js 16, React 19 and Tailwind CSS 4',
-      'Tauri v2 builds for Windows, Linux and Android',
-      'Bisection, Newton, interpolation, quadrature and ODE solvers',
-      'Interactive charts, formulas, audit tables and export tools'
-    ],
-    caseStudy: {
-      problem: 'Solving numerical-method problems by hand can take hours, especially when finding roots requires many iterations or working through a long sequence of calculations.',
-      solution: 'Numeric Methods automates these calculations and presents approximate results alongside exact or reference values where applicable, with step-by-step formulas, charts, and audit tables.',
-      contribution: 'I built an interactive computational-mathematics application that helps users solve and inspect problems across root-finding, interpolation, quadrature, and ODE workflows.',
-      decisions: 'I focused on making each calculation transparent rather than returning only a final answer, so users can follow the steps, compare results, and check how a method arrived at its solution. The application is available on the web, desktop, and Android.',
-      outcome: 'The application reduces time spent on repetitive manual calculations and lets users focus more on understanding and verifying numerical methods.'
-    },
-    website: 'https://sonli-usullar.uz',
-    repository: 'https://github.com/hexjasur/numeric-methods',
+    tagline: 'Interactive algorithms. Step-by-step computation. Cross-platform.',
+    description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step with live charts, formula inspectors, and native binaries for Windows, Linux, and Android.',
+    tags: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Tauri v2', 'Rust'],
     image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
     imageAlt: 'Numeric Methods application preview',
-    screenshots: [
-      { src: `${baseUrl}images/projects/nm/numeric-methods-home.webp`, alt: 'Numeric Methods calculating state preview' },
-      { src: `${baseUrl}images/projects/nm/numeric-methods-ode.webp`, alt: 'Numeric Methods ODE solver preview' }
-    ]
+    featured: true,
+    hasDownloads: true,
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://sonli-usullar.uz',
+    repository: 'https://github.com/hexjasur/numeric-methods',
   },
   {
+    slug: 'yolnoma-app',
+    title: 'Yolnoma-App',
+    eyebrow: 'Desktop application',
+    tagline: 'Developer workspace. Unified utilities. Tauri-powered.',
+    description: 'A Tauri-powered desktop workspace that unifies developer utilities, network tools, media conversion, and local-first AI chat sessions into one lightweight native application.',
+    tags: ['React', 'TypeScript', 'Tauri v2', 'Rust', 'Vite', 'Tailwind CSS'],
+    image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
+    imageAlt: 'Yolnoma desktop workspace preview',
+    featured: true,
+    hasDownloads: false,
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://app.yolnoma.uz',
+    repository: 'https://github.com/hexjasur/Yolnoma-App',
+  },
+  {
+    slug: 'agents-md',
     title: 'AGENTS.md',
-    eyebrow: 'Developer documentation',
-    description: 'A focused repository for installing and updating AGENTS.md instructions used by AI coding agents across software projects.',
-    details: [
-      'Documents repeatable agent instructions and project conventions',
-      'Helps teams keep AI-assisted coding workflows consistent',
-      'A documentation and engineering-process project rather than a visual app'
-    ],
-    caseStudy: {
-      problem: 'AI coding agents need reliable repository context and consistent project conventions; without shared instructions, setup and expectations can vary between projects.',
-      solution: 'The repository documents how to install and maintain AGENTS.md instructions, with an emphasis on repeatable conventions and repository context.',
-      contribution: 'I created a focused documentation resource for setting up and updating agent instructions so teams can make their AI-assisted engineering workflows more consistent.',
-      decisions: 'I kept the project centered on practical repository-level guidance and reusable instructions, rather than building a separate application or prescribing one agent-specific workflow.',
-      outcome: 'The result is a reusable reference for maintaining agent guidance across software repositories. Its impact is described qualitatively because public usage metrics are not available.'
-    },
+    eyebrow: 'Developer documentation & tooling',
+    tagline: 'AI agent instructions. Consistent workflows. Team standards.',
+    description: 'A focused open-source repository and documentation standard for defining reproducible conventions, instructions, and workflows for autonomous AI coding agents across teams.',
+    tags: ['Documentation', 'AI Coding', 'Engineering Standards', 'Open Source'],
     image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
+    imageAlt: 'AGENTS.md documentation project',
+    featured: false,
+    hasDownloads: false,
+    year: '2025',
+    status: 'Maintained',
     repository: 'https://github.com/hexjasur/AGENTS.md',
-    imageAlt: 'AGENTS.md documentation project placeholder'
-  }
+  },
 ];
 
-// Intrinsic sizes (px) so the browser can reserve space before images load.
 const imageSizes: Record<string, [number, number]> = {
   'yolnoma-brand.webp': [1200, 675],
-  'yolnoma-dashboard.webp': [1200, 724],
-  'yolnoma-workspace.webp': [1200, 782],
   'numeric-methods-main.webp': [1200, 600],
-  'numeric-methods-home.webp': [1200, 600],
-  'numeric-methods-ode.webp': [1200, 601],
   'agents-md-readme.webp': [817, 696],
 };
 const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200, 675];
 ---
 
 <Layout
-  title={`Projects | ${SITE_CONFIG.author}`}
-  description="Explore Jasurbek Haydarov's software projects, including Tauri desktop applications, numerical computing tools, and developer resources."
+  title={`Projects & Software | ${SITE_CONFIG.author}`}
+  description="Explore Jasurbek Haydarov's software projects, including Tauri desktop applications, numerical computing laboratories, and developer tooling."
   activePage="projects"
   headerTitle={SITE_CONFIG.domain}
 >
-  <section class="projects-intro">
-    <p class="eyebrow">Selected work</p>
-    <h2>Projects by {SITE_CONFIG.author}</h2>
-    <p>
-      A selection of software and documentation projects covering native desktop applications,
-      computational mathematics, developer tooling, and AI-assisted engineering workflows.
-    </p>
-  </section>
+  <!-- Minimalist Header matching Tools page -->
+  <div class="blog-intro">
+    <h2 class="page-title">
+      Featured Projects & Software | {SITE_CONFIG.domain}
+    </h2>
+    <div class="blog-meta-date">Category: Native Desktop, Computational Mathematics & Open Source</div>
+    <div class="blog-meta-date">Total: {projects.length} Active Projects • Cross-Platform</div>
 
+    <p class="blog-desc">
+      Focused applications and developer tools built with intentionality — spanning cross-platform Tauri workspaces, numerical mathematics engines, and engineering workflows.
+    </p>
+  </div>
+
+  <h3 class="blog-entries-title section-gap">Selected Work</h3>
+
+  <!-- Clean, Balanced Project Cards -->
   <div class="projects-list">
-    {projects.map((project) => (
-      <article class="project-card">
-        <div class="project-card-copy">
-          <p class="project-eyebrow">{project.eyebrow}</p>
-          <h3>{project.title}</h3>
-          <p class="project-description">{project.description}</p>
-          <ul class="project-details">
-            {project.details.map((detail) => <li>{detail}</li>)}
-          </ul>
-          <div class="project-case-study">
-            <h4>Case study</h4>
-            <dl>
-              <div><dt>Problem</dt><dd>{project.caseStudy.problem}</dd></div>
-              <div><dt>Solution</dt><dd>{project.caseStudy.solution}</dd></div>
-              <div><dt>My contribution</dt><dd>{project.caseStudy.contribution}</dd></div>
-              <div><dt>Key decisions</dt><dd>{project.caseStudy.decisions}</dd></div>
-              <div><dt>Outcome</dt><dd>{project.caseStudy.outcome}</dd></div>
-            </dl>
-          </div>
-          <div class="project-links">
-            {project.website && <a class="btn" href={project.website} target="_blank" rel="noopener noreferrer">Open website</a>}
-            <a class="btn btn-secondary" href={project.repository} target="_blank" rel="noopener noreferrer">View repository</a>
-          </div>
-        </div>
-        <div class:list={["project-media", { "project-media-placeholder": !project.image }]}>
-          {project.image ? (
+    {projects.map((project, index) => (
+      <article class="project-entry-card">
+        <div class="project-card-image-wrap">
+          <a href={`${baseUrl}projects/${project.slug}`} class="project-image-link" tabindex="-1" aria-hidden="true">
             <img
               src={project.image}
               alt={project.imageAlt}
               width={sizeOf(project.image)[0]}
               height={sizeOf(project.image)[1]}
-              loading="lazy"
+              loading={index === 0 ? 'eager' : 'lazy'}
               decoding="async"
+              class="project-img"
             />
-          ) : (
-            <div class="project-placeholder-content">
-              <span class="project-placeholder-mark">AGENTS.md</span>
-              <span>Documentation repository</span>
-            </div>
-          )}
+          </a>
+          <div class="project-badge-row">
+            <span class="project-year-badge">{project.year}</span>
+            <span class="project-status-badge">{project.status}</span>
+          </div>
         </div>
-        {project.screenshots && (
-          <div class="project-screenshots" aria-label={`${project.title} screenshots`}>
-            {project.screenshots.map((screenshot) => (
-              <img
-                src={screenshot.src}
-                alt={screenshot.alt}
-                width={sizeOf(screenshot.src)[0]}
-                height={sizeOf(screenshot.src)[1]}
-                loading="lazy"
-                decoding="async"
-              />
+
+        <div class="project-card-info">
+          <div class="project-header-line">
+            <span class="project-eyebrow">{project.eyebrow}</span>
+            <span class="project-num">0{index + 1}.</span>
+          </div>
+
+          <h4 class="project-title">
+            <a href={`${baseUrl}projects/${project.slug}`} class="project-title-link">
+              {project.title}
+            </a>
+          </h4>
+
+          <p class="project-tagline">{project.tagline}</p>
+
+          <p class="project-desc">{project.description}</p>
+
+          <div class="project-tags">
+            {project.tags.map(tag => (
+              <span class="project-tag-chip">{tag}</span>
             ))}
           </div>
-        )}
+
+          <div class="project-actions">
+            <a href={`${baseUrl}projects/${project.slug}`} class="btn btn-primary">
+              <span>View Details</span>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+
+            {project.hasDownloads && (
+              <a href={`${baseUrl}projects/${project.slug}#downloads`} class="btn btn-download">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Downloads</span>
+              </a>
+            )}
+
+            {project.website && (
+              <a href={project.website} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+                <span>Live ↗</span>
+              </a>
+            )}
+
+            {project.repository && (
+              <a href={project.repository} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+                <span>Source ↗</span>
+              </a>
+            )}
+          </div>
+        </div>
       </article>
     ))}
   </div>
-
-  <p class="projects-note">
-    Screenshots are sourced from the linked project repositories. Visit each repository for releases,
-    installation instructions, source code, and the latest updates.
-  </p>
 </Layout>
+
+<style>
+  /* Section Gap */
+  .section-gap {
+    margin-top: 2rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  /* Projects List */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  /* Project Card */
+  .project-entry-card {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1.75rem;
+    background: var(--card-bg, var(--surface, #fff));
+    border: 2px solid var(--border-color, #2e2e2e);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--card-shadow-color, rgba(0,0,0,0.15));
+    padding: 1.35rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    align-items: center;
+  }
+
+  .project-entry-card:hover {
+    transform: translate(-2px, -2px);
+    border-color: var(--flora-orange, #b86752);
+    box-shadow: 6px 6px 0 var(--card-shadow-color, rgba(0,0,0,0.25));
+  }
+
+  /* Image Wrap */
+  .project-card-image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1.5px solid var(--border-color, #2e2e2e);
+    aspect-ratio: 16 / 10;
+    background: var(--surface-2, #f5efe6);
+  }
+
+  .project-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+
+  .project-entry-card:hover .project-img {
+    transform: scale(1.03);
+  }
+
+  .project-badge-row {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.6rem;
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .project-year-badge {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(28, 38, 33, 0.88);
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  .project-status-badge {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--flora-sage, #c7d2b1);
+    color: var(--text-main, #1c2621);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  /* Card Info */
+  .project-card-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .project-header-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+  }
+
+  .project-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-mono, monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--flora-orange, #b86752);
+  }
+
+  .project-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--text-faint, #999);
+  }
+
+  .project-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .project-title-link {
+    color: var(--text-main, #1c2621);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .project-title-link:hover {
+    color: var(--flora-orange, #b86752);
+  }
+
+  .project-tagline {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-mono, monospace);
+    color: var(--text-soft, #555);
+  }
+
+  .project-desc {
+    margin: 0 0 0.85rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-soft, #444);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .project-tag-chip {
+    font-size: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    padding: 0.15rem 0.5rem;
+    background: var(--surface-2, rgba(0,0,0,0.05));
+    border: 1px solid var(--line-soft, rgba(0,0,0,0.1));
+    border-radius: 4px;
+    color: var(--text-strong, #222);
+  }
+
+  /* Actions */
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+    font-family: var(--font-mono, monospace);
+    border-radius: 7px;
+    border: 2px solid var(--border-color, #2e2e2e);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    box-shadow: 2px 2px 0 var(--card-shadow-color, rgba(0,0,0,0.15));
+  }
+
+  .btn-primary {
+    background: var(--flora-sage, #c7d2b1);
+    color: var(--text-main, #1c2621);
+  }
+
+  .btn-primary:hover {
+    background: var(--sage-hover, #b8c59f);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  .btn-download {
+    background: var(--chip-bg, #f3ede2);
+    color: var(--text-main, #1c2621);
+    border-color: var(--flora-orange, #b86752);
+  }
+
+  .btn-download:hover {
+    background: var(--flora-orange, #b86752);
+    color: #fff;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  .btn-ghost {
+    background: var(--surface, #fff);
+    color: var(--text-main, #1c2621);
+  }
+
+  .btn-ghost:hover {
+    background: var(--bg-hover, #f3ede2);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 860px) {
+    .project-entry-card {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-card-image-wrap {
+      max-height: 280px;
+    }
+  }
+</style>

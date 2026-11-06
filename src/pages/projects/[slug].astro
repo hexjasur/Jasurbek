@@ -1,0 +1,1030 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+// Project data store — matches index.astro slugs
+const allProjects: Record<string, any> = {
+  'yolnoma-app': {
+    title: 'Yolnoma-App',
+    eyebrow: 'Desktop application',
+    tagline: 'Developer workspace. Unified utilities. Tauri-powered.',
+    description: 'A Tauri-powered desktop workspace that brings developer, network, media, image, AI, and gaming utilities into one practical application.',
+    longDescription: `Yolnoma is a native desktop application that unifies multiple developer workflows into a single polished experience. Instead of juggling separate apps for network tools, media conversion, AI chat, and developer utilities, Yolnoma brings them together with a cohesive interface and local-first data storage.
+
+The application is built with React and TypeScript on the frontend, using Vite for fast iteration and Tailwind CSS for styling. The native layer is powered by Tauri v2 with Rust, providing system-level access while keeping the bundle size minimal compared to Electron-based alternatives.`,
+    details: [
+      'React, TypeScript, Vite and Tailwind CSS frontend',
+      'Tauri v2 and Rust native desktop layer',
+      'Local-first account and AI chat session storage',
+      'Developer tools, network inspection and media workflows',
+    ],
+    tags: ['React', 'TypeScript', 'Tauri v2', 'Rust', 'Vite', 'Tailwind CSS'],
+    caseStudy: {
+      problem: 'Useful developer, network, media, image, AI, and gaming utilities are often spread across separate apps, making everyday workflows feel fragmented.',
+      solution: 'Yolnoma brings these utility categories together in a Tauri desktop workspace, with local-first storage for account data and AI chat sessions.',
+      contribution: 'I built the application around a React and TypeScript interface, connected it to a Tauri v2 and Rust desktop layer, and brought multiple utility workflows into one product.',
+      decisions: 'I chose a web-based React interface with Tauri for native desktop delivery, and kept key application data local-first rather than making the desktop workspace depend on a remote account service.',
+      outcome: 'The result is a single desktop workspace for several everyday utility workflows, supported by a live web presence.',
+    },
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://app.yolnoma.uz',
+    repository: 'https://github.com/hexjasur/Yolnoma-App',
+    image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
+    imageAlt: 'Yolnoma desktop workspace preview',
+    screenshots: [
+      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-dashboard.webp`, alt: 'Yolnoma dashboard screenshot' },
+      { src: `${baseUrl}images/projects/yolnoma-app/yolnoma-workspace.webp`, alt: 'Yolnoma developer workspace screenshot' },
+    ],
+  },
+  'numeric-methods': {
+    title: 'Numeric Methods',
+    eyebrow: 'Web, desktop and Android',
+    tagline: 'Interactive algorithms. Step-by-step computation. Cross-platform.',
+    description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step.',
+    longDescription: `Numeric Methods is a cross-platform educational application that automates the tedious manual calculations students encounter in numerical analysis courses. Every algorithm shows its work — from initial setup through each iteration to the final result — so users can verify each step.
+
+The project covers root-finding (bisection, Newton's method), interpolation, numerical integration (quadrature), and ODE solvers. Each method is presented with interactive inputs, live charts, step-by-step formula display, and exportable audit tables.`,
+    details: [
+      'Next.js 16, React 19 and Tailwind CSS 4',
+      'Tauri v2 builds for Windows, Linux and Android',
+      'Bisection, Newton, interpolation, quadrature and ODE solvers',
+      'Interactive charts, formulas, audit tables and export tools',
+    ],
+    tags: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Tauri v2', 'Mathematics'],
+    caseStudy: {
+      problem: 'Solving numerical-method problems by hand can take hours, especially when finding roots requires many iterations or working through a long sequence of calculations.',
+      solution: 'Numeric Methods automates these calculations and presents approximate results alongside exact or reference values where applicable, with step-by-step formulas, charts, and audit tables.',
+      contribution: 'I built an interactive computational-mathematics application that helps users solve and inspect problems across root-finding, interpolation, quadrature, and ODE workflows.',
+      decisions: 'I focused on making each calculation transparent rather than returning only a final answer. The application is available on the web, desktop, and Android.',
+      outcome: 'The application reduces time spent on repetitive manual calculations and lets users focus more on understanding and verifying numerical methods.',
+    },
+    year: '2025–Present',
+    status: 'Active',
+    website: 'https://sonli-usullar.uz',
+    repository: 'https://github.com/hexjasur/numeric-methods',
+    image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
+    imageAlt: 'Numeric Methods application preview',
+    screenshots: [
+      { src: `${baseUrl}images/projects/nm/numeric-methods-home.webp`, alt: 'Numeric Methods home preview' },
+      { src: `${baseUrl}images/projects/nm/numeric-methods-ode.webp`, alt: 'Numeric Methods ODE solver preview' },
+    ],
+  },
+  'agents-md': {
+    title: 'AGENTS.md',
+    eyebrow: 'Developer documentation',
+    tagline: 'AI agent instructions. Consistent workflows. Team standards.',
+    description: 'A focused repository for installing and updating AGENTS.md instructions used by AI coding agents across software projects.',
+    longDescription: `AGENTS.md is a documentation project that addresses the growing need for consistent AI-assisted coding workflows across teams and repositories. As AI coding agents become more common, having a standard way to define project conventions, coding standards, and agent instructions becomes essential.
+
+The repository provides templates and guidance for creating AGENTS.md files that AI agents can reference when contributing to a project, ensuring consistency whether a human or AI is making changes.`,
+    details: [
+      'Documents repeatable agent instructions and project conventions',
+      'Helps teams keep AI-assisted coding workflows consistent',
+      'A documentation and engineering-process project rather than a visual app',
+    ],
+    tags: ['Documentation', 'AI', 'Engineering', 'Open Source'],
+    caseStudy: {
+      problem: 'AI coding agents need reliable repository context and consistent project conventions; without shared instructions, setup and expectations can vary between projects.',
+      solution: 'The repository documents how to install and maintain AGENTS.md instructions, with an emphasis on repeatable conventions and repository context.',
+      contribution: 'I created a focused documentation resource for setting up and updating agent instructions so teams can make their AI-assisted engineering workflows more consistent.',
+      decisions: 'I kept the project centered on practical repository-level guidance and reusable instructions, rather than building a separate application.',
+      outcome: 'The result is a reusable reference for maintaining agent guidance across software repositories.',
+    },
+    year: '2025',
+    status: 'Maintained',
+    repository: 'https://github.com/hexjasur/AGENTS.md',
+    image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
+    imageAlt: 'AGENTS.md documentation project',
+    screenshots: [],
+  },
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'yolnoma-app' } },
+    { params: { slug: 'numeric-methods' } },
+    { params: { slug: 'agents-md' } },
+  ];
+}
+
+const { slug } = Astro.params;
+const project = allProjects[slug!];
+
+if (!project) return Astro.redirect(`${baseUrl}projects`);
+
+const allSlugs = Object.keys(allProjects);
+const currentIndex = allSlugs.indexOf(slug!);
+const prevProject = currentIndex > 0 ? { slug: allSlugs[currentIndex - 1], title: allProjects[allSlugs[currentIndex - 1]].title } : null;
+const nextProject = currentIndex < allSlugs.length - 1 ? { slug: allSlugs[currentIndex + 1], title: allProjects[allSlugs[currentIndex + 1]].title } : null;
+---
+
+<Layout
+  title={`${project.title} | ${SITE_CONFIG.author}`}
+  description={project.description}
+  activePage="projects"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="project-detail">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${baseUrl}projects`}>← Projects</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{project.title}</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="detail-hero">
+      <div class="detail-hero-meta">
+        <span class="detail-eyebrow">{project.eyebrow}</span>
+        <span class="detail-status" data-status={project.status.toLowerCase()}>{project.status}</span>
+      </div>
+      <h1 class="detail-title">{project.title}</h1>
+      <p class="detail-tagline">{project.tagline}</p>
+
+      <div class="detail-tags">
+        {project.tags.map((tag: string) => (
+          <span class="tag-chip">{tag}</span>
+        ))}
+      </div>
+
+      <div class="detail-actions">
+        {project.website && (
+          <a href={project.website} target="_blank" rel="noopener noreferrer" class="btn btn-flora">
+            <span>Visit Website</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        )}
+        {slug === 'numeric-methods' && (
+          <a href="#downloads" class="btn btn-download-jump">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Release</span>
+          </a>
+          <a href={`${baseUrl}projects/numeric-methods/changelog`} class="btn btn-changelog-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+            <span>Changelog</span>
+          </a>
+        )}
+        <a href={project.repository} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          Source Code ↗
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Image -->
+    <div class="detail-image-wrap">
+      <div class="detail-image-frame">
+        <img
+          src={project.image}
+          alt={project.imageAlt}
+          width="1200"
+          height="675"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="detail-section">
+      <div class="section-label-left">
+        <span class="section-label-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="section-label-text">About this project</span>
+      </div>
+      <div class="detail-prose">
+        {project.longDescription.split('\n\n').map((para: string) => (
+          <p>{para}</p>
+        ))}
+      </div>
+
+      <div class="detail-features">
+        <h3 class="features-title">Key Features</h3>
+        <ul class="features-list">
+          {project.details.map((detail: string) => (
+            <li>
+              <svg class="feature-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    {project.screenshots.length > 0 && (
+      <section class="detail-section">
+        <div class="section-label-left">
+          <span class="section-label-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="section-label-text">Screenshots</span>
+        </div>
+        <div class="detail-screenshots">
+          {project.screenshots.map((ss: any) => (
+            <div class="screenshot-frame">
+              <img src={ss.src} alt={ss.alt} width="600" height="400" loading="lazy" decoding="async" />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Case Study -->
+    <section class="detail-section">
+      <div class="section-label-left">
+        <span class="section-label-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12M2 6h12M2 9h8M2 12h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="section-label-text">Case Study</span>
+      </div>
+      <div class="case-study-grid">
+        {Object.entries(project.caseStudy).map(([key, value]) => (
+          <div class="case-item">
+            <dt class="case-label">{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</dt>
+            <dd class="case-value">{value}</dd>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Downloads Section (For Numeric Methods) -->
+    {slug === 'numeric-methods' && (
+      <section class="detail-section" id="downloads">
+        <div class="section-label-left">
+          <span class="section-label-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </span>
+          <span class="section-label-text">Download Latest Release (v3.4.0)</span>
+        </div>
+
+        <div class="download-container">
+          <div class="download-header-card">
+            <div class="download-badge-row">
+              <span class="dl-release-tag">Latest v3.4.0</span>
+              <span class="dl-release-date">Released 2 days ago</span>
+              <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/latest.json" target="_blank" rel="noopener noreferrer" class="dl-json-link">latest.json</a>
+            </div>
+            <p class="download-note">
+              Select your platform below to instantly download the installer or package. SHA-256 integrity checksums are provided for security verification.
+            </p>
+          </div>
+
+          <!-- Platform Grid -->
+          <div class="platforms-grid">
+            <!-- Windows -->
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-icon windows-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.901-1.799"/></svg>
+                </div>
+                <div>
+                  <h4 class="platform-title">Windows</h4>
+                  <span class="platform-sub">Windows 10 / 11 (64-bit)</span>
+                </div>
+              </div>
+              <div class="platform-actions">
+                <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_x64-setup.exe" class="dl-btn dl-btn-primary" download>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Installer (.exe)</span>
+                  <span class="dl-size">35.8 MB</span>
+                </a>
+                <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_x64_en-US.msi" class="dl-btn dl-btn-secondary" download>
+                  <span>MSI Package (.msi)</span>
+                  <span class="dl-size">16.3 MB</span>
+                </a>
+              </div>
+              <details class="checksum-details">
+                <summary>SHA-256 Checksums</summary>
+                <div class="checksum-box">
+                  <code>EXE: 924d1a15e3dfaf64e0441058b1237c3d8b008e2666ef15d465ce4f98a9a64bc5</code>
+                  <code>MSI: b4bd3db922692b7621bc7c9c60281f8f65225aea5e9e0fab0b3228cff73c55aa</code>
+                </div>
+              </details>
+            </div>
+
+            <!-- Linux -->
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-icon linux-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.002 0c-2.88 0-4.664 2.227-4.664 5.37 0 .973.187 2.057.514 3.125C7.3 9.49 6.75 10.74 6.75 12.18c0 1.25.41 2.37 1.1 3.23-.27.81-.43 1.69-.43 2.61 0 3.3 2.1 5.98 4.69 5.98 2.58 0 4.68-2.68 4.68-5.98 0-.9-.16-1.78-.42-2.58.7-.87 1.13-2 1.13-3.26 0-1.44-.55-2.69-1.1-3.69.32-1.06.51-2.14.51-3.11 0-3.14-1.78-5.38-4.66-5.38z"/></svg>
+                </div>
+                <div>
+                  <h4 class="platform-title">Linux</h4>
+                  <span class="platform-sub">Ubuntu, Debian, Fedora, Arch</span>
+                </div>
+              </div>
+              <div class="platform-actions">
+                <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_amd64.AppImage" class="dl-btn dl-btn-primary" download>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>AppImage</span>
+                  <span class="dl-size">181.5 MB</span>
+                </a>
+                <div class="dl-group-row">
+                  <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_amd64.deb" class="dl-btn dl-btn-secondary" download>
+                    <span>.deb (Debian/Ubuntu)</span>
+                    <span class="dl-size">16.5 MB</span>
+                  </a>
+                  <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods-3.4.0-1.x86_64.rpm" class="dl-btn dl-btn-secondary" download>
+                    <span>.rpm (Fedora/RHEL)</span>
+                    <span class="dl-size">16.5 MB</span>
+                  </a>
+                </div>
+              </div>
+              <details class="checksum-details">
+                <summary>SHA-256 Checksums</summary>
+                <div class="checksum-box">
+                  <code>AppImage: 54910d69494e4b18c1d044a4e19289a8c4be3609f436408367385eeb58952773</code>
+                  <code>DEB: 9d34ca51a8c6d72e081f294911a1930e5ae32953b92f9409ceb3bcf919c1de3c</code>
+                  <code>RPM: f8561aa5c00832f940c239fa7564b1551cb9e23b39c2e79eabe35bfdb5829be0</code>
+                </div>
+              </details>
+            </div>
+
+            <!-- Android -->
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-icon android-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.1 12 8.1s-3.5902.3116-5.1367.8497L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/></svg>
+                </div>
+                <div>
+                  <h4 class="platform-title">Android</h4>
+                  <span class="platform-sub">Phone, Tablet, Chromebook</span>
+                </div>
+              </div>
+              <div class="platform-actions">
+                <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_arm64.apk" class="dl-btn dl-btn-primary" download>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>ARM64 APK (.apk)</span>
+                  <span class="dl-size">19.7 MB</span>
+                </a>
+                <a href="https://github.com/hexjasur/numeric-methods/releases/download/v3.4.0/Numeric.Methods_3.4.0_universal.apk" class="dl-btn dl-btn-secondary" download>
+                  <span>Universal APK</span>
+                  <span class="dl-size">132.4 MB</span>
+                </a>
+              </div>
+              <details class="checksum-details">
+                <summary>SHA-256 Checksums</summary>
+                <div class="checksum-box">
+                  <code>ARM64: f7e4c1c5f839750417425f26bb93752aa6af0c217f9745bb7b2dc009f77fb504</code>
+                  <code>Universal: fc12b4a97faa063934a22d137b5514692a28fa95826cadd5058965c8583b4743</code>
+                </div>
+              </details>
+            </div>
+
+            <!-- Source Code -->
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-icon source-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <div>
+                  <h4 class="platform-title">Source Code</h4>
+                  <span class="platform-sub">Tauri v2 + Next.js 16 + Rust</span>
+                </div>
+              </div>
+              <div class="platform-actions">
+                <a href="https://github.com/hexjasur/numeric-methods/archive/refs/tags/v3.4.0.zip" class="dl-btn dl-btn-primary" download>
+                  <span>Source Archive (.zip)</span>
+                </a>
+                <a href="https://github.com/hexjasur/numeric-methods/archive/refs/tags/v3.4.0.tar.gz" class="dl-btn dl-btn-secondary" download>
+                  <span>Tarball (.tar.gz)</span>
+                </a>
+              </div>
+              <p class="source-license-note">Licensed under MIT. Build with <code>bun run tauri build</code></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Navigation -->
+    <nav class="detail-nav" aria-label="Project navigation">
+      {prevProject ? (
+        <a href={`${baseUrl}projects/${prevProject.slug}`} class="detail-nav-link detail-nav-prev">
+          <span class="detail-nav-label">← Previous</span>
+          <span class="detail-nav-title">{prevProject.title}</span>
+        </a>
+      ) : <div></div>}
+      {nextProject ? (
+        <a href={`${baseUrl}projects/${nextProject.slug}`} class="detail-nav-link detail-nav-next">
+          <span class="detail-nav-label">Next →</span>
+          <span class="detail-nav-title">{nextProject.title}</span>
+        </a>
+      ) : <div></div>}
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  .project-detail {
+    max-width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text-faint);
+  }
+  .breadcrumb a {
+    color: var(--link-color);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb-sep { margin: 0 0.4rem; color: var(--text-faint); }
+  .breadcrumb-current { font-weight: 600; color: var(--text-soft); }
+
+  /* Hero */
+  .detail-hero {
+    margin-bottom: 2rem;
+  }
+
+  .detail-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .detail-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .detail-status {
+    padding: 0.15rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .detail-status[data-status="active"] {
+    background: rgba(26, 127, 55, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(26, 127, 55, 0.25);
+  }
+
+  .detail-status[data-status="maintained"] {
+    background: var(--accent-soft);
+    color: var(--focus);
+    border: 1px solid var(--accent-line);
+  }
+
+  .detail-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text-strong);
+    line-height: 1.2;
+  }
+
+  .detail-tagline {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag-chip {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--surface-2, var(--chip-bg));
+    color: var(--text-soft);
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-flora {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.15rem;
+    background: var(--btn-bg, var(--focus));
+    color: #fffaf1;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-flora:hover {
+    background: var(--btn-bg-hover);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+    color: #fffaf1;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1rem;
+    background: transparent;
+    color: var(--link-color);
+    border: 1.5px solid var(--line-soft);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--flora-orange, var(--btn-bg));
+    background: var(--chip-bg);
+    text-decoration: none;
+  }
+
+  .btn-download-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    background: var(--flora-sage, #c7d2b1);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-download-jump:hover {
+    background: var(--sage-hover);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+
+  .btn-changelog-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    background: var(--chip-bg);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    transition: all 0.15s ease;
+  }
+
+  .btn-changelog-link:hover {
+    background: var(--bg-hover);
+    border-color: var(--flora-orange, #b86752);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+    text-decoration: none;
+  }
+  }
+
+  /* ===== Downloads Section Styles ===== */
+  .download-container {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .download-header-card {
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .download-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .dl-release-tag {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    background: var(--btn-bg, #b86752);
+    color: #fffaf1;
+    border: 1.5px solid var(--border-color);
+  }
+
+  .dl-release-date {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    font-weight: 600;
+  }
+
+  .dl-json-link {
+    font-size: 0.78rem;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+    color: var(--link-color);
+    margin-left: auto;
+  }
+
+  .download-note {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.15rem;
+  }
+
+  .platform-card {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg, var(--surface));
+    padding: 1.15rem;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .platform-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .platform-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border-color);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .windows-icon { background: rgba(0, 120, 215, 0.12); color: #0078d7; }
+  .linux-icon { background: rgba(233, 84, 32, 0.12); color: #e95420; }
+  .android-icon { background: rgba(61, 220, 132, 0.15); color: #2d9d59; }
+  .source-icon { background: rgba(184, 103, 82, 0.15); color: var(--flora-orange); }
+
+  .platform-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, serif;
+  }
+
+  .platform-sub {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .platform-actions {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .dl-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .dl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .dl-btn-primary {
+    background: var(--btn-bg, #b86752);
+    color: #fffaf1;
+    border: 1.5px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+  }
+
+  .dl-btn-primary:hover {
+    background: var(--btn-bg-hover);
+    color: #fffaf1;
+    text-decoration: none;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+  }
+
+  .dl-btn-secondary {
+    background: var(--surface-2);
+    color: var(--text-strong);
+    border: 1.5px solid var(--line-soft);
+  }
+
+  .dl-btn-secondary:hover {
+    border-color: var(--border-color);
+    background: var(--surface-3);
+    text-decoration: none;
+  }
+
+  .dl-size {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    font-family: ui-monospace, monospace;
+    font-weight: 700;
+  }
+
+  .checksum-details {
+    margin-top: auto;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
+  .checksum-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .checksum-details summary:hover {
+    color: var(--text-strong);
+  }
+
+  .checksum-box {
+    margin-top: 0.4rem;
+    padding: 0.4rem 0.55rem;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .checksum-box code {
+    font-size: 0.68rem;
+    word-break: break-all;
+    color: var(--text-soft);
+    display: block;
+    line-height: 1.4;
+  }
+
+  .source-license-note {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .source-license-note code {
+    font-size: 0.88em;
+    padding: 0.1rem 0.3rem;
+    background: var(--surface-2);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    .platforms-grid { grid-template-columns: 1fr; }
+    .dl-group-row { grid-template-columns: 1fr; }
+  }
+
+  /* Image Frame */
+  .detail-image-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .detail-image-frame {
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 5px 5px 0 var(--card-shadow-color);
+    background: var(--surface-2);
+  }
+
+  .detail-image-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Sections */
+  .detail-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-label-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--chip-bg);
+    color: var(--flora-orange, var(--btn-bg));
+  }
+
+  .section-label-text {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+
+  .detail-prose p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-body, var(--text-copy));
+  }
+
+  /* Features */
+  .features-title {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+
+  .features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    color: var(--text-body, var(--text-copy));
+    line-height: 1.55;
+  }
+
+  .feature-check {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    color: var(--success, #1a7f37);
+  }
+
+  /* Screenshots */
+  .detail-screenshots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .screenshot-frame {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 3px 3px 0 var(--card-shadow-color);
+    background: var(--surface-2);
+  }
+
+  .screenshot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Case Study */
+  .case-study-grid {
+    display: grid;
+    gap: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg, var(--surface));
+    box-shadow: 4px 4px 0 var(--card-shadow-color);
+  }
+
+  .case-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .case-item:last-child { border-bottom: none; }
+
+  .case-label {
+    font-weight: 700;
+    color: var(--text-strong);
+    font-size: 0.92rem;
+  }
+
+  .case-value {
+    margin: 0;
+    color: var(--text-soft);
+    line-height: 1.6;
+    font-size: 0.92rem;
+  }
+
+  /* Navigation */
+  .detail-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+  }
+
+  .detail-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--surface-2);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    box-shadow: 2px 2px 0 var(--card-shadow-color);
+  }
+
+  .detail-nav-link:hover {
+    text-decoration: none;
+    border-color: var(--flora-orange, var(--btn-bg));
+    transform: translateY(-2px);
+  }
+
+  .detail-nav-next { text-align: right; }
+
+  .detail-nav-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+  }
+
+  .detail-nav-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .detail-screenshots { grid-template-columns: 1fr; }
+    .case-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  @media (max-width: 600px) {
+    .detail-nav { grid-template-columns: 1fr; }
+    .detail-nav-next { text-align: left; }
+  }
+</style>
