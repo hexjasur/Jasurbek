@@ -1,12 +1,14 @@
 ---
-title: "Maple'da matematika: algebradan hosila va integralgaça — darsdan misollar"
-description: "Maple darsida işlagan misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
+title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
+description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
 updatedDate: 2026-11-06
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
-Bu semestrda **Maple** dasturida laboratoriya maşğulotlari ötkazdik. Maple — qölda işlaş qiyin bölgan ifodalarni soddalaştiradigan, tenglamalarni yeçadigan, hosila hisoblaydigan va grafik çizadigan kompyuter algebra tizimi. Bu maqolada darsda işlagan misollarimni mavzular böyiça tartib bilan yozib çiqdim. Har bir mavzuga bitta aniq misol bor: kod, natija va qisqa izoh.
+4-kurs, 7-semestrda **Maple** dasturida amaliy maşğulotlar ötkazdik. Maple — qölda işlaş qiyin bölgan ifodalarni soddalaştiradigan, tenglamalarni yeçadigan, hosila va integral hisoblaydigan, grafik çizadigan kompyuter algebra tizimi.
+
+Bu maqolada amaliy maşğulotlarda işlagan misollarimni mavzular böyiça tartib bilan yozib çiqdim: algebradan boşlab, trigonometriya, matritsalar va hosila orqali integralgaça. Har bir mavzuda aniq misol, kod, natija va qisqa izoh bor. Maqsad — buyruqlarni yodlaş emas, har bir natijaning nima uçun şunday çiqqanini tuşunişdir.
 
 > Kodlar Maple'ning oddiy matn körinişida yozilgan. `:=` — qiymat beriş, `;` — natijani körsatiş, `:` — natijani yaşiriş.
 
