@@ -195,25 +195,54 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
       if (!modal) return;
 
+      let lastFocused: HTMLElement | null = null;
+
+      function getFocusable(): HTMLElement[] {
+        return Array.from(
+          modal!.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+          ),
+        ).filter((el) => el.offsetParent !== null);
+      }
+
       function openModal(e: Event) {
         e.preventDefault();
+        lastFocused = document.activeElement as HTMLElement | null;
         modal!.style.display = 'flex';
+        getFocusable()[0]?.focus();
       }
 
       function closeModal() {
         modal!.style.display = 'none';
         if (copySuccess) copySuccess.style.display = 'none';
+        lastFocused?.focus();
       }
 
       emailTriggers.forEach(el => el.addEventListener('click', openModal));
       closeBtn?.addEventListener('click', closeModal);
-      
+
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
       });
 
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
+        if (modal!.style.display === 'none' || !modal!.style.display) return;
+        if (e.key === 'Escape') {
+          closeModal();
+          return;
+        }
+        if (e.key !== 'Tab') return;
+        const focusable = getFocusable();
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       });
 
       copyBtn?.addEventListener('click', () => {
