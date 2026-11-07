@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+
+const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
+---
+
+<Layout
+  title={`Privacy Policy | ${SITE_CONFIG.author}`}
+  description={`Privacy Policy and Web Tools Disclaimer for ${SITE_CONFIG.domain}. Learn how data is processed locally with zero tracking.`}
+  activePage="privacy"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="blog-intro">
+    <h2 class="page-title">{pageTitle}</h2>
+    <div class="blog-meta-date">First Published: 2026-11-07</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-07</div>
+
+    <p class="blog-desc">
+      This Privacy Policy and Web Tools Disclaimer outlines how personal information, web utilities, and technical data are handled across {SITE_CONFIG.domain}. We operate on a privacy-first principle: no third-party trackers, no unnecessary data acquisition, and completely local execution for interactive tools.
+    </p>
+  </div>
+
+  <article class="prose max-w-none privacy-content">
+    <section>
+      <h3>1. Basic Policy on Personal Information</h3>
+      <p>
+        At <strong>{SITE_CONFIG.domain}</strong>, we recognize the paramount importance of personal information privacy and believe that the web should respect user autonomy. We strictly adhere to applicable data protection regulations and ensure that your browsing experience is transparent, safe, and respectful of your confidentiality.
+      </p>
+    </section>
+
+    <section>
+      <h3>2. Acquisition & Processing of Information</h3>
+      <p>
+        As a static website hosted via GitHub Pages, minimal technical server access logs (such as public IP addresses, browser types, referral URLs, and access timestamps) may be generated at the infrastructure level purely for:
+      </p>
+      <ul>
+        <li>Monitoring network stability and detecting cyber security anomalies (e.g., DDoS attacks, abuse prevention).</li>
+        <li>Ensuring reliable delivery of static assets and content over content delivery networks (CDNs).</li>
+      </ul>
+      <p>
+        We do not collect identifiable personal information (such as real names, government IDs, physical addresses, or financial details) during general browsing.
+      </p>
+    </section>
+
+    <section>
+      <h3>3. Web Tools & Client-Side Processing (Zero-Server Architecture)</h3>
+      <p>
+        A core foundation of our <a href={`${baseUrl}tools`}>Web Tools</a> and <a href={`${baseUrl}playground`}>Interactive Playground</a> is <strong>client-side execution</strong>:
+      </p>
+      <ul>
+        <li>
+          <strong>100% Local Execution:</strong> All calculations, encoders/decoders (Base64, URL encoding), UUID generation, CSS clamp math, HEMIS credit module computations, and text conversions (such as the Uzbek reformed alphabet converter) run exclusively within your local browser engine via client-side JavaScript / Web APIs.
+        </li>
+        <li>
+          <strong>No Server Transmission:</strong> The text, tokens, source codes, formulas, or inputs you enter into any tool are <em>never</em> uploaded, transmitted, or logged to our servers or any third-party infrastructure.
+        </li>
+        <li>
+          <strong>Zero Persistent Cloud Storage:</strong> When you refresh or close the tab, temporary memory structures are automatically cleared by your web browser.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>4. Cookies & Client-Side Storage</h3>
+      <p>
+        We do not utilize marketing, advertising, cross-site profiling, or behavioral tracking cookies.
+      </p>
+      <ul>
+        <li>
+          <strong>Theme Preference:</strong> We use your browser's <code>localStorage</code> solely to remember your aesthetic choice between Light and Dark mode (via the <code>data-theme</code> setting). This remains entirely local to your machine.
+        </li>
+        <li>
+          <strong>Third-Party Integrations:</strong> If you voluntarily engage with optional interactive features like GitHub Discussions / Giscus comments or external repository links, those third-party services operate under their own independent privacy terms.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>5. On-Site Search Privacy</h3>
+      <p>
+        Our search functionality is powered by <strong>Pagefind</strong>, a static search library designed for zero-backend privacy.
+      </p>
+      <ul>
+        <li>All search indexes are downloaded statically by your browser and queried locally in memory.</li>
+        <li>Your search queries, keywords, and keystrokes are never transmitted to any external telemetry or logging server.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>6. Web Tools Disclaimer & Limitation of Liability</h3>
+      <p>
+        The tools, calculators, code snippets, and demonstrations on this website are provided on an <strong>"as-is"</strong> and <strong>"as-available"</strong> basis for informational, educational, and workflow-assistance purposes without warranty of any kind, either express or implied:
+      </p>
+      <ul>
+        <li>
+          <strong>Accuracy & Verification:</strong> While every effort is made to maintain algorithm correctness and standards compliance, users are advised to independently verify critical computation results, cryptographic outputs, academic credits, or code translations prior to production or legal use.
+        </li>
+        <li>
+          <strong>Limitation of Liability:</strong> Under no circumstances shall {SITE_CONFIG.author} or {SITE_CONFIG.domain} be held liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use any tool, post, or snippet provided on this website.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>7. Direct Inquiries & Contact Information</h3>
+      <p>
+        When you contact us directly via our <a href={`${baseUrl}contact`}>contact form</a>, email, Telegram, or GitHub:
+      </p>
+      <ul>
+        <li>We collect only the information provided voluntarily (such as your name, email address, and message body) to facilitate direct communication and respond to your inquiry.</li>
+        <li>Your contact details are never sold, rented, or shared with third parties for commercial or promotional purposes.</li>
+        <li>You may request the deletion of any inquiry records at any time by contacting us directly.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>8. Revisions to this Policy</h3>
+      <p>
+        We may update this Privacy Policy periodically to reflect new tools, changes in technical implementations, or relevant legal standards. The "Last Updated" date at the top will indicate when the most recent amendments were made.
+      </p>
+    </section>
+
+    <div class="privacy-author-sign">
+      Written by <a href={baseUrl}>{SITE_CONFIG.author}</a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .privacy-content {
+    margin-top: 1.5rem;
+    color: var(--text-copy, var(--text-body));
+    line-height: 1.8;
+  }
+
+  .privacy-content section {
+    margin-bottom: 2rem;
+  }
+
+  .privacy-content h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-family: Georgia, serif;
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 0.35rem;
+  }
+
+  .privacy-content p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .privacy-content ul {
+    margin: 0.5rem 0 1rem 1.25rem;
+    list-style-type: disc;
+  }
+
+  .privacy-content li {
+    margin-bottom: 0.45rem;
+  }
+
+  .privacy-author-sign {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
+    text-align: right;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+
+  .privacy-author-sign a {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
+  }
+</style>
