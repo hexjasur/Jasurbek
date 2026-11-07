@@ -95,22 +95,22 @@ a:hover {
 
 /* Header */
 .site-header {
-  padding: 1.6rem 2rem 0.6rem;
+  padding: 0.9rem 2rem 0.25rem;
   text-align: center;
 }
 
 .site-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-strong);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.1px;
 }
 
 /* Navigation */
 .site-nav {
   min-width: 0;
-  padding: 0.6rem 2rem 1.4rem;
+  padding: 0.35rem 2rem 0.9rem;
   text-align: left;
   font-size: 1.08rem;
   display: flex;
