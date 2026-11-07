@@ -20,15 +20,15 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 <nav class="site-nav" aria-label="Main navigation">
   <div class="nav-links">
     <a href={baseUrl} class:list={[{ active: activePage === 'profile' }]} aria-current={activePage === 'profile' ? 'page' : undefined}>Profile</a>
-    <span class="sep">|</span>
+    <span class="sep" aria-hidden="true">|</span>
     <a href={`${baseUrl}projects`} class:list={[{ active: activePage === 'projects' }]} aria-current={activePage === 'projects' ? 'page' : undefined}>Projects</a>
-    <span class="sep">|</span>
+    <span class="sep" aria-hidden="true">|</span>
     <a href={`${baseUrl}blog`} class:list={[{ active: activePage === 'blog' }]} aria-current={activePage === 'blog' ? 'page' : undefined}>Blog</a>
-    <span class="sep">|</span>
+    <span class="sep" aria-hidden="true">|</span>
     <a href={`${baseUrl}tools`} class:list={[{ active: activePage === 'tools' }]} aria-current={activePage === 'tools' ? 'page' : undefined}>Tools</a>
-    <span class="sep">|</span>
+    <span class="sep" aria-hidden="true">|</span>
     <a href={`${baseUrl}playground`} class:list={[{ active: activePage === 'playground' }]} aria-current={activePage === 'playground' ? 'page' : undefined}>Playground</a>
-    <span class="sep">|</span>
+    <span class="sep" aria-hidden="true">|</span>
     <a href={`${baseUrl}contact`} class:list={[{ active: activePage === 'contact' }]} aria-current={activePage === 'contact' ? 'page' : undefined}>Contact</a>
   </div>
   <div class="nav-actions">
