@@ -32,6 +32,7 @@ src/data/           tools.ts and playground.ts (register new tools/demos here)
 src/lib/            Blog helpers, JSON-LD, OG rendering, URL helpers
 src/components/     Header, Footer, Seo, TOC, SearchPalette, Comments
 public/images/      Static assets
+.claude/skills/     Agent skills (anthropic-models-uz: Uzbek posts about Claude models)
 ```
 
 ## Uzbek text: use the 2026 reformed Latin alphabet
@@ -89,6 +90,12 @@ Rules:
 - Post page, OG image, RSS entry, sitemap entry, tag pages and search entry are generated automatically. Do not add them by hand.
 - Factual posts (statistics, laws, rates, prices) must cite their sources with links, quote figures as the source states them, label your own calculations, and state the "as of" date. Prefer official sources (`lex.uz`, `gov.uz`, `stat.uz`, `soliq.uz`) over commercial blogs.
 - Internal links must include the base path, for example `/Jasurbek/tools/uzbek-alphabet`.
+
+## Agent skills
+
+Reusable agent skills live in `.claude/skills/<name>/SKILL.md`.
+
+- `anthropic-models-uz` — write or refresh Uzbek posts about Anthropic's Claude models (releases, benchmarks, pricing, news). It bundles a dated fact sheet (`references/`) and an alphabet checker (`scripts/check-uz-alphabet.mjs`) that flags legacy Uzbek spelling. Use it together with the date and alphabet rules above.
 
 ## General conventions
 
