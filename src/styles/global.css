@@ -24,7 +24,7 @@
   --text-soft: #57606a;
   --text-faint: #6e7781;
   --text-copy: #3f5147;
-  --sep-color: #8f9b8c;
+  --sep-color: #525c50;
   --surface: #ffffff;
   --surface-2: #f6f8fa;
   --surface-3: #eaeef2;
@@ -42,7 +42,7 @@
   --card-bg: rgba(251, 246, 236, 0.94);
   --footer-bg: rgba(231, 220, 204, 0.72);
   --shadow-wrapper: rgba(53, 72, 59, 0.16);
-  --btn-bg: #b86752;
+  --btn-bg: #ae5c47;
   --btn-bg-hover: #8f4d3e;
   --sage-hover: #b4c39a;
   --reformed-bg: rgba(199, 210, 177, 0.42);
@@ -1233,17 +1233,17 @@ a:hover {
 :root {
   --bg-outer: #d8cfc0;
   --bg-outer-accent: #e9ddcd;
-  --link-color: #b86752;
+  --link-color: #aa5a46;
   --link-hover: #8f4d3e;
   --text-main: #2f4038;
-  --text-muted: #6d786d;
+  --text-muted: #525c50;
   --border-color: #31473b;
   --card-shadow-color: #35483b;
   --flora-canvas: #f1e9dc;
   --flora-surface: #fbf6ec;
   --flora-sage: #c7d2b1;
   --flora-pink: #dda095;
-  --flora-orange: #b86752;
+  --flora-orange: #aa5a46;
 }
 
 html {
@@ -1604,7 +1604,7 @@ textarea[readonly] { background: var(--surface-2); }
   --text-soft: #aab6ac;
   --text-faint: #8c998f;
   --text-copy: #cfd8cb;
-  --sep-color: #62756a;
+  --sep-color: #778d80;
   --surface: #1b2420;
   --surface-2: #212c27;
   --surface-3: #27342e;
@@ -1622,7 +1622,7 @@ textarea[readonly] { background: var(--surface-2); }
   --card-bg: rgba(31, 41, 36, 0.95);
   --footer-bg: rgba(17, 24, 20, 0.85);
   --shadow-wrapper: rgba(0, 0, 0, 0.35);
-  --btn-bg: #b86752;
+  --btn-bg: #ae5c47;
   --btn-bg-hover: #cf7c66;
   --sage-hover: #4a6154;
   --reformed-bg: rgba(143, 168, 128, 0.22);
