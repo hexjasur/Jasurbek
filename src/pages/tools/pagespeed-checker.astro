@@ -17,35 +17,49 @@ import CustomSelect from '../../components/CustomSelect.astro';
 
   <section class="tools-box">
     <h2 class="page-title">
-      <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4l3 2" />
-        <path d="M16.2 7.8 18 6" />
+      <svg
+        class="title-svg"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 8v4l3 2"></path>
+        <path d="M16.2 7.8 18 6"></path>
       </svg>
       Website Speed & Performance Checker
     </h2>
     <p class="page-lead">
-      Paste a website URL below and hit Analyze — you'll be taken straight to its
-      <strong>Google PageSpeed Insights</strong> report, with Core Web Vitals, a performance score,
-      and tips for both mobile and desktop.
+      Paste a website URL below and hit Analyze — you'll be taken straight to
+      its
+      <strong>Google PageSpeed Insights</strong> report, with Core Web Vitals, a performance
+      score, and tips for both mobile and desktop.
     </p>
 
-    <div class="tools-row">
-      <input
-        type="text"
-        id="ps-url"
-        class="tools-select"
-        placeholder="example.com or https://example.com"
-        value={SITE_CONFIG.siteUrl}
-        autocomplete="url"
-        inputmode="url"
-        spellcheck="false"
-      />
+    <div class="tools-row ps-input-row">
+      <div class="ps-input-wrap">
+        <input
+          type="text"
+          id="ps-url"
+          class="tools-select ps-url-input"
+          placeholder="example.com or https://example.com"
+          value={SITE_CONFIG.siteUrl}
+          autocomplete="url"
+          inputmode="url"
+          spellcheck="false"
+        />
+      </div>
     </div>
 
-    <div class="tools-row">
-      <div>
-        <label for="ps-strategy" class="field-label field-label-inline">Device:</label>
+    <div class="tools-row ps-controls-row">
+      <div class="ps-device-wrap">
+        <label for="ps-strategy" class="field-label field-label-inline"
+          >Device:</label
+        >
         <CustomSelect
           id="ps-strategy"
           options={[
@@ -56,14 +70,19 @@ import CustomSelect from '../../components/CustomSelect.astro';
           ariaLabel="Device"
         />
       </div>
-      <button class="btn" id="ps-analyze-btn" type="button">Analyze on PageSpeed Insights &rarr;</button>
+      <button class="btn ps-analyze-btn" id="ps-analyze-btn" type="button"
+        >Analyze on PageSpeed Insights &rarr;</button
+      >
     </div>
 
-    <p id="ps-error" class="error-text" hidden>Enter a valid website address, for example example.com or https://example.com.</p>
+    <p id="ps-error" class="error-text" hidden>
+      Enter a valid website address, for example example.com or
+      https://example.com.
+    </p>
 
     <p class="page-lead" style="margin-top:1.5rem;">
-      This opens Google's own PageSpeed Insights tool (pagespeed.web.dev) in a new tab and runs the audit there —
-      nothing is sent anywhere else.
+      This opens Google's own PageSpeed Insights tool (pagespeed.web.dev) in a
+      new tab and runs the audit there — nothing is sent anywhere else.
     </p>
   </section>
 
@@ -88,7 +107,10 @@ import CustomSelect from '../../components/CustomSelect.astro';
 
   function setupPageSpeed() {
     const input = document.getElementById('ps-url') as HTMLInputElement | null;
-    const strategyRoot = document.getElementById('ps-strategy')?.closest<HTMLElement>('[data-custom-select]') ?? null;
+    const strategyRoot =
+      document
+        .getElementById('ps-strategy')
+        ?.closest<HTMLElement>('[data-custom-select]') ?? null;
     const btn = document.getElementById('ps-analyze-btn');
     const errorEl = document.getElementById('ps-error');
     if (!input || !strategyRoot || !btn || !errorEl) return;
@@ -110,7 +132,9 @@ import CustomSelect from '../../components/CustomSelect.astro';
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') go();
     });
-    input.addEventListener('input', () => { errorEl!.hidden = true; });
+    input.addEventListener('input', () => {
+      errorEl!.hidden = true;
+    });
   }
 
   document.addEventListener('astro:page-load', setupPageSpeed);
@@ -128,5 +152,78 @@ import CustomSelect from '../../components/CustomSelect.astro';
     height: 22px;
     color: var(--focus);
     flex-shrink: 0;
+  }
+
+  .ps-input-row {
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .ps-input-wrap {
+    width: min(100%, 760px);
+  }
+
+  .ps-url-input {
+    width: 100%;
+    min-height: 3.1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border-color: var(--focus);
+    box-shadow: 0 0 0 0 rgba(9, 105, 218, 0);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.01)
+    );
+  }
+
+  .ps-url-input:focus {
+    outline: none;
+    border-color: var(--focus);
+    box-shadow: 0 0 0 4px rgba(9, 105, 218, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .ps-controls-row {
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.25rem;
+    gap: 1rem;
+  }
+
+  .ps-device-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0.65rem 0.3rem 0.3rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--surface-2);
+  }
+
+  .ps-analyze-btn {
+    min-height: 2.9rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(25, 30, 35, 0.12);
+  }
+
+  @media (max-width: 640px) {
+    .ps-controls-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ps-device-wrap {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .ps-analyze-btn {
+      width: 100%;
+    }
   }
 </style>
