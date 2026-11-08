@@ -1,7 +1,8 @@
 ---
 title: "Claude'da model va effort tanlaş: git commit'dan katta promptlargaça amaliy qöllanma"
 description: "2026-yil 8-noyabr holatiga: Haiku 5.5, Sonnet 5.5, Opus 5.5 va Fable 5.1 ni qaçon tanlaş kerak, effort'ning low'dan max'gaça darajalari nima beradi, oddiy va murakkab misollar, narx hisobi hamda işçi kod."
-pubDate: 2026-11-08
+pubDate: 2026-11-09
+updatedDate: 2026-11-09
 tags: ["anthropic", "claude", "ai", "llm", "api", "effort"]
 ---
 
