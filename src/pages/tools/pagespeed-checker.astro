@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Website Speed & Performance Checker | ${SITE_CONFIG.author}`}
+  description="Enter any website URL and jump straight to its Google PageSpeed Insights report: Core Web Vitals, performance score, and mobile or desktop analysis."
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 class="page-title">⚡ Website Speed & Performance Checker</h2>
+    <p class="page-lead">
+      Paste a website URL below and hit Analyze — you'll be taken straight to its
+      <strong>Google PageSpeed Insights</strong> report, with Core Web Vitals, a performance score,
+      and tips for both mobile and desktop.
+    </p>
+
+    <div class="tools-row">
+      <input
+        type="text"
+        id="ps-url"
+        class="tools-select"
+        placeholder="example.com or https://example.com"
+        autocomplete="url"
+        inputmode="url"
+        spellcheck="false"
+      />
+    </div>
+
+    <div class="tools-row">
+      <div>
+        <label for="ps-strategy" class="field-label field-label-inline">Device:</label>
+        <select id="ps-strategy" class="tools-select">
+          <option value="mobile">Mobile</option>
+          <option value="desktop">Desktop</option>
+        </select>
+      </div>
+      <button class="btn" id="ps-analyze-btn" type="button">Analyze on PageSpeed Insights &rarr;</button>
+    </div>
+
+    <p id="ps-error" class="error-text" hidden>Enter a valid website address, for example example.com or https://example.com.</p>
+
+    <p class="page-lead" style="margin-top:1.5rem;">
+      This opens Google's own PageSpeed Insights tool (pagespeed.web.dev) in a new tab and runs the audit there —
+      nothing is sent anywhere else.
+    </p>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<script>
+  function normalizeUrl(raw: string): string | null {
+    const value = raw.trim();
+    if (!value) return null;
+    const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+    try {
+      const u = new URL(withScheme);
+      if (!u.hostname.includes('.')) return null;
+      return u.toString();
+    } catch {
+      return null;
+    }
+  }
+
+  function setupPageSpeed() {
+    const input = document.getElementById('ps-url') as HTMLInputElement | null;
+    const strategy = document.getElementById('ps-strategy') as HTMLSelectElement | null;
+    const btn = document.getElementById('ps-analyze-btn');
+    const errorEl = document.getElementById('ps-error');
+    if (!input || !strategy || !btn || !errorEl) return;
+
+    function go() {
+      const normalized = normalizeUrl(input!.value);
+      if (!normalized) {
+        errorEl!.hidden = false;
+        input!.focus();
+        return;
+      }
+      errorEl!.hidden = true;
+      const target = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(normalized)}&form_factor=${strategy!.value}`;
+      window.open(target, '_blank', 'noopener,noreferrer');
+    }
+
+    btn.addEventListener('click', go);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') go();
+    });
+    input.addEventListener('input', () => { errorEl!.hidden = true; });
+  }
+
+  document.addEventListener('astro:page-load', setupPageSpeed);
+</script>

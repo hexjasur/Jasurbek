@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'pagespeed-checker',
+    num: 9,
+    title: 'Website Speed & Performance Checker',
+    description: 'Enter any website URL and jump straight to its Google PageSpeed Insights report: Core Web Vitals, performance score, and mobile or desktop analysis.',
+    slug: 'pagespeed-checker',
+  },
+  {
     id: 'credit-module-calculator',
     num: 8,
     title: 'Kredit-Modul Hisoblagich (HEMIS / ECTS)',
