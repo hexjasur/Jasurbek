@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { BASE_URL as baseUrl } from '../../lib/url';
+import CustomSelect from '../../components/CustomSelect.astro';
 ---
 
 <Layout
@@ -15,7 +16,14 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   </div>
 
   <section class="tools-box">
-    <h2 class="page-title">⚡ Website Speed & Performance Checker</h2>
+    <h2 class="page-title">
+      <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v4l3 2" />
+        <path d="M16.2 7.8 18 6" />
+      </svg>
+      Website Speed & Performance Checker
+    </h2>
     <p class="page-lead">
       Paste a website URL below and hit Analyze — you'll be taken straight to its
       <strong>Google PageSpeed Insights</strong> report, with Core Web Vitals, a performance score,
@@ -28,6 +36,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
         id="ps-url"
         class="tools-select"
         placeholder="example.com or https://example.com"
+        value={SITE_CONFIG.siteUrl}
         autocomplete="url"
         inputmode="url"
         spellcheck="false"
@@ -37,10 +46,15 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     <div class="tools-row">
       <div>
         <label for="ps-strategy" class="field-label field-label-inline">Device:</label>
-        <select id="ps-strategy" class="tools-select">
-          <option value="mobile">Mobile</option>
-          <option value="desktop">Desktop</option>
-        </select>
+        <CustomSelect
+          id="ps-strategy"
+          options={[
+            { value: 'mobile', label: 'Mobile' },
+            { value: 'desktop', label: 'Desktop' },
+          ]}
+          value="mobile"
+          ariaLabel="Device"
+        />
       </div>
       <button class="btn" id="ps-analyze-btn" type="button">Analyze on PageSpeed Insights &rarr;</button>
     </div>
@@ -74,10 +88,10 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   function setupPageSpeed() {
     const input = document.getElementById('ps-url') as HTMLInputElement | null;
-    const strategy = document.getElementById('ps-strategy') as HTMLSelectElement | null;
+    const strategyRoot = document.getElementById('ps-strategy')?.closest<HTMLElement>('[data-custom-select]') ?? null;
     const btn = document.getElementById('ps-analyze-btn');
     const errorEl = document.getElementById('ps-error');
-    if (!input || !strategy || !btn || !errorEl) return;
+    if (!input || !strategyRoot || !btn || !errorEl) return;
 
     function go() {
       const normalized = normalizeUrl(input!.value);
@@ -87,7 +101,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
         return;
       }
       errorEl!.hidden = true;
-      const target = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(normalized)}&form_factor=${strategy!.value}`;
+      const formFactor = strategyRoot!.dataset.value || 'mobile';
+      const target = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(normalized)}&form_factor=${formFactor}`;
       window.open(target, '_blank', 'noopener,noreferrer');
     }
 
@@ -100,3 +115,18 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   document.addEventListener('astro:page-load', setupPageSpeed);
 </script>
+
+<style>
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-svg {
+    width: 22px;
+    height: 22px;
+    color: var(--focus);
+    flex-shrink: 0;
+  }
+</style>
