@@ -2,6 +2,7 @@
 title: "Installing GitHub CLI on Windows: WinGet and the Manual Installer"
 description: "Two ways to install GitHub CLI (gh) on Windows: through WinGet, and with the standalone gh_2.103.3_windows_amd64 installer. Includes verification, authentication, and what to do if WinGet itself is broken."
 pubDate: 2026-11-09
+updatedDate: 2026-11-09
 tags: ["windows", "github", "cli", "developer-tools", "git"]
 ---
 
@@ -64,3 +65,48 @@ gh auth status
 ```
 
 From there, `gh repo clone`, `gh pr create`, and `gh issue list` are ready to use.
+
+## Everyday gh commands
+
+A quick reference for the commands you'll reach for most once `gh` is installed and authenticated.
+
+### Repositories
+
+```powershell
+gh repo clone owner/repo        # clone a repository
+gh repo create my-project       # create a new repository, interactively
+gh repo view --web               # open the current repo in the browser
+gh repo fork owner/repo          # fork a repository
+```
+
+### Pull requests
+
+```powershell
+gh pr create                    # open a PR for the current branch, interactively
+gh pr create --fill              # open a PR using the branch's commits for title/body
+gh pr list                       # list open PRs in the current repo
+gh pr view 123 --web              # open PR #123 in the browser
+gh pr checkout 123                # check out PR #123 locally
+gh pr status                      # PRs you've opened, reviewed, or are assigned
+gh pr merge 123 --squash          # squash-merge PR #123
+```
+
+### Issues
+
+```powershell
+gh issue list                     # list open issues
+gh issue create                   # create a new issue, interactively
+gh issue view 42                  # view issue #42
+gh issue close 42                 # close issue #42
+```
+
+### Releases and workflows
+
+```powershell
+gh release list                   # list releases
+gh release create v1.0.0           # create a new release, interactively
+gh run list                        # recent GitHub Actions runs
+gh run watch                       # follow the current run live
+```
+
+Append `--help` to any command (for example `gh pr create --help`) to see its full flag list, and `gh <noun> --help` (`gh pr --help`) for everything available under that noun.
