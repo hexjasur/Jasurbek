@@ -1012,6 +1012,11 @@ a:hover {
   color: var(--code-color);
 }
 
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}
+
 .prose pre {
   background: var(--code-block-bg) !important;
   border-radius: 6px;
