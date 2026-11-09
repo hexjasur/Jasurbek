@@ -1,0 +1,58 @@
+name: Sync AI branches with master
+
+# Keeps `Claude` and `Copilot` branches automatically mirroring `master`
+# via fast-forward. If either branch ever gets commits of its own that
+# aren't on `master` (i.e. it has diverged), that branch's sync is skipped
+# so nothing is overwritten or force-pushed — the workflow just warns and moves on.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: [Claude, Copilot]
+      fail-fast: false   # keep syncing the other branch if one fails
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fast-forward ${{ matrix.branch }} to master (skip if diverged)
+        run: |
+          set -e
+          BRANCH="${{ matrix.branch }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "$BRANCH branch does not exist on origin yet — creating it from master."
+            git branch "$BRANCH" origin/master
+            git push origin "$BRANCH"
+            exit 0
+          fi
+
+          git fetch origin "$BRANCH"
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+
+          if git merge-base --is-ancestor "$BRANCH" origin/master; then
+            if [ "$(git rev-parse "$BRANCH")" = "$(git rev-parse origin/master)" ]; then
+              echo "$BRANCH is already up to date with master — nothing to do."
+            else
+              echo "$BRANCH has no commits of its own — fast-forwarding to master."
+              git merge --ff-only origin/master
+              git push origin "$BRANCH"
+            fi
+          else
+            echo "::warning::$BRANCH branch has commits that are not on master (it has diverged)."
+            echo "Skipping auto-sync so nothing gets overwritten. Merge or rebase manually, then this workflow will resume syncing automatically."
+          fi
