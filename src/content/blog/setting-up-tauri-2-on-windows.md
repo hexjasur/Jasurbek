@@ -41,7 +41,7 @@ Using WinGet:
 winget install --id Rustlang.Rustup --exact
 ```
 
-If WinGet isn't working, see [Fixing WinGet on Windows](/Jasurbek/blog/fixing-winget-on-windows/) for a separate troubleshooting guide. Alternatively, download the official installer from [rustup.rs](https://rustup.rs/).
+If WinGet isn't working, see [Fixing WinGet on Windows](/blog/fixing-winget-on-windows/) for a separate troubleshooting guide. Alternatively, download the official installer from [rustup.rs](https://rustup.rs/).
 
 After installation, close and reopen your terminal, then verify:
 
@@ -200,7 +200,7 @@ Also confirm that Visual Studio C++ Build Tools and WebView2 Runtime are availab
 | `cargo is not recognized` | Verify the Rustup installation |
 | MSVC linker errors | Install Visual Studio C++ Build Tools |
 | WebView2 missing | Install the Evergreen WebView2 Runtime |
-| WinGet search crashes | See the [WinGet troubleshooting guide](/Jasurbek/blog/fixing-winget-on-windows/) |
+| WinGet search crashes | See the [WinGet troubleshooting guide](/blog/fixing-winget-on-windows/) |
 | Rust compilation fails | Check the MSVC toolchain and Windows SDK |
 
 ## Official documentation

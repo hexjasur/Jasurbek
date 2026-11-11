@@ -3,8 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://hexjasur.github.io',
-  base: '/Jasurbek',
+  site: 'https://jasurdev.uz',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

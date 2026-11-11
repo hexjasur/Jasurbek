@@ -3,10 +3,10 @@
  */
 export const SITE_CONFIG = {
   // Sayt sarlavhalari va footerda ko'rinadigan domen nomi
-  domain: 'hexjasur.github.io/Jasurbek',
+  domain: 'jasurdev.uz',
 
   // To'liq sayt URL manzili
-  siteUrl: 'https://hexjasur.github.io/Jasurbek',
+  siteUrl: 'https://jasurdev.uz',
 
   // Muallif va sayt ma'lumotlari
   title: 'Jasurbek Haydarov',

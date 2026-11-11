@@ -3,11 +3,11 @@
   <br />
   <p><strong>Software Engineer · Builder · Technical Explorer</strong></p>
   <p>
-    <a href="https://hexjasur.github.io/Jasurbek/">Live site</a>
+    <a href="https://jasurdev.uz/">Live site</a>
     ·
-    <a href="https://hexjasur.github.io/Jasurbek/blog/">Blog</a>
+    <a href="https://jasurdev.uz/blog/">Blog</a>
     ·
-    <a href="https://hexjasur.github.io/Jasurbek/tools/">Tools</a>
+    <a href="https://jasurdev.uz/tools/">Tools</a>
     ·
     <a href="https://github.com/hexjasur">GitHub</a>
     ·
@@ -71,13 +71,13 @@ The design pairs a warm editorial canvas with a botanical flora motif (cream sur
 
 | Date | Article | Language |
 | --- | --- | --- |
-| 2026-11-07 | [Anthropic Claude models 2026: Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5 — benchmarks, pricing and routing code](https://hexjasur.github.io/Jasurbek/blog/anthropic-claude-modellari-benchmark-2026/) | Uzbek |
-| 2026-11-07 | [GTA 6: release date, price, pre-order and budget](https://hexjasur.github.io/Jasurbek/blog/gta-6-toliq-malumot/) | Uzbek |
-| 2026-11-07 | [68 VS Code extensions I use](https://hexjasur.github.io/Jasurbek/blog/vscode-extensions-i-use/) | English |
-| 2026-11-05 | [Maple for mathematics: algebra to calculus with worked examples](https://hexjasur.github.io/Jasurbek/blog/maple-math-basics-with-examples/) | Uzbek |
-| 2026-11-04 | [Taxes in Uzbekistan 2026: VAT, profit tax, land tax and more](https://hexjasur.github.io/Jasurbek/blog/uzbekistan-soliq-qollanma/) | Uzbek |
+| 2026-11-07 | [Anthropic Claude models 2026: Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5 — benchmarks, pricing and routing code](https://jasurdev.uz/blog/anthropic-claude-modellari-benchmark-2026/) | Uzbek |
+| 2026-11-07 | [GTA 6: release date, price, pre-order and budget](https://jasurdev.uz/blog/gta-6-toliq-malumot/) | Uzbek |
+| 2026-11-07 | [68 VS Code extensions I use](https://jasurdev.uz/blog/vscode-extensions-i-use/) | English |
+| 2026-11-05 | [Maple for mathematics: algebra to calculus with worked examples](https://jasurdev.uz/blog/maple-math-basics-with-examples/) | Uzbek |
+| 2026-11-04 | [Taxes in Uzbekistan 2026: VAT, profit tax, land tax and more](https://jasurdev.uz/blog/uzbekistan-soliq-qollanma/) | Uzbek |
 
-Browse everything on the [blog index](https://hexjasur.github.io/Jasurbek/blog/) or subscribe through the [RSS feed](https://hexjasur.github.io/Jasurbek/rss.xml).
+Browse everything on the [blog index](https://jasurdev.uz/blog/) or subscribe through the [RSS feed](https://jasurdev.uz/rss.xml).
 
 ## Featured projects
 
@@ -216,7 +216,7 @@ tags: ["ascii-tag", "another-tag"]
 - Its page, Open Graph image, RSS entry, sitemap entry, tag pages and search entry are generated automatically.
 - New post: `pubDate` is the day you create it. Revision: set `updatedDate` and leave `pubDate` unchanged.
 - Factual posts cite their sources with links, state an "as of" date and label the author's own calculations.
-- Internal links include the base path, for example `/Jasurbek/tools/uzbek-alphabet`.
+- Internal links are site-root relative, for example `/tools/uzbek-alphabet`.
 
 **Tool or playground demo:** add the page under `src/pages/tools/` or `src/pages/playground/` and register it in `src/data/tools.ts` or `src/data/playground.ts`.
 
@@ -231,7 +231,7 @@ Uzbek text in this project uses the reformed Latin alphabet finalized on **Octob
 | Sh sh | Ş ş |
 | Ch ch | Ç ç |
 
-The tutuq belgisi (`ma'lumot`, `e'lon`) is unchanged, and blog tags stay ASCII. Convert old text with the in-site [Uzbek Alphabet Converter](https://hexjasur.github.io/Jasurbek/tools/uzbek-alphabet/), then review by hand. Details are in [`AGENTS.md`](./AGENTS.md) and the post [Uzbek Alphabet 2026 Reform](https://hexjasur.github.io/Jasurbek/blog/uzbek-alphabet-2026/).
+The tutuq belgisi (`ma'lumot`, `e'lon`) is unchanged, and blog tags stay ASCII. Convert old text with the in-site [Uzbek Alphabet Converter](https://jasurdev.uz/tools/uzbek-alphabet/), then review by hand. Details are in [`AGENTS.md`](./AGENTS.md) and the post [Uzbek Alphabet 2026 Reform](https://jasurdev.uz/blog/uzbek-alphabet-2026/).
 
 ## AI agent skills
 

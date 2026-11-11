@@ -15,7 +15,7 @@ tags: ["anthropic", "claude", "ai", "llm", "api", "effort"]
 
 Bir xil model `low` da ham, `max` da ham işlay oladi. Narx, tezlik va sifat esa ikkalasining yiğindisiga boğliq. Bu maqolada ikkala boşqaruvni birga tanlaşni oddiy vazifadan (git commit xabari) katta promptli uzoq agent seansigaça misollar bilan körib çiqaman.
 
-Modellarning özi, çiqiş sanalari va benchmarklar haqida [oldingi maqolamda](/Jasurbek/blog/anthropic-claude-modellari-benchmark-2026) batafsil yozganman. Bu yerda faqat tanlaş masalasi.
+Modellarning özi, çiqiş sanalari va benchmarklar haqida [oldingi maqolamda](/blog/anthropic-claude-modellari-benchmark-2026) batafsil yozganman. Bu yerda faqat tanlaş masalasi.
 
 ## Qisqaça: vazifaga qarab model va effort
 
