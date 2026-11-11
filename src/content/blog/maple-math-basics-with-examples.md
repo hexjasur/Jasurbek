@@ -2,7 +2,7 @@
 title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
 description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-updatedDate: 2026-11-10
+updatedDate: 2026-11-11
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 

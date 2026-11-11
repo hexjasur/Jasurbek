@@ -1,8 +1,8 @@
 ---
 title: "GitHub Workflow nima? GitHub Actions bilan avtomatlashtirishni boshlash"
 description: "GitHub Actions orqali kodni tekshirish, build qilish va deploy qilishni avtomatlashtirishning asosiy tushunchalari, YAML shablonlari va amaliy misollar."
-pubDate: 2026-11-10
-updatedDate: 2026-11-10
+pubDate: 2026-11-11
+updatedDate: 2026-11-11
 tags: ["github", "devops", "automation", "cicd", "workflow", "astro"]
 ---
 

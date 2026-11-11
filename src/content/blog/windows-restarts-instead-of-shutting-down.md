@@ -1,7 +1,7 @@
 ---
 title: "Windows Restarts Instead of Shutting Down: How to Fix It"
 description: "Your Windows 10 or 11 laptop restarts when you click Shut down? Learn why Fast Startup can cause it and how to disable Fast Startup or hibernation with Power Options and CMD."
-pubDate: 2026-11-10
+pubDate: 2026-11-11
 tags: ["windows-11", "windows-10", "fast-startup", "shutdown", "cmd", "win-troubleshooting"]
 ---
 
