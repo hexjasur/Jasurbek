@@ -35,6 +35,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         <option value="new-to-old">Reformed Latin (October 21, 2026) &rarr; Old Latin (1995)</option>
         <option value="cyrillic-to-new">Cyrillic &rarr; Reformed Latin (October 21, 2026)</option>
         <option value="cyrillic-to-old">Cyrillic &rarr; Old Latin (1995)</option>
+        <option value="latin-to-cyrillic">Latin (1995 or Reformed) &rarr; Cyrillic</option>
       </select>
     </div>
 
@@ -49,7 +50,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         <label for="output-text" class="field-label field-label-block">
           Converted Output:
         </label>
-        <textarea id="output-text" readonly placeholder="Output will appear here instantly..."></textarea>
+        <textarea id="output-text" readonly aria-label="Converted output" placeholder="Output will appear here instantly..."></textarea>
       </div>
     </div>
 
@@ -57,7 +58,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       <button class="btn" id="convert-btn">Convert Now</button>
       <button class="btn btn-secondary" id="copy-btn">Copy Output</button>
       <button class="btn btn-secondary" id="clear-btn">Clear All</button>
-      <span id="copy-toast" class="copy-toast" style="display: none;">
+      <span id="copy-toast" class="copy-toast" role="status" aria-live="polite" style="display: none;">
         ✓ Copied to clipboard!
       </span>
     </div>
@@ -130,7 +131,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
             <td>Ъ ъ</td>
             <td>ʼ</td>
             <td>ʼ</td>
-            <td>Tuturuq belgisi (glottal stop / modifier apostrophe)</td>
+            <td>Tutuq belgisi (glottal stop / modifier apostrophe)</td>
           </tr>
         </tbody>
       </table>
@@ -159,10 +160,10 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       'Г': 'G', 'г': 'g', 'Д': 'D', 'д': 'd', 'Е': 'E', 'е': 'e',
       'Ё': 'Yo', 'ё': 'yo', 'Ж': 'J', 'ж': 'j', 'З': 'Z', 'з': 'z',
       'И': 'I', 'и': 'i', 'Й': 'Y', 'й': 'y', 'К': 'K', 'к': 'k',
-      'Л': 'L', 'l': 'l', 'М': 'M', 'м': 'm', 'Н': 'N', 'н': 'n',
+      'Л': 'L', 'М': 'M', 'м': 'm', 'Н': 'N', 'н': 'n',
       'О': 'O', 'о': 'o', 'П': 'P', 'п': 'p', 'Р': 'R', 'р': 'r',
-      'С': 'S', 'с': 's', 'Т': 'T', 't': 't', 'У': 'U', 'у': 'u',
-      'Ф': 'F', 'f': 'f', 'Х': 'X', 'х': 'x', 'Ц': 'Ts', 'ц': 'ts',
+      'С': 'S', 'с': 's', 'Т': 'T', 'У': 'U', 'у': 'u',
+      'Ф': 'F', 'Х': 'X', 'х': 'x', 'Ц': 'Ts', 'ц': 'ts',
       'Ч': 'Ç', 'ч': 'ç', 'Ш': 'Ş', 'ш': 'ş', 'Ъ': 'ʼ', 'ъ': 'ʼ',
       'Ь': '', 'ь': '', 'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu',
       'Я': 'Ya', 'я': 'ya', 'Ў': 'Ö', 'ў': 'ö', 'Қ': 'Q', 'қ': 'q',
@@ -203,6 +204,41 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       return res;
     }
 
+    const latinToCyrillicMap: Record<string, string> = {
+      'A': 'А', 'a': 'а', 'B': 'Б', 'b': 'б', 'D': 'Д', 'd': 'д',
+      'E': 'Е', 'e': 'е', 'F': 'Ф', 'f': 'ф', 'G': 'Г', 'g': 'г',
+      'H': 'Ҳ', 'h': 'ҳ', 'I': 'И', 'i': 'и', 'J': 'Ж', 'j': 'ж',
+      'K': 'К', 'k': 'к', 'L': 'Л', 'l': 'л', 'M': 'М', 'm': 'м',
+      'N': 'Н', 'n': 'н', 'O': 'О', 'o': 'о', 'P': 'П', 'p': 'п',
+      'Q': 'Қ', 'q': 'қ', 'R': 'Р', 'r': 'р', 'S': 'С', 's': 'с',
+      'T': 'Т', 't': 'т', 'U': 'У', 'u': 'у', 'V': 'В', 'v': 'в',
+      'X': 'Х', 'x': 'х', 'Y': 'Й', 'y': 'й', 'Z': 'З', 'z': 'з',
+      'Ö': 'Ў', 'ö': 'ў', 'Ğ': 'Ғ', 'ğ': 'ғ', 'Ş': 'Ш', 'ş': 'ш',
+      'Ç': 'Ч', 'ç': 'ч',
+    };
+
+    // Multi-character forms first: old digraphs and the apostrophe vowels/consonants.
+    const latinDigraphs: [RegExp, string][] = [
+      [/O[ʻ'’`‘]/g, 'Ў'], [/o[ʻ'’`‘]/g, 'ў'],
+      [/G[ʻ'’`‘]/g, 'Ғ'], [/g[ʻ'’`‘]/g, 'ғ'],
+      [/SH/g, 'Ш'], [/Sh/g, 'Ш'], [/sh/g, 'ш'],
+      [/CH/g, 'Ч'], [/Ch/g, 'Ч'], [/ch/g, 'ч'],
+      [/TS/g, 'Ц'], [/Ts/g, 'Ц'], [/ts/g, 'ц'],
+      [/YO/g, 'Ё'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
+      [/YU/g, 'Ю'], [/Yu/g, 'Ю'], [/yu/g, 'ю'],
+      [/YA/g, 'Я'], [/Ya/g, 'Я'], [/ya/g, 'я'],
+    ];
+
+    function latinToCyrillic(text: string): string {
+      let res = text;
+      for (const [re, cyr] of latinDigraphs) res = res.replace(re, cyr);
+      let out = '';
+      for (const char of res) {
+        out += latinToCyrillicMap[char] !== undefined ? latinToCyrillicMap[char] : char;
+      }
+      return out;
+    }
+
     function runConvert() {
       const dir = dirSelect.value;
       const text = uzInput.value;
@@ -210,19 +246,28 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       else if (dir === 'new-to-old') uzOutput.value = newToOld(text);
       else if (dir === 'cyrillic-to-new') uzOutput.value = cyrillicToNew(text);
       else if (dir === 'cyrillic-to-old') uzOutput.value = newToOld(cyrillicToNew(text));
+      else if (dir === 'latin-to-cyrillic') uzOutput.value = latinToCyrillic(text);
     }
 
     uzInput.addEventListener('input', runConvert);
     dirSelect.addEventListener('change', runConvert);
     uzConvertBtn?.addEventListener('click', runConvert);
 
-    uzCopyBtn?.addEventListener('click', () => {
-      if (uzOutput.value) {
-        navigator.clipboard.writeText(uzOutput.value);
-        if (copyToast) {
-          copyToast.style.display = 'inline';
-          setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
-        }
+    function showToast(message: string) {
+      if (!copyToast) return;
+      copyToast.textContent = message;
+      copyToast.style.display = 'inline';
+      setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
+    }
+
+    uzCopyBtn?.addEventListener('click', async () => {
+      if (!uzOutput.value) return;
+      try {
+        await navigator.clipboard.writeText(uzOutput.value);
+        showToast('✓ Copied to clipboard!');
+      } catch {
+        uzOutput.select();
+        showToast('Copy failed. Text selected, press Ctrl+C.');
       }
     });
 
