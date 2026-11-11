@@ -24,7 +24,7 @@ To update later:
 winget upgrade --id GitHub.cli
 ```
 
-If WinGet itself fails, hangs, or isn't recognized, see [Fixing WinGet on Windows](/Jasurbek/blog/fixing-winget-on-windows/) for a separate troubleshooting guide, then come back and retry the command above. Alternatively, skip straight to the manual installer below.
+If WinGet itself fails, hangs, or isn't recognized, see [Fixing WinGet on Windows](/blog/fixing-winget-on-windows/) for a separate troubleshooting guide, then come back and retry the command above. Alternatively, skip straight to the manual installer below.
 
 ## Method 2: Manual installer
 
