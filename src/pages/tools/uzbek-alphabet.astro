@@ -8,130 +8,135 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 ---
 
 <Layout 
-  title={`Uzbek Alphabet Converter | ${SITE_CONFIG.author}`} 
-  description="Convert Uzbek text between legacy Latin, reformed Latin, and Cyrillic scripts using this free, private browser-based converter."
+  title={`Özbek alifbosi konvertori | ${SITE_CONFIG.author}`} 
+  description="Özbek matnini eski lotin (1995), yangi lotin (2026-yil 21-oktyabr) va kirill yozuvi orasida bepul, brauzerda ishlaydigan konvertor orqali almashtiring. Ma'lumotlaringiz serverga yuborilmaydi."
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
   <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
+  </div>
+
+  <div class="blog-intro">
+    <div class="blog-meta-date">Birinchi nashr: 2026-10-21</div>
+    <div class="blog-meta-date">Oxirgi yangilanish: 2026-11-11</div>
   </div>
 
   <section class="tools-box">
     <h2 class="page-title">
       <span class="alphabet-heading-mark" aria-hidden="true">ABC ⇄ АБВ</span>
-      Uzbek Alphabet Converter (October 21, 2026 Reform)
+      Özbek alifbosi konvertori (2026-yil 21-oktyabr islohoti)
     </h2>
     <p class="page-lead">
-      Convert text seamlessly between the legacy Latin orthography (1995), the official reformed Latin standard finalized on <strong>October 21, 2026</strong> (featuring <strong>Ö, Ğ, Ç, Ş</strong>), and Uzbek Cyrillic script.
+      Matnni eski lotin imlosi (1995), <strong>2026-yil 21-oktyabrda</strong> tasdiqlangan yangi lotin standarti (<strong>Ö, Ğ, Ç, Ş</strong> harflari bilan) va kirill yozuvi orasida erkin almashtiring.
     </p>
 
     <div class="tools-row">
       <label for="conversion-direction" class="field-label">
-        Conversion Direction:
+        Yönalish:
       </label>
       <select id="conversion-direction" class="tools-select">
-        <option value="old-to-new">Old Latin (1995) &rarr; Reformed Latin (October 21, 2026)</option>
-        <option value="new-to-old">Reformed Latin (October 21, 2026) &rarr; Old Latin (1995)</option>
-        <option value="cyrillic-to-new">Cyrillic &rarr; Reformed Latin (October 21, 2026)</option>
-        <option value="cyrillic-to-old">Cyrillic &rarr; Old Latin (1995)</option>
-        <option value="latin-to-cyrillic">Latin (1995 or Reformed) &rarr; Cyrillic</option>
+        <option value="old-to-new">Eski lotin (1995) &rarr; Yangi lotin (2026-yil 21-oktyabr)</option>
+        <option value="new-to-old">Yangi lotin (2026-yil 21-oktyabr) &rarr; Eski lotin (1995)</option>
+        <option value="cyrillic-to-new">Kirill &rarr; Yangi lotin (2026-yil 21-oktyabr)</option>
+        <option value="cyrillic-to-old">Kirill &rarr; Eski lotin (1995)</option>
+        <option value="latin-to-cyrillic">Lotin (eski yoki yangi) &rarr; Kirill</option>
       </select>
     </div>
 
     <div class="converter-split">
       <div>
         <label for="input-text" class="field-label field-label-block">
-          Input Text:
+          Kiritilgan matn:
         </label>
-        <textarea id="input-text" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
+        <textarea id="input-text" placeholder="Matnni shu yerga yozing yoki qo'ying..." spellcheck="false"></textarea>
       </div>
       <div>
         <label for="output-text" class="field-label field-label-block">
-          Converted Output:
+          Natija:
         </label>
-        <textarea id="output-text" readonly aria-label="Converted output" placeholder="Output will appear here instantly..."></textarea>
+        <textarea id="output-text" readonly aria-label="Natija" placeholder="Natija shu yerda darhol chiqadi..."></textarea>
       </div>
     </div>
 
     <div class="tools-buttons">
-      <button class="btn" id="convert-btn">Convert Now</button>
-      <button class="btn btn-secondary" id="copy-btn">Copy Output</button>
-      <button class="btn btn-secondary" id="clear-btn">Clear All</button>
+      <button class="btn" id="convert-btn">Hozir ögirish</button>
+      <button class="btn btn-secondary" id="copy-btn">Nusxa olish</button>
+      <button class="btn btn-secondary" id="clear-btn">Tozalash</button>
       <span id="copy-toast" class="copy-toast" role="status" aria-live="polite" style="display: none;">
-        ✓ Copied to clipboard!
+        ✓ Buferga nusxalandi!
       </span>
     </div>
   </section>
 
   <section class="section-gap">
     <h3 class="section-title">
-      Official Character Correspondence Table
+      Rasmiy harflar moslik jadvali
     </h3>
     <div class="table-scroll">
       <table class="alphabet-table">
         <thead>
           <tr>
-            <th>Cyrillic</th>
-            <th>Old Latin (1995)</th>
-            <th>Reformed Latin (Oct 21, 2026)</th>
-            <th>Notes</th>
+            <th>Kirill</th>
+            <th>Eski lotin (1995)</th>
+            <th>Yangi lotin (2026-yil 21-oktyabr)</th>
+            <th>Izoh</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Ў ў</strong></td>
-            <td>Oʻ oʻ (or O' o')</td>
+            <td>Oʻ oʻ (yoki O' o')</td>
             <td class="reformed-char">Ö ö</td>
-            <td>Replaces apostrophe-modified vowel</td>
+            <td>Tutuqli unli harf o'rniga, ö tovushi uchun</td>
           </tr>
           <tr>
             <td><strong>Ғ ғ</strong></td>
-            <td>Gʻ gʻ (or G' g')</td>
+            <td>Gʻ gʻ (yoki G' g')</td>
             <td class="reformed-char">Ğ ğ</td>
-            <td>Replaces apostrophe-modified voiced velar fricative</td>
+            <td>Tutuqli jarangli undosh o'rniga, ğ tovushi uchun</td>
           </tr>
           <tr>
             <td><strong>Ш ш</strong></td>
             <td>Sh sh</td>
             <td class="reformed-char">Ş ş</td>
-            <td>Replaces digraph with s-cedilla</td>
+            <td>Digraf sh o'rniga, bitta harf bilan</td>
           </tr>
           <tr>
             <td><strong>Ч ч</strong></td>
             <td>Ch ch</td>
             <td class="reformed-char">Ç ç</td>
-            <td>Replaces digraph with c-cedilla</td>
+            <td>Digraf ch o'rniga, bitta harf bilan</td>
           </tr>
           <tr>
             <td>Ж ж</td>
             <td>J j</td>
             <td>J j</td>
-            <td>Unchanged</td>
+            <td>Özgarmagan</td>
           </tr>
           <tr>
             <td>Қ қ</td>
             <td>Q q</td>
             <td>Q q</td>
-            <td>Unchanged</td>
+            <td>Özgarmagan</td>
           </tr>
           <tr>
             <td>Ҳ ҳ</td>
             <td>H h</td>
             <td>H h</td>
-            <td>Unchanged</td>
+            <td>Özgarmagan</td>
           </tr>
           <tr>
             <td>Х х</td>
             <td>X x</td>
             <td>X x</td>
-            <td>Unchanged</td>
+            <td>Özgarmagan</td>
           </tr>
           <tr>
             <td>Ъ ъ</td>
             <td>ʼ</td>
             <td>ʼ</td>
-            <td>Tutuq belgisi (glottal stop / modifier apostrophe)</td>
+            <td>Tutuq belgisi (glottal undosh)</td>
           </tr>
         </tbody>
       </table>
@@ -139,7 +144,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   </section>
 
   <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
   </div>
 </Layout>
 
@@ -162,13 +167,38 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       'И': 'I', 'и': 'i', 'Й': 'Y', 'й': 'y', 'К': 'K', 'к': 'k',
       'Л': 'L', 'М': 'M', 'м': 'm', 'Н': 'N', 'н': 'n',
       'О': 'O', 'о': 'o', 'П': 'P', 'п': 'p', 'Р': 'R', 'р': 'r',
-      'С': 'S', 'с': 's', 'Т': 'T', 'У': 'U', 'у': 'u',
+      'С': 'S', 'с': 's', 'Т': 'T', 'т': 't', 'У': 'U', 'у': 'u',
       'Ф': 'F', 'Х': 'X', 'х': 'x', 'Ц': 'Ts', 'ц': 'ts',
       'Ч': 'Ç', 'ч': 'ç', 'Ш': 'Ş', 'ш': 'ş', 'Ъ': 'ʼ', 'ъ': 'ʼ',
       'Ь': '', 'ь': '', 'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu',
       'Я': 'Ya', 'я': 'ya', 'Ў': 'Ö', 'ў': 'ö', 'Қ': 'Q', 'қ': 'q',
       'Ғ': 'Ğ', 'ғ': 'ğ', 'Ҳ': 'H', 'ҳ': 'h',
     };
+
+    const latinToCyrillicMap: Record<string, string> = {
+      'A': 'А', 'a': 'а', 'B': 'Б', 'b': 'б', 'D': 'Д', 'd': 'д',
+      'E': 'Е', 'e': 'е', 'F': 'Ф', 'f': 'ф', 'G': 'Г', 'g': 'г',
+      'H': 'Ҳ', 'h': 'ҳ', 'I': 'И', 'i': 'и', 'J': 'Ж', 'j': 'ж',
+      'K': 'К', 'k': 'к', 'L': 'Л', 'l': 'л', 'M': 'М', 'm': 'м',
+      'N': 'Н', 'n': 'н', 'O': 'О', 'o': 'о', 'P': 'П', 'p': 'п',
+      'Q': 'Қ', 'q': 'қ', 'R': 'Р', 'r': 'р', 'S': 'С', 's': 'с',
+      'T': 'Т', 't': 'т', 'U': 'У', 'u': 'у', 'V': 'В', 'v': 'в',
+      'X': 'Х', 'x': 'х', 'Y': 'Й', 'y': 'й', 'Z': 'З', 'z': 'з',
+      'Ö': 'Ў', 'ö': 'ў', 'Ğ': 'Ғ', 'ğ': 'ғ', 'Ş': 'Ш', 'ş': 'ш',
+      'Ç': 'Ч', 'ç': 'ч',
+    };
+
+    // Multi-character forms first: old digraphs and apostrophe letters.
+    const latinDigraphs: [RegExp, string][] = [
+      [/O[ʻ'’`‘]/g, 'Ў'], [/o[ʻ'’`‘]/g, 'ў'],
+      [/G[ʻ'’`‘]/g, 'Ғ'], [/g[ʻ'’`‘]/g, 'ғ'],
+      [/SH/g, 'Ш'], [/Sh/g, 'Ш'], [/sh/g, 'ш'],
+      [/CH/g, 'Ч'], [/Ch/g, 'Ч'], [/ch/g, 'ч'],
+      [/TS/g, 'Ц'], [/Ts/g, 'Ц'], [/ts/g, 'ц'],
+      [/YO/g, 'Ё'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
+      [/YU/g, 'Ю'], [/Yu/g, 'Ю'], [/yu/g, 'ю'],
+      [/YA/g, 'Я'], [/Ya/g, 'Я'], [/ya/g, 'я'],
+    ];
 
     function oldToNew(text: string): string {
       return text
@@ -204,31 +234,6 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       return res;
     }
 
-    const latinToCyrillicMap: Record<string, string> = {
-      'A': 'А', 'a': 'а', 'B': 'Б', 'b': 'б', 'D': 'Д', 'd': 'д',
-      'E': 'Е', 'e': 'е', 'F': 'Ф', 'f': 'ф', 'G': 'Г', 'g': 'г',
-      'H': 'Ҳ', 'h': 'ҳ', 'I': 'И', 'i': 'и', 'J': 'Ж', 'j': 'ж',
-      'K': 'К', 'k': 'к', 'L': 'Л', 'l': 'л', 'M': 'М', 'm': 'м',
-      'N': 'Н', 'n': 'н', 'O': 'О', 'o': 'о', 'P': 'П', 'p': 'п',
-      'Q': 'Қ', 'q': 'қ', 'R': 'Р', 'r': 'р', 'S': 'С', 's': 'с',
-      'T': 'Т', 't': 'т', 'U': 'У', 'u': 'у', 'V': 'В', 'v': 'в',
-      'X': 'Х', 'x': 'х', 'Y': 'Й', 'y': 'й', 'Z': 'З', 'z': 'з',
-      'Ö': 'Ў', 'ö': 'ў', 'Ğ': 'Ғ', 'ğ': 'ғ', 'Ş': 'Ш', 'ş': 'ш',
-      'Ç': 'Ч', 'ç': 'ч',
-    };
-
-    // Multi-character forms first: old digraphs and the apostrophe vowels/consonants.
-    const latinDigraphs: [RegExp, string][] = [
-      [/O[ʻ'’`‘]/g, 'Ў'], [/o[ʻ'’`‘]/g, 'ў'],
-      [/G[ʻ'’`‘]/g, 'Ғ'], [/g[ʻ'’`‘]/g, 'ғ'],
-      [/SH/g, 'Ш'], [/Sh/g, 'Ш'], [/sh/g, 'ш'],
-      [/CH/g, 'Ч'], [/Ch/g, 'Ч'], [/ch/g, 'ч'],
-      [/TS/g, 'Ц'], [/Ts/g, 'Ц'], [/ts/g, 'ц'],
-      [/YO/g, 'Ё'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
-      [/YU/g, 'Ю'], [/Yu/g, 'Ю'], [/yu/g, 'ю'],
-      [/YA/g, 'Я'], [/Ya/g, 'Я'], [/ya/g, 'я'],
-    ];
-
     function latinToCyrillic(text: string): string {
       let res = text;
       for (const [re, cyr] of latinDigraphs) res = res.replace(re, cyr);
@@ -249,10 +254,6 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       else if (dir === 'latin-to-cyrillic') uzOutput.value = latinToCyrillic(text);
     }
 
-    uzInput.addEventListener('input', runConvert);
-    dirSelect.addEventListener('change', runConvert);
-    uzConvertBtn?.addEventListener('click', runConvert);
-
     function showToast(message: string) {
       if (!copyToast) return;
       copyToast.textContent = message;
@@ -260,14 +261,18 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
     }
 
+    uzInput.addEventListener('input', runConvert);
+    dirSelect.addEventListener('change', runConvert);
+    uzConvertBtn?.addEventListener('click', runConvert);
+
     uzCopyBtn?.addEventListener('click', async () => {
       if (!uzOutput.value) return;
       try {
         await navigator.clipboard.writeText(uzOutput.value);
-        showToast('✓ Copied to clipboard!');
+        showToast('✓ Buferga nusxalandi!');
       } catch {
         uzOutput.select();
-        showToast('Copy failed. Text selected, press Ctrl+C.');
+        showToast("Nusxalab bo'lmadi. Matn tanlandi, Ctrl+C bosing.");
       }
     });
 
