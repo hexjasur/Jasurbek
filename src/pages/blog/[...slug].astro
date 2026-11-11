@@ -65,15 +65,15 @@ const postSchema = blogPostingSchema({
       {post.data.title}
     </h1>
     <div class="post-meta">
-      <time datetime={new Date(pubDate).toISOString()}>Published on: {formattedDate}</time>
+      <div class="post-meta-line">
+        <time datetime={new Date(pubDate).toISOString()}>Published on: {formattedDate}</time>
+      </div>
       {formattedUpdated && (
-        <>
-          <span class="meta-dot" aria-hidden="true">·</span>
+        <div class="post-meta-line">
           <time datetime={updatedISO}>Updated on: {formattedUpdated}</time>
-        </>
+        </div>
       )}
-      <span class="meta-dot" aria-hidden="true">·</span>
-      <span>{minutes} min read</span>
+      <div class="post-meta-line">{minutes} min read</div>
     </div>
 
     {post.data.tags && (
