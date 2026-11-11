@@ -16,7 +16,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 <div class="site-header-shell">
   <header class="site-header">
-    <h1 class="site-title">{headerTitle}</h1>
+    <h1 class="site-title"><a href={baseUrl} aria-label="Go to the home page">{headerTitle}</a></h1>
   </header>
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-links">

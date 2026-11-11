@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: [Claude, Copilot]
+        branch: [Claude, Copilot, MANUS]
       fail-fast: false   # keep syncing the other branch if one fails
 
     steps:
