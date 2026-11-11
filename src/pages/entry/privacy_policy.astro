@@ -15,7 +15,7 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
   <div class="blog-intro">
     <h2 class="page-title">{pageTitle}</h2>
     <div class="blog-meta-date">First Published: 2026-11-07</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-07</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-11</div>
 
     <p class="blog-desc">
       This Privacy Policy and Web Tools Disclaimer outlines how personal information, web utilities, and technical data are handled across {SITE_CONFIG.domain}. We operate on a privacy-first principle: no third-party trackers, no unnecessary data acquisition, and completely local execution for interactive tools.
@@ -51,10 +51,13 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
       </p>
       <ul>
         <li>
-          <strong>100% Local Execution:</strong> All calculations, encoders/decoders (Base64, URL encoding), UUID generation, CSS clamp math, HEMIS credit module computations, and text conversions (such as the Uzbek reformed alphabet converter) run exclusively within your local browser engine via client-side JavaScript / Web APIs.
+          <strong>Local Execution:</strong> Calculations, encoders/decoders (Base64, URL encoding), UUID and NanoID generation, CSS clamp math, color contrast checks, code and JSON minification or beautification, JSON to TypeScript conversion, HEMIS credit module computations, and text conversions (such as the Uzbek reformed alphabet converter) run within your local browser engine via client-side JavaScript / Web APIs.
         </li>
         <li>
-          <strong>No Server Transmission:</strong> The text, tokens, source codes, formulas, or inputs you enter into any tool are <em>never</em> uploaded, transmitted, or logged to our servers or any third-party infrastructure.
+          <strong>No Server Transmission:</strong> The text, tokens, source codes, formulas, or inputs you enter into the tools are <em>not</em> uploaded, transmitted, or logged to our servers or any third-party infrastructure.
+        </li>
+        <li>
+          <strong>Exception — PageSpeed Checker:</strong> The <a href={`${baseUrl}tools/pagespeed-checker`}>Website Speed &amp; Performance Checker</a> does not analyze the URL on our site. When you submit a URL, it opens Google's PageSpeed Insights (pagespeed.web.dev) in a new tab with that URL, and the request is handled by Google under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
         </li>
         <li>
           <strong>Zero Persistent Cloud Storage:</strong> When you refresh or close the tab, temporary memory structures are automatically cleared by your web browser.
@@ -69,7 +72,13 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
       </p>
       <ul>
         <li>
-          <strong>Theme Preference:</strong> We use your browser's <code>localStorage</code> solely to remember your aesthetic choice between Light and Dark mode (via the <code>data-theme</code> setting). This remains entirely local to your machine.
+          <strong>Local Storage:</strong> We use your browser's <code>localStorage</code> only for the following, and this data never leaves your device:
+          <ul>
+            <li><strong>Theme Preference:</strong> your Light or Dark mode choice (<code>theme</code>).</li>
+            <li><strong>Credit Module Calculator:</strong> the subjects you entered and the selected calculation mode (<code>hemis_calc_subjects</code>, <code>hemis_calc_mode</code>), so they are still there when you return.</li>
+            <li><strong>Playground Best Scores:</strong> your best Snake and Reaction Time results (<code>snake-best</code>, <code>reaction-best</code>).</li>
+          </ul>
+          You can clear this data at any time from your browser's site settings.
         </li>
         <li>
           <strong>Third-Party Integrations:</strong> If you voluntarily engage with optional interactive features like GitHub Discussions / Giscus comments or external repository links, those third-party services operate under their own independent privacy terms.
@@ -109,6 +118,7 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
         When you contact us directly via our <a href={`${baseUrl}contact`}>contact form</a>, email, Telegram, or GitHub:
       </p>
       <ul>
+        <li>The contact form is processed by <strong>Formspree</strong> (formspree.io), a third-party form service that forwards your message to us. Your email address and message are sent to Formspree; Formspree's own privacy terms apply to that transfer. If spam protection is enabled, the form also uses <strong>Cloudflare Turnstile</strong>, which is governed by Cloudflare's privacy policy.</li>
         <li>We collect only the information provided voluntarily (such as your name, email address, and message body) to facilitate direct communication and respond to your inquiry.</li>
         <li>Your contact details are never sold, rented, or shared with third parties for commercial or promotional purposes.</li>
         <li>You may request the deletion of any inquiry records at any time by contacting us directly.</li>
