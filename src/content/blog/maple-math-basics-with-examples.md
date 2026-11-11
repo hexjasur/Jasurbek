@@ -2,7 +2,7 @@
 title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
 description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-updatedDate: 2026-11-06
+updatedDate: 2026-11-10
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -418,6 +418,100 @@ Natija: `0.322922981113732`. `evalf(ifoda, 15)` ifodani `15` xonali aniqlikda hi
 - Javob çiqmasa yoki murakkab bölsa, `evalf(int(...))` bilan sonli qiymatini oling.
 - Aniq integral işorali yuzni beradi: `cos x` misolidagi kabi nol çiqişi mumkin.
 
+## 15. Ekstremum, maksimum-minimum va uziliş nuqtalari
+
+Köpinça funksiyani tahlil qilişda uning qayerda «buzilişini» (uzilişini) va qayerda eng katta yoki eng kiçik qiymatga yetişini biliş kerak böladi. Maple buning uçun tört buyruqqa ega: `discont` (uziliş nuqtalari), `singular` (maxsus nuqtalar), `extrema` (lokal ekstremumlar) va `maximize`/`minimize` (berilgan oraliqdagi eng katta/eng kiçik qiymat). Bu töttasi — `discont`, `extrema`, `maximize`, `minimize` — eski kutubxona funksiyalari, şuning uçun ularni ilk marta işlatişdan oldin `readlib(...)` bilan yuklaş kerak.
+
+### Uziliş nuqtalari: discont
+
+`discont(ifoda, özgaruvçi)` funksiyaning uzluksiz emasligi — uzilişi — qayerda sodir bölişini topadi.
+
+```maple
+readlib(discont);
+discont(exp(1/(x + 3)), x);
+```
+
+Natija: `{-3}`. `x = -3` da maxraj nolga aylanadi, körsatkiçdagi `1/(x+3)` çeksizlikka intiladi va funksiya şu nuqtada uzilaadi (ikkinçi tur uzilişi).
+
+### Maxsus nuqtalar: singular
+
+`singular(ifoda)` ifodaning maxsus (osobennost) nuqtalarini — funksiya aniqlanmay qoladigan joylarni — töplam körinişida qaytaradi.
+
+```maple
+singular(tan(x/(2 - x)));
+```
+
+Natija ikkita töplamdan iborat:
+
+```text
+{x = 2}, { x = 2*Pi*(2*_Z1 + 1) / (2*Pi*_Z1 + Pi - 2) }
+```
+
+Birinçisi — `x = 2` da içki kasr `2 - x` nolga aylanadi, butun ifoda aniqlanmaydi. Ikkinçisi — `tan` funksiyasining özi `x/(2-x) = Pi/2 + Pi*k` tenglamani qanoatlantiradigan har bir nuqtada uzilaadi; `_Z1` — avval `_EnvAllSolutions` bölimida körgan ixtiyoriy butun son parametri.
+
+### Lokal ekstremumlar: extrema
+
+`extrema(ifoda, çeklaşlar, özgaruvçi, 'nom')` funksiyaning lokal ekstremum **qiymatlarini** qaytaradi; töttinçi argumentdagi (tirnoq içidagi) nomga esa ekstremum **nuqtalarining** özi yoziladi.
+
+```maple
+readlib(extrema);
+extrema(arctan(x) - (1/2)*ln(x^2 + 1), {}, x, 'xo');
+```
+
+Natija: `{1/4*Pi - 1/2*ln(2)}`. `{}` — çeklaş yöqligini (erkin ekstremum) bildiradi. Nuqtaning özi `xo` nomida saqlanadi; uni körmoqçi bölsak, alohida `xo;` deb yozamiz.
+
+Har doim ham javob şunday ixçam çiqavermaydi. Murakkabroq ifodada `extrema` natijani `RootOf(...)` içida qaytarişi mumkin — bu «tenglamaning yeçimi bor, lekin elementar funksiyalar bilan yopiq körinişda yozib bölmaydi» degani:
+
+```maple
+readlib(extrema);
+y := (1/2)*(x^2 - 1/2)*arcsin(x) + x*sqrt((1 - x^2)/4 - Pi*x);
+extrema(y, {}, x, 's');
+s;
+```
+
+Bunday holda natija bir neça qatorli, kosinus va sinusdan tuzilgan `RootOf(...)` ifodasi böladi — Maple ekstremum nuqtasining aniq qiymatini emas, uni qanoatlantiradigan tenglamani qaytaradi. Amalda bunday javobni `evalf` yoki `fsolve` bilan songa aylantirib işlatiş qulayroq.
+
+> Eslatma: `RootOf` çiqişi xato emas — bu Maple'ning «yeçim bor, lekin yopiq körinişda yöq» degan tabiiy javobi.
+
+`RootOf` çiqqan paytda eng amaliy yöl — ekstremum nuqtasining özini qidiriş örniga, funksiyaning **berilgan kesmadagi** eng katta va eng kiçik qiymatini tögridan-tögri soraş: buning uçun aynan `maximize`/`minimize` buyruqlari bor (keyingi bölimda batafsil).
+
+```maple
+ymax := maximize(y, x = -1 .. 1);
+ymin := minimize(y, x = -1 .. 1);
+```
+
+Natijalar: `ymax := 0` va `ymin := 0`. Demak, `y` funksiyasi `[-1, 1]` kesmasida eng katta hamda eng kiçik qiymatlarining ikkisi ham nolga teng. `RootOf`li natijani körgaç darhol qol siltamay, aynan şu usul — `maximize`/`minimize` bilan sonli javob oliş — ekstremumni amalda «yopiş» uçun eng işonçli yöl.
+
+### Oraliqda eng katta va eng kiçik qiymat: maximize va minimize
+
+`extrema` lokal ekstremumlarni topadi, `maximize` va `minimize` esa berilgan **yopiq oraliqda** (çegara nuqtalarini ham hisobga olib) funksiyaning eng katta/eng kiçik qiymatini topadi.
+
+```maple
+readlib(maximize);
+readlib(minimize);
+f := proc (x) options operator, arrow; x^2*ln(x) end proc;
+maximize(f(x), x = 1 .. 2);
+minimize(f(x), x = 0 .. 1);
+simplify(%);
+```
+
+Natijalar: `maximize` — `4*ln(2)` (`x = 2` çegarasida yetişiladi), `minimize` esa avval soddalaştirilmagan körinişda çiqadi, söng `simplify(%)` bilan `-1/2*exp(-1)` ga keltiriladi (`%` — Maple'da oxirgi hisoblangan natijani belgilaydigan maxsus özgaruvçi). `proc (x) options operator, arrow; ... end proc` — funksiya e'lon qilişning tölik yoziluvi; qisqaçasi `f := x -> x^2*ln(x)` biz avval `D` operatori bölimida körgan edik.
+
+`maximize`/`minimize` har doim ham sodda songa qisqaravermaydi: ifoda murakkab bölsa, natija özi — hisoblanmagan, pretty-printlangan `maximize(...)` çaqiruvi körinişida — qaytişi mumkin. Bunday holda ifodani `evalf` bilan songa aylantiriş yoki natijani boşqa özgaruvçiga qölda beriş kerak böladi.
+
+### Keng tarqalgan xato: extrema'ning söngi argumenti
+
+`extrema`ning töttinçi argumenti — ekstremum nuqtalari yoziladigan **nom** (yuqoridagi `'xo'` yoki `'s'` kabi), hisoblaniş kerak bölgan ifoda emas. Agar örniga hisoblangan ifoda (masalan, `diff(...)` natijasi) berilsa, Maple uni nom sifatida qabul qilmaydi va nuqtalar töplami tölinmay qoladi:
+
+```maple
+y := x^3/(-x^2 + 4);
+readlib(extrema);
+extrema(y, {}, (diff(x, x))*(diff(s(x), x)));
+s(x);
+```
+
+Bu yerda töttinçi argument örnida notöğri ifoda (`diff(x,x)*diff(s(x),x)`) berilgan, şuning uçun `extrema` faqat ekstremum qiymatini (`{-x^3/(x^2-4)}`) qaytaradi, `s(x)` esa heç qayerga boğlanmagan holiça özgarmay çiqadi. Töğri yoziluv — nom tirnoq içida beriladi: `extrema(y, {}, x, 's')`, şundan keyingina `s;` buyruği nuqtalarni körsatadi.
+
 ## Xulosa
 
 Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
@@ -435,5 +529,10 @@ Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
 | `int` / `Int` | integralni hisoblaş / yozib körsatiş |
 | `evalf` | kasr (sonli) qiymatini hisoblaş |
 | `det`, `inverse`, `eigenvalues` | matritsa xossalari |
+| `discont` | uziliş nuqtalarini topiş |
+| `singular` | maxsus (osobennost) nuqtalarni topiş |
+| `extrema` | lokal ekstremumlarni topiş |
+| `maximize` / `minimize` | oraliqdagi eng katta / eng kiçik qiymat |
+| `readlib` | eski kutubxona funksiyasini yuklaş |
 
 Natijani doim qölda ham tekşirib köriş kerak: Maple xato qilmaydi, lekin kiritişda xato qiliş oson.

@@ -1,0 +1,52 @@
+name: Sync Claude branch with master
+
+# Keeps the `Claude` branch automatically mirroring `master` via fast-forward.
+# If `Claude` ever gets commits of its own that aren't on `master` (i.e. it has
+# diverged), the sync is skipped so nothing is overwritten or force-pushed —
+# the workflow just reports that and stops.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fast-forward Claude to master (skip if diverged)
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if ! git ls-remote --exit-code --heads origin Claude >/dev/null 2>&1; then
+            echo "Claude branch does not exist on origin yet — creating it from master."
+            git branch Claude origin/master
+            git push origin Claude
+            exit 0
+          fi
+
+          git fetch origin Claude
+          git checkout -B Claude origin/Claude
+
+          if git merge-base --is-ancestor Claude origin/master; then
+            if [ "$(git rev-parse Claude)" = "$(git rev-parse origin/master)" ]; then
+              echo "Claude is already up to date with master — nothing to do."
+            else
+              echo "Claude has no commits of its own — fast-forwarding to master."
+              git merge --ff-only origin/master
+              git push origin Claude
+            fi
+          else
+            echo "::warning::Claude branch has commits that are not on master (it has diverged)."
+            echo "Skipping auto-sync so nothing gets overwritten. Merge or rebase manually, then this workflow will resume syncing automatically."
+          fi
