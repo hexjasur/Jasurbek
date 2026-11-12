@@ -543,10 +543,10 @@ plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
 `[x(t), y(t), t = a .. b]` ko'rinishida beriladi:
 
 ```maple
-plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, color = purple, thickness = 6);
+plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, labels = [x, y], color = purple, thickness = 6);
 ```
 
-![sin(2t) va cos(3t) parametrik egri chizig'i, binafsha rangda](/images/maple/plot-lissajous.svg)
+![sin(2t) va cos(3t) parametrik egri chizig'i, x va y koordinatalari -1 dan 1 gacha](/images/maple/plot-lissajous.svg)
 
 ### Kvadrat funksiya
 
