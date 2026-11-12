@@ -514,66 +514,64 @@ Bu yerda töttinçi argument örnida notöğri ifoda (`diff(x,x)*diff(s(x),x)`) 
 
 ## 16. Grafiklar: plot va implicitplot
 
-Dars davomida `plot` bilan bir qancha grafik çizdik. Töğri ishlagan misollar bilan birga, xato bergan joylarni ham yozib qöydim, çunki ular eng köp savol töğdiradigan joylar edi.
+Dars davomida `plot` bilan bir necha grafik çizdik. Quyida har bir misolning kodi va natijasi (grafik) berilgan.
 
-### Töğri misollar
+### Funksiya grafigi: sin(x)/x
 
-Funksiya grafigi, yoğonligi va yorliqlari bilan:
+Yoğonligi va yorliqlari bilan:
 
 ```maple
 plot(sin(x)/x, x = -4*Pi .. 4*Pi, labels = [x, y], labelfont = [Times, ITALIC, 12], thickness = 3);
 ```
 
-Bir necha funksiyani bir grafikda, `y` böyiça chegara bilan:
+![sin(x)/x funksiyasining grafigi, x oraliqi -4π dan 4π gacha](/images/maple/plot-sinc.svg)
+
+Funksiya `x = 0` nuqtada uzilmaydi: `sin(x)/x` ning limiti `1` ga teng.
+
+### Bir nechta funksiya bir grafikda
 
 ```maple
 plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
 ```
 
-Parametrik egri chiziq `[x(t), y(t), t = a .. b]` körinişida beriladi:
+![x^2-x+3 va 2x+3 funksiyalarining grafiklari](/images/maple/plot-parabola-line.svg)
+
+`y = 0 .. 30` chegarasi grafikni shu oraliqda ko'rsatadi, parabolaning qolgan qismi chizmadan tashqarida qoladi.
+
+### Parametrik egri chiziq
+
+`[x(t), y(t), t = a .. b]` ko'rinishida beriladi:
 
 ```maple
 plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, color = purple, thickness = 6);
 ```
 
-### Xato 1: `labels[x, y]` yozilişi
+![sin(2t) va cos(3t) parametrik egri chizig'i, binafsha rangda](/images/maple/plot-lissajous.svg)
+
+### Kvadrat funksiya
 
 ```maple
-plot([x^2-5*x+6], x = -10 .. 15, labels[x, y]);
+plot([x^2-5*x+6], x = -10 .. 15, labels = [x, y]);
 ```
 
-Bu yerda xato yorliqlarni yozişda. Kvadrat qavs bilan `labels[x, y]` emas, tenglik belgisi bilan `labels = [x, y]` yoziladi. `label[x, y]` (birlik, qavs bilan) ham xuddi şunday xato. Töğri kalit söz — `labels`.
+![x^2-5x+6 funksiyasining grafigi](/images/maple/plot-quadratic.svg)
 
-`print(??);` qatori esa faqat kiritiş uçun qöyilgan belgi (placeholder) edi, uni kodga yozmaymiz.
+Parabola `x = 2` va `x = 3` nuqtalarda `x` o'qini kesadi, bular tenglama `x^2-5x+6 = 0` ning yechimlari.
 
-### Xato 2: yashirin tenglamani plot bilan chizişga urinş
+### Yashirin tenglama: implicitplot
 
-```maple
-plot([(1/4)*x^2-(1/2)*y^2 = 16], labels = [x, y]);
-```
-
-Natija:
-
-```text
-Error, (in plot) incorrect first argument [(1/4)*x^2-(1/2)*y^2 = 16]
-```
-
-Sabab shunda: `plot` `y = f(x)` körinişidagi funksiyalarni yoki parametrik egrilarni qabul qiladi. `(1/4)x² − (1/2)y² = 16` tenglamada `y` ni `x` orqali aniq yozib bölmaydi (`y` ikki qiymatli: ±), şuning uçun bu yashirin (implicit) tenglama. Bunday tenglamalar uçun `plots` paketidagi `implicitplot` buyruği kerak:
+Tenglama `y = f(x)` ko'rinishida bo'lmasa, `plots` paketidagi `implicitplot` ishlatiladi:
 
 ```maple
 with(plots):
 implicitplot((1/4)*x^2-(1/2)*y^2 = 16, x = -20 .. 20, y = -16 .. 16);
 ```
 
-`with(plots):` paketni ulaydi, söng `implicitplot` tenglamani `x` va `y` chegaralari ichida chizadi. Natija — ikki tarmoqli giperbola. Umumiy körinişi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
+![(1/4)x^2 - (1/2)y^2 = 16 giperbolasining grafigi](/images/maple/plot-hyperbola.svg)
 
-### Xato 3: cheksiz oraliq
+Natija ikki tarmoqli giperbola. Umumiy ko'rinishi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
 
-```maple
-plot(sin(x)/x, x = -4*Pi .. infinity, labels = [x, y], labelfont = [Times, ITALIC, 12]);
-```
-
-Bu buyruq grafik çizişda muammo chiqarişi mumkin, çunki `infinity` bilan cheksiz oraliqni chizib bölmaydi. Amalda chekli oraliq bersa böladi: `x = -4*Pi .. 4*Pi` kabi. Grafikni kengaytirmoqçi bölsangiz, chegarani katta son bilan (masalan, `x = -40 .. 40`) berib köring.
+> Eslatma: `plot` buyrug'iga `infinity` bilan cheksiz oraliq berish o'rniga, chekli katta son bilan chegara bering, masalan `x = -40 .. 40`.
 
 ## Xulosa
 
