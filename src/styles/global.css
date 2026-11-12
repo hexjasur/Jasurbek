@@ -1139,6 +1139,15 @@ a:hover {
     padding: 1rem 1rem 0.4rem;
   }
 
+  .site-header-shell {
+    position: relative;
+  }
+
+  .site-header {
+    padding-right: 6.6rem;
+    text-align: left;
+  }
+
   .site-title {
     font-size: clamp(1.05rem, 4.5vw, 1.3rem);
     overflow-wrap: anywhere;
@@ -1148,6 +1157,22 @@ a:hover {
     flex-wrap: wrap;
     gap: 0.55rem;
     padding: 0.5rem 1rem 1rem;
+  }
+
+  .site-nav .nav-links {
+    display: none;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 0.72rem;
+    right: 0.75rem;
+    padding: 0;
+    z-index: 5;
+  }
+
+  .nav-actions {
+    align-self: auto;
   }
 
   .nav-links {
@@ -1230,6 +1255,29 @@ a:hover {
   .contact-form button[type="submit"] {
     width: 100%;
     min-height: 2.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header {
+    padding-left: 0.85rem;
+    padding-right: 6.25rem;
+  }
+
+  .site-title {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-nav {
+    right: 0.55rem;
+  }
+
+  .site-content {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
   }
 }
 
