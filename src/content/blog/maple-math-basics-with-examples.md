@@ -2,7 +2,7 @@
 title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
 description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-updatedDate: 2026-11-11
+updatedDate: 2026-11-13
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -512,6 +512,67 @@ s(x);
 
 Bu yerda töttinçi argument örnida notöğri ifoda (`diff(x,x)*diff(s(x),x)`) berilgan, şuning uçun `extrema` faqat ekstremum qiymatini (`{-x^3/(x^2-4)}`) qaytaradi, `s(x)` esa heç qayerga boğlanmagan holiça özgarmay çiqadi. Töğri yoziluv — nom tirnoq içida beriladi: `extrema(y, {}, x, 's')`, şundan keyingina `s;` buyruği nuqtalarni körsatadi.
 
+## 16. Grafiklar: plot va implicitplot
+
+Dars davomida `plot` bilan bir necha grafik çizdik. Quyida har bir misolning kodi va natijasi (grafik) berilgan.
+
+### Funksiya grafigi: sin(x)/x
+
+Yoğonligi va yorliqlari bilan:
+
+```maple
+plot(sin(x)/x, x = -4*Pi .. 4*Pi, labels = [x, y], labelfont = [Times, ITALIC, 12], thickness = 3);
+```
+
+![sin(x)/x funksiyasining grafigi, x oraliqi -4π dan 4π gacha](/images/maple/plot-sinc.svg)
+
+Funksiya `x = 0` nuqtada uzilmaydi: `sin(x)/x` ning limiti `1` ga teng.
+
+### Bir nechta funksiya bir grafikda
+
+```maple
+plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
+```
+
+![x^2-x+3 va 2x+3 funksiyalarining grafiklari](/images/maple/plot-parabola-line.svg)
+
+`y = 0 .. 30` chegarasi grafikni shu oraliqda ko'rsatadi, parabolaning qolgan qismi chizmadan tashqarida qoladi.
+
+### Parametrik egri chiziq
+
+`[x(t), y(t), t = a .. b]` ko'rinishida beriladi:
+
+```maple
+plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, color = purple, thickness = 6);
+```
+
+![sin(2t) va cos(3t) parametrik egri chizig'i, binafsha rangda](/images/maple/plot-lissajous.svg)
+
+### Kvadrat funksiya
+
+```maple
+plot([x^2-5*x+6], x = -10 .. 15, labels = [x, y]);
+```
+
+![x^2-5x+6 funksiyasining grafigi](/images/maple/plot-quadratic.svg)
+
+Parabola `x = 2` va `x = 3` nuqtalarda `x` o'qini kesadi, bular tenglama `x^2-5x+6 = 0` ning yechimlari.
+
+### Yashirin tenglama: implicitplot
+
+Tenglama `y = f(x)` ko'rinishida bo'lmasa, `plots` paketidagi `implicitplot` ishlatiladi:
+
+```maple
+with(plots):
+implicitplot((1/4)*x^2-(1/2)*y^2 = 16, x = -20 .. 20, y = -16 .. 16);
+```
+
+![(1/4)x^2 - (1/2)y^2 = 16 giperbolasining grafigi](/images/maple/plot-hyperbola.svg)
+
+Natija ikki tarmoqli giperbola. Umumiy ko'rinishi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
+
+> Eslatma: `plot` buyrug'iga `infinity` bilan cheksiz oraliq berish o'rniga, chekli katta son bilan chegara bering, masalan `x = -40 .. 40`.
+
 ## Xulosa
 
 Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
@@ -523,7 +584,8 @@ Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
 | `factor` | köpaytuvçilarga ajratiş |
 | `solve` / `fsolve` | aniq / taqribiy yeçiş |
 | `seq` | ketma-ketlik tuziş |
-| `plot` | grafik çiziş |
+| `plot` | grafik çiziş (funksiya, parametrik egri) |
+| `implicitplot` | yashirin tenglama grafigi (`with(plots)` kerak) |
 | `diff` / `Diff` | hosilani hisoblaş / yozib körsatiş |
 | `D` | funksiyaning hosilasi |
 | `int` / `Int` | integralni hisoblaş / yozib körsatiş |
