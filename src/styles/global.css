@@ -1621,7 +1621,7 @@ textarea[readonly] { background: var(--surface-2); }
   color: var(--text-main);
   box-shadow: 2px 2px 0 var(--card-shadow-color);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
 .theme-toggle:hover {
@@ -1643,6 +1643,71 @@ textarea[readonly] { background: var(--surface-2); }
 .theme-toggle .icon-sun { display: none; }
 :root[data-theme='dark'] .theme-toggle .icon-sun { display: block; }
 :root[data-theme='dark'] .theme-toggle .icon-moon { display: none; }
+
+/* Theme changes should feel intentional instead of flashing between palettes. */
+body,
+.site-wrapper,
+.site-header,
+.site-nav,
+.site-content,
+.site-footer,
+.blog-card,
+.project-card,
+.tools-box,
+.modal-box,
+.modal-header,
+.email-display-card,
+.search-container,
+.theme-toggle,
+.social-chip {
+  transition-property: background-color, color, border-color, box-shadow, fill, stroke;
+  transition-duration: 0.45s;
+  transition-timing-function: ease;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .site-wrapper,
+  .site-header,
+  .site-nav,
+  .site-content,
+  .site-footer,
+  .blog-card,
+  .project-card,
+  .tools-box,
+  .modal-box,
+  .modal-header,
+  .email-display-card,
+  .search-container,
+  .theme-toggle,
+  .social-chip {
+    transition-duration: 0.01ms;
+  }
+
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}
 
 /* ===== Dark theme (same flora palette after dusk) ===== */
 :root[data-theme='dark'] {
