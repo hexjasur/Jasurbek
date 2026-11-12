@@ -67,13 +67,12 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 <script>
   function setupMobileNavigation() {
-    if (document.documentElement.dataset.mobileNavigationBound === 'true') return;
-    document.documentElement.dataset.mobileNavigationBound = 'true';
+    const menu = document.getElementById('mobile-navigation');
+    const toggle = document.querySelector('[data-menu-toggle]');
+    if (!menu || !toggle || toggle.getAttribute('data-menu-bound') === 'true') return;
+    toggle.setAttribute('data-menu-bound', 'true');
 
     const closeMenu = () => {
-      const menu = document.getElementById('mobile-navigation');
-      const toggle = document.querySelector('[data-menu-toggle]');
-      if (!menu || !toggle) return;
       menu.classList.remove('is-open');
       menu.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
@@ -90,13 +89,18 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
     };
 
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      toggleMenu();
+    });
+
+    menu.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      if (target.closest('a')) closeMenu();
+    });
+
     document.addEventListener('click', (event) => {
       const target = event.target as Element;
-      if (target.closest('[data-menu-toggle]')) {
-        toggleMenu();
-        return;
-      }
-      if (target.closest('#mobile-navigation a')) closeMenu();
       if (!target.closest('.site-header-shell')) closeMenu();
     });
 
