@@ -233,7 +233,8 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
     function setupThemeToggle() {
       const button = document.getElementById('theme-toggle');
-      if (!button) return;
+      if (!button || button.dataset.themeBound === 'true') return;
+      button.dataset.themeBound = 'true';
 
       const sync = () => {
         const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
@@ -242,11 +243,30 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
       };
 
-      button.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      const applyTheme = (next: 'light' | 'dark') => {
         document.documentElement.dataset.theme = next;
         try { localStorage.setItem('theme', next); } catch {}
         sync();
+      };
+
+      button.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        const root = document.documentElement;
+        const bounds = button.getBoundingClientRect();
+        root.style.setProperty('--theme-x', `${bounds.left + bounds.width / 2}px`);
+        root.style.setProperty('--theme-y', `${bounds.top + bounds.height / 2}px`);
+
+        const transitionDocument = document as Document & {
+          startViewTransition?: (update: () => void) => unknown;
+        };
+
+        if (typeof transitionDocument.startViewTransition === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          transitionDocument.startViewTransition(() => applyTheme(next));
+        } else {
+          root.classList.add('theme-is-changing');
+          applyTheme(next);
+          window.setTimeout(() => root.classList.remove('theme-is-changing'), 700);
+        }
       });
 
       sync();

@@ -1,47 +1,47 @@
 ---
-title: "GitHub Workflow nima? GitHub Actions bilan avtomatlashtirishni boshlash"
-description: "GitHub Actions orqali kodni tekshirish, build qilish va deploy qilishni avtomatlashtirishning asosiy tushunchalari, YAML shablonlari va amaliy misollar."
+title: "GitHub Workflow nima? GitHub Actions bilan avtomatlaştirişni boşlaş"
+description: "GitHub Actions orqali kodni tekşiriş, build qiliş va deploy qilişni avtomatlaştirişning asosiy tuşunçalari, YAML şablonlari va amaliy misollar."
 pubDate: 2026-11-11
-updatedDate: 2026-11-11
+updatedDate: 2026-11-12
 tags: ["github", "devops", "automation", "cicd", "workflow", "astro"]
 ---
 
-Zamonaviy dasturlashda kod yozishning o'zi yetarli emas. Har bir commit, pull request yoki release uchun avtomatik tekshirish, build va deploy qilish - bu zamonaviy ishlab chiquvchi va jamoa uchun standart amaliyotga aylangan.
+Zamonaviy dasturlaşda kod yozişning özi yetarli emas. Har bir commit, pull request yoki release uçun avtomatik tekşiriş, build va deploy qiliş — bu zamonaviy işlab çiquvçi va jamoa uçun standart amaliyotga aylangan.
 
-GitHub Actions orqali buni ancha tez, ancha to'g'ri va ishonchli qilish mumkin. Bunday avtomatik jarayonlar "GitHub workflow" deb ataladi.
+GitHub Actions orqali buni ança tez, ança töğri va işonçli qiliş mumkin. Bunday avtomatik jarayonlar «GitHub workflow» deb ataladi.
 
-Ushbu maqolada men GitHub workflow nima ekanligini, uning asosiy qismlarini va amaliy misollarni tushuntiraman. Shuningdek, sizga 1 ta oddiy, 1 ta CI va 1 ta deploy workflowini ham ko'rsataman.
+Uşbu maqolada men GitHub workflow nima ekanligini, uning asosiy qismlarini va amaliy misollarni tuşuntiraman. Şuningdek, sizga 1 ta oddiy, 1 ta CI va 1 ta deploy workflowini ham körsataman.
 
 ## GitHub workflow nima?
 
-GitHub workflow - bu GitHub Actions yordamida yozilgan avtomatik ishlash sikli. U quyidagilarni bajarishi mumkin:
+GitHub workflow — bu GitHub Actions yordamida yozilgan avtomatik işlaş sikli. U quyidagilarni bajarişi mumkin:
 
 - kod push qilinganda
 - pull request yaratilganda
-- release chiqarilganda
-- ma'lum vaqt oralig'ida
-- qo'lda ishga tushganda
+- release çiqarilganda
+- ma'lum vaqt oraliğida
+- qölda işga tuşganda
 
-Workflowlar `.github/workflows/` papkasidagi YAML fayllar orqali yoziladi. Har bir workflow qaysi voqeada ishga tushishini, nima bajarilishini va qanday natija qaytarishini aniq belgilaydi.
+Workflowlar `.github/workflows/` papkasidagi YAML fayllar orqali yoziladi. Har bir workflow qaysi voqeada işga tuşişini, nima bajarilişini va qanday natija qaytarişini aniq belgilaydi.
 
 ## Nega workflow kerak?
 
-Agar siz loyiha ustida ishlayotgan bo'lsangiz, workflow quyidagi foydalarni beradi:
+Agar siz loyiha ustida işlayotgan bölsangiz, workflow quyidagi foydalarni beradi:
 
 - avtomatik test
 - lint va format nazorati
 - build jarayoni
-- deploy qilish
-- release yaratish
+- deploy qiliş
+- release yaratiş
 - kod sifati nazorati
 
-Shu sababli workflowni qo'shish - faqat "yaxshi ko'rinish" emas, balki ishlab chiqish jarayonini ishonchli qilishning bir qismidir.
+Şu sababli workflowni qöşiş — faqat «yaxşi köriniş» emas, balki işlab çiqiş jarayonini işonçli qilişning bir qismidir.
 
 ## Workflowning asosiy qismlari
 
 ### 1. Trigger
 
-Workflow qachon ishga tushishini belgilaydi. Masalan:
+Workflow qaçon işga tuşişini belgilaydi. Masalan:
 
 ```yaml
 on:
@@ -51,15 +51,15 @@ on:
     branches: [main]
 ```
 
-Bu misol shuni bildiradi:
+Bu misol şuni bildiradi:
 
-- `main` branchga push bo'lganda
-- pull request ochilganda
-- workflow avtomatik ishga tushadi
+- `main` branchga push bölganda
+- pull request oçilganda
+- workflow avtomatik işga tuşadi
 
 ### 2. Jobs
 
-Workflow bir yoki bir nechta jobdan iborat bo'lishi mumkin. Har bir job alohida vazifani bajaradi.
+Workflow bir yoki bir neçta jobdan iborat bölişi mumkin. Har bir job alohida vazifani bajaradi.
 
 ```yaml
 jobs:
@@ -67,18 +67,18 @@ jobs:
     runs-on: ubuntu-latest
 ```
 
-Bu xatda `build` nomli job Ubuntu mashinasida ishlaydi.
+Bu qatorda `build` nomli job Ubuntu maşinasida işlaydi.
 
 ### 3. Steps
 
-Job ichidagi qadamlar bo'lib, ular quyidagilarni bajarishi mumkin:
+Job içidagi qadamlar bölib, ular quyidagilarni bajarişi mumkin:
 
-- repodan kodni olish
-- environment tayyorlash
-- dependencylarni o'rnatish
-- test yoki lint ishlatish
-- build qilish
-- deploy qilish
+- repodan kodni oliş
+- environment tayyorlaş
+- dependencylarni örnatiş
+- test yoki lint işlatiş
+- build qiliş
+- deploy qiliş
 
 ```yaml
 steps:
@@ -90,17 +90,17 @@ steps:
 
 ### 4. Runner
 
-Runner - workflowni bajaradigan mashina. GitHub taqdim etadigan runnerlar bo'lishi mumkin:
+Runner — workflowni bajaradigan maşina. GitHub taqdim etadigan runnerlar bölişi mumkin:
 
 - ubuntu-latest
 - windows-latest
 - macos-latest
 
-Shuningdek, siz o'zingizning self-hosted runnerini ham yaratishingiz mumkin.
+Şuningdek, siz özingizning self-hosted runnerini ham yaratişingiz mumkin.
 
-## Workflow faylini qayerga yoziladi?
+## Workflow fayli qayerga yoziladi?
 
-GitHub Actions fayllari odatda quyidagi papka ichida bo'ladi:
+GitHub Actions fayllari odatda quyidagi papka içida böladi:
 
 ```bash
 .github/workflows/
@@ -113,7 +113,7 @@ Masalan:
 .github/workflows/deploy.yml
 ```
 
-YAML formatida yozilgan workflow quyidagicha ko'rinadi:
+YAML formatida yozilgan workflow quyidagiça körinadi:
 
 ```yaml
 name: CI
@@ -142,11 +142,11 @@ jobs:
         run: npm run build
 ```
 
-Bu oddiy, ammo juda kuchli workflowdir. U koddagi xatolarni oldindan aniqlash uchun ishlatilishi mumkin.
+Bu oddiy, ammo juda kuçli workflowdir. U koddagi xatolarni oldindan aniqlaş uçun işlatilişi mumkin.
 
-## Amaliy misol: Astro loyihasi uchun CI workflow
+## Amaliy misol: Astro loyihasi uçun CI workflow
 
-Agar siz Astro yoki boshqa frontend loyihada ishlayotgan bo'lsangiz, quyidagi workflow juda mos keladi:
+Agar siz Astro yoki boşqa frontend loyihada işlayotgan bölsangiz, quyidagi workflow juda mos keladi:
 
 ```yaml
 name: CI
@@ -180,24 +180,24 @@ jobs:
         run: bun run build
 ```
 
-Bu workflow qachon ishlaydi?
+Bu workflow qaçon işlaydi?
 
-- `main` branchga push bo'lganda
-- pull request ochilganda
+- `main` branchga push bölganda
+- pull request oçilganda
 
 Va nima qiladi?
 
 - repozitoriyadan kod olinadi
-- Bun o'rnatiladi
+- Bun örnatiladi
 - dependencylar yuklanadi
 - type check bajariladi
-- production build ishlaydi
+- production build işlaydi
 
-Agar bitta qadam ham xato bo'lsa, workflow fail bo'ladi va sizga xabar keladi. Bu esa kodingizni avtomatik tarzda himoya qiladi.
+Agar bitta qadam ham xato bölsa, workflow fail böladi va sizga xabar keladi. Bu esa kodingizni avtomatik tarzda himoya qiladi.
 
 ## Amaliy misol: GitHub Pages deploy
 
-Agar siz statik site yaratgan bo'lsangiz va uni GitHub Pages ga deploy qilsangiz, workflow quyidagicha bo'ladi:
+Agar siz statik sayt yaratgan bölsangiz va uni GitHub Pages'ga deploy qilsangiz, workflow quyidagiça böladi:
 
 ```yaml
 name: Deploy Astro site to GitHub Pages
@@ -238,13 +238,13 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-Bu pattern saytni avtomatik ravishda deploy qilishga yordam beradi. Ya'ni, kod main branchga push qilinganda, build ishlaydi va sayt yangilanadi.
+Bu pattern saytni avtomatik ravişda deploy qilişga yordam beradi. Ya'ni, kod `main` branchga push qilinganda, build işlaydi va sayt yangilanadi.
 
-## Workflow yozishda ko'pincha uchraydigan holatlar
+## Workflow yozişda köpinça uçraydigan holatlar
 
 ### 1. `npm install` yoki `bun install`
 
-Loyiha turi asosida dependencylarni o'rnatish kerak. Masalan:
+Loyiha turi asosida dependencylarni örnatiş kerak. Masalan:
 
 ```yaml
 - run: npm install
@@ -258,7 +258,7 @@ yoki
 
 ### 2. Environment setup
 
-Ba'zan Node, Bun, Python yoki .NET o'rnatilishi kerak bo'ladi:
+Ba'zan Node, Bun, Python yoki .NET örnatilişi kerak böladi:
 
 ```yaml
 - uses: actions/setup-node@v4
@@ -268,7 +268,7 @@ Ba'zan Node, Bun, Python yoki .NET o'rnatilishi kerak bo'ladi:
 
 ### 3. Lint va test
 
-Keng ishlatiladigan bosqichlar:
+Keng işlatiladigan bosqiçlar:
 
 ```yaml
 - run: npm run lint
@@ -276,15 +276,15 @@ Keng ishlatiladigan bosqichlar:
 - run: npm run build
 ```
 
-### 4. Artifact yaratish
+### 4. Artifact yaratiş
 
-Agar build natijasi saqlanishi kerak bo'lsa:
+Agar build natijasi saqlanişi kerak bölsa:
 
 ```yaml
 - uses: actions/upload-artifact@v4
 ```
 
-Bu yordam beradi, masalan, production build yoki binary fayllarni qayta ishlatish uchun.
+Bu yordam beradi, masalan, production build yoki binary fayllarni qayta işlatiş uçun.
 
 ## GitHub workflowning foydali turlari
 
@@ -302,61 +302,61 @@ Bu yordam beradi, masalan, production build yoki binary fayllarni qayta ishlatis
 ### 3. Release workflow
 
 - version tag
-- changelog yaratish
-- executable yoki build fayllar ishlab chiqish
+- changelog yaratiş
+- executable yoki build fayllar işlab çiqiş
 
-### 4. Scheduled workflow
+### 4. Rejalaştirilgan (`scheduled`) workflow
 
-- kuniga bir marta ma'lum narsalarni tekshirish
+- kuniga bir marta ma'lum narsalarni tekşiriş
 - backup yoki report generator
 
 ### 5. Automated PR checks
 
-- pull request ochilganda test ishlaydi
-- xatolik bo'lsa, merge qilishga ruxsat berilmaydi
+- pull request oçilganda test işlaydi
+- xatolik bölsa, merge qilişga ruxsat berilmaydi
 
-## Workflow yozishda eng muhim tamoyillar
+## Workflow yozişda eng muhim tamoyillar
 
-- workflowlarni kichik va maqsadga yo'naltirilgan qiling
+- workflowlarni kiçik va maqsadga yönaltirilgan qiling
 - har bir job bitta vazifani bajarsin
-- xatolarni tushunarli qilib yozing
-- secretsni `.env` faylda saqlamang, GitHub Secrets ishlatishingiz kerak
-- build va deployni ajratib qo'ying
+- xatolarni tuşunarli qilib yozing
+- secretsni `.env` faylda saqlamang, GitHub Secrets işlatişingiz kerak
+- build va deployni ajratib qöying
 
-## Release avtomatlashtirish: versiya va changelog bilan ish qilish
+## Release avtomatlaştiriş: versiya va changelog bilan iş qiliş
 
-Ko'p dasturchilar uchun eng noqulay jarayonlardan biri shuki, har safar release qilish uchun bir necha platforma uchun build yaratib, changelog yozib, fayllarni GitHub releasega yuklash kerak bo'ladi. Bu jarayon ko'p vaqt oladi va har safar xatolarga olib kelishi mumkin.
+Köp dasturçilar uçun eng noqulay jarayonlardan biri şuki, har safar release qiliş uçun bir neça platforma uçun build yaratib, changelog yozib, fayllarni GitHub release'ga yuklaş kerak böladi. Bu jarayon köp vaqt oladi va har safar xatolarga olib kelişi mumkin.
 
-Masalan, desktop loyiha uchun Windows uchun `.exe`, Android uchun `.apk` yoki Linux uchun binary yaratish kerak bo'lsa, qo'lda bajariladigan vazifa bir vaqtni o'zida ko'plab bosqichlarni talab qiladi. Buni GitHub Actions orqali avtomatlashtirish mumkin.
+Masalan, desktop loyiha uçun Windows uçun `.exe`, Android uçun `.apk` yoki Linux uçun binary yaratiş kerak bölsa, qölda bajariladigan vazifa bir vaqtning özida köplab bosqiçlarni talab qiladi. Buni GitHub Actions orqali avtomatlaştiriş mumkin.
 
-### Nima uchun bunday workflow kerak?
+### Nima uçun bunday workflow kerak?
 
-- release jarayonini o'zgarmas qiladi
+- release jarayonini özgarmas qiladi
 - versiya raqamlarini bir xil tartibda yuritadi
 - changelogni avtomatik yaratadi
-- build fayllarini bir vaqtning o'zida to'plashga yordam beradi
-- har bir release uchun bir xil hududga yuklash va nashr qilish jarayonini bir xil qiladi
+- build fayllarini bir vaqtning özida töplaşga yordam beradi
+- har bir release uçun bir xil hududga yuklaş va naşr qiliş jarayonini bir xil qiladi
 
 ### Versiya nazorati nima?
 
-Versiya nazorati deganda odatda `major.minor.patch` formatidagi versiyalar yoki git taglari tushuniladi. Masalan:
+Versiya nazorati deganda odatda `major.minor.patch` formatidagi versiyalar yoki git taglari tuşuniladi. Masalan:
 
 - `v1.2.0`
 - `v1.2.1`
 - `v2.0.0`
 
-Bunday versiyalar GitHub release va changelog uchun ishlatilishi mumkin. Agar loyiha doimiy tarzda yangilanayotgan bo'lsa, `v1.2.3` kabi format eng qulay variantlardan biridir.
+Bunday versiyalar GitHub release va changelog uçun işlatilişi mumkin. Agar loyiha doimiy tarzda yangilanayotgan bölsa, `v1.2.3` kabi format eng qulay variantlardan biridir.
 
 ### Release workflowning oddiy sxemasi
 
-1. `main` branch yoki tag ko'rsatilganda workflow boshlanadi.
+1. `main` branch yoki tag körsatilganda workflow boşlanadi.
 2. Lint/test/build bajariladi.
 3. Binary yoki build artifact yaratiladi.
 4. Changelog hosil qilinadi.
 5. GitHub release yaratilib, artifactlar yuklanadi.
-6. Tag yoki release nomi avtomatik chiqariladi.
+6. Tag yoki release nomi avtomatik çiqariladi.
 
-### Amaliy misol: tag bo'yicha avtomatik release
+### Amaliy misol: tag böyiça avtomatik release
 
 ```yaml
 name: Release
@@ -403,11 +403,11 @@ jobs:
           body_path: CHANGELOG.md
 ```
 
-Bu workflow tag qo'shilganda ishlaydi. Masalan, siz `v1.2.0` tagini yozsangiz, GitHub avtomatik ravishda release hosil qiladi, build fayllarini yuklaydi va changelog yarata oladi.
+Bu workflow tag qöşilganda işlaydi. Masalan, siz `v1.2.0` tagini yozsangiz, GitHub avtomatik ravişda release hosil qiladi, build fayllarini yuklaydi va changelog yarata oladi.
 
-### Windows, Android va Linux uchun bir vaqtning o'zida build
+### Windows, Android va Linux uçun bir vaqtning özida build
 
-Agar loyiha bir nechta platforma uchun build yaratishi kerak bo'lsa, GitHub Actions matrixdan foydalanish mumkin:
+Agar loyiha bir neçta platforma uçun build yaratişi kerak bölsa, GitHub Actions matrixdan foydalaniş mumkin:
 
 ```yaml
 name: Multi-platform Release
@@ -457,48 +457,48 @@ jobs:
           path: ${{ matrix.artifact }}
 ```
 
-Bu avtomatik build va artifact yaratishni birinchi bosqichdan oldin ishlatadi. Keyingi bosqichda esa bu fayllar releasega yuklanib, umumiy nashrga tayyor bo'ladi.
+Bu avtomatik build va artifact yaratişni birinçi bosqiçdan oldin işlatadi. Keyingi bosqiçda esa bu fayllar release'ga yuklanib, umumiy naşrga tayyor böladi.
 
-### Ishlatish jarayoni ancha tez
+### Işlatiş jarayoni ança tez
 
-Qo'lda ishlatganda odatda bu jarayonlar ketma-ket bajariladi:
+Qölda işlatganda odatda bu jarayonlar ketma-ket bajariladi:
 
 - loyiha lokal build qilinadi
 - fayllar topiladi
 - changelog yoziladi
-- release sahifasi ochiladi
+- release sahifasi oçiladi
 - fayllar yuklanadi
 - versiya raqami tayinlanadi
 
-Bularning barchasi bir necha daqiqadan bir necha soatgacha yetishi mumkin. GitHub Actions bilan esa bularning barchasi bir marta workflow bilan avtomatik amalga oshiriladi.
+Bularning barçasi bir neça daqiqadan bir neça soatgaça yetişi mumkin. GitHub Actions bilan esa bularning barçasi bir marta workflow bilan avtomatik amalga oşiriladi.
 
-### Nima qilish kerak?
+### Nima qiliş kerak?
 
-Agar siz release sodda va ishonchli bo'lishini xohlasangiz, quyidagi oqim yaxshi ishlaydi:
+Agar siz release sodda va işonçli bölişini xohlasangiz, quyidagi oqim yaxşi işlaydi:
 
-- `main` branchda kelishuv bo'lganda
-- yangi tag yoki semver versiyasi ochiladi
-- workflow ishga tushadi
-- lint/test/build ishlaydi
+- `main` branchda kelişuv bölganda
+- yangi tag yoki semver versiyasi oçiladi
+- workflow işga tuşadi
+- lint/test/build işlaydi
 - artifactlar yaratiladi
 - GitHub release yaratiladi
 - changelog avtomatik qayd qilinadi
 
-Bu nafaqat vaqt tejaydi, balki release jarayonini standartlashtiradi.
+Bu nafaqat vaqt tejaydi, balki release jarayonini standartlaştiradi.
 
 ## Xulosa
 
-GitHub workflow - bu kodni avtomatik nazorat qilish va ishlab chiqish jarayonini soddalashtirish uchun ishlatiladigan kuchli vositadir. Bu sizning loyihangiz uchun nafaqat qulay, balki professional ishlash standartidir.
+GitHub workflow — bu kodni avtomatik nazorat qiliş va işlab çiqiş jarayonini soddalaştiriş uçun işlatiladigan kuçli vositadir. Bu sizning loyihangiz uçun nafaqat qulay, balki professional işlaş standartidir.
 
-Agar siz kodingizni tez-tez yangilab borayotgan bo'lsangiz, workflow qo'shish sizga quyidagi imtiyozlarni beradi:
+Agar siz kodingizni tez-tez yangilab borayotgan bölsangiz, workflow qöşiş sizga quyidagi imtiyozlarni beradi:
 
-- kamroq qo'lda ish
-- ko'proq ishonch
-- tezroq xatoni aniqlash
+- kamroq qölda iş
+- köproq işonç
+- tezroq xatoni aniqlaş
 - avtomatik deploy
 - avtomatik release va changelog
-- jamoa bilan yaxshiroq ishlash
+- jamoa bilan yaxşiroq işlaş
 
-Ayniqsa, release avtomatlashtirish dasturchilar uchun eng foydali workflowlardan biridir. Chunki har safar build qilish, changelog yozish va fayllarni yuklash qo'lda qiyin va zerikarli ish bo'ladi. GitHub Actions bilan esa bu jarayon bir necha daqiqada bajariladi.
+Ayniqsa, release avtomatlaştiriş dasturçilar uçun eng foydali workflowlardan biridir. Çunki har safar build qiliş, changelog yoziş va fayllarni yuklaş qölda qiyin va zerikarli iş böladi. GitHub Actions bilan esa bu jarayon bir neça daqiqada bajariladi.
 
-Bundan tashqari, workflowlarni bizning bloglarimizda ham amaliy misollar bilan ko'rsatish juda yaxshi kirdi. Chunki o'quvchilar ko'pincha "nima?" degan savolni emas, "qanday yoziladi?" degan savolni ko'proq beradi.
+Bundan taşqari, workflowlarni bizning bloglarimizda ham amaliy misollar bilan körsatiş juda yaxşi kirdi. Çunki öquvçilar köpinça «nima?» degan savolni emas, «qanday yoziladi?» degan savolni köproq beradi.
