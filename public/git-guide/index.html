@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="uz-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git Qöllanma — Qasoskorlar missiyasi</title>
+<meta name="description" content="Git'ni noldan örnatiş, sozlaş, branch, commit va push. Sodda, aniq, odam tilida qöllanma.">
+<meta name="color-scheme" content="dark">
+<style>
+:root{
+  --bg:#04070d;--panel:#0a1322;--panel2:#0e1a2e;
+  --line:rgba(53,224,255,.2);--line-strong:rgba(53,224,255,.45);
+  --cyan:#35e0ff;--gold:#ffc857;--red:#ff4d5e;--green:#4ade80;
+  --text:#d9e7f5;--muted:#8aa0b8;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background-color:var(--bg);color:var(--text);
+  font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background-image:
+    linear-gradient(rgba(53,224,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(53,224,255,.045) 1px,transparent 1px);
+  background-size:36px 36px;
+  overflow-x:hidden;
+}
+a{color:var(--cyan);text-underline-offset:3px}
+a:hover{color:#a6f3ff}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{line-height:1.2;margin:0}
+p{margin:0 0 12px}
+code,pre,kbd{font-family:var(--mono)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:-9999px;top:8px}
+.skip:focus{left:16px;z-index:10;background:var(--gold);color:#000;padding:8px 12px;border-radius:6px}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 36px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;gap:28px;align-items:center}
+@media(min-width:840px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+.kicker{font:600 12px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(32px,5.4vw,56px);letter-spacing:-.01em;margin:14px 0 14px}
+.lead{color:var(--muted);font-size:18px;max-width:52ch}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:10px;
+  border:1px solid var(--line-strong);color:var(--text);text-decoration:none;background:var(--panel);
+  font-weight:600;transition:border-color .2s,background .2s;
+}
+.btn:hover{border-color:var(--cyan);background:var(--panel2)}
+.btn.primary{background:var(--cyan);color:#001219;border-color:var(--cyan)}
+.btn.primary:hover{background:#7ceeff}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}
+.stat{border:1px solid var(--line);background:var(--panel);padding:12px;border-radius:12px;font-size:14px;color:var(--muted)}
+.stat b{display:block;font:700 24px/1.1 var(--mono);color:var(--cyan)}
+.hero-art{margin:0;position:relative}
+.hero-art svg{width:100%;height:auto;display:block}
+.hero-art figcaption{margin-top:8px;font-size:13px;color:var(--muted);text-align:center}
+
+/* ---------- toc ---------- */
+.toc{padding:18px 0;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.toc a{
+  display:inline-block;padding:6px 10px;border-radius:999px;font-size:14px;
+  color:var(--muted);text-decoration:none;border:1px solid var(--line);
+}
+.toc a:hover{color:var(--text);border-color:var(--cyan)}
+
+/* ---------- missions ---------- */
+main{padding-bottom:40px}
+.mission{
+  position:relative;margin:44px 0 0;padding:26px 20px 22px;border-radius:18px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),var(--bg) 92%);
+}
+.mission-no{
+  position:absolute;top:-13px;left:18px;background:var(--gold);color:#000;
+  font:700 12px/1 var(--mono);padding:6px 9px;border-radius:7px;letter-spacing:.06em;
+}
+.mission h2{font-size:clamp(22px,3.4vw,30px);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mission h2 .ico{font-size:26px}
+.mission > p{color:var(--text);margin-top:12px;max-width:72ch}
+.mission h3{font-size:17px;margin:20px 0 8px;color:var(--cyan)}
+.cards{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:16px}
+@media(min-width:720px){.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:14px 16px}
+.card h3{margin:0 0 6px;font-size:16px;color:var(--text)}
+.card p{color:var(--muted);font-size:15px;margin:0}
+.card .term{font:700 13px var(--mono);color:var(--gold);letter-spacing:.04em;margin-bottom:4px;display:block}
+.card code{color:var(--cyan)}
+
+.codebox{position:relative;margin:12px 0}
+.codebox pre{
+  margin:0;background:#050a14;border:1px solid var(--line);border-radius:12px;
+  padding:14px;overflow-x:auto;font-size:14px;line-height:1.55;color:#bfefff;
+}
+.codebox pre code{font-family:var(--mono)}
+.copy{
+  position:absolute;top:8px;right:8px;z-index:1;font:600 12px/1 var(--mono);
+  background:var(--panel2);color:var(--cyan);border:1px solid var(--line-strong);
+  border-radius:7px;padding:7px 10px;cursor:pointer;
+}
+.copy:hover{background:#12233b}
+.copy.ok{color:var(--green);border-color:var(--green)}
+.cmt{color:#5f7d96}
+
+.note{
+  margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--gold);
+  background:rgba(255,200,87,.07);border-radius:0 10px 10px 0;color:var(--text);font-size:15px;
+}
+.note strong{color:var(--gold)}
+.note .codebox{margin-top:8px}
+.note p{margin:6px 0 0}
+
+ol.steps{margin:14px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ol.steps li{
+  counter-increment:s;position:relative;padding:12px 14px 12px 56px;border-radius:12px;
+  border:1px solid var(--line);background:var(--panel);
+}
+ol.steps li::before{
+  content:counter(s);position:absolute;left:14px;top:12px;width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;background:var(--cyan);color:#001219;font:700 14px/1 var(--mono);
+}
+ol.steps code{color:var(--cyan)}
+
+/* ---------- svg figure ---------- */
+.figure{margin:16px 0 0;border:1px solid var(--line);border-radius:14px;background:#050a14;padding:12px}
+.figure svg{width:100%;height:auto;display:block}
+.figure figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;list-style:none;margin:20px 0 0;padding:0 0 0 30px}
+.tl::before{
+  content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(var(--cyan),var(--gold) 70%,transparent);
+}
+.tl-item{
+  position:relative;margin:0 0 14px;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--line);background:var(--panel);
+}
+.tl-item::before{
+  content:"";position:absolute;left:-26px;top:22px;width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 0 4px rgba(53,224,255,.15);
+}
+.tl-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tl-icon{font-size:24px;line-height:1}
+.tl-year{font:700 13px var(--mono);color:var(--gold);letter-spacing:.06em}
+.tl-title{font-weight:650;margin:6px 0 2px;font-size:16px}
+.tl-item p{margin:0;color:var(--muted);font-size:15px}
+.tl-item code{color:var(--cyan);font-size:14px}
+.js .tl-item{opacity:0;transform:translateX(-10px);transition:opacity .5s ease,transform .5s ease}
+.js .tl-item.in{opacity:1;transform:none}
+
+/* ---------- commands ---------- */
+.search{display:flex;flex-direction:column;gap:6px;margin:18px 0 6px}
+.search label{font-weight:600;font-size:14px;color:var(--muted)}
+.search input{
+  width:100%;font:15px var(--mono);color:var(--text);background:#050a14;
+  border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;
+}
+.search input::placeholder{color:#557088}
+.search input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+.empty{display:none;color:var(--muted);margin:10px 0 0}
+.empty.show{display:block}
+.cmd-group{margin-top:26px}
+.cmd-group h3{color:var(--gold);font:700 13px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.cmds{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.cmd{
+  display:grid;gap:8px;align-items:center;padding:12px 14px;border-radius:12px;
+  border:1px solid var(--line);background:var(--panel);
+}
+@media(min-width:760px){.cmd{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) auto}}
+.cmd code{display:block;max-width:100%;color:var(--cyan);font-size:14px;overflow-x:auto;white-space:nowrap;padding:2px 0}
+.cmd .desc{color:var(--muted);font-size:15px}
+.cmd .copy{position:static;justify-self:start}
+.cmd[hidden]{display:none}
+.tag{
+  display:inline-block;margin-right:6px;font:700 11px/1 var(--mono);padding:4px 6px;border-radius:5px;
+  letter-spacing:.06em;vertical-align:1px;
+}
+.tag.ehtiyot{background:var(--gold);color:#000}
+.tag.xavfli{background:var(--red);color:#fff}
+.cmd.danger{border-color:rgba(255,77,94,.55);background:linear-gradient(90deg,rgba(255,77,94,.08),var(--panel) 60%)}
+
+/* ---------- mistakes ---------- */
+.errs{display:grid;gap:10px;margin-top:14px}
+@media(min-width:760px){.errs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.err{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:14px 16px}
+.err code{display:block;max-width:100%;color:var(--red);font-size:14px;overflow-x:auto;white-space:nowrap;margin-bottom:8px}
+.err p{margin:0;color:var(--muted);font-size:15px}
+.err p code{display:inline;color:var(--cyan);white-space:normal;font-size:14px;margin:0}
+
+/* ---------- checklist ---------- */
+.progress{margin:14px 0 6px;display:flex;align-items:center;gap:12px;font:600 14px var(--mono);color:var(--muted);flex-wrap:wrap}
+.bar{flex:1 1 180px;height:10px;border-radius:999px;background:#0b1a2b;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s ease}
+.checks{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.checks label{
+  display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;cursor:pointer;
+  border:1px solid var(--line);background:var(--panel);
+}
+.checks input{width:20px;height:20px;accent-color:var(--cyan);flex:none;margin:0}
+.checks input:checked + span{color:var(--green);text-decoration:line-through;text-decoration-thickness:1px}
+.checks code{color:var(--cyan)}
+
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .js .tl-item{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#asosiy">Asosiy qismga ötiş</a>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">Qasoskorlar · Git missiyasi</p>
+      <h1>Git'ni noldan örganing</h1>
+      <p class="lead">Örnatiş, sozlaş, branch, commit va push. Qisqa, aniq, odam tilida yozilgan qöllanma. Har bir buyruqni bir bosişda nusxalab olasiz.</p>
+      <div class="btns">
+        <a class="btn primary" href="#missiya-1">Missiyalarni boşlaş →</a>
+        <a class="btn" href="#buyruqlar">Buyruqlar jadvali</a>
+      </div>
+      <div class="stats" aria-label="Qisqacha">
+        <div class="stat"><b>6</b>missiya</div>
+        <div class="stat"><b>30</b>buyruq</div>
+        <div class="stat"><b>15</b>daqiqa</div>
+      </div>
+    </div>
+
+    <figure class="hero-art">
+      <svg viewBox="0 0 400 340" role="img" aria-label="Git commit'lari: master asosiy yöl, Claude yon yöl">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#35e0ff" stop-opacity=".22"/>
+            <stop offset="1" stop-color="#35e0ff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="170" r="150" fill="url(#glow)"/>
+        <g fill="none" stroke="#35e0ff" stroke-opacity=".28" stroke-width="1.2" stroke-dasharray="4 6">
+          <circle cx="200" cy="170" r="70"/>
+          <circle cx="200" cy="170" r="115"/>
+          <circle cx="200" cy="170" r="150"/>
+        </g>
+        <line x1="70" y1="170" x2="330" y2="170" stroke="#35e0ff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M210 170 C 240 170, 236 238, 270 238 L 330 238" fill="none" stroke="#ffc857" stroke-width="3" stroke-linecap="round"/>
+        <g fill="#04070d" stroke="#35e0ff" stroke-width="3">
+          <circle cx="90" cy="170" r="9"/>
+          <circle cx="140" cy="170" r="9"/>
+          <circle cx="210" cy="170" r="9"/>
+        </g>
+        <g fill="#04070d" stroke="#ffc857" stroke-width="3">
+          <circle cx="270" cy="238" r="9"/>
+          <circle cx="330" cy="238" r="9"/>
+        </g>
+        <circle cx="330" cy="170" r="9" fill="#35e0ff"/>
+        <text x="296" y="158" fill="#35e0ff" font-family="monospace" font-size="14">master</text>
+        <text x="282" y="268" fill="#ffc857" font-family="monospace" font-size="14">Claude</text>
+        <text x="150" y="300" fill="#8aa0b8" font-family="monospace" font-size="13">HEAD → Claude</text>
+      </svg>
+      <figcaption>Commit'lar zanjiri: master — asosiy yöl, Claude — yon yöl.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<nav class="wrap toc" aria-label="Mundarija">
+  <ul>
+    <li><a href="#missiya-1">01 Git nima?</a></li>
+    <li><a href="#missiya-2">02 Örnatiş</a></li>
+    <li><a href="#missiya-3">03 Sozlaş</a></li>
+    <li><a href="#missiya-4">04 AI yoki author?</a></li>
+    <li><a href="#missiya-5">05 Branch</a></li>
+    <li><a href="#missiya-6">06 Commit va push</a></li>
+    <li><a href="#xronologiya">Xronologiya</a></li>
+    <li><a href="#buyruqlar">Buyruqlar</a></li>
+    <li><a href="#xatolar">Xatolar</a></li>
+    <li><a href="#tekshiruv">Tekşiriş</a></li>
+  </ul>
+</nav>
+
+<main class="wrap" id="asosiy">
+
+  <!-- 01 -->
+  <section class="mission" id="missiya-1" aria-labelledby="h-1">
+    <span class="mission-no">MISSIYA 01</span>
+    <h2 id="h-1"><span class="ico" aria-hidden="true">🧭</span> Git nima?</h2>
+    <p>Git — kod va fayllaringiz tarixini saqlaydigan dastur. Har safar «saqlab qöydim» deganingizda, Git bir suratga olinadi. Buni <strong>commit</strong> deymiz. Xato qilsangiz, eski holatga qaytiş mumkin — Git'ning eng katta kuçi şu.</p>
+
+    <div class="cards two" style="margin-top:18px">
+      <div class="card"><span class="term">REPO</span><h3>Repository</h3><p>Loyiha va uning butun tarixi saqlanadigan papka.</p></div>
+      <div class="card"><span class="term">COMMIT</span><h3>Saqlaş nuqtasi</h3><p>Bitta «surat». Har birida özgarişlar va qisqa xabar bor.</p></div>
+      <div class="card"><span class="term">BRANCH</span><h3>Yöl (tarmoq)</h3><p>Asosiy çiziqdan ajratilgan alohida yöl. Git'da u şunchaki commit'ga işora qiluvçi nom.</p></div>
+      <div class="card"><span class="term">HEAD</span><h3>Hozirgi joy</h3><p>Hozir qaysi branch yoki commit'da turganingiz.</p></div>
+      <div class="card"><span class="term">REMOTE</span><h3>GitHub nusxasi</h3><p>Repo'ning internetdagi nusxasi. Odatda nomi: <code>origin</code>.</p></div>
+      <div class="card"><span class="term">PUSH / PULL</span><h3>Yuboriş va oliş</h3><p><code>push</code> — kompyuterdan GitHub'ga. <code>pull</code> — GitHub'dan kompyuterga.</p></div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="mission" id="missiya-2" aria-labelledby="h-2">
+    <span class="mission-no">MISSIYA 02</span>
+    <h2 id="h-2"><span class="ico" aria-hidden="true">📦</span> Örnatiş</h2>
+    <p>Git'ni kompyuteringizga bir marta örnatasiz. Tizimingizni tanlang:</p>
+
+    <div class="cards three">
+      <div class="card">
+        <h3>Windows</h3>
+        <div class="codebox">
+          <button class="copy" type="button">Nusxalaş</button>
+          <pre><code>winget install --id Git.Git -e --source winget</code></pre>
+        </div>
+        <p>PowerShell yoki Terminal'da işlating. Git Bash ham birga örnadi. Yoki rasmiy saytdan: <a href="https://git-scm.com/downloads">git-scm.com/downloads</a></p>
+      </div>
+      <div class="card">
+        <h3>macOS</h3>
+        <div class="codebox">
+          <button class="copy" type="button">Nusxalaş</button>
+          <pre><code><span class="cmt"># Command Line Tools (içida git bor)</span>
+xcode-select --install
+
+<span class="cmt"># Homebrew bölsa</span>
+brew install git</code></pre>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Linux</h3>
+        <div class="codebox">
+          <button class="copy" type="button">Nusxalaş</button>
+          <pre><code><span class="cmt"># Ubuntu / Debian</span>
+sudo apt update &amp;&amp; sudo apt install -y git
+
+<span class="cmt"># Fedora</span>
+sudo dnf install -y git</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3>Tekşiriş</h3>
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>git --version
+<span class="cmt"># natija: git version 2.43.0 (raqam boşqacha bölişi mumkin)</span></code></pre>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="mission" id="missiya-3" aria-labelledby="h-3">
+    <span class="mission-no">MISSIYA 03</span>
+    <h2 id="h-3"><span class="ico" aria-hidden="true">⚙️</span> Sozlaş (konfiguratsiya)</h2>
+    <p>Git har commit'ga ismingiz va emailingizni yozib qöyadi. Bu işni bir marta qilasiz:</p>
+
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>git config --global user.name "Ismingiz"
+git config --global user.email "siz@misol.com"</code></pre>
+    </div>
+    <p>Ism va email GitHub akkauntingiz bilan bir xil bölsa, commit'lar profilingizga ulanadi.</p>
+
+    <h3>Üçta daraja</h3>
+    <div class="cards three">
+      <div class="card"><span class="term">--SYSTEM</span><p>Butun kompyuter uçun. Odatda kerak emas.</p></div>
+      <div class="card"><span class="term">--GLOBAL</span><p>Siz uçun. Barça repo'larda işlaydi.</p></div>
+      <div class="card"><span class="term">--LOCAL</span><p>Faqat şu repo uçun. Eng ustuvor.</p></div>
+    </div>
+    <p style="margin-top:14px">Qayerdan kelganini köriş uçun: <code>git config --list --show-origin</code></p>
+
+    <div class="note">
+      <strong>Tayyor skript:</strong> hammasini bir marta, savollar bilan sozlaş uçun repo'dagi skriptni işga tuşiring:
+      <div class="codebox">
+        <button class="copy" type="button">Nusxalaş</button>
+        <pre><code>bash scripts/git-setup.sh</code></pre>
+      </div>
+      <p><a href="https://github.com/hexjasur/Jasurbek/blob/Claude/scripts/git-setup.sh">Faylni GitHub'da köriş →</a></p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="mission" id="missiya-4" aria-labelledby="h-4">
+    <span class="mission-no">MISSIYA 04</span>
+    <h2 id="h-4"><span class="ico" aria-hidden="true">🤖</span> AI identifikatori yoki author?</h2>
+    <p>Köp söraladigan savol: commit'da AI nomi çiqsa, bu «author» böladimi? Qisqa javob: yöq. Mana farqi:</p>
+
+    <div class="cards three">
+      <div class="card">
+        <span class="term">AUTHOR</span>
+        <h3>Commit'ni yaratgan</h3>
+        <p>Git'da commit'ni kim yaratgani. Git buni config'dagi <code>user.name</code> va <code>user.email</code> orqali biladi. Har commit'da bitta author bor.</p>
+      </div>
+      <div class="card">
+        <span class="term">COMMITTER</span>
+        <h3>Repo'ga kiritgan</h3>
+        <p>Commit'ni repo'ga kiritgan odam. Köpinça author bilan bir xil. Rebase yoki cherry-pick'da farq qilişi mumkin.</p>
+      </div>
+      <div class="card">
+        <span class="term">CO-AUTHORED-BY</span>
+        <h3>Hammuallif belgisi</h3>
+        <p>Commit xabarining oxiridagi qöşimça qator. Hissa qöşgan boşqa odam yoki AI'ni belgilaydi. Haqiqiy Git identifikatori emas — şunchaki matn. GitHub uni körib, hammuallif avatarini körsatadi.</p>
+      </div>
+    </div>
+
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>Git'ga sozlaş skripti qöşildi
+
+Co-Authored-By: Claude Haiku 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_...</code></pre>
+    </div>
+
+    <div class="note">
+      <strong>Xulosa:</strong> author — commit'ni Git'da kim yaratgani (config'dagi nom). Co-Authored-By — qöşimça hissa qöşganlar. AI esa şu yerda hammuallif sifatida yoziladi.
+    </div>
+
+    <h3>Tekşiriş: kim nima qilgan?</h3>
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>git log --format="%h %an: %s%n%(trailers:key=Co-Authored-By,valueonly)"</code></pre>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="mission" id="missiya-5" aria-labelledby="h-5">
+    <span class="mission-no">MISSIYA 05</span>
+    <h2 id="h-5"><span class="ico" aria-hidden="true">🌿</span> Branch va Claude</h2>
+    <p>Branch — asosiy çiziqdan ajratilgan alohida yöl. Biz işni <strong>Claude</strong> branch'ida qilamiz, <strong>master</strong> toza qoladi. Quyida çizmada köring:</p>
+
+    <figure class="figure">
+      <svg viewBox="0 0 560 210" role="img" aria-labelledby="g5t g5d">
+        <title id="g5t">Branch çizmasi</title>
+        <desc id="g5d">master asosiy çiziq; Claude undan ajralib, öz commit'lari bilan davom etadi.</desc>
+        <line x1="30" y1="60" x2="530" y2="60" stroke="#35e0ff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M220 60 C 250 60, 250 130, 280 130 L 470 130" fill="none" stroke="#ffc857" stroke-width="3" stroke-linecap="round"/>
+        <g fill="#04070d" stroke="#35e0ff" stroke-width="3">
+          <circle cx="60" cy="60" r="9"/><circle cx="140" cy="60" r="9"/><circle cx="220" cy="60" r="9"/>
+        </g>
+        <g fill="#04070d" stroke="#ffc857" stroke-width="3">
+          <circle cx="280" cy="130" r="9"/><circle cx="360" cy="130" r="9"/><circle cx="440" cy="130" r="9"/>
+        </g>
+        <circle cx="440" cy="130" r="4" fill="#ffc857"/>
+        <text x="30" y="34" fill="#35e0ff" font-family="monospace" font-size="15">master</text>
+        <text x="296" y="166" fill="#ffc857" font-family="monospace" font-size="15">Claude</text>
+        <text x="380" y="190" fill="#8aa0b8" font-family="monospace" font-size="13">HEAD → Claude</text>
+      </svg>
+      <figcaption>master — asosiy yöl. Claude — ajralib ketgan yöl. HEAD — hozir turgan joy.</figcaption>
+    </figure>
+
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>git branch            <span class="cmt"># röyxat (yulduzça = hozirgisi)</span>
+git switch -c Claude  <span class="cmt"># yangi Claude branch yaratib, unga ötiş</span>
+git switch master     <span class="cmt"># master'ga qaytiş</span></code></pre>
+    </div>
+
+    <div class="note">
+      <strong>Eslatma:</strong> Claude branch'i master'ni avtomatik kuzatib boradi (sinxronlaş workflow'i). Agar Claude'da öz commit'laringiz bölsa, avtomatik sinxronlaş töxtaydi — birlaştiriş qölda qilinadi.
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="mission" id="missiya-6" aria-labelledby="h-6">
+    <span class="mission-no">MISSIYA 06</span>
+    <h2 id="h-6"><span class="ico" aria-hidden="true">🚀</span> Commit va push</h2>
+    <p>Asosiy iş oqimi. Har safar şu tartibda:</p>
+
+    <ol class="steps">
+      <li><code>git status</code> — nima özgarganini köring.</li>
+      <li><code>git add -A</code> — hammasini tayyorlang. Faqat bitta fayl bölsa: <code>git add fayl.md</code></li>
+      <li><code>git commit -m "Qisqa, aniq xabar"</code> — saqlang.</li>
+      <li><code>git push -u origin Claude</code> — GitHub'ga yuboring.</li>
+    </ol>
+
+    <div class="codebox">
+      <button class="copy" type="button">Nusxalaş</button>
+      <pre><code>git status
+git add -A
+git commit -m "Git sozlaş skripti qöşildi"
+git push -u origin Claude</code></pre>
+    </div>
+
+    <div class="note">
+      <strong>Maslahat:</strong> <code>-u</code> faqat birinçi marta kerak. Keyingisida şunchaki <code>git push</code>.<br>
+      Yaxşi xabar: «Git sozlaş skripti qöşildi». Yomon xabar: «işladim».
+    </div>
+  </section>
+
+  <!-- XRONOLOGIYA -->
+  <section class="mission" id="xronologiya" aria-labelledby="h-tl">
+    <span class="mission-no">TARIX</span>
+    <h2 id="h-tl"><span class="ico" aria-hidden="true">⏳</span> Git xronologiyasi</h2>
+    <p>2002 dan 2026 gacha — Git qanday paydo böldi va nega bugungi holatga keldi.</p>
+
+    <ol class="tl">
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🐧</span><span class="tl-year">2002</span></div>
+        <div class="tl-title">Linux yadrosi BitKeeper'ni işlata boşlaydi</div>
+        <p>Linux yadrosi BitKeeper nomli xususiy versiya boşqaruv tizimidan foydalanadi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">⚖️</span><span class="tl-year">2005 · APREL</span></div>
+        <div class="tl-title">Bepul litsenziya bekor qilinadi</div>
+        <p>BitKeeper'ning bepul litsenziyasi tugaydi. Linux jamoasi öz vositasini izlay boşlaydi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🌱</span><span class="tl-year">2005 · APREL</span></div>
+        <div class="tl-title">Linus Torvalds Git'ni yoza boşlaydi</div>
+        <p>Birinçi commit — 7-aprel. Linus öz loyihalarini özining nomi bilan ataydi: avval Linux, endi Git.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🧑‍✈️</span><span class="tl-year">2005 · IYUL</span></div>
+        <div class="tl-title">Yangi boşqaruvçi</div>
+        <p>Junio Hamano Git'ning boşqaruvini öz zimmasiga oladi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🔖</span><span class="tl-year">2005 · DEKABR</span></div>
+        <div class="tl-title">Git 1.0 çiqadi</div>
+        <p>Git 1.0.0 — bu yerdan Git keng tarqala boşlaydi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🐙</span><span class="tl-year">2008</span></div>
+        <div class="tl-title">GitHub işga tuşadi</div>
+        <p>Kodni joylaş va birgalikda işlaş uçun platforma. Git bilan birga ommalaşadi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🚀</span><span class="tl-year">2014</span></div>
+        <div class="tl-title">Git 2.0 çiqadi</div>
+        <p>Katta versiya. Masalan, <code>push</code> ning standart xatti-harakati xavfsizroq qilib özgartirildi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🤝</span><span class="tl-year">2018</span></div>
+        <div class="tl-title">Microsoft GitHub'ni sotib oladi</div>
+        <p>Git ekosistemasi şu bilan yanada kengayadi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🌿</span><span class="tl-year">2020</span></div>
+        <div class="tl-title">Standart branch: master → main</div>
+        <p>GitHub yangi repo'lar uçun standart branch nomini <code>master</code> dan <code>main</code> ga almaştiradi.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-head"><span class="tl-icon" aria-hidden="true">🤖</span><span class="tl-year">2026 · BUGUN</span></div>
+        <div class="tl-title">Commit'larda AI hammuallif bölib körinadi</div>
+        <p>Co-Authored-By qatori endi odatiy hol. Şu repo'dagi commit'lar ham şu yölda yoziladi.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- BUYRUQLAR -->
+  <section class="mission" id="buyruqlar" aria-labelledby="h-cmd">
+    <span class="mission-no">JADVAL</span>
+    <h2 id="h-cmd"><span class="ico" aria-hidden="true">⌨️</span> Buyruqlar jadvali</h2>
+    <p>Nusxalaş tugmasini bosing yoki qidiring. Xavfli buyruqlar qizil belgi bilan ajratilgan.</p>
+
+    <div class="search">
+      <label for="q">Buyruq qidiriş</label>
+      <input id="q" type="search" placeholder="masalan: push" autocomplete="off">
+    </div>
+    <p class="empty" id="empty">Hech narsa topilmadi. Boşqa söz bilan urinib köring.</p>
+
+    <div class="cmd-group">
+      <h3>Sozlaş</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git --version</code><span class="desc">Git örnatilganini tekşiriş</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git config --global user.name "Ism"</code><span class="desc">Ismni yoziş</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git config --global user.email "email"</code><span class="desc">Emailni yoziş</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git config --list --show-origin</code><span class="desc">Barça sozlamalar va ularning manbai</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Boşlaş</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git init</code><span class="desc">Joriy papkada yangi repo</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git clone &lt;url&gt;</code><span class="desc">GitHub repo'sini kompyuterga nusxalaş</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Köriş</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git status</code><span class="desc">Qaysi fayl özgarganini körsatadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git diff</code><span class="desc">Saqlanmagan özgarişlarni qator böyiça körsatadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git log --oneline --graph --all</code><span class="desc">Tarixni çiziq körinişida körsatadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git log --format="%h %an: %s"</code><span class="desc">Kim, qaçon, nima commit qilgani</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git blame fayl.md</code><span class="desc">Har qatorni kim yozganini körsatadi</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Saqlaş</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git add -A</code><span class="desc">Hammasini commit'ga tayyorlaydi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git add fayl.md</code><span class="desc">Faqat bitta faylni tayyorlaydi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git commit -m "xabar"</code><span class="desc">Özgarişni saqlaydi (commit)</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git restore --staged fayl.md</code><span class="desc">add'ni bekor qiladi, özgariş qoladi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git restore fayl.md</code><span class="desc"><span class="tag ehtiyot">EHTIYOT</span>Saqlanmagan özgarişni bekor qiladi</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Branch</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git branch</code><span class="desc">Branchlar röyxati (yulduzça — hozirgisi)</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git switch -c Claude</code><span class="desc">Yangi Claude branch yaratib, unga ötadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git switch master</code><span class="desc">Boşqa branch'ga ötadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git branch -d nom</code><span class="desc">Birlaşgan branch'ni öçiradi</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>GitHub bilan</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git remote -v</code><span class="desc">Remote URL'larni körsatadi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git fetch</code><span class="desc">Yangiliklarni oladi, lekin özgartirmaydi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git pull</code><span class="desc">GitHub'dagi yangiliklarni oladi va birlaştiradi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git push -u origin Claude</code><span class="desc">Branch'ni birinçi marta GitHub'ga yuboradi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git push</code><span class="desc">Keyingi yuboriş</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Vaqtinça va teg</h3>
+      <ul class="cmds">
+        <li class="cmd"><code>git stash</code><span class="desc">Vaqtinça özgarişlarni yaşiradi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git stash pop</code><span class="desc">Yaşirilgan özgarişni qaytaradi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd"><code>git tag v1.0.0</code><span class="desc">Versiyaga belgi qöyadi</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+
+    <div class="cmd-group">
+      <h3>Xavfli zona</h3>
+      <ul class="cmds">
+        <li class="cmd danger"><code>git reset --hard</code><span class="desc"><span class="tag xavfli">XAVFLI</span>Saqlanmagan barça özgarişni öçiradi</span><button class="copy" type="button">Nusxalaş</button></li>
+        <li class="cmd danger"><code>git push --force</code><span class="desc"><span class="tag xavfli">XAVFLI</span>GitHub tarixini almaştiradi. Örniga <code>--force-with-lease</code> işlating.</span><button class="copy" type="button">Nusxalaş</button></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- XATOLAR -->
+  <section class="mission" id="xatolar" aria-labelledby="h-err">
+    <span class="mission-no">XATO</span>
+    <h2 id="h-err"><span class="ico" aria-hidden="true">🛠️</span> Köp uçraydigan xatolar</h2>
+    <div class="errs">
+      <div class="err">
+        <code>Author identity unknown</code>
+        <p>Git sizni tanimadi. Ism va emailni sozlang: <code>git config --global user.name</code> va <code>user.email</code>.</p>
+      </div>
+      <div class="err">
+        <code>! [rejected] … (fetch first)</code>
+        <p>GitHub'da sizda yöq yangilik bor. Avval <code>git pull --rebase</code>, keyin qayta <code>git push</code>.</p>
+      </div>
+      <div class="err">
+        <code>fatal: not a git repository</code>
+        <p>Siz repo papkasida emassiz. <code>cd</code> bilan papkani tanlang yoki <code>git init</code> qiling.</p>
+      </div>
+      <div class="err">
+        <code>You are in 'detached HEAD' state</code>
+        <p>Siz branch'da emas, eski commit'dasiz. <code>git switch Claude</code> bilan qaytiş.</p>
+      </div>
+      <div class="err">
+        <code>Permission denied (publickey)</code>
+        <p>SSH kalit ulanmagan. <code>ssh-keygen -t ed25519</code> qiling va oçiq kalitni GitHub Settings → SSH keys ga qöşing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEKSHIRUV -->
+  <section class="mission" id="tekshiruv" aria-labelledby="h-chk">
+    <span class="mission-no">CHECK</span>
+    <h2 id="h-chk"><span class="ico" aria-hidden="true">✅</span> Missiya tekşiruvi</h2>
+    <p>Har bir qadamni tugatganda belgilang. Holat şu brauzerda saqlanadi.</p>
+
+    <div class="progress" aria-live="polite">
+      <span id="prog">0 / 6 bajarildi</span>
+      <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    </div>
+
+    <ul class="checks">
+      <li><label><input type="checkbox" id="c1"><span>Git örnatildi (<code>git --version</code> işlaydi)</span></label></li>
+      <li><label><input type="checkbox" id="c2"><span>Ism va email sozlandi</span></label></li>
+      <li><label><input type="checkbox" id="c3"><span>Repo nusxalandi (clone)</span></label></li>
+      <li><label><input type="checkbox" id="c4"><span>Claude branch yaratildi</span></label></li>
+      <li><label><input type="checkbox" id="c5"><span>Birinçi commit qilindi</span></label></li>
+      <li><label><input type="checkbox" id="c6"><span>GitHub'ga push qilindi</span></label></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Qasoskorlar uçun tayyorlandi · Git qöllanma</span>
+    <a href="https://jasurdev.uz">jasurdev.uz</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.documentElement.classList.add('js');
+
+  /* timeline reveal */
+  var items = [].slice.call(document.querySelectorAll('.tl-item'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* copy buttons */
+  function flash(btn, text, ok) {
+    btn.textContent = text;
+    if (ok) btn.classList.add('ok');
+    setTimeout(function () { btn.textContent = 'Nusxalaş'; btn.classList.remove('ok'); }, 1600);
+  }
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('.copy');
+    if (!btn) return;
+    var holder = btn.closest('.codebox') || btn.closest('.cmd');
+    var src = holder && holder.querySelector('code');
+    var text = src ? src.textContent : '';
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { flash(btn, 'Nusxalandi ✓', true); },
+        function () { flash(btn, 'Xato', false); }
+      );
+    } else {
+      flash(btn, 'Xato', false);
+    }
+  });
+
+  /* command search */
+  var q = document.getElementById('q');
+  var rows = [].slice.call(document.querySelectorAll('.cmd'));
+  var empty = document.getElementById('empty');
+  if (q) {
+    q.addEventListener('input', function () {
+      var v = q.value.trim().toLowerCase();
+      var shown = 0;
+      rows.forEach(function (r) {
+        var hit = !v || r.textContent.toLowerCase().indexOf(v) !== -1;
+        r.hidden = !hit;
+        if (hit) shown++;
+      });
+      empty.classList.toggle('show', shown === 0);
+    });
+  }
+
+  /* checklist (per-viewer; localStorage with fallback) */
+  var KEY = 'git-guide-checklist';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var boxes = [].slice.call(document.querySelectorAll('.checks input[type="checkbox"]'));
+  var prog = document.getElementById('prog');
+  var bar = document.getElementById('bar');
+
+  function paint() {
+    var done = 0;
+    boxes.forEach(function (b) { b.checked = !!saved[b.id]; if (b.checked) done++; });
+    prog.textContent = done + ' / ' + boxes.length + ' bajarildi';
+    bar.style.width = (done / boxes.length * 100) + '%';
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      paint();
+    });
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
