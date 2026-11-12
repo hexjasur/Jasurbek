@@ -2,7 +2,7 @@
 title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
 description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-updatedDate: 2026-11-11
+updatedDate: 2026-11-13
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -512,6 +512,69 @@ s(x);
 
 Bu yerda töttinçi argument örnida notöğri ifoda (`diff(x,x)*diff(s(x),x)`) berilgan, şuning uçun `extrema` faqat ekstremum qiymatini (`{-x^3/(x^2-4)}`) qaytaradi, `s(x)` esa heç qayerga boğlanmagan holiça özgarmay çiqadi. Töğri yoziluv — nom tirnoq içida beriladi: `extrema(y, {}, x, 's')`, şundan keyingina `s;` buyruği nuqtalarni körsatadi.
 
+## 16. Grafiklar: plot va implicitplot
+
+Dars davomida `plot` bilan bir qancha grafik çizdik. Töğri ishlagan misollar bilan birga, xato bergan joylarni ham yozib qöydim, çunki ular eng köp savol töğdiradigan joylar edi.
+
+### Töğri misollar
+
+Funksiya grafigi, yoğonligi va yorliqlari bilan:
+
+```maple
+plot(sin(x)/x, x = -4*Pi .. 4*Pi, labels = [x, y], labelfont = [Times, ITALIC, 12], thickness = 3);
+```
+
+Bir necha funksiyani bir grafikda, `y` böyiça chegara bilan:
+
+```maple
+plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
+```
+
+Parametrik egri chiziq `[x(t), y(t), t = a .. b]` körinişida beriladi:
+
+```maple
+plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, color = purple, thickness = 6);
+```
+
+### Xato 1: `labels[x, y]` yozilişi
+
+```maple
+plot([x^2-5*x+6], x = -10 .. 15, labels[x, y]);
+```
+
+Bu yerda xato yorliqlarni yozişda. Kvadrat qavs bilan `labels[x, y]` emas, tenglik belgisi bilan `labels = [x, y]` yoziladi. `label[x, y]` (birlik, qavs bilan) ham xuddi şunday xato. Töğri kalit söz — `labels`.
+
+`print(??);` qatori esa faqat kiritiş uçun qöyilgan belgi (placeholder) edi, uni kodga yozmaymiz.
+
+### Xato 2: yashirin tenglamani plot bilan chizişga urinş
+
+```maple
+plot([(1/4)*x^2-(1/2)*y^2 = 16], labels = [x, y]);
+```
+
+Natija:
+
+```text
+Error, (in plot) incorrect first argument [(1/4)*x^2-(1/2)*y^2 = 16]
+```
+
+Sabab shunda: `plot` `y = f(x)` körinişidagi funksiyalarni yoki parametrik egrilarni qabul qiladi. `(1/4)x² − (1/2)y² = 16` tenglamada `y` ni `x` orqali aniq yozib bölmaydi (`y` ikki qiymatli: ±), şuning uçun bu yashirin (implicit) tenglama. Bunday tenglamalar uçun `plots` paketidagi `implicitplot` buyruği kerak:
+
+```maple
+with(plots):
+implicitplot((1/4)*x^2-(1/2)*y^2 = 16, x = -20 .. 20, y = -16 .. 16);
+```
+
+`with(plots):` paketni ulaydi, söng `implicitplot` tenglamani `x` va `y` chegaralari ichida chizadi. Natija — ikki tarmoqli giperbola. Umumiy körinişi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
+
+### Xato 3: cheksiz oraliq
+
+```maple
+plot(sin(x)/x, x = -4*Pi .. infinity, labels = [x, y], labelfont = [Times, ITALIC, 12]);
+```
+
+Bu buyruq grafik çizişda muammo chiqarişi mumkin, çunki `infinity` bilan cheksiz oraliqni chizib bölmaydi. Amalda chekli oraliq bersa böladi: `x = -4*Pi .. 4*Pi` kabi. Grafikni kengaytirmoqçi bölsangiz, chegarani katta son bilan (masalan, `x = -40 .. 40`) berib köring.
+
 ## Xulosa
 
 Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
@@ -523,7 +586,8 @@ Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
 | `factor` | köpaytuvçilarga ajratiş |
 | `solve` / `fsolve` | aniq / taqribiy yeçiş |
 | `seq` | ketma-ketlik tuziş |
-| `plot` | grafik çiziş |
+| `plot` | grafik çiziş (funksiya, parametrik egri) |
+| `implicitplot` | yashirin tenglama grafigi (`with(plots)` kerak) |
 | `diff` / `Diff` | hosilani hisoblaş / yozib körsatiş |
 | `D` | funksiyaning hosilasi |
 | `int` / `Int` | integralni hisoblaş / yozib körsatiş |
