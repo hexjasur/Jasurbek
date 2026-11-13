@@ -1,0 +1,649 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Markdown Table Visual Editor | ${SITE_CONFIG.author}`}
+  description="Edit Markdown tables in a spreadsheet-style grid. Import CSV, TSV, JSON or existing GFM tables and export Markdown, HTML, CSV or TSV. Runs entirely in your browser."
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+
+  <section class="tools-box">
+    <h2 class="page-title">📊 Markdown Table Visual Editor</h2>
+    <p class="page-lead">
+      Build GitHub Flavored Markdown tables in a spreadsheet-style grid. Everything runs in your browser; nothing is uploaded.
+    </p>
+
+    <div class="tools-buttons mt-toolbar" role="toolbar" aria-label="Table actions">
+      <button type="button" class="btn btn-secondary" id="mt-add-row">+ Row</button>
+      <button type="button" class="btn btn-secondary" id="mt-add-col">+ Column</button>
+      <button type="button" class="btn btn-secondary" id="mt-undo" disabled>↶ Undo</button>
+      <button type="button" class="btn btn-secondary" id="mt-redo" disabled>↷ Redo</button>
+      <button type="button" class="btn btn-secondary" id="mt-sample">Load Sample</button>
+      <button type="button" class="btn btn-secondary" id="mt-reset">Reset</button>
+      <span id="mt-size" class="mt-size" aria-live="polite"></span>
+    </div>
+
+    <div class="mt-scroll">
+      <table id="mt-grid" class="mt-grid"></table>
+    </div>
+    <p class="mt-hint">
+      Type in any cell. Tab and Shift+Tab move between cells, Enter moves down. The first row is the header and cannot be deleted.
+    </p>
+  </section>
+
+  <section class="tools-box">
+    <h3 class="mt-section-title">Import / Paste Source</h3>
+    <div class="tools-row">
+      <div>
+        <label for="mt-import-format" class="field-label field-label-inline">Format:</label>
+        <select id="mt-import-format" class="tools-select">
+          <option value="auto" selected>Auto-detect</option>
+          <option value="markdown">Markdown / GFM table</option>
+          <option value="csv">CSV (RFC 4180)</option>
+          <option value="tsv">TSV (Tab-separated)</option>
+          <option value="json">JSON array</option>
+        </select>
+      </div>
+    </div>
+    <label for="mt-import-text" class="field-label field-label-block">Paste here:</label>
+    <textarea id="mt-import-text" rows="6" style="font-family: ui-monospace, monospace;"></textarea>
+    <div class="tools-buttons">
+      <button type="button" class="btn" id="mt-apply">Apply to Grid</button>
+      <button type="button" class="btn btn-secondary" id="mt-import-file-btn">Import File</button>
+      <input type="file" id="mt-import-file" accept=".md,.markdown,.csv,.tsv,.txt,.json" hidden />
+    </div>
+    <p id="mt-import-error" class="mt-error" role="alert" hidden></p>
+  </section>
+
+  <section class="tools-box">
+    <h3 class="mt-section-title">Output</h3>
+    <div class="mt-tabs" role="tablist" aria-label="Output format">
+      <button type="button" role="tab" class="mt-tab" data-format="markdown" aria-selected="true">Markdown (GFM)</button>
+      <button type="button" role="tab" class="mt-tab" data-format="html" aria-selected="false">HTML</button>
+      <button type="button" role="tab" class="mt-tab" data-format="csv" aria-selected="false">CSV</button>
+      <button type="button" role="tab" class="mt-tab" data-format="tsv" aria-selected="false">TSV</button>
+    </div>
+    <textarea id="mt-output" readonly aria-label="Generated output" style="min-height: 180px; font-family: ui-monospace, monospace;"></textarea>
+    <div class="tools-buttons">
+      <button type="button" class="btn" id="mt-copy">Copy</button>
+      <button type="button" class="btn btn-secondary" id="mt-download">Download</button>
+      <span id="mt-toast" class="copy-toast" style="display: none;">✓ Copied to clipboard!</span>
+    </div>
+    <p class="mt-hint">
+      Nothing is saved between visits. Copy or download your output before closing the tab.
+    </p>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<style is:global>
+  .mt-toolbar { align-items: center; }
+  .mt-size { font-size: 0.9rem; color: var(--text-soft); margin-left: auto; }
+  .mt-scroll { overflow-x: auto; margin-top: 1rem; padding-bottom: 0.25rem; }
+  .mt-grid { border-collapse: collapse; background: var(--surface); }
+  .mt-grid th, .mt-grid td { border: 1px solid var(--border-color); padding: 0.25rem; vertical-align: top; }
+  .mt-grid thead th.mt-head-cell,
+  .mt-grid th.mt-head-cell { background: var(--surface-2); }
+  .mt-grid input[type="text"] {
+    width: 9.5rem;
+    min-height: 2.1rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-body);
+    font: inherit;
+  }
+  .mt-grid input[type="text"]:hover { border-color: var(--border-color); }
+  .mt-grid input[type="text"]:focus { outline: 2px solid var(--focus); outline-offset: 0; background: var(--accent-soft); }
+  .mt-grid th.mt-head-cell input[type="text"] { font-weight: 700; color: var(--text-strong); }
+  .mt-ctl { display: flex; flex-wrap: wrap; gap: 0.2rem; justify-content: center; padding: 0.15rem 0; }
+  .mt-ctl-btn {
+    min-width: 1.9rem;
+    min-height: 1.9rem;
+    padding: 0 0.35rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--text-strong);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .mt-ctl-btn:hover:not(:disabled) { background: var(--surface-3); }
+  .mt-ctl-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .mt-ctl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .mt-ctl-btn[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: #fff; }
+  .mt-ctl-btn.mt-danger { color: var(--code-color); }
+  .mt-row-ctl { display: flex; flex-direction: column; gap: 0.2rem; align-items: center; }
+  .mt-corner { background: var(--surface-2); }
+  .mt-section-title { margin-bottom: 0.75rem; }
+  .mt-hint { font-size: 0.875rem; color: var(--text-faint); margin-top: 0.75rem; }
+  .mt-error { color: var(--code-color); margin-top: 0.75rem; }
+  .mt-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; border-bottom: 1px solid var(--border-color); margin-bottom: 0.75rem; }
+  .mt-tab {
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    background: var(--surface-3);
+    color: var(--text-soft);
+    font: inherit;
+    cursor: pointer;
+  }
+  .mt-tab[aria-selected="true"] { background: var(--surface); color: var(--text-strong); font-weight: 700; }
+  .mt-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+</style>
+
+<script>
+  type Align = 'left' | 'center' | 'right' | null;
+  type Snapshot = { rows: string[][]; aligns: Align[] };
+  type Format = 'markdown' | 'html' | 'csv' | 'tsv';
+
+  const MAX_HISTORY = 20;
+
+  let rows: string[][] = [['Header 1', 'Header 2', 'Header 3'], ['', '', ''], ['', '', '']];
+  let aligns: Align[] = [null, null, null];
+  let undoStack: Snapshot[] = [];
+  let redoStack: Snapshot[] = [];
+  let beforeEdit: Snapshot | null = null;
+  let activeFormat: Format = 'markdown';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const grid = $<HTMLTableElement>('mt-grid');
+  const output = $<HTMLTextAreaElement>('mt-output');
+  const sizeLabel = $<HTMLSpanElement>('mt-size');
+  const undoBtn = $<HTMLButtonElement>('mt-undo');
+  const redoBtn = $<HTMLButtonElement>('mt-redo');
+  const toast = $<HTMLSpanElement>('mt-toast');
+  const importError = $<HTMLParagraphElement>('mt-import-error');
+
+  const cols = () => rows[0].length;
+  const snapshot = (): Snapshot => structuredClone({ rows, aligns });
+  const restore = (s: Snapshot) => {
+    rows = structuredClone(s.rows);
+    aligns = structuredClone(s.aligns);
+  };
+
+  function commit(mutate: () => void) {
+    const before = snapshot();
+    mutate();
+    undoStack.push(before);
+    if (undoStack.length > MAX_HISTORY) undoStack.shift();
+    redoStack = [];
+    refresh();
+  }
+
+  function undo() {
+    const prev = undoStack.pop();
+    if (!prev) return;
+    redoStack.push(snapshot());
+    restore(prev);
+    refresh();
+  }
+
+  function redo() {
+    const next = redoStack.pop();
+    if (!next) return;
+    undoStack.push(snapshot());
+    restore(next);
+    refresh();
+  }
+
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, string> = {}, text?: string) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function cellInput(r: number, c: number, header: boolean): HTMLInputElement {
+    const input = el('input', {
+      type: 'text',
+      'aria-label': header ? `Header, column ${c + 1}` : `Row ${r}, column ${c + 1}`,
+      'data-r': String(r),
+      'data-c': String(c),
+    }) as HTMLInputElement;
+    input.value = rows[r][c];
+    input.style.textAlign = aligns[c] ?? '';
+    return input;
+  }
+
+  function ctlButton(label: string, aria: string, action: string, index: number, extra: Record<string, string> = {}) {
+    return el('button', { type: 'button', class: 'mt-ctl-btn', 'data-action': action, 'data-index': String(index), 'aria-label': aria, title: aria, ...extra }, label);
+  }
+
+  function render() {
+    grid.replaceChildren();
+    const n = cols();
+    const lastRow = rows.length - 1;
+
+    const thead = el('thead');
+    const ctrlRow = el('tr');
+    ctrlRow.append(el('th', { class: 'mt-corner', scope: 'col' }));
+    for (let c = 0; c < n; c++) {
+      const th = el('th', { scope: 'col' });
+      const wrap = el('div', { class: 'mt-ctl' });
+      const alignChoices: [Align, string, string][] = [['left', '←', 'Align left'], ['center', '↔', 'Align center'], ['right', '→', 'Align right']];
+      for (const [value, glyph, label] of alignChoices) {
+        wrap.append(ctlButton(glyph, `${label}, column ${c + 1}`, 'align', c, {
+          'data-value': value as string,
+          'aria-pressed': String(aligns[c] === value),
+        }));
+      }
+      wrap.append(ctlButton('◀', `Move column ${c + 1} left`, 'col-left', c, { disabled: c === 0 ? 'true' : '' }));
+      wrap.append(ctlButton('▶', `Move column ${c + 1} right`, 'col-right', c, { disabled: c === n - 1 ? 'true' : '' }));
+      wrap.append(ctlButton('×', `Delete column ${c + 1}`, 'col-del', c, { class: 'mt-ctl-btn mt-danger', disabled: n <= 1 ? 'true' : '' }));
+      th.append(wrap);
+      ctrlRow.append(th);
+    }
+    thead.append(ctrlRow);
+
+    const headRow = el('tr');
+    headRow.append(el('th', { scope: 'row', class: 'mt-corner' }, 'H'));
+    for (let c = 0; c < n; c++) {
+      const th = el('th', { scope: 'col', class: 'mt-head-cell' });
+      th.append(cellInput(0, c, true));
+      headRow.append(th);
+    }
+    thead.append(headRow);
+    grid.append(thead);
+
+    const tbody = el('tbody');
+    for (let r = 1; r <= lastRow; r++) {
+      const tr = el('tr');
+      const rowTh = el('th', { scope: 'row' });
+      const ctl = el('div', { class: 'mt-row-ctl' });
+      ctl.append(ctlButton('▲', `Move row ${r} up`, 'row-up', r, { disabled: r === 1 ? 'true' : '' }));
+      ctl.append(ctlButton('▼', `Move row ${r} down`, 'row-down', r, { disabled: r === lastRow ? 'true' : '' }));
+      ctl.append(ctlButton('×', `Delete row ${r}`, 'row-del', r, { class: 'mt-ctl-btn mt-danger' }));
+      rowTh.append(ctl);
+      tr.append(rowTh);
+      for (let c = 0; c < n; c++) {
+        const td = el('td');
+        td.append(cellInput(r, c, false));
+        tr.append(td);
+      }
+      tbody.append(tr);
+    }
+    grid.append(tbody);
+
+    undoBtn.disabled = undoStack.length === 0;
+    redoBtn.disabled = redoStack.length === 0;
+    sizeLabel.textContent = `${n} columns x ${lastRow} data rows (${rows.length} total)`;
+  }
+
+  // ---------- Output builders ----------
+
+  const escapeMdCell = (s: string) => s.trim().replace(/\|/g, '\\|').replace(/\r?\n/g, '<br>');
+  const escapeHtml = (s: string) =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  const csvCell = (s: string) => (/[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
+  const tsvCell = (s: string) => s.replace(/\t/g, ' ').replace(/\r?\n/g, ' ');
+
+  function toMarkdown(): string {
+    const [header, ...body] = rows;
+    const sep = aligns.map((a) => (a === 'left' ? ':---' : a === 'center' ? ':---:' : a === 'right' ? '---:' : '---')).join(' | ');
+    const line = (r: string[]) => `| ${r.map(escapeMdCell).join(' | ')} |`;
+    return [line(header), `| ${sep} |`, ...body.map(line)].join('\n');
+  }
+
+  function toHtml(): string {
+    const [header, ...body] = rows;
+    const style = (c: number) => (aligns[c] ? ` style="text-align:${aligns[c]}"` : '');
+    const cell = (tag: 'th' | 'td', v: string, c: number) =>
+      `        <${tag}${style(c)}>${escapeHtml(v.trim()).replace(/\r?\n/g, '<br>')}</${tag}>`;
+    const head = header.map((v, c) => cell('th', v, c)).join('\n');
+    const bodyHtml = body
+      .map((r) => `      <tr>\n${r.map((v, c) => cell('td', v, c)).join('\n')}\n      </tr>`)
+      .join('\n');
+    return `<table>\n  <thead>\n    <tr>\n${head}\n    </tr>\n  </thead>\n  <tbody>\n${bodyHtml}\n  </tbody>\n</table>`;
+  }
+
+  const toCsv = () => rows.map((r) => r.map(csvCell).join(',')).join('\r\n');
+  const toTsv = () => rows.map((r) => r.map(tsvCell).join('\t')).join('\n');
+
+  const buildOutput = (f: Format) =>
+    f === 'markdown' ? toMarkdown() : f === 'html' ? toHtml() : f === 'csv' ? toCsv() : toTsv();
+
+  function refreshOutput() {
+    output.value = buildOutput(activeFormat);
+    document.querySelectorAll<HTMLButtonElement>('.mt-tab').forEach((btn) => {
+      btn.setAttribute('aria-selected', String(btn.dataset.format === activeFormat));
+    });
+  }
+
+  function refresh() {
+    render();
+    refreshOutput();
+  }
+
+  // ---------- Parsers ----------
+
+  function parseDelimited(text: string, delim: string): string[][] {
+    const out: string[][] = [];
+    let row: string[] = [];
+    let field = '';
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; } else inQuotes = false;
+        } else field += ch;
+      } else if (ch === '"' && field === '') {
+        inQuotes = true;
+      } else if (ch === delim) {
+        row.push(field); field = '';
+      } else if (ch === '\r' || ch === '\n') {
+        if (ch === '\r' && text[i + 1] === '\n') i++;
+        row.push(field); out.push(row); row = []; field = '';
+      } else field += ch;
+    }
+    if (field !== '' || row.length > 0) { row.push(field); out.push(row); }
+    return out.filter((r) => !(r.length === 1 && r[0] === ''));
+  }
+
+  const splitMdRow = (line: string): string[] => {
+    let s = line.trim();
+    if (s.startsWith('|')) s = s.slice(1);
+    if (s.endsWith('|') && !s.endsWith('\\|')) s = s.slice(0, -1);
+    return s.split(/(?<!\\)\|/).map((c) => c.replace(/\\\|/g, '|').replace(/<br>/gi, '\n').trim());
+  };
+
+  const isSeparator = (line: string) => {
+    const cells = splitMdRow(line);
+    return cells.length > 0 && cells.every((c) => /^:?-+:?$/.test(c));
+  };
+
+  function parseMarkdown(text: string): { rows: string[][]; aligns: Align[] } {
+    const lines = text.split(/\r?\n/).map((l) => l.trim()).filter((l) => l.includes('|'));
+    if (lines.length === 0) throw new Error('No Markdown table rows found. Rows must contain "|".');
+    let sepIndex = lines.findIndex(isSeparator);
+    let alignCells: string[] = [];
+    if (sepIndex === 1) {
+      alignCells = splitMdRow(lines[1]);
+      lines.splice(1, 1);
+    } else {
+      sepIndex = -1;
+    }
+    const parsed = lines.map(splitMdRow);
+    const width = Math.max(...parsed.map((r) => r.length));
+    const aligned: Align[] = Array.from({ length: width }, (_, c) => {
+      const cell = alignCells[c] ?? '';
+      if (cell.startsWith(':') && cell.endsWith(':')) return 'center';
+      if (cell.endsWith(':')) return 'right';
+      if (cell.startsWith(':')) return 'left';
+      return null;
+    });
+    return { rows: parsed, aligns: aligned };
+  }
+
+  function parseJson(text: string): { rows: string[][]; aligns: Align[] } {
+    const data = JSON.parse(text);
+    if (!Array.isArray(data) || data.length === 0) throw new Error('JSON must be a non-empty array.');
+    const str = (v: unknown) => (v === null || v === undefined ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v));
+    if (data.every((r) => Array.isArray(r))) {
+      return { rows: (data as unknown[][]).map((r) => r.map(str)), aligns: [] };
+    }
+    if (data.every((r) => r && typeof r === 'object' && !Array.isArray(r))) {
+      const keys: string[] = [];
+      for (const obj of data as Record<string, unknown>[]) {
+        for (const k of Object.keys(obj)) if (!keys.includes(k)) keys.push(k);
+      }
+      return {
+        rows: [keys, ...(data as Record<string, unknown>[]).map((o) => keys.map((k) => str(o[k])))],
+        aligns: [],
+      };
+    }
+    throw new Error('JSON must be an array of arrays or an array of objects.');
+  }
+
+  function detectFormat(text: string): Exclude<Format, 'html'> | 'json' {
+    const t = text.trim();
+    if (t.startsWith('[')) return 'json';
+    const first = t.split(/\r?\n/)[0] ?? '';
+    if (first.includes('|')) return 'markdown';
+    if (first.includes('\t')) return 'tsv';
+    return 'csv';
+  }
+
+  function normalize(r: string[][]): string[][] {
+    if (r.length === 0) return [['', '', '']];
+    const width = Math.max(1, ...r.map((row) => row.length));
+    return r.map((row) => Array.from({ length: width }, (_, c) => row[c] ?? ''));
+  }
+
+  function importText(text: string, format: string) {
+    if (!text.trim()) throw new Error('Nothing to import. Paste a table or choose a file first.');
+    const kind = format === 'auto' ? detectFormat(text) : format;
+    let result: { rows: string[][]; aligns: Align[] };
+    if (kind === 'markdown') result = parseMarkdown(text);
+    else if (kind === 'json') result = parseJson(text);
+    else if (kind === 'tsv') result = { rows: parseDelimited(text, '\t'), aligns: [] };
+    else result = { rows: parseDelimited(text, ','), aligns: [] };
+
+    const nextRows = normalize(result.rows);
+    const width = nextRows[0].length;
+    const nextAligns: Align[] = Array.from({ length: width }, (_, c) => result.aligns[c] ?? null);
+    commit(() => {
+      rows = nextRows;
+      aligns = nextAligns;
+    });
+  }
+
+  // ---------- Actions ----------
+
+  function addRow() {
+    commit(() => rows.push(Array.from({ length: cols() }, () => '')));
+  }
+
+  function addColumn() {
+    commit(() => {
+      rows = rows.map((r) => [...r, '']);
+      aligns = [...aligns, null];
+    });
+  }
+
+  const swap = <T,>(arr: T[], i: number, j: number) => {
+    const tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+  };
+
+  function loadSample() {
+    commit(() => {
+      rows = [
+        ['Tool', 'Category', 'Price', 'Free?'],
+        ['VS Code', 'Editor', '0', 'Yes'],
+        ['Tailwind CSS', 'Styling', '0', 'Yes'],
+        ['Figma', 'Design', 'Freemium', 'Partly'],
+      ];
+      aligns = ['left', null, 'right', 'center'];
+    });
+  }
+
+  function resetTable() {
+    commit(() => {
+      rows = [['Header 1', 'Header 2', 'Header 3'], ['', '', ''], ['', '', '']];
+      aligns = [null, null, null];
+    });
+  }
+
+  // ---------- Events ----------
+
+  grid.addEventListener('focusin', (e) => {
+    const t = e.target as HTMLElement;
+    if (t instanceof HTMLInputElement) beforeEdit = snapshot();
+  });
+
+  grid.addEventListener('input', (e) => {
+    const t = e.target as HTMLInputElement;
+    const r = Number(t.dataset.r);
+    const c = Number(t.dataset.c);
+    rows[r][c] = t.value;
+    refreshOutput();
+  });
+
+  grid.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (!(t instanceof HTMLInputElement) || !beforeEdit) return;
+    if (JSON.stringify(beforeEdit.rows) !== JSON.stringify(rows)) {
+      undoStack.push(beforeEdit);
+      if (undoStack.length > MAX_HISTORY) undoStack.shift();
+      redoStack = [];
+      undoBtn.disabled = false;
+      redoBtn.disabled = true;
+    }
+    beforeEdit = null;
+  });
+
+  grid.addEventListener('keydown', (e) => {
+    const ke = e as KeyboardEvent;
+    const t = ke.target as HTMLInputElement;
+    if (!(t instanceof HTMLInputElement) || ke.key !== 'Enter') return;
+    ke.preventDefault();
+    const r = Number(t.dataset.r);
+    const c = Number(t.dataset.c);
+    const below = grid.querySelector<HTMLInputElement>(`input[data-r="${r + 1}"][data-c="${c}"]`);
+    (below ?? t).focus();
+  });
+
+  grid.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-action]');
+    if (!btn || btn.disabled) return;
+    const action = btn.dataset.action!;
+    const i = Number(btn.dataset.index);
+    switch (action) {
+      case 'align':
+        commit(() => { aligns[i] = btn.dataset.value as Align; });
+        break;
+      case 'col-left':
+        commit(() => {
+          rows.forEach((r) => swap(r, i, i - 1));
+          swap(aligns, i, i - 1);
+        });
+        break;
+      case 'col-right':
+        commit(() => {
+          rows.forEach((r) => swap(r, i, i + 1));
+          swap(aligns, i, i + 1);
+        });
+        break;
+      case 'col-del':
+        if (cols() <= 1) return;
+        commit(() => {
+          rows = rows.map((r) => r.filter((_, c) => c !== i));
+          aligns = aligns.filter((_, c) => c !== i);
+        });
+        break;
+      case 'row-up':
+        commit(() => swap(rows, i, i - 1));
+        break;
+      case 'row-down':
+        commit(() => swap(rows, i, i + 1));
+        break;
+      case 'row-del':
+        commit(() => rows.splice(i, 1));
+        break;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const target = e.target as HTMLElement;
+    if (target instanceof HTMLTextAreaElement) return;
+    const mod = e.ctrlKey || e.metaKey;
+    if (!mod) return;
+    const key = e.key.toLowerCase();
+    if (key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+    else if (key === 'y' || (key === 'z' && e.shiftKey)) { e.preventDefault(); redo(); }
+  });
+
+  undoBtn.addEventListener('click', undo);
+  redoBtn.addEventListener('click', redo);
+  $<HTMLButtonElement>('mt-add-row').addEventListener('click', addRow);
+  $<HTMLButtonElement>('mt-add-col').addEventListener('click', addColumn);
+  $<HTMLButtonElement>('mt-sample').addEventListener('click', loadSample);
+  $<HTMLButtonElement>('mt-reset').addEventListener('click', resetTable);
+
+  $<HTMLButtonElement>('mt-apply').addEventListener('click', () => {
+    importError.hidden = true;
+    try {
+      importText($<HTMLTextAreaElement>('mt-import-text').value, $<HTMLSelectElement>('mt-import-format').value);
+    } catch (err) {
+      importError.textContent = `Could not import: ${(err as Error).message}`;
+      importError.hidden = false;
+    }
+  });
+
+  const fileInput = $<HTMLInputElement>('mt-import-file');
+  $<HTMLButtonElement>('mt-import-file-btn').addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    importError.hidden = true;
+    try {
+      const text = await file.text();
+      $<HTMLTextAreaElement>('mt-import-text').value = text;
+      importText(text, $<HTMLSelectElement>('mt-import-format').value);
+    } catch (err) {
+      importError.textContent = `Could not import file: ${(err as Error).message}`;
+      importError.hidden = false;
+    }
+    fileInput.value = '';
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.mt-tab').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeFormat = btn.dataset.format as Format;
+      refreshOutput();
+    });
+  });
+
+  function flashToast(message: string) {
+    toast.textContent = message;
+    toast.style.display = 'inline';
+    window.setTimeout(() => { toast.style.display = 'none'; }, 1800);
+  }
+
+  $<HTMLButtonElement>('mt-copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(output.value);
+      flashToast('✓ Copied to clipboard!');
+    } catch {
+      output.select();
+      const ok = document.execCommand('copy');
+      flashToast(ok ? '✓ Copied to clipboard!' : 'Copy failed. Select the text and copy manually.');
+    }
+  });
+
+  $<HTMLButtonElement>('mt-download').addEventListener('click', () => {
+    const ext: Record<Format, { name: string; type: string }> = {
+      markdown: { name: 'table.md', type: 'text/markdown' },
+      html: { name: 'table.html', type: 'text/html' },
+      csv: { name: 'table.csv', type: 'text/csv' },
+      tsv: { name: 'table.tsv', type: 'text/tab-separated-values' },
+    };
+    const meta = ext[activeFormat];
+    const url = URL.createObjectURL(new Blob([output.value], { type: `${meta.type};charset=utf-8` }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = meta.name;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  refresh();
+</script>
