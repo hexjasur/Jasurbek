@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'markdown-table-editor',
+    num: 10,
+    title: 'Markdown Table Visual Editor (GFM, CSV, TSV, JSON)',
+    description: 'Edit Markdown tables in a spreadsheet-style grid with per-column alignment. Import CSV, TSV, JSON or existing GFM tables and export Markdown, HTML, CSV or TSV.',
+    slug: 'markdown-table-editor',
+  },
+  {
     id: 'pagespeed-checker',
     num: 9,
     title: 'Website Speed & Performance Checker',
