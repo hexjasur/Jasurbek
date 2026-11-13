@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="432pt" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="490pt" height="490pt" viewBox="-28 -10 490 490" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -437,6 +437,26 @@ L 421.2 421.2
     <path d="M 10.8 10.8 
 L 421.2 10.8 
 " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="coordinate_ticks" style="fill: none; stroke: #000000; stroke-width: 1">
+    <path d="M 29.454545 421.2 V 425.2 M 122.727273 421.2 V 425.2 M 216 421.2 V 425.2 M 309.272727 421.2 V 425.2 M 402.545455 421.2 V 425.2"/>
+    <path d="M 29.454545 10.8 V 14.8 M 122.727273 10.8 V 14.8 M 216 10.8 V 14.8 M 309.272727 10.8 V 14.8 M 402.545455 10.8 V 14.8"/>
+    <path d="M 10.8 29.454545 H 14.8 M 10.8 122.727273 H 14.8 M 10.8 216 H 14.8 M 10.8 309.272727 H 14.8 M 10.8 402.545455 H 14.8"/>
+    <path d="M 421.2 29.454545 H 417.2 M 421.2 122.727273 H 417.2 M 421.2 216 H 417.2 M 421.2 309.272727 H 417.2 M 421.2 402.545455 H 417.2"/>
+   </g>
+   <g id="coordinate_labels" style="fill: #222; stroke: none; font-family: Inter, Arial, sans-serif; font-size: 11px">
+    <text x="29.454545" y="442" text-anchor="middle">−1</text>
+    <text x="122.727273" y="442" text-anchor="middle">−0.5</text>
+    <text x="216" y="442" text-anchor="middle">0</text>
+    <text x="309.272727" y="442" text-anchor="middle">0.5</text>
+    <text x="402.545455" y="442" text-anchor="middle">1</text>
+    <text x="3" y="33.5" text-anchor="end">1</text>
+    <text x="3" y="126.5" text-anchor="end">0.5</text>
+    <text x="3" y="219.5" text-anchor="end">0</text>
+    <text x="3" y="312.5" text-anchor="end">−0.5</text>
+    <text x="3" y="405.5" text-anchor="end">−1</text>
+    <text x="216" y="468" text-anchor="middle">x</text>
+    <text x="-16" y="216" text-anchor="middle" transform="rotate(-90 -16 216)">y</text>
    </g>
   </g>
  </g>
