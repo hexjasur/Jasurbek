@@ -53,14 +53,14 @@ git --version
 
 ## Sozlaş
 
-Git har commit'ga ismingiz va emailingizni yozib qöyadi. Bu işni bir marta qilasiz:
+Git har bir commit'ga muallif sifatida sizning GitHub usernameingiz va emailingizni yozib qöyadi. Bu sozlamani bir marta bajarasiz:
 
 ```bash
-git config --global user.name "Ismingiz"
+git config --global user.name "github_usernameingiz"
 git config --global user.email "siz@misol.com"
 ```
 
-Ism va email GitHub akkauntingiz bilan bir xil bölsa, commit'lar profilingizga ulanadi.
+GitHub usernameingiz va profilingizga biriktirilgan email manzilingizni körsatsangiz, commit'lar GitHub profilingizga töğri boğlanadi va hissa röyxatida aks etadi.
 
 Sozlamaning uçta darajasi bor:
 
@@ -69,16 +69,6 @@ Sozlamaning uçta darajasi bor:
 - `--local` — faqat şu repo uçun. Eng ustuvor.
 
 Qayerdan kelganini köriş uçun: `git config --list --show-origin`.
-
-### Tayyor skript
-
-Hammasini savollar bilan bir marta sozlaş uçun repodagi skriptni işga tuşiring:
-
-```bash
-bash scripts/git-setup.sh
-```
-
-Skript ism va emailni söraydi, `main` standart branch nomini, satr oxiri sozlamasini va ixtiyoriy SSH kalitni örnatadi.
 
 ## AI identifikatori yoki author?
 
@@ -146,7 +136,7 @@ Manba: [Git tarixi — git-scm.com](https://git-scm.com/book/en/v2/Getting-Start
 | Buyruq | Vazifasi |
 | :--- | :--- |
 | `git --version` | Git örnatilganini tekşiriş |
-| `git config --global user.name "Ism"` | Ismni yoziş |
+| `git config --global user.name "username"` | GitHub usernameingizni yoziş |
 | `git config --global user.email "email"` | Emailni yoziş |
 | `git init` | Joriy papkada yangi repo |
 | `git clone <url>` | GitHub reposini kompyuterga nusxalaş |
