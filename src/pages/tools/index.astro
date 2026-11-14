@@ -19,7 +19,11 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     <div class="blog-meta-date">Last Updated: 2026-11-14</div>
 
     <p class="blog-desc">
-      A collection of client-side utilities designed for speed, privacy, and zero latency. All operations are processed entirely inside your browser — no inputs, tokens, or personal calculations are ever transmitted to any server.
+      A collection of client-side utilities designed for speed, privacy, and zero latency. Most operations are processed entirely inside your browser — no inputs, tokens, or personal calculations are ever transmitted to any server. A small number of tools connect to external APIs to deliver their functionality; those cases are clearly noted on each tool's page.
+    </p>
+    <p class="tools-disclaimer-note">
+      <strong>Disclaimer:</strong> These tools are provided "as is" without warranties. Use at your own risk and always verify results independently. By using these tools you accept the{' '}
+      <a href="/entry/privacy_policy#web-tools-disclaimer">Web Tools Disclaimer</a>.
     </p>
   </div>
 
@@ -39,3 +43,17 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     ))}
   </div>
 </Layout>
+
+<style>
+  .tools-disclaimer-note {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .tools-disclaimer-note a {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
+  }
+</style>

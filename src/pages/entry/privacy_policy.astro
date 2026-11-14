@@ -15,7 +15,7 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
   <div class="blog-intro">
     <h2 class="page-title">{pageTitle}</h2>
     <div class="blog-meta-date">First Published: 2026-11-07</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-11</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-14</div>
 
     <p class="blog-desc">
       This Privacy Policy and Web Tools Disclaimer outlines how personal information, web utilities, and technical data are handled across {SITE_CONFIG.domain}. We operate on a privacy-first principle: no third-party trackers, no unnecessary data acquisition, and completely local execution for interactive tools.
@@ -97,19 +97,92 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
       </ul>
     </section>
 
-    <section>
-      <h3>6. Web Tools Disclaimer & Limitation of Liability</h3>
+    <section id="web-tools-disclaimer">
+      <h3>6. Web Tools Disclaimer</h3>
+
       <p>
-        The tools, calculators, code snippets, and demonstrations on this website are provided on an <strong>"as-is"</strong> and <strong>"as-available"</strong> basis for informational, educational, and workflow-assistance purposes without warranty of any kind, either express or implied:
+        The tools, calculators, converters, generators, and interactive demos on this website are provided <strong>&ldquo;as is&rdquo;</strong> and <strong>&ldquo;as available&rdquo;</strong> for informational, educational, and workflow-assistance purposes. By using any tool on this site you accept the terms described in this section in full.
+      </p>
+
+      <nav class="disclaimer-toc" aria-label="Web Tools Disclaimer sections">
+        <strong>Table of Contents</strong>
+        <ol>
+          <li><a href="#disclaimer-general">General Terms</a></li>
+          <li><a href="#disclaimer-liability">Limitation of Liability</a></li>
+          <li><a href="#disclaimer-service">Service Conditions</a></li>
+          <li><a href="#disclaimer-responsibilities">User Responsibilities</a></li>
+          <li><a href="#disclaimer-third-party">Third-Party Services</a></li>
+          <li><a href="#disclaimer-guidelines">Usage Guidelines</a></li>
+          <li><a href="#disclaimer-final">Final Terms</a></li>
+        </ol>
+      </nav>
+
+      <h4 id="disclaimer-general">6.1 General Terms</h4>
+      <p>
+        All web tools on {SITE_CONFIG.domain} &mdash; including but not limited to converters, formatters, validators, calculators, generators, minifiers, alphabet tools, and AI-powered utilities &mdash; are offered without warranties of any kind, express or implied. We make no guarantees regarding accuracy, completeness, reliability, or suitability for any particular purpose of the results they produce.
+      </p>
+      <p>
+        These tools are personal projects maintained on a best-effort basis. We are under no obligation to fix bugs, add features, provide updates, or offer any form of technical support.
+      </p>
+
+      <h4 id="disclaimer-liability">6.2 Limitation of Liability</h4>
+      <p>
+        To the fullest extent permitted by applicable law, {SITE_CONFIG.author} and {SITE_CONFIG.domain} shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of &mdash; or inability to use &mdash; any tool, snippet, or interactive feature on this website, including but not limited to:
       </p>
       <ul>
-        <li>
-          <strong>Accuracy & Verification:</strong> While every effort is made to maintain algorithm correctness and standards compliance, users are advised to independently verify critical computation results, cryptographic outputs, academic credits, or code translations prior to production or legal use.
-        </li>
-        <li>
-          <strong>Limitation of Liability:</strong> Under no circumstances shall {SITE_CONFIG.author} or {SITE_CONFIG.domain} be held liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use any tool, post, or snippet provided on this website.
-        </li>
+        <li>Data loss, corruption, or unintended disclosure.</li>
+        <li>Incorrect computation results used in academic, financial, or production contexts.</li>
+        <li>Service interruptions, API quota exhaustion, or third-party outages (such as background-removal APIs).</li>
+        <li>Browser incompatibilities, crashes, or performance degradation on lower-specification devices.</li>
+        <li>Any other direct or indirect losses arising from reliance on tool output.</li>
       </ul>
+      <p>
+        Always independently verify critical results before using them for academic submission, legal purposes, production deployment, or financial decisions.
+      </p>
+
+      <h4 id="disclaimer-service">6.3 Service Conditions</h4>
+      <p>
+        We reserve the right to modify, restrict, or discontinue any tool at any time without prior notice. This includes changing processing limits, removing features, or taking tools offline temporarily or permanently. Tools that rely on external APIs (such as the AI Background Remover) are further subject to the availability, quota limits, and terms of those third-party services.
+      </p>
+      <p>
+        Client-side tools (those with no network calls) run entirely in your browser and are not affected by server-side downtime. However, they depend on your browser version, available device memory, and local hardware capabilities.
+      </p>
+
+      <h4 id="disclaimer-responsibilities">6.4 User Responsibilities</h4>
+      <p>You are solely responsible for:</p>
+      <ul>
+        <li>Ensuring the content you upload or input (images, text, code) does not violate copyright, privacy rights, or applicable law.</li>
+        <li>Verifying that tool output is correct and appropriate before using it in any consequential context.</li>
+        <li>Complying with the terms of any third-party APIs or services that a tool connects to on your behalf.</li>
+        <li>Keeping your browser and operating system reasonably up to date to maintain compatibility.</li>
+      </ul>
+
+      <h4 id="disclaimer-third-party">6.5 Third-Party Services</h4>
+      <p>
+        Some tools &mdash; such as the <a href={`${baseUrl}tools/bg-remover`}>AI Background Remover</a> and the <a href={`${baseUrl}tools/pagespeed-checker`}>PageSpeed Checker</a> &mdash; send data to external APIs in order to function. In those cases:
+      </p>
+      <ul>
+        <li>Your uploaded images or submitted URLs are transmitted to the respective third-party provider (remove.bg, poof.bg, or Google PageSpeed Insights).</li>
+        <li>Those providers&rsquo; own privacy policies and terms of service govern how they handle your data.</li>
+        <li>We do not store, log, or retain any files or URLs you send through these tools on our side.</li>
+        <li>API quotas are finite; if a service limit is reached the tool will display an informative error message.</li>
+      </ul>
+
+      <h4 id="disclaimer-guidelines">6.6 Usage Guidelines</h4>
+      <ul>
+        <li>Do not use these tools to process content that is illegal, hateful, or violates the rights of others.</li>
+        <li>Do not attempt to abuse, overload, or reverse-engineer the tools or any APIs they depend on.</li>
+        <li>Treat computed outputs as a starting point for review, not as authoritative final results.</li>
+        <li>If you identify an error in a tool&rsquo;s logic, you are welcome to open a GitHub issue or pull request.</li>
+      </ul>
+
+      <h4 id="disclaimer-final">6.7 Final Terms</h4>
+      <p>
+        By using any tool on this website, you acknowledge that you have read and understood this disclaimer and agree to be bound by its terms. If you do not agree, please discontinue use of the tools immediately.
+      </p>
+      <p>
+        This disclaimer may be updated periodically. The &ldquo;Last Updated&rdquo; date at the top of this page will reflect the most recent revision.
+      </p>
     </section>
 
     <section>
@@ -158,6 +231,37 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
     font-family: Georgia, serif;
     border-bottom: 1px solid var(--line-soft);
     padding-bottom: 0.35rem;
+  }
+
+  .privacy-content h4 {
+    margin-top: 1.4rem;
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+
+  .disclaimer-toc {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-code, var(--bg-soft));
+    border-left: 3px solid var(--flora-orange, #b86752);
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .disclaimer-toc ol {
+    margin: 0.5rem 0 0 1.25rem;
+    padding: 0;
+  }
+
+  .disclaimer-toc li {
+    margin-bottom: 0.25rem;
+  }
+
+  .disclaimer-toc a {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
   }
 
   .privacy-content p {
