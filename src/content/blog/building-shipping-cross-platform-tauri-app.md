@@ -2,10 +2,11 @@
 title: "Building and Shipping a Cross-Platform Tauri App"
 description: "A practical look at packaging a Next.js and Rust application for Windows, Linux, and Android, using Numeric Methods as a real-world example."
 pubDate: 2026-11-01
+updatedDate: 2026-11-14
 tags: ["tauri", "rust", "nextjs", "android", "desktop", "release-engineering"]
 ---
 
-Cross-platform software is not just one codebase that happens to compile on several devices. Each operating system has its own build tools, package formats, permissions, signing requirements, and update path. This guide walks through those differences using [Numeric Methods](https://github.com/hexjasur/numeric-methods), an interactive numerical-computing application built for the web, desktop, and Android.
+Each operating system has its own build tools, package formats, permissions, signing requirements, and update path, so one codebase does not mean one release process. This guide walks through those differences using [Numeric Methods](https://github.com/hexjasur/numeric-methods), an interactive numerical-computing application built for the web, desktop, and Android.
 
 ## Why use Tauri?
 
@@ -16,6 +17,8 @@ The web build and native shell have different jobs:
 - **Next.js and React** render the interface and application workflows.
 - **The static export** produces frontend assets that can be served by a website or loaded by Tauri.
 - **Tauri and Rust** package those assets as an installed application and provide native functionality where needed.
+
+![Diagram: bun run build writes the static export to out/. The Tauri shell loads out/ and packages it for Windows, Linux and Android, while a website can serve the same files](/images/blog/building-shipping-cross-platform-tauri-app/build-targets.svg)
 
 Keeping those responsibilities separate makes it easier to test the web experience without launching a native app, while preserving a path to desktop and mobile releases.
 
@@ -88,5 +91,3 @@ Before publishing, verify that each release contains the expected files, that si
 4. Confirm versions, filenames, signing, and release notes.
 5. Check that update metadata and download links match the published artifacts.
 6. Publish the release and verify the download and update flow from a clean install.
-
-The main lesson is to share application logic where it makes sense, but validate packaging, permissions, signing, and updates per platform. Tauri makes it possible to bring a web interface to desktop and mobile; a reliable release still depends on treating each target as its own product.

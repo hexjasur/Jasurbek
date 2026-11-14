@@ -1,6 +1,6 @@
 ---
 title: "Git'ni noldan örganing: örnatiş, sozlaş, branch va push"
-description: "Git'ni örnatiş, sozlaş, branch yaratiş, commit va GitHub'ga push qiliş böyiça sodda, aniq qöllanma. AI hammuallif belgisi va Git tarixi ham bor."
+description: "Git'ni örnatiş, sozlaş, commit yaratiş, branch ajratiş va GitHub'ga push qiliş böyiça noldan qöllanma. Buyruqlar jadvali va tipik xatolar bilan."
 pubDate: 2026-11-12
 updatedDate: 2026-11-14
 tags: ["git", "github", "tutorial", "claude"]
@@ -8,7 +8,7 @@ tags: ["git", "github", "tutorial", "claude"]
 
 Git — kod va fayllaringiz tarixini saqlaydigan dastur. Har safar «saqlab qöydim» deganingizda, Git bir suratga olinadi. Bu suratni **commit** deymiz. Xato qilsangiz, eski holatga qaytiş mumkin.
 
-Bu yozuvda Git'ni noldan örnatiş, sozlaş va asosiy iş oqimini körib çiqamiz.
+Bu yozuvda Git'ni noldan örnatamiz, sozlaymiz va asosiy iş oqimini körib çiqamiz.
 
 ## Asosiy atamalar
 
@@ -62,7 +62,7 @@ git config --global user.email "siz@misol.com"
 
 GitHub usernameingiz va profilingizga biriktirilgan email manzilingizni körsatsangiz, commit'lar GitHub profilingizga töğri boğlanadi va hissa röyxatida aks etadi.
 
-Sozlamaning uçta darajasi bor:
+Sozlamaning uç darajasi bor:
 
 - `--system` — butun kompyuter uçun. Odatda kerak emas.
 - `--global` — siz uçun, barça repolarda.
@@ -72,7 +72,7 @@ Qayerdan kelganini köriş uçun: `git config --list --show-origin`.
 
 ## AI identifikatori yoki author?
 
-Köp söraladigan savol: commit'da AI nomi çiqsa, bu «author» böladimi? Qisqa javob: yöq.
+Köp soraladigan savol: commit'da AI nomi çiqsa, bu «author» böladimi? Qisqa javob: yöq.
 
 - **Author** — commit'ni Git'da kim yaratgani. Git buni `user.name` va `user.email` dan biladi. Har commit'da bitta author bor.
 - **Committer** — commit'ni repoga kiritgan odam. Köpinça author bilan bir xil. Rebase yoki cherry-pick'da farq qilişi mumkin.
@@ -84,10 +84,8 @@ Mana misol:
 Git'ga sozlaş skripti qöşildi
 
 Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_...
+Claude-Session: https://claude.ai/code/session_<id>
 ```
-
-Xulosa: author — commit'ni Git'da kim yaratgani. Co-Authored-By — qöşimça hissa qöşganlar. AI esa şu yerda hammuallif sifatida yoziladi.
 
 Kim nima qilganini tekşiriş uçun:
 
@@ -104,6 +102,10 @@ git branch             # röyxat (yulduzça = hozirgisi)
 git switch -c Claude   # yangi Claude branch yaratib, unga ötiş
 git switch master      # master'ga qaytiş
 ```
+
+Asosiy branch nomi repoga qarab `master` yoki `main` bölişi mumkin. Bu maqoladagi buyruqlarda `master` işlatilgan.
+
+![Asosiy branch va iş branch'i: iş branch asosiy çiziqdan ajraladi va öz commit'lari bilan davom etadi](/git/git-branch.svg)
 
 Asosiy iş oqimi har safar şu tartibda:
 
@@ -170,3 +172,7 @@ Manba: [Git tarixi — git-scm.com](https://git-scm.com/book/en/v2/Getting-Start
 - **`fatal: not a git repository`** — Siz repo papkasida emassiz. `cd` bilan papkani tanlang yoki `git init` qiling.
 - **`detached HEAD`** — Siz branch'da emas, eski commit'dasiz. `git switch Claude` bilan qaytiş.
 - **`Permission denied (publickey)`** — SSH kalit ulanmagan. `ssh-keygen -t ed25519` qiling va oçiq kalitni GitHub Settings → SSH keys ga qöşing.
+
+## Keyingi qadam
+
+Commit'lar GitHub'ga yetgaç, ularni avtomatik tekşiriş mumkin: [GitHub Actions bilan bepul CI/CD](/blog/github-actions-bepul-ci-cd/).

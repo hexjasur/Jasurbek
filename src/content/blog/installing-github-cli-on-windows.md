@@ -1,22 +1,20 @@
 ---
 title: "Installing GitHub CLI on Windows: WinGet and the Manual Installer"
-description: "Two ways to install GitHub CLI (gh) on Windows: through WinGet, and with the standalone gh_2.103.3_windows_amd64 installer. Includes verification, authentication, and what to do if WinGet itself is broken."
+description: "Install GitHub CLI (gh) on Windows with WinGet or the MSI installer, then verify the install, sign in, and run the everyday commands."
 pubDate: 2026-11-09
-updatedDate: 2026-11-09
+updatedDate: 2026-11-14
 tags: ["windows", "github", "cli", "developer-tools", "git"]
 ---
 
-GitHub CLI (`gh`) brings GitHub to the terminal: pull requests, issues, releases, and repository management without leaving the command line. On Windows there are two straightforward ways to install it, depending on what's already set up on your machine.
+GitHub CLI (`gh`) runs common GitHub tasks from the terminal: pull requests, issues, releases, and repositories. On Windows there are two ways to install it. Use WinGet if `winget` works on your machine; otherwise use the manual installer.
 
 ## Method 1: Install via WinGet
-
-If your system has WinGet (Windows 10 1709+ or Windows 11), this is the fastest route:
 
 ```powershell
 winget install --id GitHub.cli
 ```
 
-WinGet resolves the latest release automatically and registers `gh` on your `PATH`. Close and reopen your terminal afterward so the `PATH` update takes effect.
+WinGet resolves the latest release and registers `gh` on your `PATH`. Close and reopen the terminal afterward so the `PATH` change takes effect.
 
 To update later:
 
@@ -24,89 +22,66 @@ To update later:
 winget upgrade --id GitHub.cli
 ```
 
-If WinGet itself fails, hangs, or isn't recognized, see [Fixing WinGet on Windows](/blog/fixing-winget-on-windows/) for a separate troubleshooting guide, then come back and retry the command above. Alternatively, skip straight to the manual installer below.
+If WinGet fails, hangs, or is not recognized, see [Fixing WinGet on Windows](/blog/fixing-winget-on-windows/), then retry the command above or use the manual installer.
 
 ## Method 2: Manual installer
 
-For machines without WinGet, or as a direct fallback, download the installer straight from the [GitHub CLI releases page](https://github.com/cli/cli/releases):
+Download the installer from the [GitHub CLI releases page](https://github.com/cli/cli/releases):
 
 - **64-bit Windows (most common):** `gh_2.103.3_windows_amd64.msi`
 - **ARM64 Windows:** `gh_2.103.3_windows_arm64.msi`
 
-Run the downloaded `.msi` and follow the installer steps; it adds `gh` to your `PATH` automatically. A `.zip` build is also published for each platform if you'd rather extract `gh.exe` manually and place it somewhere on your `PATH` yourself.
+Run the `.msi` and follow the prompts. It adds `gh` to your `PATH`. A `.zip` build is also published for each platform if you want to extract `gh.exe` yourself and place it on your `PATH`.
 
-As with WinGet, restart your terminal after installing so it picks up the updated `PATH`.
+As with WinGet, restart the terminal after installing.
 
 ## Verify the installation
-
-Regardless of which method you used, confirm it worked:
 
 ```powershell
 gh --version
 ```
 
-```text
-gh version 2.103.3 (2026-xx-xx)
-https://github.com/cli/cli/releases/tag/v2.103.3
-```
+The first line has the form `gh version X.Y.Z (date)`. The second line is the URL of the release notes for that version. Check that the version matches the release you installed.
 
 ## Authenticate with GitHub
-
-Before using `gh` against your repositories, log in:
 
 ```powershell
 gh auth login
 ```
 
-Choose `GitHub.com`, pick HTTPS or SSH, and follow the browser-based device flow to authorize. Check the result with:
+Choose `GitHub.com`, pick HTTPS or SSH, and finish the browser-based authorization. Then confirm the result:
 
 ```powershell
 gh auth status
 ```
 
-From there, `gh repo clone`, `gh pr create`, and `gh issue list` are ready to use.
-
-## Everyday gh commands
-
-A quick reference for the commands you'll reach for most once `gh` is installed and authenticated.
-
-### Repositories
+## Everyday commands
 
 ```powershell
-gh repo clone owner/repo        # clone a repository
-gh repo create my-project       # create a new repository, interactively
-gh repo view --web               # open the current repo in the browser
-gh repo fork owner/repo          # fork a repository
-```
+# Repositories
+gh repo clone owner/repo          # clone a repository
+gh repo create my-project         # create a repository (prompts for options)
+gh repo fork owner/repo           # fork a repository
+gh repo view --web                # open the current repository in the browser
 
-### Pull requests
-
-```powershell
-gh pr create                    # open a PR for the current branch, interactively
-gh pr create --fill              # open a PR using the branch's commits for title/body
-gh pr list                       # list open PRs in the current repo
-gh pr view 123 --web              # open PR #123 in the browser
+# Pull requests
+gh pr create                      # open a PR for the current branch (prompts)
+gh pr create --fill               # open a PR; title and body come from the commits
+gh pr list                        # list open PRs in the current repository
 gh pr checkout 123                # check out PR #123 locally
-gh pr status                      # PRs you've opened, reviewed, or are assigned
+gh pr view 123 --web              # open PR #123 in the browser
 gh pr merge 123 --squash          # squash-merge PR #123
-```
 
-### Issues
-
-```powershell
+# Issues
 gh issue list                     # list open issues
-gh issue create                   # create a new issue, interactively
-gh issue view 42                  # view issue #42
+gh issue create                   # create an issue (prompts)
+gh issue view 42                  # show issue #42
 gh issue close 42                 # close issue #42
-```
 
-### Releases and workflows
-
-```powershell
+# Releases and workflows
 gh release list                   # list releases
-gh release create v1.0.0           # create a new release, interactively
-gh run list                        # recent GitHub Actions runs
-gh run watch                       # follow the current run live
+gh run list                       # recent GitHub Actions runs
+gh run watch                      # follow the current run live
 ```
 
-Append `--help` to any command (for example `gh pr create --help`) to see its full flag list, and `gh <noun> --help` (`gh pr --help`) for everything available under that noun.
+Run `gh <command> --help` (for example `gh pr merge --help`) to see every flag for a command.

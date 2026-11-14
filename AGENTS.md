@@ -66,6 +66,8 @@ Rules:
 
 ## Blog posts
 
+Before writing or editing any post, read `docs/blog-writing.md` (structure, tone, pedagogy, checklist). Blog images and diagrams go in `public/images/blog/<post-slug>/` as SVG or optimized images with meaningful `alt` text.
+
 > **CRITICAL DATE RULE FOR AGENTS**: Every agent working in this repo MUST maintain dates strictly whenever creating or modifying blog content:
 > 1. **New post**: MUST set pubDate: YYYY-MM-DD to the CURRENT local date of creation. Never use past dates or placeholders.
 > 2. **Editing / Updating a post**: Whenever you touch, edit, expand, or revise an existing blog post, you **MUST ALWAYS** set or update updatedDate: YYYY-MM-DD to the CURRENT date of the revision. Do NOT change pubDate on updates; only set updatedDate.

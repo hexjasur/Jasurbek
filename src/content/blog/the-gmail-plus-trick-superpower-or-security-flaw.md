@@ -1,11 +1,12 @@
 ---
-title: "The Gmail \"+\" Trick: Lifehack, Developer Superpower, or Security Flaw?"
-description: "A practical breakdown of Gmail's subaddressing and dot-insensitivity: how users leverage it, why backends suffer from sybil signups, and how to implement canonical email normalization."
+title: "Gmail Plus Addresses and Dots: Feature or Security Flaw?"
+description: "How Gmail's + tags and ignored dots work, why they let one person create many signups, and how to normalize addresses to one canonical form in code."
 pubDate: 2026-11-03
+updatedDate: 2026-11-14
 tags: ["security", "web-development", "authentication", "gmail", "engineering"]
 ---
 
-Append a plus sign (`+`) or insert dots into any Gmail address, and Google delivers it straight to the original inbox:
+Gmail delivers mail for `name+tag@gmail.com` to the same inbox as `name@gmail.com`. It also ignores dots in the name, so every dotted form reaches the same inbox too:
 
 ```text
 primary: myemail@gmail.com
@@ -14,75 +15,80 @@ aliases: myemail+testing@gmail.com
          m.y.e.m.a.i.l@gmail.com
 ```
 
-To Google, all of these belong to one mailbox. But to many web applications, each string looks like a brand-new user.
+Google treats all of these as one mailbox. Many web applications treat each string as a new user. The mail feature is useful to the owner of the inbox. For a signup system that counts accounts, it creates duplicates.
 
-Is this a clever productivity lifehack or a security blindspot? The short answer: **it is a standard mail routing feature that becomes a vulnerability when systems treat raw email strings as unique human identities.**
+## 1. How it works
 
----
+1. **Subaddressing ([RFC 5233](https://datatracker.ietf.org/doc/html/rfc5233)):** The RFC describes a `detail` after a `+` in the local part. Gmail uses it for delivery and filtering, and the tag is optional.
+2. **Dots are ignored:** Gmail ignores periods in the username. `jasur.haydarov` and `jasurhaydarov` reach the same inbox. A 10-character username has 9 gaps, so it has 512 dot patterns, all delivered to one inbox.
 
-## 1. The Core Mechanism
+## 2. Why people use it
 
-1. **Subaddressing ([RFC 5233](https://datatracker.ietf.org/doc/html/rfc5233)):** Everything between the `+` character and the `@` symbol is an optional tag meant for client-side sorting and filtering.
-2. **Dot-Insensitivity:** Google ignores periods in the username portion entirely (`jasur.haydarov` == `jasurhaydarov`). A 10-character username yields over 500 dot variations, all routing to the same inbox.
+- **Breach tracking:** Sign up on an untrusted site with `you+companyname@gmail.com`. If spam arrives at that alias, you know which site leaked or sold your address.
+- **Test accounts:** Test admin, manager and viewer roles from one inbox without creating several mailboxes.
+- **Filtering:** Gmail filters can label, forward or archive mail by its `+` tag.
 
----
+## 3. Where backends break
 
-## 2. The Feature: Why Users Love It
-
-* **Breach Tracking:** Sign up for an untrusted site with `you+companyname@gmail.com`. If you ever get spam sent to that specific alias, you know immediately that their database was breached or sold.
-* **Instant QA & Multi-Role Testing:** Test admin, manager, and viewer roles from a single browser tab without registering dozens of test inboxes.
-* **Inbox Triage:** Automatically route, label, or forward incoming messages via native Gmail filters using the tag.
-
----
-
-## 3. The Problem: Where Backends Break Down
-
-When a backend checks uniqueness with a simple equality check:
+A signup form that checks uniqueness with a plain equality test fails here:
 
 ```sql
 SELECT id FROM users WHERE email = 'user+trial2@gmail.com';
 ```
 
-Because `user+trial2@gmail.com != user@gmail.com`, naive applications treat them as separate accounts. This enables:
+`user+trial2@gmail.com` and `user@gmail.com` are different strings, so the query finds no match, and both can be registered. Abusers use this in three ways:
 
-* **Trial & Credit Farming (Sybil Abuse):** Abusers register dozens or hundreds of accounts (`user+1@...`, `user+2@...`) to repeatedly claim free-tier GPU credits, signup promo codes, or welcome discounts.
-* **Referral Gaming:** Self-referring alias accounts to illicitly collect referral rewards.
-* **Stacking with Temp Mails & Browser Profiles:** Combining aliases with disposable email services (like `temp-mail.org`) and incognito/multi-profile browser sessions easily sidesteps basic cookie and IP blocks.
+- **Trial and credit farming:** Create many accounts (`user+1@...`, `user+2@...`) to claim free-tier credits, promo codes or welcome discounts.
+- **Referral gaming:** Refer your own alias accounts to collect rewards.
+- **Combined with disposable mail:** Aliases plus temporary email services and separate browser profiles get past simple cookie and IP checks.
 
----
+## 4. Canonical normalization
 
-## 4. The Solution: Canonical Normalization
+Do not reject the `+`. Valid addresses use it, and some users depend on it. Keep the address for delivery, and use a second, canonical value for identity checks.
 
-Never reject the `+` character—valid RFC addresses use it, and power users rely on it. Instead, separate **message delivery** from **identity verification**.
+The rules below apply to Gmail only:
 
-### The Normalization Logic
+1. Trim the address and lowercase it.
+2. Map `googlemail.com` to `gmail.com`.
+3. For `gmail.com`, remove everything after `+` in the local part, then remove all dots.
 
-1. Lowercase and trim the address.
-2. For Gmail / Google domains, remove all dots from the local-part.
-3. Strip everything after `+` in the local-part.
+Other providers have their own rules, so the function only lowercases their addresses.
 
 ```typescript
-export function normalizeEmail(email: string): { canonical: string; display: string } {
-  const trimmed = email.trim().toLowerCase();
-  const [local, domain] = trimmed.split('@');
-  if (!local || !domain) throw new Error('Invalid email');
-
-  let cleanLocal = local.split('+')[0];
-
-  if (domain === 'gmail.com' || domain === 'googlemail.com') {
-    cleanLocal = cleanLocal.replace(/\./g, '');
+export function normalizeEmail(input: string): { canonical: string; display: string } {
+  const display = input.trim();
+  const at = display.lastIndexOf('@');
+  if (at <= 0 || at === display.length - 1) {
+    throw new Error('Invalid email');
   }
 
-  return {
-    canonical: `${cleanLocal}@${domain === 'googlemail.com' ? 'gmail.com' : domain}`,
-    display: trimmed,
-  };
+  const local = display.slice(0, at).toLowerCase();
+  let domain = display.slice(at + 1).toLowerCase();
+
+  if (domain === 'googlemail.com') {
+    domain = 'gmail.com';
+  }
+
+  if (domain !== 'gmail.com') {
+    return { canonical: `${local}@${domain}`, display };
+  }
+
+  const base = local.split('+')[0].replace(/\./g, '');
+  if (!base) {
+    throw new Error('Invalid email');
+  }
+
+  return { canonical: `${base}@gmail.com`, display };
 }
 ```
 
-### Database Strategy: Two Columns, One Unique Key
+For `Jasur.H+news@googlemail.com`, the function returns `canonical: "jasurh@gmail.com"` and keeps the original text as `display`.
 
-Store the original address so outgoing emails keep the user's alias tag, but enforce uniqueness on the canonical version:
+### Two columns, one unique key
+
+Store the address as typed so outgoing mail keeps the alias. Enforce uniqueness on the canonical column:
+
+![Diagram: the address typed by the user is stored as display_email. The normalized address, jasurh@gmail.com, is stored in canonical_email, which has a unique constraint](/images/blog/the-gmail-plus-trick-superpower-or-security-flaw/canonical-email.svg)
 
 ```sql
 CREATE TABLE users (
@@ -93,13 +99,6 @@ CREATE TABLE users (
 );
 ```
 
-If you also need protection against throwaway mail, check incoming domains against an open-source disposable email blocklist (`disposable-email-domains`).
+If throwaway mail is also a problem, check the domain against an open-source disposable email list such as `disposable-email-domains`.
 
----
-
-## Summary
-
-* **For users:** An indispensable tool for testing, privacy tracking, and inbox organization.
-* **For engineers:** A reminder that email addresses are communication channels, not identity keys. 
-
-Respect the user's alias for outgoing delivery, but bind authentication, trials, and quotas to the normalized canonical address.
+Use the display address for outgoing mail. Tie accounts, trials and quotas to the canonical address.

@@ -1,40 +1,31 @@
 ---
 title: "Windows Restarts Instead of Shutting Down: How to Fix It"
-description: "Your Windows 10 or 11 laptop restarts when you click Shut down? Learn why Fast Startup can cause it and how to disable Fast Startup or hibernation with Power Options and CMD."
+description: "When Windows 10 or 11 restarts instead of shutting down, Fast Startup is a common cause. Turn it off in Power Options, or disable hibernation with powercfg."
 pubDate: 2026-11-11
+updatedDate: 2026-11-14
 tags: ["windows-11", "windows-10", "fast-startup", "shutdown", "cmd", "win-troubleshooting"]
 ---
 
-Have you ever clicked **Shut down** in Windows, only to find that your laptop restarts instead of turning off completely?
-
-This issue can occur in Windows 10 and Windows 11. Interestingly, shutting down through Command Prompt may work correctly, while using the regular Windows Start menu causes the laptop to restart.
-
-For example, this command may successfully shut down the system:
+On some Windows 10 and Windows 11 laptops, choosing **Shut down** from the Start menu restarts the machine. Running `shutdown /s /f /t 0` from Command Prompt may power it off correctly. If that is your case, check Fast Startup first.
 
 ```bash
 shutdown /s /f /t 0
 ```
 
-If you experience this behavior, Windows Fast Startup is one of the first things worth checking.
+## Why this happens
 
-## Why does this happen?
+Fast Startup is a Windows feature that reduces boot time. It combines a traditional shutdown with hibernation: instead of closing the Windows kernel session completely, it saves part of the system state to the hibernation file. In some configurations this produces a restart instead of a power-off.
 
-One possible cause is **Fast Startup**, a Windows feature designed to reduce boot times.
+Other possible causes:
 
-Fast Startup combines elements of a traditional shutdown and hibernation. Instead of completely closing the Windows kernel session, it saves part of the system state to the hibernation file.
-
-In some configurations, this feature can contribute to unexpected shutdown behavior, including situations where the computer restarts instead of powering off.
-
-Other possible causes include:
-
-- Power management configuration issues.
+- Power management configuration.
 - Device driver problems.
 - BIOS/UEFI power settings.
-- Windows system or update-related issues.
+- Windows system or update issues.
 
 ## Solution 1: Disable Fast Startup
 
-This is the recommended first troubleshooting step.
+Start with this solution. It does not change hibernation.
 
 ### Step 1. Open Power Options
 
@@ -52,53 +43,33 @@ powercfg.cpl
 
 ### Step 3. Disable Fast Startup
 
-Find the following option:
+Find the **Turn on fast startup (recommended)** option, uncheck it, and click **Save changes**.
 
-**Turn on fast startup (recommended)**
+Then shut down with **Start → Power → Shut down** to test the change.
 
-Uncheck it and click **Save changes**.
+## Solution 2: Disable hibernation with CMD
 
-Now try shutting down your laptop normally using **Start → Power → Shut down**.
-
-## Solution 2: Disable Hibernate and Fast Startup using CMD
-
-If the first solution does not resolve the issue, you can disable hibernation through an elevated Command Prompt.
-
-Open CMD as Administrator and execute:
+If Solution 1 does not fix the problem, disable hibernation from an elevated Command Prompt. Open CMD as Administrator and run:
 
 ```bash
 powercfg /h off
 ```
 
-This command disables Windows hibernation and consequently disables Fast Startup.
+This disables hibernation, and with it Fast Startup.
 
-> **Important:** This also disables Hibernate mode. If you regularly use hibernation, consider Solution 1 instead.
+> **Important:** This also disables Hibernate mode. If you use hibernation, use Solution 1 instead.
 
-To restore hibernation later:
+To turn hibernation back on:
 
 ```bash
 powercfg /h on
 ```
 
-## Additional troubleshooting
+## Additional checks
 
-If the problem persists, consider these additional checks:
+Solutions 1 and 2 address one possible cause, Fast Startup. They do not cover every shutdown problem. If the restart continues, check these:
 
-- Update chipset and power management drivers.
-- Check Windows Update for pending updates.
-- Review BIOS/UEFI power management settings.
-- Check Windows Event Viewer for shutdown-related errors.
-
-Avoid changing BIOS settings randomly; investigate the specific hardware configuration first.
-
-## Conclusion
-
-If your Windows laptop restarts instead of shutting down, Fast Startup is a reasonable first suspect.
-
-Disabling Fast Startup through Control Panel is a simple troubleshooting method that may resolve the issue without reinstalling Windows or modifying system files. If necessary, the `powercfg /h off` command provides an alternative by disabling hibernation and Fast Startup entirely.
-
-**Quick takeaway:** Try disabling Fast Startup first, save the changes, and test a normal Windows shutdown.
-
-*Tested troubleshooting approach: Windows 10 / Windows 11.*
-
-*Note: This solution addresses one possible cause, not every shutdown-related issue.*
+- Update the chipset and power management drivers.
+- Install pending updates in Windows Update.
+- Review the BIOS/UEFI power management settings, and change them only after you know which setting is involved.
+- Check Event Viewer for shutdown-related errors.

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="nw-t nw-d">
+  <title id="nw-t">Newton usuli: x0 = 1.5 dagi urinma birinchi qadamda x1 ≈ 1.5217 ni beradi</title>
+  <desc id="nw-d">f(x)=x^3-x-2 egri çiziği. x0=1.5 nuqtada f(x0)=-0.125, hosila 5.75. Urinma çiziq x-öqni x1 = 1.5 + 0.125/5.75 ≈ 1.52174 nuqtada kesadi.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .ax { stroke: #71717a; stroke-width: 1.5; }
+    .grid { stroke: #d4d4d8; stroke-width: 1; }
+    .iv { stroke: #2563eb; stroke-width: 6; stroke-linecap: round; }
+    .curve { fill: none; stroke: #2563eb; stroke-width: 2.5; }
+    .tan { fill: none; stroke: #dc2626; stroke-width: 2; }
+    .dash { stroke: #71717a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .pt { fill: #dc2626; }
+    .mk { fill: #18181b; }
+    .lbl { fill: #18181b; font-size: 14px; }
+    .lblb { fill: #18181b; font-size: 14px; font-weight: 700; }
+    .sm { fill: #52525b; font-size: 12px; }
+    .head { fill: #18181b; font-size: 16px; font-weight: 700; }
+    @media (prefers-color-scheme: dark) {
+      .ax { stroke: #a1a1aa; } .grid { stroke: #3f3f46; }
+      .iv { stroke: #60a5fa; } .curve { stroke: #60a5fa; }
+      .tan { stroke: #f87171; } .dash { stroke: #a1a1aa; }
+      .pt { fill: #f87171; } .mk { fill: #f4f4f5; }
+      .lbl, .lblb, .head { fill: #f4f4f5; } .sm { fill: #d4d4d8; }
+    }
+  </style>
+    <text class="head" x="20" y="24">Newton: x0 = 1.5 nuqtasidagi urinma x-öqni x1 ≈ 1.5217 da kesadi</text>
+  <line class="ax" x1="60" y1="205.0" x2="600" y2="205.0"/>
+  <line class="ax" x1="60" y1="40" x2="60" y2="340"/>
+  <text class="sm" x="96.0" y="223.0" text-anchor="middle">1.46</text>
+  <text class="sm" x="168.0" y="223.0" text-anchor="middle">1.48</text>
+  <text class="sm" x="240.0" y="223.0" text-anchor="middle">1.50</text>
+  <text class="sm" x="312.0" y="223.0" text-anchor="middle">1.52</text>
+  <text class="sm" x="384.0" y="223.0" text-anchor="middle">1.54</text>
+  <text class="sm" x="456.0" y="223.0" text-anchor="middle">1.56</text>
+  <text class="sm" x="528.0" y="223.0" text-anchor="middle">1.58</text>
+  <text class="sm" x="600.0" y="223.0" text-anchor="middle">1.60</text>
+  <polyline class="curve" points="60.0,325.4 66.8,322.4 73.5,319.4 80.2,316.4 87.0,313.4 93.7,310.4 100.5,307.3 107.3,304.3 114.0,301.2 120.7,298.2 127.5,295.1 134.3,292.0 141.0,288.9 147.8,285.8 154.5,282.7 161.2,279.6 168.0,276.5 174.8,273.3 181.5,270.2 188.2,267.0 195.0,263.9 201.7,260.7 208.5,257.5 215.3,254.3 222.0,251.1 228.7,247.9 235.5,244.7 242.3,241.4 249.0,238.2 255.8,234.9 262.5,231.7 269.2,228.4 276.0,225.1 282.8,221.8 289.5,218.5 296.2,215.2 303.0,211.9 309.7,208.6 316.5,205.2 323.3,201.9 330.0,198.5 336.7,195.2 343.5,191.8 350.3,188.4 357.0,185.0 363.8,181.6 370.5,178.2 377.2,174.8 384.0,171.3 390.8,167.9 397.5,164.4 404.2,161.0 411.0,157.5 417.7,154.0 424.5,150.5 431.3,147.0 438.0,143.5 444.7,140.0 451.5,136.4 458.3,132.9 465.0,129.3 471.8,125.8 478.5,122.2 485.2,118.6 492.0,115.0 498.8,111.4 505.5,107.8 512.2,104.2 519.0,100.6 525.7,96.9 532.5,93.3 539.3,89.6 546.0,85.9 552.7,82.3 559.5,78.6 566.3,74.9 573.0,71.1 579.8,67.4 586.5,63.7 593.2,60.0 600.0,56.2"/>
+  <polyline class="tan" points="60.0,328.8 600.0,70.0"/>
+  <line class="dash" x1="240.0" y1="242.5" x2="240.0" y2="205.0"/>
+  <circle class="pt" cx="240.0" cy="242.5" r="5"/>
+  <text class="lbl" x="230.0" y="262.5" text-anchor="end">(x0, f(x0)) = (1.5, −0.125)</text>
+  <circle class="mk" cx="318.3" cy="205.0" r="4"/>
+  <text class="lblb" x="318.3" y="195.0" text-anchor="middle">x1 ≈ 1.5217</text>
+  <text class="lbl" x="400" y="85.0">urinma: f'(x0) = 3·1.5² − 1 = 5.75</text>
+</svg>

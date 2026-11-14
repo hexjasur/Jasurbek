@@ -1,130 +1,102 @@
 ---
 title: "Soliq nima? Özbekistonda soliqlar 2026: QQS, foyda, yer soliği, YaTT, MÇJ, AJ"
-description: "Soliq nima va nega yiğiladi? QQS, foyda va yer soliği, YaIM, YaTT, MÇJ, AJ — Özbekiston uçun 2026-yilgi aniq stavkalar, raqamlar va misollar rasmiy manbalar bilan."
+description: "Özbekistonda 2026-yilgi asosiy soliqlar: kim tölaydi, stavka va çegaralar, muddatlar va bitta hisob-kitob misoli. Rasmiy manbalar bilan."
 pubDate: 2026-11-04
+updatedDate: 2026-11-14
 tags: ["soliq", "uzbekistan", "iqtisodiyot", "biznes", "qqs"]
 ---
 
-## Raqamlardan boşlaymiz
+## Kiriş
 
-2025-yilda Özbekiston byudjetiga **247,8 trillion söm** daromad tuşdi — bu 2024-yilga nisbatan **24 foiz** köp ([Kun.uz](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)). Maktablar, şifoxonalar, yöllar, pensiyalar — hammasi şu pul hisobidan.
+Maqola Özbekistondagi asosiy soliqlarni bir joyga yiğadi: kim tölaydi, stavka va çegaralar qanday, tölov muddatlari qaçon va bitta hisob-kitob misoli. Umumiy ma'lumot uçun yozilgan. Aniq vaziyat uçun soliq organi yoki soliq maslahatçisi kerak.
 
-Bu pulning katta qismi nimadan yiğilgan? Qaysi soliq nima uçun kerak? Tadbirkor nega tölaydi? Bu maqolada eng köp söraladigan savollarga qisqa, aniq va raqamlar bilan javob beraman. Barça ma'lumotlar rasmiy yoki yirik ommaviy manbalardan olingan, röyxati maqola oxirida.
-
-> **Holat sanasi:** 2026-yil 4-noyabr. Soliq qoidalari tez özgaradi, şuning uçun muhim qaror oldidan [soliq.uz](https://soliq.uz) yoki mutaxassisdan tekşiring.
+> **Holat sanasi: 2026-yil 14-noyabr.** Raqamlar 2026-yil sentyabrgaça bölgan özgarişlarni öz içiga oladi. Undan keyingisini [soliq.uz](https://soliq.uz) orqali tekşiring.
 
 ## Soliq nima?
 
-**Soliq** — davlat budjetiga yönaltiriladigan majburiy, qaytarilmaydigan va evaziga alohida xizmat körsatilmaydigan pul tölovi. Uni belgilaydigan asosiy hujjat — [Özbekiston Respublikasi Soliq kodeksi](https://lex.uz/docs/-4674902) (2020-yil 1-yanvardan amalda, [ÖRQ-599-son qonun](https://lex.uz/docs/-4674011) bilan tasdiqlangan).
+**Soliq** — davlat byudjetiga tölanadigan majburiy va qaytarilmaydigan pul tölovi. Asosiy qoidalar Soliq kodeksida. Kodeksning yangi tahriri [ÖRQ-599-son qonun](https://lex.uz/docs/-4674011) bilan tasdiqlangan; qonun 2020-yil 1-yanvardan kuçga kirgan.
 
-Soliqning uç belgisi:
+Soliq evaziga alohida xizmat bermaydi: pul umumiy byudjetga tuşadi. 2025-yilda byudjet daromadi **247,8 trln söm** bölgan, bu 2024-yilga nisbatan 24 foiz köp ([Kun.uz](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)). Eng katta uç manba:
 
-1. **Majburiy** — tölaş yoki tölamaslikni tanlab bölmaydi.
-2. **Qaytarilmaydi** — berganingiz uçun alohida "çek" yoki xizmat olmaysiz.
-3. **Budjetga tuşadi** — pul umumiy kassaga boradi, bitta şaxsga emas.
-
-> **Esda tut:** soliq — "xizmat uçun tölov" emas, **umumiy qozonga qöşilgan hissa**. Köçadagi çiroq uçun alohida pul tölamaysiz, lekin u yonadi — çunki köpçilik soliq tölaydi.
-
-## Soliqlar nima maqsadda yiğiladi?
-
-Asosiy maqsad — **davlat byudjetini töldiriş**, ya'ni davlat vazifalarini moliyalaştiriş. 2026-yilgi davlat byudjeti rejasida xarajatlar quyidagiça taqsimlangan ([Zamin.uz](https://zamin.uz/en/uzbekistan/172935-in-which-areas-will-more-funds-be-allocated-in-the-2026-budget.html)):
-
-| Yönaliş | 2026-yil rejasi |
-| :--- | ---: |
-| **Ijtimoiy soha (jami)** | **220 trln söm** (xarajatlarning 54,7%) |
-| — Ta'lim | 100,3 trln söm |
-| — Soğliqni saqlaş | 48,9 trln söm |
-| Iqtisodiyot | 55 trln söm |
-| Davlat qarzi xizmati | 25 trln söm |
-| Davlat boşqaruvi | 21 trln söm |
-| **Jami xarajatlar** | **402,4 trln söm** (YaIMning 20,4%) |
-
-Ya'ni davlat byudjeti xarajatlarining taxminan **55 foizi** ijtimoiy sohaga — ta'lim, soğliqni saqlaş va ijtimoiy himoyaga yönaltiriladi.
-
-Soliqning ikkinçi vazifasi — **iqtisodiyotni yönaltiriş**. Masalan, 2026-yil 1-apreldan [tayyor kartoşka çiplariga kilogramm uçun 15 000 söm aksiz soliği joriy etildi](https://gov.uz/oz/urganch/news/view/138410). Maqsad — foydalanişni tartibga soliş, şu bilan birga byudjetga tuşum oliş. Röyxatdagi qişloq xöjaligi işlab çiqaruvçilarining mahsulot sotuviga esa 0% QQS qöyilgan: bu — aksinça, işlab çiqaruvçini rağbatlantiriş.
-
-### Byudjetga eng köp pul qaysi soliqdan tuşadi?
-
-2025-yil uçun Kun.uz ma'lumotlari ([manba](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)):
-
-| Soliq turi | 2025-yil, trln söm | Ösiş | Uluşi* |
+| Soliq | 2025, trln söm | Ösiş | Uluşi* |
 | :--- | ---: | ---: | ---: |
-| **Foyda soliği** | 72,3 | +37% | 29,2% |
-| **QQS** | 45,2 | +14% | 18,2% |
-| **Jismoniy şaxslar daromad soliği** | 42,4 | +20% | 17,1% |
-| Aksiz soliği | 20,0 | +13% | 8,1% |
-| **Yer soliği** | 10,0 | +22% | 4,0% |
-| Mol-mulk soliği | 8,0 | +18% | 3,2% |
+| Foyda soliği | 72,3 | +37% | 29,2% |
+| QQS | 45,2 | +14% | 18,2% |
+| Jismoniy şaxslar daromad soliği | 42,4 | +20% | 17,1% |
 
-<sub>*Uluşlarni men har bir summani jami daromadga (247,8 trln) bölib hisobladim; manbada uluşlar berilmagan.</sub>
+<sub>*Uluşi — öz hisobimiz: summa / 247,8 trln. Manba uluşlarni bermagan.</sub>
 
-Körib turganingizdek, **foyda soliği birinçi öringa çiqdi** — biznes daromadi ösgani bilan birga soliq intizomi ham yaxşilangan.
+## Kim qanday soliq tölaydi
 
-## QQS nima?
+| Tölovçi | Asosiy soliqlar | Izoh |
+| :--- | :--- | :--- |
+| Iş haqi oluvçi jismoniy şaxs | Jismoniy şaxslar daromad soliği, 12% | Iş haqi tölanganda uşlab qolinadi |
+| YaTT (yakka tartibdagi tadbirkor) | Aylanmadan soliq, 1% (yillik tuşum 1 mlrd söm gaça) | Tuşum 1 mlrd sömdan oşsa, QQS va foyda soliği majburiy |
+| MÇJ va AJ | QQS 12%, foyda soliği 15%, ijtimoiy soliq 12%, mol-mulk soliği 1,5% | Aylanma soliği (4%) yoki soddalaştirilgan 6% QQS tartibi, şartlar bilan |
+| Yer egasi yoki foydalanuvçisi | Yer soliği | Qişloq xöjaligi yeri: normativ qiymatning 0,95% |
 
-**QQS (Qöşilgan qiymat soliği)** — tovar yoki xizmat har bir sotiliş bosqiçida unga qöşilgan qiymatdan olinadigan **bilvosita soliq**. Uni oxir-oqibat xaridor tölaydi, biznes esa uni byudjetga ötkazib beruvçi "vositaçi" vazifasini bajaradi.
+Taşkiliy şakl javobgarlikni ham belgilaydi:
 
-**2026-yilda QQS stavkasi — 12%**, u özgarmagan ([Kun.uz](https://kun.uz/news/2025/12/18/2026-yilda-asosiy-soliqlar-boyicha-stavkalar-ozgarmaydi)).
+- **YaTT** — yuridik şaxs tuzmasdan tadbirkorlik qiluvçi jismoniy şaxs. Biznes majburiyatlari uçun şaxsiy mol-mulki bilan töliq javob beradi.
+- **MÇJ** — ustav kapitali uluşlarga bölingan yuridik şaxs. Iştirokçilar faqat öz uluşi doirasida javob beradi. 2025-yil 1-may holatiga 292 885 ta MÇJ bölgan ([Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/), tekşirilmagan).
+- **AJ** — ustav fondi aksiyalarga bölingan yuridik şaxs. Aksiyador aksiyasi qiymati doirasida javob beradi. 2025-yil 1-may holatiga 644 ta AJ bölgan (manba yuqoridagisi bilan bir xil, tekşirilmagan).
 
-### Misol bilan tuşunamiz
+## Asosiy stavkalar va çegaralar (2026)
 
-Dökondor ulgurji bazadan tovar sotib oladi va uni mijozga sotadi:
+| Soliq | Stavka | Izoh |
+| :--- | ---: | :--- |
+| QQS | 12% | 2026-yilda özgarmadi ([Kun.uz](https://kun.uz/en/news/2025/12/22/deputy-pm-kuchkarov-details-which-taxes-will-rise-and-which-will-stay-unchanged-in-2026)) |
+| QQS, qişloq xöjaligi mahsulotlari | 0% | Nol darajali stavka (tekşirilmagan, quyida) |
+| Foyda soliği | 15% | 2026-yilda özgarmadi. Elektron tijorat subyektlari uçun 10% dan 15% gaça köterildi |
+| Aylanma soliği | 4% | Yuridik şaxslar uçun umumiy stavka |
+| Jismoniy şaxslar daromad soliği | 12% | |
+| Ijtimoiy soliq | 12% | Byudjet taşkilotlari uçun 25% (tekşirilmagan, quyida) |
+| Mol-mulk soliği (yuridik şaxs) | 1,5% | |
+| Yer soliği, qişloq xöjaligi yeri | 0,95% | Normativ qiymatdan ([Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)) |
+| YaTT, aylanmadan soliq | 1% | Yillik tuşum 1 mlrd söm gaça ([ÖRQ-1108, 25.12.2025](https://buxgalter.uz/oz/publish/doc/text212722_sk-2026_yakka_tartibdagi_tadbirkorlar_va_uzini_uzi_band_qilgan_shahslar_uchun_aylanmadan_olinadigan_soliq_buyicha_uzgarishlar)) |
 
-| Bosqiç | Narx (QQSsiz) | QQS 12% | Jami |
-| :--- | ---: | ---: | ---: |
-| Dökondor tovarni **sotib oladi** | 1 000 000 | 120 000 | 1 120 000 |
-| Dökondor tovarni **sotadi** | 1 500 000 | 180 000 | 1 680 000 |
+### Çegaralar
 
-Dökondor byudjetga **180 000 − 120 000 = 60 000 söm** tölaydi. Bu aynan **qöşilgan qiymat** (500 000 söm) ning 12 foizi. Şuning uçun soliq "qöşilgan qiymat soliği" deyiladi.
+| Çegara | Qiymat | Amal qiliş |
+| :--- | :--- | :--- |
+| QQS va foyda soliği umumiy tartibiga ötiş | 12 000 BHM. BHM 412 000 söm bölganda 4,944 mlrd söm. 1-sentyabrdan BHM 440 000 söm — 5,28 mlrd söm (öz hisobimiz) | 2026-yil 1-iyundan. Çegara BHMga boğlangan ([Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text215374_pf-100-son_farmon_kichik_korhonalarning_soliq_mamuriyatchiligida_nimalarni_uzgartiradi)) |
+| Soddalaştirilgan 6% QQS | Ixtiyoriy. Asosiy faoliyati ovqatlaniş, savdo yoki xizmat | 2026-yil 1-iyundan 2030-yil 1-yanvargaça |
 
-<sub>Bu öquv misoli: raqamlarni tuşuniş uçun özim tuzdim.</sub>
+BHM qiymatlari: [Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text215802_2026_yil_1_sentyabrdan_boshlab_qanday_bhm_va_mhtekmdan_foydalanamiz). Çegara yillik tuşum bölib hisoblanadi.
 
-### Kim QQS tölovçisi böladi? (2026-yil iyunidan yangi çegara)
+## QQS: mexanizm va soddalaştirilgan tartib
 
-Bu yil eng muhim özgarişlardan biri şu. Prezident farmoni (2026-yil 26-may) bilan QQS va foyda soliğiga ötiş çegarasi **1 mlrd sömdan 12 000 baravar bazaviy hisoblaş miqdoriga — taxminan 4,944 mlrd sömga** oşirildi va **2026-yil 1-iyundan** kuçga kirdi ([Gazeta.uz](https://www.gazeta.uz/oz/2026/05/28/qqs/), [Spot.uz](https://www.spot.uz/oz/2026/06/15/vat-threshold)).
-
-Çegara bazaviy hisoblaş miqdoriga boğlangani uçun u vaqt ötişi bilan **avtomatik oşib boradi**. Soliq maslahatçisi Umidbek Safarovning ogohlantirişi: çegara sanaga emas, **jami aylanmani çegaradan oşirgan operatsiyaga** qarab "uriladi" ([Spot.uz](https://www.spot.uz/oz/2026/06/09/vat-payer)).
-
-### Yangi: soddalaştirilgan 6% tartib
-
-2026-yil 1-iyundan **2030-yil 1-yanvarigaça** umumiy ovqatlaniş, savdo va xizmat körsatiş bilan şuğullanuvçi korxonalar ixtiyoriy ravişda soddalaştirilgan tartibni tanlaşi mumkin ([Gazeta.uz](https://www.gazeta.uz/oz/2026/05/28/qqs/)):
-
-- **QQS — 6%** (barça sotuv aylanmasidan),
-- **foyda soliği — 0%** va hisobot topşiriş bekor,
-- xaridlardagi QQSni hisobga olib bölmaydi (lekin xaridorlar sizdan olgan QQSni hisobga olişi mumkin).
-
-> **Esda tut:** 6% past körinadi, lekin xarid qiymatingiz yuqori bölsa, umumiy tartib foydaliroq çiqişi mumkin. Aylanmaga va xarajatlarga qarab ikkala variantni hisoblab köring.
-
-## Foyda soliği nima?
-
-**Foyda soliği** — yuridik şaxslar (MÇJ, AJ va boşqalar) **sof foydasidan** tölaydigan soliq. Foyda esa oddiy formula bilan topiladi:
+QQS — bilvosita soliq. Tovar yoki xizmat har bir sotuv bosqiçida qöşilgan qiymatdan olinadi. Biznes sotuvdagi QQSdan xariddagi QQSni ayiradi va farqini byudjetga tölaydi:
 
 ```text
-Foyda = Daromad − Xarajatlar
+QQS tölovi = sotuvdagi QQS − xariddagi QQS
+```
+
+Soddalaştirilgan 6% tartibda formula boşqaça: barça sotuvdan 6% olinadi, xariddagi QQS hisobga olinmaydi, foyda soliği 0% va foyda soliği hisoboti bekor qilinadi ([Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text215828_kim_va_qanday_shartlarda_soddalashtirilgan_6_fozlik_qqsga_utishi_mumkin)). Ötiş uçun my3.soliq.uz orqali xabarnoma yuboriladi; ötiş xabarnoma yuborilgan oydan keyingi oyning birinçi kunidan kuçga kiradi.
+
+Tartib ixtiyoriy. Yirik soliq tölovçilar va davlat uluşi 50% va undan köp korxonalar uçun qöllanmaydi.
+
+## Foyda soliği
+
+Foyda — daromad bilan xarajat ayirmasi. Soliq şu foydadan hisoblanadi:
+
+```text
+Foyda = Daromad − Xarajat
 Foyda soliği = Soliq solinadigan foyda × 15%
 ```
 
-**Asosiy stavka — 15%** ([Kun.uz](https://kun.uz/news/2025/12/18/2026-yilda-asosiy-soliqlar-boyicha-stavkalar-ozgarmaydi)). Masalan, yil davomida 2 mlrd söm daromad va 1,6 mlrd söm xarajat bölsa, foyda 400 mln söm, soliq esa taxminan 60 mln söm böladi (öquv misoli, imtiyozlarsiz).
+2026-yilga oid ikki özgariş:
 
-2026-yilga oid asosiy yangiliklar ([Spot.uz](https://www.spot.uz/oz/2025/11/26/taxes-for-2026/), [gov.uz](https://gov.uz/oz/urganch/news/view/138410)):
+- Aylanma soliği tartibidan umumiy tartibga birinçi marta ötganlar foyda soliğidan **bir yilga** ozod qilinadi ([Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text212796_sk-2026_foyda_soligini_tulashga_birinchi_marta_utganlar_-_bir_yilga_tulovdan_ozod_qilinadi));
+- elektron tijorat subyektlari uçun stavka 10% dan **15%** gaça köterildi ([Kun.uz](https://kun.uz/en/news/2025/12/22/deputy-pm-kuchkarov-details-which-taxes-will-rise-and-which-will-stay-unchanged-in-2026)).
 
-- aylanma soliğidan umumiy tartibga **birinçi marta** ötganlar foyda soliğidan **bir yilga** ozod qilinadi;
-- oylik avans tölovlari çegarasi **10 mlrd dan 20 mlrd sömga** oşirildi;
-- elektron savdo (marketplace) sotuvçilari uçun foyda soliği 10% dan **15%**ga kötarildi.
+## Yer soliği va mol-mulk soliği
 
-> **Esda tut:** QQS — **sotuvdan**, foyda soliği esa **foydadan** olinadi. Zarar qilsangiz ham QQS bölişi mumkin, foyda soliği esa foyda bölmasa tölanmaydi.
+**Qişloq xöjaligi yeri:** normativ qiymatning 0,95%i. Stavka 2026-yilda özgarmadi ([Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)).
 
-## Yer soliği nima?
+**Noqişloq yer:** hudud baza stavkasi. Yuridik şaxslar uçun gektar, jismoniy şaxslar uçun kvadrat metr hisobida. 2026-yil 1-yanvardan baza stavkalar örtaça 7% oşirildi. Mahalliy kengaşlar baza stavkaga 0,5–1,2 koeffitsiyent qöllaşi mumkin.
 
-**Yer soliği** — yerdan foydalanuvçi yoki unga egalik qiluvçi jismoniy va yuridik şaxslar tölaydigan yillik soliq. 2026-yilda tartib quyidagiça ([Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)):
-
-- **Qişloq xöjaligi yeri:** normativ qiymatning **0,95%**i (jismoniy va yuridik şaxslar uçun bir xil).
-- **Noqişloq xöjaligi yeri:** hududga qarab belgilangan baza stavkasi — yuridik şaxslar uçun **gektariga**, jismoniy şaxslar uçun **kvadrat metriga**.
-- 2026-yil 1-yanvardan baza stavkalari örtaça **7%**ga oşirildi.
-
-### Baza stavkalaridan namunalar (2026-yil)
-
-| Hudud | Yuridik şaxslar (mln söm/ga) | Jismoniy şaxslar (söm/m²) |
+| Hudud | Yuridik şaxslar, mln söm/ga | Jismoniy şaxslar, söm/m² |
 | :--- | ---: | ---: |
 | Toşkent şahri, 1-zona | 319 | 1 856 |
 | Toşkent şahri, 5-zona | 65,9 | 725 |
@@ -133,133 +105,80 @@ Foyda soliği = Soliq solinadigan foyda × 15%
 | Qoraqalpoğiston Respublikasi | 41,2 | 377 |
 | Sirdaryo viloyati | 31,8 | 297 |
 
-Mahalliy kengaşlar bu stavkalarga tuzatiş koeffitsientlarini qöllaşi mumkin: **qişloq xöjaligi yeri uçun 0,5–1,2**, noqişloq xöjaligi yeri uçun **0,5–3,0** ([gov.uz](https://gov.uz/oz/urganch/news/view/138410)). Şuning uçun aniq summa har hududda farq qiladi.
+Manba: [Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/). Misol: Samarqandda jismoniy şaxsning 600 m² yeri uçun baza hisob 463 × 600 = **277 800 söm/yil** (öz hisobimiz; koeffitsiyent va imtiyozlar hisobga olinmagan).
 
-**Taxminiy misol:** Samarqandda 6 sotix (600 m²) tomorqa uçun baza hisobi: 463 söm × 600 m² = **taxminan 277 800 söm/yil** (mahalliy koeffitsient va imtiyozlarsiz).
+2026-yil 14-iyuldan kuçga kiradigan ÖRQ-1128-son qonunga köra (14.04.2026), optimal ekin ekilmagan qişloq xöjaligi yerining qismi uçun joriy yil stavkasi 3 baravar oşiriladi ([Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text214605_2026_yil_14_iyuldan_boshlab_qishloq_hujaligi_erlariga_soliq_solish_masalalarida_nimalar_uzgaradi)).
 
-Yuridik şaxslarning yer soliği hisoboti 2026-yildan **proaktiv** tizimga ötdi: hisobotni soliq organi özi tayyorlaydi, tölovçi 5 kun içida tuzatiş kiritişi mumkin, aks holda u qabul qilingan hisoblanadi; noqişloq xöjaligi yeri böyiça muddat — 20-yanvar ([Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)).
+**Mol-mulk soliği** yuridik şaxslar uçun 1,5%.
 
-## Tadbirkor nima uçun soliq tölaydi?
+## Muddatlar
 
-Qisqa javob: **qonun şuni talab qiladi.** Lekin amaliyotda uçta çuqurroq sabab bor:
+- **QQS:** hisobot va tölov hisobot davridan keyingi oyning 20-sanasigaça. Masalan, yanvar davri uçun muddat 20-fevral ([VATUpdate, 2026 soliq taqvimi](https://www.vatupdate.com/2026/02/20/tax-calendar-key-tax-reporting-and-payment-deadlines-for-january-and-february-2026-in-uzbekistan)).
+- **Noqişloq yer hisoboti (yuridik şaxslar):** 20-yanvargaça. Soliq organi hisobotni özi tayyorlaydi; tölovçi 5 kun içida tuzatiş kiritişi mumkin, aks holda hisobot qabul qilingan hisoblanadi ([Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)).
+- **Soddalaştirilgan tartib:** xabarnomadan keyingi oyning 1-kuni.
 
-1. **Qonuniy faoliyat huquqi.** Soliq tölaş — rasmiy iqtisodiyotda qolişning narxi: bank xizmatlari, davlat xaridlari, eksport, kredit va hamkorlar bilan oçiq hisob-kitob şunga boğliq.
-2. **Jarimadan himoya.** Hisobot va tölovdagi keçikişlar jarima va hisob raqamlari bloklanişiga olib kelişi mumkin.
-3. **Umumiy infratuzilma.** Tadbirkorning mijozlari ham, xodimlari ham davlat ta'limi, tibbiyoti va yöllaridan foydalanadi. Soliq — biznes işlaydigan muhitni qöllab turadi.
+Foyda, ijtimoiy soliq, JŞDS, aylanma va mol-mulk soliği muddatlari 2026-yil uçun tasdiqlanmadi; ular Tekşirilmagan bölimida.
 
-Davlat ham soliq yukini kamaytirib, tadbirkorlarni rasmiy sohaga jalb qilmoqda: YaTTlar uçun 1% stavka, soddalaştirilgan 6% tartib, yangi ötuvçilar uçun bir yillik ozodlik — bularning barçasi şu maqsadga xizmat qiladi.
+## Misol: savdo MÇJ, bir oy
 
-Muammo hali ham katta: Statistika qömitasiga köra, 2025-yil birinçi yarmida YaIMning **32,9%i** kuzatilmaydigan (norasmiy va yaşirin) iqtisodiyotdan iborat bölgan, 2024-yil böyiça esa bu körsatkiç **34,8%** edi ([Asia-Plus](https://asiaplus.news/en/2025/08/11/one-third-of-uzbekistans-gdp-comes-from-informal-and-shadow-economy/)). Ya'ni iqtisodiyotning taxminan uçdan biri rasmiy hisobda töliq aks etmaydi.
+Şartlar: MÇJ, umumiy tartib, QQS 12%. Raqamlar öquv uçun tanlangan.
 
-## YaIM nima?
+1. Ulgurji bazadan tovar sotib oladi: 1 000 000 söm + QQS 12% (120 000) = **1 120 000 söm**.
+2. Mijozga sotadi: 1 500 000 söm + QQS 12% (180 000) = **1 680 000 söm**.
+3. Boşqa xarajatlar (ijara, kommunal va h.k.): 300 000 söm, QQSsiz.
 
-**YaIM (Yalpi içki mahsulot)** — mamlakat hududida bir yilda işlab çiqarilgan **barça yakuniy tovar va xizmatlarning bozor qiymati**. Oddiy qilib aytganda — mamlakat iqtisodiyotining "yillik hajmi".
+QQS tölovi:
 
-| Körsatkiç | Qiymat | Manba |
-| :--- | ---: | :--- |
-| 2025-yil YaIM (dastlabki, joriy narxlarda) | **1 849,7 trln söm** | [Stat.uz](https://stat.uz/en/press-center/news-of-committee/66556-2025-jilda-zbekiston-yalpi-ichki-ma-suloti-azhmi-7-7-foizga-sdi-4) |
-| 2025-yil real ösiş | **7,7%** | [Stat.uz](https://stat.uz/en/press-center/news-of-committee/66556-2025-jilda-zbekiston-yalpi-ichki-ma-suloti-azhmi-7-7-foizga-sdi-4) |
-| 2026-yil YaIM prognozi | **2,25 kvadrillion söm** | [Kun.uz](https://kun.uz/en/news/2025/12/26/president-mirziyoyev-approves-uzbekistans-state-budget-for-2026) |
-| 2026-yil ösiş prognozi | **6,6%** | [Kun.uz](https://kun.uz/en/news/2025/12/26/president-mirziyoyev-approves-uzbekistans-state-budget-for-2026) |
+```text
+180 000 − 120 000 = 60 000 söm
+```
 
-**YaIM soliq bilan qanday boğliq?** Iqtisodiyot qança katta bölsa, soliq solinadigan baza şunça keng böladi. Şuning uçun byudjet körsatkiçlari ham YaIMga nisbatan ölçanadi: masalan, 2026-yil byudjet taqçilligi YaIMning **3 foizidan** oşmasligi belgilangan ([Kun.uz](https://kun.uz/en/news/2025/12/26/president-mirziyoyev-approves-uzbekistans-state-budget-for-2026)).
+Foyda soliği:
 
-## YaTT, MÇJ va AJ: farqi nimada?
+```text
+Foyda = 1 500 000 − 1 000 000 − 300 000 = 200 000 söm
+Foyda soliği = 200 000 × 15% = 30 000 söm
+```
 
-Bular biznes yuritişning uçta asosiy huquqiy şakli. Tanlov javobgarlikni ham, soliqni ham özgartiradi.
+Bir oyda byudjetga jami: 60 000 + 30 000 = **90 000 söm**.
 
-### YaTT — yakka tartibdagi tadbirkor
+Taqqoslaş: soddalaştirilgan 6% tartibda QQS = 1 500 000 × 6% = 90 000 söm, foyda soliği 0%. Şu raqamlarda ikkala tartib bir xil natija beradi. Natija xarid QQSi va xarajatlarning sotuvga nisbatiga qarab özgaradi. Hisob tölov muddatlarini va boşqa soliqlarni öz içiga olmaydi.
 
-**YaTT** — yuridik şaxs taşkil etmasdan, belgilangan tartibda röyxatdan ötib tadbirkorlik bilan şuğullanadigan jismoniy şaxs ([gov.uz](https://gov.uz/oz/soliq/sections/view/50017)). Eng muhim jihat: egasi biznes majburiyatlari uçun **şaxsiy mol-mulki bilan töliq javob beradi** ([Uzum](https://uzum.uz/media/uz/ozbekistonda-nimani-ochgan-maqulroq-mchj-ytt-xk-ok-yoki-ozini-ozi-band-qilishmi/)).
+## Tekşirilmagan
 
-**2026-yildan soliq tartibi** ([Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text212722_sk-2026_yakka_tartibdagi_tadbirkorlar_va_uzini_uzi_band_qilgan_shahslar_uchun_aylanmadan_olinadigan_soliq_buyicha_uzgarishlar), ÖRQ-1108-son qonun, 2025-yil 25-dekabr):
-
-- yillik tuşum **1 mlrd sömgaça** bölsa — aylanmadan **1%** soliq;
-- YaTT uçun qat'iy belgilangan tölov tartibi **bekor qilingan**;
-- tuşum 1 mlrd sömdan oşsa — QQS va foyda soliğiga ötiladi.
-
-### MÇJ — mas'uliyati çeklangan jamiyat
-
-**MÇJ** — ustav kapitali iştirokçilar uluşlariga bölingan yuridik şaxs; iştirokçilar **şaxsiy mol-mulki bilan emas, faqat öz hissasi doirasida** javob beradi. MÇJ — Özbekistonning eng ommabop biznes şakli: 2025-yil 1-may holatiga **292 885 ta MÇJ** mavjud bölib, bu tijorat korxonalarining **76,7%**ini taşkil etadi ([Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/)).
-
-2026-yil 21-aprelda Prezident **«Mas'uliyati çeklangan jamiyatlar töğrisida»gi qonunning yangi tahririni** (ÖRQ-1137) imzoladi: 71 modda, kuçga kirişi rasmiy e'lon qilingandan 3 oy keyin. Unda kuzatuv kengaşi vakolatlari, fidutsiar majburiyatlar va iştirokçilarni sud orqali çiqariş tartibi aniqlaştirilgan ([Spot.uz](https://www.spot.uz/oz/2026/04/22/about-llcs/), [Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-mchjlar-togrisida-gi/)).
-
-### AJ — aksiyadorlik jamiyati
-
-**AJ** — ustav fondi aniq miqdordagi **aksiyalarga** bölingan tijorat taşkiloti. Aksiyadorlar jamiyat majburiyatlari böyiça javob bermaydi va faqat **aksiyalari qiymati doirasida** zarar köriş xavfini öz zimmasiga oladi ([«Aksiyadorlik jamiyatlari va aksiyadorlarning huquqlarini himoya qiliş töğrisida»gi qonun](https://lex.uz/en/acts/-2382409), ÖRQ-370, 2014-yil 6-may).
-
-AJ juda kam uçraydi: 2025-yil 1-may holatiga ularning soni atigi **644 ta** edi ([Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/)). Odatda yirik loyihalar, köp investor va aksiyalar bozori kerak bölganda tanlanadi.
-
-### Uççalasini yonma-yon soliştiramiz
-
-| | **YaTT** | **MÇJ** | **AJ** |
-| :--- | :--- | :--- | :--- |
-| Yuridik şaxsmi? | Yöq (jismoniy şaxs) | Ha | Ha |
-| Javobgarlik | **Şaxsiy mol-mulk bilan töliq** | Ustavdagi hissa doirasida | Aksiyalar qiymati doirasida |
-| Kapital | Talab qilinmaydi | Ustav kapitali | Aksiyalarga bölingan ustav fondi |
-| Soliq (2026) | Tuşum 1 mlrd gaça **1%**; undan oşsa QQS + foyda soliği | Çegaragaça aylanma soliği yoki soddalaştirilgan 6% tartib; çegaradan oşsa QQS 12% + foyda 15% | Yuridik şaxs sifatida MÇJ bilan bir xil asosiy qoidalar |
-| Kimga mos? | Yakka işlayotgan boşlovçi | Ösayotgan biznes, şerik bilan iş | Yirik kapital, köp investor |
-
-> **Esda tut:** biznes şakli tanlaşda javobgarlikni birinçi öringa qöying. YaTTda soliq qulay bölişi mumkin, lekin xavf butun şaxsiy mulkingizga tegişli.
-
-<sub>Eslatma: iyun oyidagi özgarişlardan keyin yuridik şaxslar uçun aylanma soliği (2026-yil boşida 4%) böyiça yakuniy tartibni [soliq.uz](https://soliq.uz) orqali tekşirib oling: iyundagi manbalar bu rejimning özgarişini alohida körsatmagan.</sub>
-
-## 2026-yilning asosiy raqamlari: bir qaraşda
-
-| Soliq | Stavka |
-| :--- | :--- |
-| **QQS** | 12% (qişloq xöjaligi mahsulotlari sotuvi: 0%) |
-| **Foyda soliği** | 15% |
-| **Jismoniy şaxslar daromad soliği** | 12% |
-| **Ijtimoiy soliq** | 12% (byudjet taşkilotlari uçun 25%) |
-| **Mol-mulk soliği (yuridik şaxslar)** | 1,5% |
-| **Yer soliği (qişloq xöjaligi yeri)** | 0,95% |
-| **Aylanma soliği (umumiy stavka)** | 4% |
-| **YaTT va özini özi band qilganlar (1 mlrd gaça)** | 1% |
-| **QQS/foyda soliğiga ötiş çegarasi** | ~4,944 mlrd söm (1-iyundan) |
-| **Soddalaştirilgan tartib** | QQS 6% + foyda 0% (2030-yil 1-yanvargaça) |
-
-Asosiy stavkalar manbasi: [Kun.uz](https://kun.uz/news/2025/12/18/2026-yilda-asosiy-soliqlar-boyicha-stavkalar-ozgarmaydi) va [gov.uz](https://gov.uz/oz/urganch/news/view/138410).
-
-## Xulosa
-
-Soliq — qiyin atama emas: bu **umumiy xarajatlarga qöşiladigan hissa**. Uning mohiyatini bir neçta jumlada eslab qoliş mumkin:
-
-- **QQS** sotuvdagi qöşilgan qiymatdan olinadi va oxir-oqibat xaridor tölaydi.
-- **Foyda soliği** faqat foyda bölsa tölanadi (daromad − xarajat).
-- **Yer soliği** yerning joylaşuvi va maydoniga boğliq.
-- **YaIM** — iqtisodiyotning yillik hajmi; soliq bazasi uning ösişi bilan kengayadi.
-- **YaTT**da javobgarlik şaxsiy, **MÇJ** va **AJ**da esa çeklangan.
-
-Soliq stavkalari 2026-yil davomida asosan özgarmadi, lekin **QQS çegarasi va soddalaştirilgan tartib** kabi muhim qoidalar yil örtasida yangilandi. Şuning uçun har yil boşida va muhim qaror oldidan rasmiy manbalarni qayta tekşirişni odat qiling.
-
-> Bu maqola umumiy ma'lumot uçun yozilgan va soliq yoki huquqiy maslahat emas. Aniq vaziyatingiz uçun soliq maslahatçisi yoki soliq organiga murojaat qiling.
+- **Ijtimoiy soliq:** byudjet taşkilotlari uçun 25% stavka. Manba topilmadi.
+- **QQS 0%:** qişloq xöjaligi mahsulotlari uçun. Faqat [Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text212701_sk-2026_qishloq_hujaligi_mahsulotlari_uchun_qqsning_nol_darajali_stavkasi) sarlavhasi tekşirildi, matn oçilmadi.
+- **Oylik avans çegarasi:** 10 mlrd dan 20 mlrd söm gaça (2026). Manba oçilmadi.
+- **Boşqa soliqlar muddatlari** (foyda, ijtimoiy soliq, JŞDS, aylanma, mol-mulk): [legal-force.uz](https://en.legal-force.uz/taxes-rates-payment-due-dates-and-tax-reporting-for-the-enterprises-in-uzbekistan-in-2025) sahifasi 2023-yil ma'lumoti bilan. Unda: foyda — çorakdan keyingi oyning 20-sanasi, yillik hisobot 1-mart; ijtimoiy soliq va JŞDS — 15-sana; mol-mulk — har oyning 10-sanasi (avans); aylanma — 15-sana, yillik hisobot 15-fevral.
+- **Noqişloq yer koeffitsiyenti:** [gov.uz](https://gov.uz/oz/urganch/news/view/138410) 0,5–3,0 deydi, [Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/) 0,5–1,2. Ikkisi ziddiyatda; matnda Spot raqami olingan.
+- **2026 byudjet xarajatlari:** [Zamin.uz](https://zamin.uz/en/uzbekistan/172935-in-which-areas-will-more-funds-be-allocated-in-the-2026-budget.html) 402,4 trln söm (YaIMning 20,4%) beradi. [Kun.uz](https://kun.uz/en/news/2025/12/26/president-mirziyoyev-approves-uzbekistans-state-budget-for-2026) esa 567,7 trln söm. Qamrov (byudjet turi) aniqlanmadi. Jadval Zamin böyiça; ijtimoiy soha 220 trln söm (54,7%), ta'lim 100,3 trln, soğliqni saqlaş 48,9 trln.
+- **2025-yil YaIM:** 1 849,7 trln söm va 7,7% ösiş ([stat.uz](https://stat.uz/en/press-center/news-of-committee/66556-2025-jilda-zbekiston-yalpi-ichki-ma-suloti-azhmi-7-7-foizga-sdi-4)). 7,7% boşqa manbalarda tasdiqlangan; 1 849,7 trln aniq tasdiqlanmadi.
+- **Yaşirin iqtisodiyot:** 2025-yil birinçi yarmida YaIMning 32,9%i, 2024-yilda 34,8% ([Asia-Plus](https://asiaplus.news/en/2025/08/11/one-third-of-uzbekistans-gdp-comes-from-informal-and-shadow-economy/)). Oçilmadi.
+- **MÇJ qonuni:** yangi tahrir 2026-yil aprelda qabul qilingani [Kun.uz](https://kun.uz/en/news/2026/04/23/uzbekistan-overhauls-llc-legislation-to-modernize-corporate-governance) bilan tasdiqlangan. 21-aprel sanasi, ÖRQ-1137 raqami va 71 modda tekşirilmagan.
+- **MÇJ va AJ soni** (2025-yil 1-may): [Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/). Oçilmadi.
+- **Javobgarlik tavsifi** (YaTT, MÇJ, AJ): lex.uz matni bilan solişturilmadi.
+- **Soliq kodeksi havolasi:** lex.uz/docs/-4674902 oçilmadi. Örniga ÖRQ-599 havolasi qoldirildi.
 
 ## Manbalar
 
-**Qonunçilik va rasmiy sahifalar**
+**Rasmiy**
 
-- [Özbekiston Respublikasi Soliq kodeksi — Lex.uz](https://lex.uz/docs/-4674902)
-- [2019-yil 30-dekabrdagi ÖRQ-599-son qonun — Lex.uz](https://lex.uz/docs/-4674011)
-- [«Aksiyadorlik jamiyatlari va aksiyadorlarning huquqlarini himoya qiliş töğrisida»gi qonun (ÖRQ-370) — Lex.uz](https://lex.uz/en/acts/-2382409)
-- [Soliq qonunçiligidagi özgarişlar tuşuntirilmoqda — gov.uz](https://gov.uz/oz/urganch/news/view/138410)
-- [Yakka tartibdagi tadbirkor — gov.uz](https://gov.uz/oz/soliq/sections/view/50017)
-- [YaIM 2025-yil — Statistika qömitasi (stat.uz)](https://stat.uz/en/press-center/news-of-committee/66556-2025-jilda-zbekiston-yalpi-ichki-ma-suloti-azhmi-7-7-foizga-sdi-4)
+- [ÖRQ-599-son qonun (Soliq kodeksi yangi tahriri) — Lex.uz](https://lex.uz/docs/-4674011)
+- [Soliq qonunçiligidagi özgarişlar — gov.uz](https://gov.uz/oz/urganch/news/view/138410)
+- [2025-yil YaIM — Statistika qömitasi (stat.uz)](https://stat.uz/en/press-center/news-of-committee/66556-2025-jilda-zbekiston-yalpi-ichki-ma-suloti-azhmi-7-7-foizga-sdi-4)
 
-**Yangiliklar va tahlil**
+**Ikkilamçi (rasmiy aktlarni yoritgan)**
 
-- [2026-yilda asosiy soliqlar böyiça stavkalar özgarmaydi — Kun.uz](https://kun.uz/news/2025/12/18/2026-yilda-asosiy-soliqlar-boyicha-stavkalar-ozgarmaydi)
-- [Corporate income tax emerges as largest source of Uzbekistan's budget revenue — Kun.uz](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)
-- [President Mirziyoyev approves Uzbekistan's state budget for 2026 — Kun.uz](https://kun.uz/en/news/2025/12/26/president-mirziyoyev-approves-uzbekistans-state-budget-for-2026)
-- [In which areas will more funds be allocated in the 2026 budget? — Zamin.uz](https://zamin.uz/en/uzbekistan/172935-in-which-areas-will-more-funds-be-allocated-in-the-2026-budget.html)
-- [Tadbirkorlarga QQSni hisoblaş va tölaşning soddalaştirilgan tartibiga ötiş huquqi beriladi — Gazeta.uz](https://www.gazeta.uz/oz/2026/05/28/qqs/)
-- [QQSga ötişning yangi çegarasi qanday qöllanadi — Spot.uz](https://www.spot.uz/oz/2026/06/15/vat-threshold)
-- [Yangi soliq tartibi biznes uçun nimalarni özgartiradi? Ekspert fikri — Spot.uz](https://www.spot.uz/oz/2026/06/09/vat-payer)
-- [Özbekistonda 2026-yilda soliq stavkalarini qanday özgartiriş rejalaştirilmoqda — Spot.uz](https://www.spot.uz/oz/2025/11/26/taxes-for-2026/)
-- [Yer soliği 2026 — Spot.uz](https://www.spot.uz/oz/2026/01/08/land-tax/)
-- [2026-yilda YaTT va özini özi band qilganlar uçun aylanma soliği — Buxgalter.uz](https://buxgalter.uz/oz/publish/doc/text212722_sk-2026_yakka_tartibdagi_tadbirkorlar_va_uzini_uzi_band_qilgan_shahslar_uchun_aylanmadan_olinadigan_soliq_buyicha_uzgarishlar)
-- [Tijorat korxonalarining 76,7 foizini MÇJlar taşkil etmoqda — Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/)
-- [«MÇJlar töğrisida»gi qonun yangi tahrirda qabul qilindi — Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-mchjlar-togrisida-gi/)
-- [Yangi MÇJ qonuni haqida — Spot.uz](https://www.spot.uz/oz/2026/04/22/about-llcs/)
-- [One-third of Uzbekistan's GDP comes from informal and shadow economy — Asia-Plus](https://asiaplus.news/en/2025/08/11/one-third-of-uzbekistans-gdp-comes-from-informal-and-shadow-economy/)
-- [Özbekistonda nimani oçgan maqulroq: MÇJ, YaTT, XK, OK yoki özini özi band qiliş — Uzum](https://uzum.uz/media/uz/ozbekistonda-nimani-ochgan-maqulroq-mchj-ytt-xk-ok-yoki-ozini-ozi-band-qilishmi/)
+- [Kun.uz — 2026-yil stavkalari (ingliz tilida)](https://kun.uz/en/news/2025/12/22/deputy-pm-kuchkarov-details-which-taxes-will-rise-and-which-will-stay-unchanged-in-2026)
+- [Kun.uz — 2025-yil byudjet daromadi](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)
+- [Kun.uz — QQS çegarasi (27.05.2026)](https://kun.uz/en/news/2026/05/27/uzbekistan-raises-vat-threshold-for-small-businesses-fivefold-and-eases-tax-burden-356944)
+- [Buxgalter.uz — PF-100 (26.05.2026)](https://buxgalter.uz/oz/publish/doc/text215374_pf-100-son_farmon_kichik_korhonalarning_soliq_mamuriyatchiligida_nimalarni_uzgartiradi)
+- [Buxgalter.uz — soddalaştirilgan 6% QQS](https://buxgalter.uz/oz/publish/doc/text215828_kim_va_qanday_shartlarda_soddalashtirilgan_6_fozlik_qqsga_utishi_mumkin)
+- [Buxgalter.uz — BHM, 1-sentyabrdan](https://buxgalter.uz/oz/publish/doc/text215802_2026_yil_1_sentyabrdan_boshlab_qanday_bhm_va_mhtekmdan_foydalanamiz)
+- [Buxgalter.uz — YaTT, ÖRQ-1108](https://buxgalter.uz/oz/publish/doc/text212722_sk-2026_yakka_tartibdagi_tadbirkorlar_va_uzini_uzi_band_qilgan_shahslar_uchun_aylanmadan_olinadigan_soliq_buyicha_uzgarishlar)
+- [Buxgalter.uz — qişloq xöjaligi yeri, ÖRQ-1128](https://buxgalter.uz/oz/publish/doc/text214605_2026_yil_14_iyuldan_boshlab_qishloq_hujaligi_erlariga_soliq_solish_masalalarida_nimalar_uzgaradi)
+- [Spot.uz — yer soliği 2026](https://www.spot.uz/oz/2026/01/08/land-tax/)
+- [VATUpdate — 2026 soliq taqvimi (yanvar–fevral)](https://www.vatupdate.com/2026/02/20/tax-calendar-key-tax-reporting-and-payment-deadlines-for-january-and-february-2026-in-uzbekistan)
+- [Zamin.uz — 2026 byudjet yönalişlari](https://zamin.uz/en/uzbekistan/172935-in-which-areas-will-more-funds-be-allocated-in-the-2026-budget.html)
+
+> Bu maqola umumiy ma'lumot uçun yozilgan. Şaxsiy moliyaviy yoki soliq maslahati emas.

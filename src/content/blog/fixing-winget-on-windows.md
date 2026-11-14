@@ -1,7 +1,8 @@
 ---
 title: "Fixing WinGet on Windows: Update, Repair, and Troubleshooting"
-description: "How to diagnose and repair a broken or crashing WinGet installation on Windows 10 and 11: checking the version, updating sources, running the official repair commands, and verifying everything works again."
+description: "Diagnose and repair a broken or crashing WinGet on Windows 10 and 11: check the version, update sources, run the official PowerShell repair, and verify."
 pubDate: 2026-11-09
+updatedDate: 2026-11-14
 tags: ["windows", "winget", "powershell", "developer-tools", "troubleshooting"]
 ---
 
@@ -146,5 +147,3 @@ cargo --version
 - [WinGet GitHub repository](https://github.com/microsoft/winget-cli)
 - [Microsoft Store — App Installer](https://apps.microsoft.com/detail/9NBLGGH4NNS1)
 - [Microsoft.WinGet.Client PowerShell module](https://learn.microsoft.com/en-us/powershell/module/microsoft.winget.client/)
-
-Keeping App Installer updated and knowing the repair steps saves real time when setting up development environments and managing dependencies. If WinGet stops working, start by checking its version, updating App Installer, and running the PowerShell repair before falling back to manual installations.
