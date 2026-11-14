@@ -1,7 +1,7 @@
 {
   "name": "jasurbek-haydarov",
   "type": "module",
-  "version": "3.6.0",
+  "version": "3.6.5",
   "scripts": {
     "dev": "astro dev",
     "dev:host": "bun run dev -- --host 0.0.0.0",
