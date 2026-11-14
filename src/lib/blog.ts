@@ -4,9 +4,9 @@ export type Post = CollectionEntry<'blog'>;
 
 const WORDS_PER_MINUTE = 220;
 
-/** All blog posts, newest first. */
+/** All published blog posts, newest first. */
 export async function getSortedPosts(): Promise<Post[]> {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.sort(
     (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
   );
@@ -25,6 +25,7 @@ export function formatDate(date: Date | string): string {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   });
 }
 

@@ -1,6 +1,5 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SITE_CONFIG } from '../../../config';
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
@@ -160,7 +159,7 @@ const changelogEntries = [
           data-align="left"
           role="group"
         >
-          {changelogEntries.map((item, index) => (
+          {changelogEntries.map((item) => (
             <div
               class="[--item-border-color:#424242] dark:[--item-border-color:#4a5c50] group relative text-left text-zinc-700 dark:text-zinc-300 [&:where(:not(:last-of-type))]:[--timeline-line-display:block] [&:where(:not(:first-of-type))]:mt-10 pb-6 before:absolute before:pointer-events-none before:top-0 before:left-[var(--timeline-line-left,0)] before:right-[var(--timeline-line-right,0)] before:-bottom-10 before:[display:var(--timeline-line-display,none)] before:[border-inline-start:var(--item-line)] [&:where([data-line-active=true])]:before:border-[var(--tli-color,var(--tl-color))]"
               style={`--tli-border-style:${item.lineStyle}; --item-line:var(--tl-line-width) var(--tli-border-style,solid) var(--item-border-color); --tli-color:${item.bulletBorderColor};`}

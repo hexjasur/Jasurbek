@@ -2,10 +2,10 @@
  * Global Site Configuration
  */
 export const SITE_CONFIG = {
-  // Sayt sarlavhalari va footerda ko'rinadigan domen nomi
+  // Sayt sarlavhalari va footerda körinadigan domen nomi
   domain: 'jasurdev.uz',
 
-  // To'liq sayt URL manzili
+  // Töliq sayt URL manzili
   siteUrl: 'https://jasurdev.uz',
 
   // Muallif va sayt ma'lumotlari

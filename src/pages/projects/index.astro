@@ -1,60 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
+import { projectsList } from '../../data/projects';
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 
-const projects = [
-  {
-    slug: 'numeric-methods',
-    title: 'Numeric Methods',
-    eyebrow: 'Web, desktop and Android',
-    tagline: 'Interactive algorithms. Step-by-step computation. Cross-platform.',
-    description: 'An interactive laboratory for numerical methods and computational mathematics, designed to explain algorithms step by step with live charts, formula inspectors, and native binaries for Windows, Linux, and Android.',
-    tags: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Tauri v2', 'Rust'],
-    image: `${baseUrl}images/projects/nm/numeric-methods-main.webp`,
-    imageAlt: 'Numeric Methods application preview',
-    featured: true,
-    hasDownloads: true,
-    year: '2025–Present',
-    status: 'Active',
-    website: 'https://sonli-usullar.uz',
-    repository: 'https://github.com/hexjasur/numeric-methods',
-  },
-  {
-    slug: 'yolnoma-app',
-    title: 'Yolnoma-App',
-    eyebrow: 'Desktop application',
-    tagline: 'Developer workspace. Unified utilities. Tauri-powered.',
-    description: 'A Tauri-powered desktop workspace that unifies developer utilities, network tools, media conversion, and local-first AI chat sessions into one lightweight native application.',
-    tags: ['React', 'TypeScript', 'Tauri v2', 'Rust', 'Vite', 'Tailwind CSS'],
-    image: `${baseUrl}images/projects/yolnoma-app/yolnoma-brand.webp`,
-    imageAlt: 'Yolnoma desktop workspace preview',
-    featured: true,
-    hasDownloads: false,
-    year: '2025–Present',
-    status: 'Active',
-    website: 'https://app.yolnoma.uz',
-    repository: 'https://github.com/hexjasur/Yolnoma-App',
-  },
-  {
-    slug: 'agents-md',
-    title: 'AGENTS.md',
-    eyebrow: 'Developer documentation & tooling',
-    tagline: 'AI agent instructions. Consistent workflows. Team standards.',
-    description: 'A focused open-source repository and documentation standard for defining reproducible conventions, instructions, and workflows for autonomous AI coding agents across teams.',
-    tags: ['Documentation', 'AI Coding', 'Engineering Standards', 'Open Source'],
-    image: `${baseUrl}images/projects/agents-md/agents-md-readme.webp`,
-    imageAlt: 'AGENTS.md documentation project',
-    featured: false,
-    hasDownloads: false,
-    year: '2025',
-    status: 'Maintained',
-    repository: 'https://github.com/hexjasur/AGENTS.md',
-  },
-];
+const projects = projectsList.map((p) => ({
+  ...p,
+  image: `${baseUrl}${p.image}`,
+}));
 
 const imageSizes: Record<string, [number, number]> = {
   'yolnoma-brand.webp': [1200, 675],
@@ -76,7 +32,7 @@ const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200,
       Featured Projects & Software | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-07</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-14</div>
     <div class="blog-meta-date">Total: {projects.length} Active Projects</div>
 
     <p class="blog-desc">
