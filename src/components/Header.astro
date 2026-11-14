@@ -54,7 +54,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         </svg>
       </button>
     </div>
-    <div id="mobile-navigation" class="mobile-menu" aria-hidden="true">
+    <div id="mobile-navigation" class="mobile-menu" aria-hidden="true" inert>
       <a href={baseUrl} class:list={[{ active: activePage === 'profile' }]} aria-current={activePage === 'profile' ? 'page' : undefined}>Profile</a>
       <a href={`${baseUrl}projects`} class:list={[{ active: activePage === 'projects' }]} aria-current={activePage === 'projects' ? 'page' : undefined}>Projects</a>
       <a href={`${baseUrl}blog`} class:list={[{ active: activePage === 'blog' }]} aria-current={activePage === 'blog' ? 'page' : undefined}>Blog</a>
@@ -75,6 +75,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     const closeMenu = () => {
       menu.classList.remove('is-open');
       menu.setAttribute('aria-hidden', 'true');
+      menu.setAttribute('inert', '');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open navigation menu');
     };
@@ -85,6 +86,11 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       if (!menu || !toggle) return;
       const isOpen = menu.classList.toggle('is-open');
       menu.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen) {
+        menu.removeAttribute('inert');
+      } else {
+        menu.setAttribute('inert', '');
+      }
       toggle.setAttribute('aria-expanded', String(isOpen));
       toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
     };
