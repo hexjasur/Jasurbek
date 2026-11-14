@@ -38,4 +38,11 @@ export const SITE_CONFIG = {
     category: 'Announcements',
     categoryId: '',
   },
+  // Third-party API keys for client-side tools (loaded securely from environment variables)
+  tools: {
+    bgRemover: {
+      removeBgKey: import.meta.env.PUBLIC_REMOVE_BG_KEY || '',
+      poofBgKey: import.meta.env.PUBLIC_POOF_BG_KEY || '',
+    },
+  },
 };

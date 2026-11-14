@@ -1,0 +1,550 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'AI Background Remover',
+  url: `https://jasurdev.uz/tools/bg-remover`,
+  description:
+    'Free online AI background remover with multi-engine fallback. Automatically remove background from photos, portraits, and product images in seconds to create transparent PNG cutouts.',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'All',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'Dual-engine automatic background removal with fallback',
+    'High-resolution transparent PNG download',
+    'Side-by-side original and cutout preview',
+    'Privacy-focused in-browser processing',
+  ],
+};
+---
+
+<Layout
+  title={`AI Background Remover — Free Transparent PNG Maker | ${SITE_CONFIG.author}`}
+  description="Instantly remove image backgrounds online for free using AI. Download high-quality transparent PNG cutouts for portraits, e-commerce products, logos, and graphic design."
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+  lang="en"
+>
+  <!-- WebApp Rich Snippet -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+
+  <div class="blog-intro">
+    <div class="blog-meta-date">First Published: 2026-11-14</div>
+  </div>
+
+  <section class="tools-box">
+    <h2 class="page-title">
+      <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+        <path d="M5 3v4"/>
+        <path d="M19 17v4"/>
+        <path d="M3 5h4"/>
+        <path d="M17 19h4"/>
+      </svg>
+      AI Background Remover
+    </h2>
+    <p class="page-lead">
+      Upload an image and let AI automatically detect and strip the background in seconds. Download a crisp, transparent PNG cutout with zero watermark.
+    </p>
+
+    <!-- Upload Zone -->
+    <div
+      id="bgr-dropzone"
+      class="bgr-dropzone"
+      tabindex="0"
+      role="region"
+      aria-label="Image drop zone"
+      data-removebg-key={SITE_CONFIG.tools.bgRemover.removeBgKey}
+      data-poofbg-key={SITE_CONFIG.tools.bgRemover.poofBgKey}
+    >
+      <input type="file" id="bgr-file-input" accept="image/png, image/jpeg, image/webp" class="sr-only" />
+      <div class="bgr-dropzone-content">
+        <div class="bgr-dropzone-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+            <circle cx="9" cy="9" r="2"/>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+        </div>
+        <p class="bgr-drop-text">
+          <strong>Drag &amp; drop your image here</strong>, or click to browse
+        </p>
+        <p class="bgr-drop-sub">Supports PNG, JPG, JPEG, and WebP (up to 12MB)</p>
+        <button type="button" class="btn" id="bgr-browse-btn">Choose Image</button>
+      </div>
+    </div>
+
+    <!-- Status & Spinner -->
+    <div id="bgr-status-box" class="bgr-status-box" hidden>
+      <div class="bgr-spinner" aria-hidden="true"></div>
+      <p id="bgr-status-text" class="bgr-status-text">Removing background with AI, please wait...</p>
+    </div>
+
+    <p id="bgr-error" class="error-text" role="alert" hidden></p>
+
+    <!-- Side-by-Side Preview Container -->
+    <div id="bgr-preview-container" class="bgr-preview-container" hidden>
+      <div class="bgr-preview-grid">
+        <div class="bgr-card">
+          <div class="bgr-card-header">
+            <span>Original Image</span>
+            <span id="bgr-orig-info" class="bgr-badge"></span>
+          </div>
+          <div class="bgr-img-wrap">
+            <img id="bgr-orig-img" alt="Original uploaded image" />
+          </div>
+        </div>
+
+        <div class="bgr-card">
+          <div class="bgr-card-header">
+            <span>Removed Background</span>
+            <span id="bgr-res-info" class="bgr-badge bgr-badge-success">Transparent PNG</span>
+          </div>
+          <div class="bgr-img-wrap bgr-checkerboard">
+            <img id="bgr-res-img" alt="Transparent cutout with background removed" />
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-buttons bgr-actions">
+        <button type="button" class="btn" id="bgr-download-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download
+        </button>
+        <button type="button" class="btn btn-secondary" id="bgr-new-btn">Upload Another Image</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content & FAQ Section -->
+  <section class="tools-box">
+    <h3 class="mt-section-title">How It Works &amp; Frequently Asked Questions</h3>
+    <div class="bgr-faq">
+      <div class="bgr-faq-item">
+        <h4>How does the AI background remover work?</h4>
+        <p>
+          The tool utilizes computer vision neural networks trained on millions of images. The AI identifies the primary subject — whether a person, pet, product, or vehicle — precisely distinguishes fine edge contours (such as hair or fur), and replaces the rest of the scene with full alpha transparency.
+        </p>
+      </div>
+      <div class="bgr-faq-item">
+        <h4>What image formats and resolutions are supported?</h4>
+        <p>
+          You can upload standard image formats including <strong>PNG</strong>, <strong>JPG / JPEG</strong>, and <strong>WebP</strong> up to 12MB. The resulting cutout is delivered in lossless 32-bit PNG format with clean transparency.
+        </p>
+      </div>
+      <div class="bgr-faq-item">
+        <h4>Is my data private and secure?</h4>
+        <p>
+          Yes. Images are transmitted encrypted via HTTPS directly to the processing endpoint solely for background isolation and are never stored or logged on our servers. Once downloaded, temporary data is immediately cleared from your browser session.
+        </p>
+      </div>
+      <div class="bgr-faq-item">
+        <h4>Why do e-commerce sellers and designers remove backgrounds?</h4>
+        <p>
+          Transparent PNG cutouts are essential for marketplace listings (Amazon, eBay, Shopify), graphic design banners, social media marketing, stickers, ID photos, and presentation slides. Clean white or transparent backgrounds boost conversion rates and make products look professional.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
+  </div>
+</Layout>
+
+<style>
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-svg {
+    width: 22px;
+    height: 22px;
+    color: var(--focus, #0969da);
+    flex-shrink: 0;
+  }
+
+  .bgr-dropzone {
+    border: 2px dashed var(--line-soft, #d0d7de);
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background: var(--surface-2, #f6f8fa);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
+    margin-bottom: 1.5rem;
+  }
+  .bgr-dropzone:hover,
+  .bgr-dropzone:focus-visible,
+  .bgr-dropzone.drag-over {
+    border-color: var(--focus, #0969da);
+    background: var(--accent-soft, #eef3ff);
+    outline: none;
+  }
+  .bgr-dropzone.drag-over {
+    transform: scale(1.01);
+  }
+  .bgr-dropzone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .bgr-dropzone-icon {
+    color: var(--text-muted, #57606a);
+  }
+  .bgr-drop-text {
+    font-size: 1.05rem;
+    color: var(--text-main, #1f2328);
+    margin: 0;
+  }
+  .bgr-drop-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted, #57606a);
+    margin: 0;
+  }
+  .bgr-status-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--accent-soft, #eef3ff);
+    border: 1px solid var(--accent-line, #cfe0fc);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .bgr-spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid var(--accent-line, #cfe0fc);
+    border-top-color: var(--focus, #0969da);
+    border-radius: 50%;
+    animation: bgr-spin 0.8s linear infinite;
+  }
+  @keyframes bgr-spin {
+    to { transform: rotate(360deg); }
+  }
+  .bgr-status-text {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-main, #1f2328);
+  }
+  .bgr-preview-container {
+    margin-top: 1.5rem;
+  }
+  .bgr-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .bgr-card {
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--line-soft, #d0d7de);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .bgr-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.85rem;
+    background: var(--surface-2, #f6f8fa);
+    border-bottom: 1px solid var(--line-soft, #d0d7de);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .bgr-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: var(--surface-3, #eaeef2);
+    color: var(--text-muted, #57606a);
+  }
+  .bgr-badge-success {
+    background: #def7ec;
+    color: #03543f;
+  }
+  .bgr-img-wrap {
+    min-height: 220px;
+    max-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+  }
+  .bgr-img-wrap img {
+    max-width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+  /* Transparent checkerboard pattern */
+  .bgr-checkerboard {
+    background-color: #ffffff;
+    background-image: 
+      linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
+      linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), 
+      linear-gradient(45deg, transparent 75%, #e5e7eb 75%), 
+      linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  }
+  .bgr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .bgr-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .bgr-faq-item h4 {
+    margin: 0 0 0.35rem 0;
+    font-size: 1rem;
+    color: var(--text-strong, #1f2328);
+  }
+  .bgr-faq-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted, #57606a);
+    line-height: 1.6;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>
+
+<script>
+  function setupBgRemover() {
+    const dropzone = document.getElementById('bgr-dropzone') as HTMLElement | null;
+    const fileInput = document.getElementById('bgr-file-input') as HTMLInputElement | null;
+    const browseBtn = document.getElementById('bgr-browse-btn');
+    const statusBox = document.getElementById('bgr-status-box');
+    const statusText = document.getElementById('bgr-status-text');
+    const errorBox = document.getElementById('bgr-error');
+    const previewContainer = document.getElementById('bgr-preview-container');
+    const origImg = document.getElementById('bgr-orig-img') as HTMLImageElement | null;
+    const resImg = document.getElementById('bgr-res-img') as HTMLImageElement | null;
+    const origInfo = document.getElementById('bgr-orig-info');
+    const downloadBtn = document.getElementById('bgr-download-btn');
+    const newBtn = document.getElementById('bgr-new-btn');
+
+    if (!dropzone || !fileInput || !browseBtn) return;
+
+    const removeBgKey = dropzone.dataset.removebgKey || '';
+    const poofBgKey = dropzone.dataset.poofbgKey || '';
+
+    let resultBlobUrl = '';
+    let currentOriginalName = 'image';
+
+    // File selection
+    browseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropzone.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    dropzone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
+      }
+    });
+
+    // Drag and drop events
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('drag-over');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('drag-over');
+      });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const dt = (e as DragEvent).dataTransfer;
+      if (dt && dt.files && dt.files.length > 0) {
+        handleFile(dt.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        handleFile(fileInput.files[0]);
+      }
+    });
+
+    newBtn?.addEventListener('click', () => {
+      if (previewContainer) previewContainer.hidden = true;
+      if (errorBox) errorBox.hidden = true;
+      if (statusBox) statusBox.hidden = true;
+      dropzone.hidden = false;
+      fileInput.value = '';
+    });
+
+    downloadBtn?.addEventListener('click', () => {
+      if (!resultBlobUrl) return;
+      const a = document.createElement('a');
+      a.href = resultBlobUrl;
+      const baseName = currentOriginalName.replace(/\.[^/.]+$/, '');
+      a.download = `${baseName}-no-bg.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+
+    /** Call primary engine: remove.bg */
+    async function processWithRemoveBg(file: File): Promise<Blob> {
+      const formData = new FormData();
+      formData.append('image_file', file);
+      formData.append('size', 'auto');
+
+      const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+        method: 'POST',
+        headers: {
+          'X-API-Key': removeBgKey,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`remove.bg failed with HTTP ${response.status}`);
+      }
+
+      return await response.blob();
+    }
+
+    /** Call secondary fallback engine: poof.bg */
+    async function processWithPoofBg(file: File): Promise<Blob> {
+      const formData = new FormData();
+      formData.append('image_file', file);
+
+      const response = await fetch('https://api.poof.bg/v1/remove', {
+        method: 'POST',
+        headers: {
+          'x-api-key': poofBgKey,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`poof.bg failed with HTTP ${response.status}`);
+      }
+
+      return await response.blob();
+    }
+
+    async function handleFile(file: File) {
+      if (!file.type.startsWith('image/')) {
+        showError('Please upload a valid image file (PNG, JPG, or WebP).');
+        return;
+      }
+
+      if (file.size > 12 * 1024 * 1024) {
+        showError('Image file is too large (maximum allowed size is 12MB).');
+        return;
+      }
+
+      currentOriginalName = file.name;
+      hideError();
+
+      // Show original preview
+      const origUrl = URL.createObjectURL(file);
+      if (origImg) origImg.src = origUrl;
+      if (origInfo) origInfo.textContent = `${(file.size / 1024).toFixed(0)} KB`;
+
+      // Show loading
+      if (statusBox) statusBox.hidden = false;
+      if (statusText) statusText.textContent = 'Removing background with AI, please wait...';
+      if (previewContainer) previewContainer.hidden = true;
+      if (dropzone) dropzone.hidden = true;
+
+      try {
+        let blob: Blob;
+        try {
+          // Attempt 1: remove.bg
+          blob = await processWithRemoveBg(file);
+        } catch (primaryErr) {
+          console.warn('Primary remove.bg engine failed or exhausted, trying fallback poof.bg...', primaryErr);
+          if (statusText) statusText.textContent = 'Connecting to fallback AI engine...';
+          // Attempt 2: poof.bg fallback
+          blob = await processWithPoofBg(file);
+        }
+
+        if (resultBlobUrl) {
+          URL.revokeObjectURL(resultBlobUrl);
+        }
+        resultBlobUrl = URL.createObjectURL(blob);
+
+        if (resImg) resImg.src = resultBlobUrl;
+        if (statusBox) statusBox.hidden = true;
+        if (previewContainer) previewContainer.hidden = false;
+      } catch (err: unknown) {
+        console.error('All background removal services failed:', err);
+        if (statusBox) statusBox.hidden = true;
+        if (dropzone) dropzone.hidden = false;
+        showError('Both AI background removal services are currently busy or reached rate limits. Please try again shortly.');
+      }
+    }
+
+    function showError(msg: string) {
+      if (errorBox) {
+        errorBox.textContent = `❌ ${msg}`;
+        errorBox.hidden = false;
+      }
+    }
+
+    function hideError() {
+      if (errorBox) {
+        errorBox.textContent = '';
+        errorBox.hidden = true;
+      }
+    }
+  }
+
+  // Support Astro View Transitions
+  document.addEventListener('astro:page-load', setupBgRemover);
+</script>

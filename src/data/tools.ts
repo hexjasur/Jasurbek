@@ -9,6 +9,13 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'bg-remover',
+    num: 11,
+    title: 'AI Background Remover (Free Transparent PNG Maker)',
+    description: 'Instantly remove backgrounds from images online using AI. Create transparent PNG cutouts for products, portraits, and graphics with one click.',
+    slug: 'bg-remover',
+  },
+  {
     id: 'markdown-table-editor',
     num: 10,
     title: 'Markdown Table Visual Editor (GFM, CSV, TSV, JSON)',

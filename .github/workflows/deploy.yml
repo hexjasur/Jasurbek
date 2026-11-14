@@ -35,6 +35,9 @@ jobs:
 
       - name: Build static site with Astro
         run: bun run build
+        env:
+          PUBLIC_REMOVE_BG_KEY: ${{ secrets.PUBLIC_REMOVE_BG_KEY }}
+          PUBLIC_POOF_BG_KEY: ${{ secrets.PUBLIC_POOF_BG_KEY }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
