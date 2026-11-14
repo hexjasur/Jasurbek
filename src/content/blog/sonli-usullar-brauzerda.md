@@ -1,23 +1,24 @@
 ---
-title: "Sonli usullarni brauzerda o'rganish: Numeric Methods interaktiv labi qanday ishlaydi"
-description: "Numeric Methods — brauzerda ishlaydigan interaktiv sonli usullar laboratoriyasi: bisection, Newton, Simpson va boshqa usullarni formula bilan emas, tajriba bilan o'rganish."
+title: "Sonli usullarni brauzerda örganiş: Numeric Methods interaktiv labi qanday işlaydi"
+description: "Numeric Methods — brauzerda işlaydigan interaktiv sonli usullar laboratoriyasi: bisection, Newton, Simpson va boşqa usullarni formula bilan emas, tajriba bilan örganiş."
 pubDate: 2026-11-12
+updatedDate: 2026-11-14
 tags: ["numeric-methods", "mathematics", "web", "education", "nextjs"]
 ---
 
 ## Muammo: sonli usullar faqat daftarda qoladi
 
-Oliy matematikada sonli usullarni odatda shunday o'rganamiz: doskada formula, daftar’da hisob, imtihonda javob.
+Oliy matematikada sonli usullarni odatda şunday örganamiz: doskada formula, daftar’da hisob, imtihonda javob.
 
-Lekin muammo shunda: formula yodlanadi, usulning mohiyati tushunilmaydi. Nega bisection sekin, lekin ishonchli? Nega Newton tez, lekin ba'zida ishlamay qoladi? Nega Simpson trapetsiyadan aniqroq?
+Lekin muammo şunda: formula yodlanadi, usulning mohiyati tuşunilmaydi. Nega bisection sekin, lekin işonçli? Nega Newton tez, lekin ba'zida işlamay qoladi? Nega Simpson trapetsiyadan aniqroq?
 
-Bu savollarga javobni faqat tajriba beradi — qiymatlarni o'zgartirib, natija qanday o'zgarishini ko'rish kerak.
+Bu savollarga javobni faqat tajriba beradi — qiymatlarni özgartirib, natija qanday özgarişini köriş kerak.
 
-Numeric Methods loyihasi aynan shu uchun qurilgan: brauzerda ishlaydigan, o'rnatish talab qilmaydigan interaktiv lab.
+Numeric Methods loyihasi aynan şu uçun qurilgan: brauzerda işlaydigan, örnatiş talab qilmaydigan interaktiv lab.
 
 ## Numeric Methods nima?
 
-Numeric Methods — bu web, desktop va Android'da ishlaydigan interaktiv sonli usullar laboratoriyasi.
+Numeric Methods — bu web, desktop va Android'da işlaydigan interaktiv sonli usullar laboratoriyasi.
 
 | Qatlam | Texnologiya |
 | --- | --- |
@@ -26,63 +27,63 @@ Numeric Methods — bu web, desktop va Android'da ishlaydigan interaktiv sonli u
 | Mobil | Android |
 | Hisob | Brauzerda, real vaqtida |
 
-O'quvchi saytni ochadi, usulni tanlaydi, funksiyani va boshlang'ich qiymatlarni kiritadi — natijani darhol jadval va grafikda ko'radi. Hech narsa yuklab olish shart emas, hech narsa serverga yuborilmaydi.
+Öquvçi saytni oçadi, usulni tanlaydi, funksiyani va boşlanğiç qiymatlarni kiritadi — natijani darhol jadval va grafikda köradi. Heç narsa yuklab oliş şart emas, heç narsa serverga yuborilmaydi.
 
 ## Qaysi usullar bor?
 
-Lab hozir uchta katta bo'limni qamrab oladi.
+Lab hozir uçta katta bölimni qamrab oladi.
 
-### 1. Tenglamalarni yechish — ildiz topish
+### 1. Tenglamalarni yeçiş — ildiz topiş
 
-Berilgan funksiyaning noli — ya'ni `f(x) = 0` bo'ladigan nuqta — topiladi.
+Berilgan funksiyaning noli — ya'ni `f(x) = 0` böladigan nuqta — topiladi.
 
-| Usul | G'oya | Tezligi | Xavfi |
+| Usul | Ğoya | Tezligi | Xavfi |
 | --- | --- | --- | --- |
-| Bisection | Oraliqni har safar yarmiga bo'lish | Sekin, lekin barqaror | Har doim ishlaydi, agar oraliqda ildiz bo'lsa |
-| Newton-Raphson | Urinma chiziq bilan yaqinlashish | Juda tez | Yomon boshlang'ich nuqtada uzoqlashib ketishi mumkin |
-| Secant | Ikkita nuqta orqali kesuvchi | Tez | Hosila kerak emas, lekin beqaror bo'lishi mumkin |
+| Bisection | Oraliqni har safar yarmiga böliş | Sekin, lekin barqaror | Har doim işlaydi, agar oraliqda ildiz bölsa |
+| Newton-Raphson | Urinma çiziq bilan yaqinlaşiş | Juda tez | Yomon boşlanğiç nuqtada uzoqlaşib ketişi mumkin |
+| Secant | Ikkita nuqta orqali kesuvçi | Tez | Hosila kerak emas, lekin beqaror bölişi mumkin |
 
-Lab'da har bir usulning har bir qadami jadvalda ko'rinadi: qaysi nuqta olindi, xato qancha bo'ldi, keyingi qadam qayerda bo'ladi.
+Lab'da har bir usulning har bir qadami jadvalda körinadi: qaysi nuqta olindi, xato qança böldi, keyingi qadam qayerda böladi.
 
-### 2. Integrallarni hisoblash
+### 2. Integrallarni hisoblaş
 
-Aniq integralni analitik yechish har doim ham mumkin emas. Shunda sonli integrallash ishlatiladi.
+Aniq integralni analitik yeçiş har doim ham mumkin emas. Şunda sonli integrallaş işlatiladi.
 
-| Usul | G'oya |
+| Usul | Ğoya |
 | --- | --- |
-| Trapetsiya | Egri chiziq ostini trapetsiyalar bilan to'ldirish |
-| Simpson 1/3 | Parabola bilan yaqinlashish, trapetsiyadan aniqroq |
-| Gauss kvadraturasi | Maxsus nuqtalarda hisoblash, kam nuqta bilan yuqori aniqlik |
+| Trapetsiya | Egri çiziq ostini trapetsiyalar bilan töldiriş |
+| Simpson 1/3 | Parabola bilan yaqinlaşiş, trapetsiyadan aniqroq |
+| Gauss kvadraturasi | Maxsus nuqtalarda hisoblaş, kam nuqta bilan yuqori aniqlik |
 
-O'quvchi `n` — bo'lak sonini oshirgan sari xato qanday kamayishini grafikda ko'radi. Bu — formulani yodlashdan ko'ra kuchliroq dars.
+Öquvçi `n` — bölak sonini oşirgan sari xato qanday kamayişini grafikda köradi. Bu — formulani yodlaşdan köra kuçliroq dars.
 
 ### 3. Differensial tenglamalar
 
-| Usul | G'oya |
+| Usul | Ğoya |
 | --- | --- |
-| Euler | Kichik qadamlar bilan oldinga yurish |
-| Heun | Oldindan bashorat + tuzatish |
-| Runge-Kutta 4 | To'rtta baholashning vaznli o'rtachasi, eng ko'p ishlatiladigan |
+| Euler | Kiçik qadamlar bilan oldinga yuriş |
+| Heun | Oldindan başorat + tuzatiş |
+| Runge-Kutta 4 | Törtta baholaşning vaznli örtaçasi, eng köp işlatiladigan |
 
-Bu bo'limda qadam kattaligi `h`'ni o'zgartirish — natija qanday buzilishini darhol ko'rsatadi. Katta qadam — tez, lekin noto'g'ri. Kichik qadam — aniq, lekin sekin.
+Bu bölimda qadam kattaligi `h`'ni özgartiriş — natija qanday buzilişini darhol körsatadi. Katta qadam — tez, lekin notöğri. Kiçik qadam — aniq, lekin sekin.
 
-## Interaktiv lab qanday ishlaydi?
+## Interaktiv lab qanday işlaydi?
 
 Har bir usul sahifasi bir xil mantiqda qurilgan:
 
-### 1. Kirish — nimani hisoblaysan?
+### 1. Kiriş — nimani hisoblaysan?
 
-O'quvchi avval funksiyani yozadi. Masalan:
+Öquvçi avval funksiyani yozadi. Masalan:
 
 ```text
 f(x) = x^3 - x - 2
 ```
 
-Keyin usulga kerakli parametrlar: oraliq, boshlang'ich nuqta, aniqlik, maksimal qadam soni.
+Keyin usulga kerakli parametrlar: oraliq, boşlanğiç nuqta, aniqlik, maksimal qadam soni.
 
 ### 2. Hisob — brauzerda, real vaqtida
 
-Hisob serverga bormaydi. JavaScript funksiyani o'qiydi, usulni qadam-qadam bajaradi va har bir qadamni saqlaydi.
+Hisob serverga bormaydi. JavaScript funksiyani öqiydi, usulni qadam-qadam bajaradi va har bir qadamni saqlaydi.
 
 ```ts
 // Soddalashtirilgan bisection g'oyasi
@@ -99,37 +100,37 @@ function bisection(f: (x: number) => number, a: number, b: number) {
 }
 ```
 
-Bu kodning mohiyati: har bir qadamni eslab qolish. Chunki o'quvchiga faqat javob emas, yo'l kerak.
+Bu kodning mohiyati: har bir qadamni eslab qoliş. Çunki öquvçiga faqat javob emas, yöl kerak.
 
 ### 3. Natija — jadval + grafik
 
-Natija uch qismda ko'rsatiladi:
+Natija uç qismda körsatiladi:
 
 - **Javob:** ildiz yoki integral qiymati, xato bilan birga.
-- **Qadamlar jadvali:** har bir iteratsiya — qanday qiymat olindi, xato qancha bo'ldi.
-- **Grafik:** funksiya chizig'i, usul qanday yaqinlashgani, qadamlar ketma-ketligi.
+- **Qadamlar jadvali:** har bir iteratsiya — qanday qiymat olindi, xato qança böldi.
+- **Grafik:** funksiya çiziği, usul qanday yaqinlaşgani, qadamlar ketma-ketligi.
 
-Grafik — eng muhim qism. Newton nima uchun ba'zida uzoqlashib ketishini faqat grafikda tushunish mumkin.
+Grafik — eng muhim qism. Newton nima uçun ba'zida uzoqlaşib ketişini faqat grafikda tuşuniş mumkin.
 
 ## Nega aynan brauzerda?
 
-Uchta sabab bor:
+Uçta sabab bor:
 
-**1. O'rnatish yo'q.** Talaba Maple yoki MATLAB o'rnatishi shart emas. Linkni ochdi — lab tayyor.
+**1. Örnatiş yöq.** Talaba Maple yoki MATLAB örnatişi şart emas. Linkni oçdi — lab tayyor.
 
-**2. Xavfsizlik va maxfiylik.** Hisob brauzerda bo'ladi. Funksiya va natijalar serverga ketmaydi.
+**2. Xavfsizlik va maxfiylik.** Hisob brauzerda böladi. Funksiya va natijalar serverga ketmaydi.
 
-**3. Tajriba tezligi.** Qiymatni o'zgartirding — natija darhol yangilanadi. Qog'ozda bir misol 20 daqiqa, lab'da 20 soniya.
+**3. Tajriba tezligi.** Qiymatni özgartirding — natija darhol yangilanadi. Qoğozda bir misol 20 daqiqa, lab'da 20 soniya.
 
-## Talaba lab'dan qanday foydalanishi kerak?
+## Talaba lab'dan qanday foydalanişi kerak?
 
-Tasodifiy tugmalarni bosish — o'rganish emas. Lab'dan to'g'ri foydalanish tartibi shunday:
+Tasodifiy tugmalarni bosiş — örganiş emas. Lab'dan töğri foydalaniş tartibi şunday:
 
-1. **Avval qo'lda bitta qadamni hisobla.** Formulani tushunmasdan lab'ga kirma.
-2. **Lab'da tekshir.** Sening qo'l hisobing bilan lab natijasi bir xilmi?
-3. **Parametrni o'zgartir.** Boshlang'ich nuqtani, `n`'ni, `h`'ni o'zgartir — natija qanday o'zgaradi?
-4. **Usullarni taqqosla.** Bir xil masalani Bisection va Newton bilan yech — qaysi biri necha qadamda yetdi?
-5. **Chek holatni sinab ko'r.** Newton qachon ishlamaydi? Simpson qachon xato beradi? Ataylab buzib ko'r — buzilishdan ham o'rganiladi.
+1. **Avval qölda bitta qadamni hisobla.** Formulani tuşunmasdan lab'ga kirma.
+2. **Lab'da tekşir.** Sening qöl hisobing bilan lab natijasi bir xilmi?
+3. **Parametrni özgartir.** Boşlanğiç nuqtani, `n`'ni, `h`'ni özgartir — natija qanday özgaradi?
+4. **Usullarni taqqosla.** Bir xil masalani Bisection va Newton bilan yeç — qaysi biri neça qadamda yetdi?
+5. **Çek holatni sinab kör.** Newton qaçon işlamaydi? Simpson qaçon xato beradi? Ataylab buzib kör — buzilişdan ham örganiladi.
 
 ## Misol: bitta masala, ikki usul
 
@@ -144,29 +145,29 @@ Masala: `f(x) = x^3 - x - 2` funksiyaning ildizini top.
 | 3 | 1.5 | 1.75 | 1.625 | 0.666 |
 | ... | ... | ... | ... | ... |
 
-Sekin, lekin har qadamda oraliq yarmiga qisqaradi. Ishonchli.
+Sekin, lekin har qadamda oraliq yarmiga qisqaradi. Işonçli.
 
 **Newton bilan:**
 
-Boshlang'ich nuqta `x0 = 1.5`, hosila `f'(x) = 3x^2 - 1`.
+Boşlanğiç nuqta `x0 = 1.5`, hosila `f'(x) = 3x^2 - 1`.
 
 | Qadam | x | f(x) | Keyingi x |
 | --- | --- | --- | --- |
 | 1 | 1.5 | -0.125 | 1.5217 |
 | 2 | 1.5217 | 0.0021 | 1.5214 |
-| 3 | 1.5214 | ~0 | To'xtadi |
+| 3 | 1.5214 | ~0 | Töxtadi |
 
-3 qadamda javob. Lekin boshlang'ich nuqtani noto'g'ri tanlasang — usul uzoqlashib ketishi mumkin. Lab'da buni o'zing sinab ko'rishing mumkin.
+3 qadamda javob. Lekin boşlanğiç nuqtani notöğri tanlasang — usul uzoqlaşib ketişi mumkin. Lab'da buni özing sinab körişing mumkin.
 
 ## Xulosa
 
-Sonli usullarni o'rganishning eng yaxshi yo'li — formulani yodlash emas, usulni ishlatib ko'rish.
+Sonli usullarni örganişning eng yaxşi yöli — formulani yodlaş emas, usulni işlatib köriş.
 
-Numeric Methods shu g'oyada qurilgan:
+Numeric Methods şu ğoyada qurilgan:
 
 1. Funksiyani kirit.
 2. Usulni tanla.
-3. Qadamlarni ko'r, grafikni kuzat.
-4. Parametrlarni o'zgartirib, usulning xarakterini tushun.
+3. Qadamlarni kör, grafikni kuzat.
+4. Parametrlarni özgartirib, usulning xarakterini tuşun.
 
-Matematika qog'ozda emas, tajribada o'rganiladi.
+Matematika qoğozda emas, tajribada örganiladi.

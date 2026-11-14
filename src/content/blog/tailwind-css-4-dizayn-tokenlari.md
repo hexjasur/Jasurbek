@@ -1,13 +1,14 @@
 ---
-title: "Tailwind CSS 4'da dizayn tokenlari bilan ishlash: rangni har joyda qo'lda yozmasdan bitta token tizimi qurish"
-description: "Tailwind CSS 4'da @theme bilan dizayn tokenlari qurish — rang, shrift, masofa va soyalarni bitta joyda boshqarish, takrorlanishdan qutulish va saytni bir xil ko'rinishda saqlash."
+title: "Tailwind CSS 4'da dizayn tokenlari bilan işlaş: rangni har joyda qölda yozmasdan bitta token tizimi quriş"
+description: "Tailwind CSS 4'da @theme bilan dizayn tokenlari quriş — rang, şrift, masofa va soyalarni bitta joyda boşqariş, takrorlanişdan qutuliş va saytni bir xil körinişda saqlaş."
 pubDate: 2026-11-12
+updatedDate: 2026-11-14
 tags: ["tailwind", "css", "design-tokens", "frontend", "design-system"]
 ---
 
 ## Muammo: rang hamma joyda tarqab ketadi
 
-Ko'p loyihada shunday holat bo'ladi: bitta rang o'nlab joyda yozilgan. Bir kun dizayner rangni biroz o'zgartirmoqchi bo'ladi — va sen 40 ta faylni ochib qidirasan.
+Köp loyihada şunday holat böladi: bitta rang önlab joyda yozilgan. Bir kun dizayner rangni biroz özgartirmoqçi böladi — va sen 40 ta faylni oçib qidirasan.
 
 Misol:
 
@@ -19,15 +20,15 @@ Misol:
 <footer class="bg-[#2F4038] text-[#FBF6EC]">...</footer>
 ```
 
-Bu kod ishlaydi. Lekin uni boshqarib bo'lmaydi. Bir rangni o'zgartirsang, bir joyni unutib qoldirasan — va saytning bir qismi eski rangda qoladi.
+Bu kod işlaydi. Lekin uni boşqarib bölmaydi. Bir rangni özgartirsang, bir joyni unutib qoldirasan — va saytning bir qismi eski rangda qoladi.
 
-Yechim — dizayn tokenlari.
+Yeçim — dizayn tokenlari.
 
 ## Dizayn tokeni nima?
 
-Dizayn tokeni — bu dizayn qarorining bitta nomli o'zgaruvchisi. Rang, shrift, masofa, radius, soya — barchasi token bo'lishi mumkin.
+Dizayn tokeni — bu dizayn qarorining bitta nomli özgaruvçisi. Rang, şrift, masofa, radius, soya — barçasi token bölişi mumkin.
 
-G'oya sade: qiymatni emas, ma'noni yozasan.
+Ğoya sade: qiymatni emas, ma'noni yozasan.
 
 ```css
 /* Yomon: qiymat */
@@ -37,11 +38,11 @@ background: #F1E9DC;
 background: var(--color-canvas);
 ```
 
-`--color-canvas` — bu token. U qayerda ishlatilishini emas, nima ekanini aytadi: sahifa foni.
+`--color-canvas` — bu token. U qayerda işlatilişini emas, nima ekanini aytadi: sahifa foni.
 
 ## Tailwind CSS 4'da tokenlar qayerda turadi?
 
-Tailwind CSS 4'da tokenlar `@theme` ichida yoziladi. Odatda bu `src/styles/global.css` faylida bo'ladi.
+Tailwind CSS 4'da tokenlar `@theme` içida yoziladi. Odatda bu `src/styles/global.css` faylida böladi.
 
 ```css
 @import "tailwindcss";
@@ -62,9 +63,9 @@ Tailwind CSS 4'da tokenlar `@theme` ichida yoziladi. Odatda bu `src/styles/globa
 }
 ```
 
-Bu blokdan keyin Tailwind avtomatik ravishda yangi utility klasslar yaratadi:
+Bu blokdan keyin Tailwind avtomatik ravişda yangi utility klasslar yaratadi:
 
-| Token | Hosil bo'lgan klass |
+| Token | Hosil bölgan klass |
 | --- | --- |
 | `--color-canvas` | `bg-canvas`, `text-canvas`, `border-canvas` |
 | `--color-paper` | `bg-paper`, `text-paper`, `border-paper` |
@@ -72,11 +73,11 @@ Bu blokdan keyin Tailwind avtomatik ravishda yangi utility klasslar yaratadi:
 | `--radius-card` | `rounded-card` |
 | `--shadow-card` | `shadow-card` |
 
-Ya'ni token yozishing bilan — klass tayyor.
+Ya'ni token yozişing bilan — klass tayyor.
 
-## Tokenlarni qanday nomlash kerak?
+## Tokenlarni qanday nomlaş kerak?
 
-Nomlash — eng muhim qism. Yomon nom token tizimini ham tarqatib yuboradi.
+Nomlaş — eng muhim qism. Yomon nom token tizimini ham tarqatib yuboradi.
 
 ### 1. Qiymat bilan nomlama
 
@@ -86,7 +87,7 @@ Nomlash — eng muhim qism. Yomon nom token tizimini ham tarqatib yuboradi.
 --color-reddish: #B86752;
 ```
 
-Ertaga `#C7D2B1`'ni ko'k qilsang, `light-green` degan nom kulgili bo'lib qoladi.
+Ertaga `#C7D2B1`'ni kök qilsang, `light-green` degan nom kulgili bölib qoladi.
 
 ### 2. Vazifa bilan nomla
 
@@ -99,11 +100,11 @@ Ertaga `#C7D2B1`'ni ko'k qilsang, `light-green` degan nom kulgili bo'lib qoladi.
 --color-accent: #B86752;  /* ikkinchi urg'u */
 ```
 
-Rang o'zgarsa ham, nom to'g'ri qoladi: fon baribir fon, matn baribir matn.
+Rang özgarsa ham, nom töğri qoladi: fon baribir fon, matn baribir matn.
 
-### 3. Uch qavatli tizim ishlat
+### 3. Uç qavatli tizim işlat
 
-Katta loyihada uch qavat qulay:
+Katta loyihada uç qavat qulay:
 
 ```css
 @theme {
@@ -123,9 +124,9 @@ Katta loyihada uch qavat qulay:
 }
 ```
 
-Oddiy portfolio uchun 2-qavat yetarli. 3-qavat faqat komponentlar ko'payganda kerak bo'ladi.
+Oddiy portfolio uçun 2-qavat yetarli. 3-qavat faqat komponentlar köpayganda kerak böladi.
 
-## Amaliy misol: eski kodni token'ga o'tkazish
+## Amaliy misol: eski kodni token'ga ötkaziş
 
 Oldin:
 
@@ -149,9 +150,9 @@ Keyin:
 
 Farqi nima?
 
-- Kod qisqaroq va o'qilishi osonroq.
-- Rang o'zgarsa — bitta joyda o'zgartirasan.
-- Yangi odam loyihaga kirsa — `bg-paper` nimani anglatishini darhol tushunadi.
+- Kod qisqaroq va öqilişi osonroq.
+- Rang özgarsa — bitta joyda özgartirasan.
+- Yangi odam loyihaga kirsa — `bg-paper` nimani anglatişini darhol tuşunadi.
 
 ## Dark mode tokenlar bilan
 
@@ -173,11 +174,11 @@ Dark mode'ni har bir komponentda alohida yozma. Token darajasida hal qilgin.
 }
 ```
 
-Komponentlar o'zgarmaydi — `bg-canvas` yorug'likda ham, qorong'ulikda ham ishlaydi. Faqat token qiymati o'zgaradi.
+Komponentlar özgarmaydi — `bg-canvas` yoruğlikda ham, qoronğulikda ham işlaydi. Faqat token qiymati özgaradi.
 
-Bu — token tizimining eng katta kuchi: sahifaning ko'rinishini bir joydan almashtirish.
+Bu — token tizimining eng katta kuçi: sahifaning körinişini bir joydan almaştiriş.
 
-## Masofa, shrift va boshqa tokenlar
+## Masofa, şrift va boşqa tokenlar
 
 Tokenlar faqat rang emas.
 
@@ -200,27 +201,27 @@ Tokenlar faqat rang emas.
 }
 ```
 
-Qoida: agar qiymat ikki joyda takrorlansa — u token bo'lishi kerak. Uch joyda takrorlansa — albatta token bo'lishi kerak.
+Qoida: agar qiymat ikki joyda takrorlansa — u token bölişi kerak. Uç joyda takrorlansa — albatta token bölişi kerak.
 
-## Tekshiruv ro'yxati: token tiziming sog'lommi?
+## Tekşiruv röyxati: token tiziming soğlommi?
 
-Yangi rang qo'shishdan oldin shu savollarga javob ber:
+Yangi rang qöşişdan oldin şu savollarga javob ber:
 
-- [ ] Bu qiymat allaqachon token sifatida bormi?
+- [ ] Bu qiymat allaqaçon token sifatida bormi?
 - [ ] Token nomi qiymatni emas, vazifani aytadimi?
-- [ ] Token `global.css`'da, `@theme` ichidami?
+- [ ] Token `global.css`'da, `@theme` içidami?
 - [ ] Dark mode'da bu token nimaga aylanadi?
-- [ ] Komponentda `#[...]` bilan qo'lda rang qoldimi?
+- [ ] Komponentda `#[...]` bilan qölda rang qoldimi?
 
-Agar oxirgi savolga javobing “ha” bo'lsa — o'sha joyni token'ga o'tkazgin.
+Agar oxirgi savolga javobing “ha” bölsa — öşa joyni token'ga ötkazgin.
 
 ## Xulosa
 
-Dizayn tokenlari — bu “chiroyli kod” uchun emas, boshqaruv uchun kerak.
+Dizayn tokenlari — bu “çiroyli kod” uçun emas, boşqaruv uçun kerak.
 
 1. Qiymatni emas, ma'noni nomla.
-2. Tokenlarni bitta joyda saqla — `@theme` ichida.
-3. Komponentda faqat token klasslarini ishlat.
-4. Yangi rang qo'shishdan oldin eskisini tekshir.
+2. Tokenlarni bitta joyda saqla — `@theme` içida.
+3. Komponentda faqat token klasslarini işlat.
+4. Yangi rang qöşişdan oldin eskisini tekşir.
 
-Bir marta to'g'ri qursang, keyin saytning butun rangini bitta faylda, bir daqiqada o'zgartirasan.
+Bir marta töğri qursang, keyin saytning butun rangini bitta faylda, bir daqiqada özgartirasan.

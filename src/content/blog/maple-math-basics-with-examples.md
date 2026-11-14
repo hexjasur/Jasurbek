@@ -2,7 +2,7 @@
 title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
 description: "4-kurs, 7-semestr amaliy maşğulotlarida işlagan Maple misollarim: simplify, expand, factor, trigonometrik tenglamalar va _EnvAllSolutions, töplamlar, matritsalar, hosilalar hamda aniq va aniqmas integrallar (Int va int, evalf) — kod, natija va izoh bilan."
 pubDate: 2026-11-05
-updatedDate: 2026-11-13
+updatedDate: 2026-11-14
 tags: ["maple", "matematika", "dasturlash", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -343,7 +343,7 @@ Hosiladan keyin teskari amal — **integral**. Maple'da integral `int(ifoda, x)`
 Int(x^2, x = 0 .. 1) = int(x^2, x = 0 .. 1);
 ```
 
-Natija: `∫₀¹ x² dx = 1/3`. Chegaralar `x = a .. b` körinişida beriladi. Chegara berilmasa, **aniqmas integral** hisoblanadi.
+Natija: `∫₀¹ x² dx = 1/3`. Çegaralar `x = a .. b` körinişida beriladi. Çegara berilmasa, **aniqmas integral** hisoblanadi.
 
 ### Aniq integral: köphad
 
@@ -382,7 +382,7 @@ Natija:
 ∫ cos(x) cos(2x) cos(3x) dx = (1/8) sin(2x) + (1/16) sin(4x) + (1/24) sin(6x) + x/4
 ```
 
-Qölda bu integralni olişda avval köpaytmani yiğindiga aylantiriş kerak: `cos x cos 3x = (cos 2x + cos 4x)/2`, keyin yana `cos 2x` ga köpaytirib, yana bir marta formulani qöllaymiz. Maple bu bütün zanjirni bir qadamda bajaradi. Natijani tekşiriş uçun uni differensiallaş yetarli: `diff` bizni boşlanğiç funksiyaga qaytarişi kerak.
+Qölda bu integralni olişda avval köpaytmani yiğindiga aylantiriş kerak: `cos x cos 3x = (cos 2x + cos 4x)/2`, keyin yana `cos 2x` ga köpaytirib, yana bir marta formulani qöllaymiz. Maple bu butun zanjirni bir qadamda bajaradi. Natijani tekşiriş uçun uni differensiallaş yetarli: `diff` bizni boşlanğiç funksiyaga qaytarişi kerak.
 
 ### Aniqmas integral: ratsional kasr
 
@@ -514,7 +514,7 @@ Bu yerda töttinçi argument örnida notöğri ifoda (`diff(x,x)*diff(s(x),x)`) 
 
 ## 16. Grafiklar: plot va implicitplot
 
-Dars davomida `plot` bilan bir necha grafik çizdik. Quyida har bir misolning kodi va natijasi (grafik) berilgan.
+Dars davomida `plot` bilan bir neça grafik çizdik. Quyida har bir misolning kodi va natijasi (grafik) berilgan.
 
 ### Funksiya grafigi: sin(x)/x
 
@@ -524,11 +524,11 @@ Yoğonligi va yorliqlari bilan:
 plot(sin(x)/x, x = -4*Pi .. 4*Pi, labels = [x, y], labelfont = [Times, ITALIC, 12], thickness = 3);
 ```
 
-![sin(x)/x funksiyasining grafigi, x oraliqi -4π dan 4π gacha](/images/maple/plot-sinc.svg)
+![sin(x)/x funksiyasining grafigi, x oraliqi -4π dan 4π gaça](/images/maple/plot-sinc.svg)
 
 Funksiya `x = 0` nuqtada uzilmaydi: `sin(x)/x` ning limiti `1` ga teng.
 
-### Bir nechta funksiya bir grafikda
+### Bir neçta funksiya bir grafikda
 
 ```maple
 plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
@@ -536,17 +536,17 @@ plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
 
 ![x^2-x+3 va 2x+3 funksiyalarining grafiklari](/images/maple/plot-parabola-line.svg)
 
-`y = 0 .. 30` chegarasi grafikni shu oraliqda ko'rsatadi, parabolaning qolgan qismi chizmadan tashqarida qoladi.
+`y = 0 .. 30` çegarasi grafikni şu oraliqda körsatadi, parabolaning qolgan qismi çizmadan taşqarida qoladi.
 
-### Parametrik egri chiziq
+### Parametrik egri çiziq
 
-`[x(t), y(t), t = a .. b]` ko'rinishida beriladi:
+`[x(t), y(t), t = a .. b]` körinişida beriladi:
 
 ```maple
 plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, labels = [x, y], color = purple, thickness = 6);
 ```
 
-![sin(2t) va cos(3t) parametrik egri chizig'i, x va y koordinatalari -1 dan 1 gacha](/images/maple/plot-lissajous.svg)
+![sin(2t) va cos(3t) parametrik egri çiziği, x va y koordinatalari -1 dan 1 gaça](/images/maple/plot-lissajous.svg)
 
 ### Kvadrat funksiya
 
@@ -556,11 +556,11 @@ plot([x^2-5*x+6], x = -10 .. 15, labels = [x, y]);
 
 ![x^2-5x+6 funksiyasining grafigi](/images/maple/plot-quadratic.svg)
 
-Parabola `x = 2` va `x = 3` nuqtalarda `x` o'qini kesadi, bular tenglama `x^2-5x+6 = 0` ning yechimlari.
+Parabola `x = 2` va `x = 3` nuqtalarda `x` öqini kesadi, bular tenglama `x^2-5x+6 = 0` ning yeçimlari.
 
-### Yashirin tenglama: implicitplot
+### Yaşirin tenglama: implicitplot
 
-Tenglama `y = f(x)` ko'rinishida bo'lmasa, `plots` paketidagi `implicitplot` ishlatiladi:
+Tenglama `y = f(x)` körinişida bölmasa, `plots` paketidagi `implicitplot` işlatiladi:
 
 ```maple
 with(plots):
@@ -569,9 +569,9 @@ implicitplot((1/4)*x^2-(1/2)*y^2 = 16, x = -20 .. 20, y = -16 .. 16);
 
 ![(1/4)x^2 - (1/2)y^2 = 16 giperbolasining grafigi](/images/maple/plot-hyperbola.svg)
 
-Natija ikki tarmoqli giperbola. Umumiy ko'rinishi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
+Natija ikki tarmoqli giperbola. Umumiy körinişi: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
 
-> Eslatma: `plot` buyrug'iga `infinity` bilan cheksiz oraliq berish o'rniga, chekli katta son bilan chegara bering, masalan `x = -40 .. 40`.
+> Eslatma: `plot` buyruğiğa `infinity` bilan çeksiz oraliq beriş örniga, çekli katta son bilan çegara bering, masalan `x = -40 .. 40`.
 
 ## Xulosa
 
@@ -585,7 +585,7 @@ Maple bilan işlaşning asosiy qoidasi oddiy: buyruq nomi iş turini bildiradi.
 | `solve` / `fsolve` | aniq / taqribiy yeçiş |
 | `seq` | ketma-ketlik tuziş |
 | `plot` | grafik çiziş (funksiya, parametrik egri) |
-| `implicitplot` | yashirin tenglama grafigi (`with(plots)` kerak) |
+| `implicitplot` | yaşirin tenglama grafigi (`with(plots)` kerak) |
 | `diff` / `Diff` | hosilani hisoblaş / yozib körsatiş |
 | `D` | funksiyaning hosilasi |
 | `int` / `Int` | integralni hisoblaş / yozib körsatiş |

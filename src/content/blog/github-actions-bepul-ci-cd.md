@@ -1,40 +1,41 @@
 ---
-title: "GitHub Actions bilan bepul CI/CD: portfolio'dan production'gacha"
-description: "GitHub Actions yordamida portfolio va blog uchun bepul CI/CD qurish — ci.yml va deploy.yml'ni qator-qator tushuntirish, tekshiruv, build va GitHub Pages'ga avtomatik deploy."
+title: "GitHub Actions bilan bepul CI/CD: portfoliödan production'gaça"
+description: "GitHub Actions yordamida portfolio va blog uçun bepul CI/CD quriş — ci.yml va deploy.yml'ni qator-qator tuşuntiriş, tekşiruv, build va GitHub Pages'ga avtomatik deploy."
 pubDate: 2026-11-12
+updatedDate: 2026-11-14
 tags: ["github-actions", "ci-cd", "github-pages", "astro", "devops"]
 ---
 
 ## CI/CD nima va nega kerak?
 
-CI/CD — bu kodni tekshirish va saytga chiqarishni avtomatlashtirish. Qo'lda qiladigan har bir qadam — xato qilish uchun imkoniyat.
+CI/CD — bu kodni tekşiriş va saytga çiqarişni avtomatlaştiriş. Qölda qiladigan har bir qadam — xato qiliş uçun imkoniyat.
 
-Portfolio'da CI/CD bo'lmasa, odatda shunday bo'ladi: kodni yozasan, build qilishni unatasan, sayt buzilganini bir hafta keyin bilasan.
+Portfoliöda CI/CD bölmasa, odatda şunday böladi: kodni yozasan, build qilişni unatasan, sayt buzilganini bir hafta keyin bilasan.
 
-CI/CD bo'lsa, tartib sade:
+CI/CD bölsa, tartib sade:
 
 1. Kodni branch'ga push qilasan.
-2. GitHub avtomatik tekshiradi: type-check, build, qidiruv indeksi.
-3. Hammasi joyida bo'lsa — `master`'ga push qilishing bilan sayt o'zi yangilanadi.
+2. GitHub avtomatik tekşiradi: type-check, build, qidiruv indeksi.
+3. Hammasi joyida bölsa — `master`'ga push qilişing bilan sayt özi yangilanadi.
 
-Ya'ni sen faqat kod yozasan, qolganini mashina bajaradi. Va bularning hammasi shaxsiy portfolio uchun bepul.
+Ya'ni sen faqat kod yozasan, qolganini maşina bajaradi. Va bularning hammasi şaxsiy portfolio uçun bepul.
 
 ## Loyihada ikki workflow bor
 
-Bu loyihada ikkita workflow ishlatiladi:
+Bu loyihada ikkita workflow işlatiladi:
 
-| Fayl | Qachon ishlaydi | Vazifasi |
+| Fayl | Qaçon işlaydi | Vazifasi |
 | --- | --- | --- |
-| `.github/workflows/ci.yml` | `master`'dan boshqa branch'ga push, pull request | Tekshiruv |
-| `.github/workflows/deploy.yml` | `master`'ga push, qo'lda ishga tushirish | Build + GitHub Pages'ga chiqarish |
+| `.github/workflows/ci.yml` | `master`'dan boşqa branch'ga push, pull request | Tekşiruv |
+| `.github/workflows/deploy.yml` | `master`'ga push, qölda işga tuşiriş | Build + GitHub Pages'ga çiqariş |
 
-Ajratishning sababi sade: tekshiruvdan o'tmagan kod production'ga chiqmasligi kerak.
+Ajratişning sababi sade: tekşiruvdan ötmagan kod production'ga çiqmasligi kerak.
 
-## ci.yml: qator-qator tushuntirish
+## ci.yml: qator-qator tuşuntiriş
 
-Keling, tekshiruv workflow'ni qismlarga bo'lib ko'ramiz.
+Keling, tekşiruv workflow'ni qismlarga bölib köramiz.
 
-### 1. Nom va ishga tushish sharti
+### 1. Nom va işga tuşiş şarti
 
 ```yaml
 name: CI
@@ -44,9 +45,9 @@ on:
   pull_request:
 ```
 
-`name` — Actions sahifasida ko'rinadigan nom. `on` — workflow qachon ishlaydi.
+`name` — Actions sahifasida körinadigan nom. `on` — workflow qaçon işlaydi.
 
-Bu yerda qoida shunday: `master`'dan boshqa har qanday branch'ga push bo'lsa, yoki pull request ochilsa — tekshiruv boshlanadi. `master`'ning o'zi bu yerda tekshirilmaydi, chunki u deploy workflow'ning ishi.
+Bu yerda qoida şunday: `master`'dan boşqa har qanday branch'ga push bölsa, yoki pull request oçilsa — tekşiruv boşlanadi. `master`'ning özi bu yerda tekşirilmaydi, çunki u deploy workflow'ning işi.
 
 ### 2. Ruxsatlar va muhit
 
@@ -55,9 +56,9 @@ permissions:
   contents: read
 ```
 
-Tekshiruv workflow'ga faqat o'qish ruxsati kerak. U hech narsani o'zgartirmaydi, faqat tekshiradi. Bu xavfsizlik uchun yaxshi odat: har bir workflow'ga faqat kerakli ruxsatni ber.
+Tekşiruv workflow'ga faqat öqiş ruxsati kerak. U heç narsani özgartirmaydi, faqat tekşiradi. Bu xavfsizlik uçun yaxşi odat: har bir workflow'ga faqat kerakli ruxsatni ber.
 
-### 3. Ish muhiti
+### 3. Iş muhiti
 
 ```yaml
 jobs:
@@ -65,11 +66,11 @@ jobs:
     runs-on: ubuntu-latest
 ```
 
-`jobs` — bajariladigan ishlar ro'yxati. Bu yerda bitta ish bor: `check`.
+`jobs` — bajariladigan işlar röyxati. Bu yerda bitta iş bor: `check`.
 
-`runs-on: ubuntu-latest` — ish GitHub'ning Ubuntu serverida ishlaydi. Portfolio uchun Linux yetarli, tez va bepul.
+`runs-on: ubuntu-latest` — iş GitHub'ning Ubuntu serverida işlaydi. Portfolio uçun Linux yetarli, tez va bepul.
 
-### 4. Kodni olish va Bun o'rnatish
+### 4. Kodni oliş va Bun örnatiş
 
 ```yaml
     steps:
@@ -79,22 +80,22 @@ jobs:
           bun-version: latest
 ```
 
-Har bir workflow ikki qadamdan boshlanadi:
+Har bir workflow ikki qadamdan boşlanadi:
 
-- `checkout` — repo'dagi kodni serverga yuklaydi.
-- `setup-bun` — Bun'ni o'rnatadi, chunki loyiha Bun bilan ishlaydi.
+- `checkout` — repödagi kodni serverga yuklaydi.
+- `setup-bun` — Bun'ni örnatadi, çunki loyiha Bun bilan işlaydi.
 
-Agar loyiha pnpm yoki npm'da bo'lsa, bu qadam o'zgaradi, mantiq esa bir xil: avval kod, keyin package manager.
+Agar loyiha pnpm yoki npm'da bölsa, bu qadam özgaradi, mantiq esa bir xil: avval kod, keyin package manager.
 
-### 5. Bog'liqliklarni o'rnatish
+### 5. Boğliqliklarni örnatiş
 
 ```yaml
       - run: bun install --frozen-lockfile
 ```
 
-`--frozen-lockfile` — juda muhim flag. U `bun.lock` faylidagi versiyalarni aynan o'rnatadi.
+`--frozen-lockfile` — juda muhim flag. U `bun.lock` faylidagi versiyalarni aynan örnatadi.
 
-Nega kerak? Mahalliy kompyuteringda bir versiya, serverda boshqa versiya bo'lsa — build bir joyda ishlaydi, bir joyda ishlamaydi. Frozen lockfile shu muammoni yo'q qiladi.
+Nega kerak? Mahalliy kompyuteringda bir versiya, serverda boşqa versiya bölsa — build bir joyda işlaydi, bir joyda işlamaydi. Frozen lockfile şu muammoni yöq qiladi.
 
 ### 6. Type-check va build
 
@@ -103,18 +104,18 @@ Nega kerak? Mahalliy kompyuteringda bir versiya, serverda boshqa versiya bo'lsa 
       - run: bun run build
 ```
 
-Bu ikki qadam — tekshiruvning yuragi:
+Bu ikki qadam — tekşiruvning yuragi:
 
-- `check` — Astro va TypeScript xatolarini topadi. Tip xato bo'lsa, build'ga ham o'tilmaydi.
-- `build` — saytni to'liq yig'adi: sahifalar, OG rasmlar, RSS, sitemap va Pagefind qidiruv indeksi.
+- `check` — Astro va TypeScript xatolarini topadi. Tip xato bölsa, build'ga ham ötilmaydi.
+- `build` — saytni töliq yiğadi: sahifalar, OG rasmlar, RSS, sitemap va Pagefind qidiruv indeksi.
 
-Agar shu ikki qadamdan biri yiqilsa — pull request'ni merge qilishdan oldin xatoni bilasan.
+Agar şu ikki qadamdan biri yiqilsa — pull request'ni merge qilişdan oldin xatoni bilasan.
 
-## deploy.yml: qator-qator tushuntirish
+## deploy.yml: qator-qator tuşuntiriş
 
-Deploy workflow faqat `master`'da ishlaydi.
+Deploy workflow faqat `master`'da işlaydi.
 
-### 1. Ishga tushish sharti
+### 1. Işga tuşiş şarti
 
 ```yaml
 name: Deploy
@@ -124,7 +125,7 @@ on:
   workflow_dispatch:
 ```
 
-`push` — `master`'ga push bo'lsa, deploy boshlanadi. `workflow_dispatch` — Actions sahifasidan tugma bilan qo'lda ishga tushirish mumkin. Bu qulay: ba'zida kod o'zgarmagan bo'lsa ham saytni qayta yig'ish kerak bo'ladi.
+`push` — `master`'ga push bölsa, deploy boşlanadi. `workflow_dispatch` — Actions sahifasidan tugma bilan qölda işga tuşiriş mumkin. Bu qulay: ba'zida kod özgarmagan bölsa ham saytni qayta yiğiş kerak böladi.
 
 ### 2. Ruxsatlar
 
@@ -135,13 +136,13 @@ permissions:
   id-token: write
 ```
 
-Deploy uchun uchta ruxsat kerak:
+Deploy uçun uçta ruxsat kerak:
 
-- `contents: read` — kodni o'qish.
-- `pages: write` — GitHub Pages'ga yozish.
-- `id-token: write` — GitHub'ning deploy mexanizmi uchun token.
+- `contents: read` — kodni öqiş.
+- `pages: write` — GitHub Pages'ga yoziş.
+- `id-token: write` — GitHub'ning deploy mexanizmi uçun token.
 
-Bu ruxsatlarsiz deploy ishlamaydi. Ko'p boshlovchilar aynan shu joyda qolib ketadi.
+Bu ruxsatlarsiz deploy işlamaydi. Köp boşlovçilar aynan şu joyda qolib ketadi.
 
 ### 3. Muhit
 
@@ -151,9 +152,9 @@ concurrency:
   cancel-in-progress: false
 ```
 
-`concurrency` — bir vaqtning o'zida bitta deploy ishlashini ta'minlaydi. Agar ikki marta tez-tez push qilsang, ikkinchi deploy birinchisini to'xtatib qo'ymaydi — navbatda kutadi. Sayt yarim yig'ilgan holda qolmaydi.
+`concurrency` — bir vaqtning özida bitta deploy işlaşini ta'minlaydi. Agar ikki marta tez-tez push qilsang, ikkinçi deploy birinçisini töxtatib qöymaydi — navbatda kutadi. Sayt yarim yiğilgan holda qolmaydi.
 
-### 4. Build ishchi
+### 4. Build işçi
 
 ```yaml
 jobs:
@@ -171,11 +172,11 @@ jobs:
           path: dist/
 ```
 
-Bu qadamlar CI'dagi kabi boshlanadi, lekin oxirida farq bor: `upload-pages-artifact` — yig'ilgan `dist/` papkasini GitHub Pages uchun artefakt sifatida yuklaydi.
+Bu qadamlar CI'dagi kabi boşlanadi, lekin oxirida farq bor: `upload-pages-artifact` — yiğilgan `dist/` papkasini GitHub Pages uçun artefakt sifatida yuklaydi.
 
-Ya'ni build natijasi vaqtincha saqlanadi, keyingi ish uni olib saytga chiqaradi.
+Ya'ni build natijasi vaqtinça saqlanadi, keyingi iş uni olib saytga çiqaradi.
 
-### 5. Deploy ishchi
+### 5. Deploy işçi
 
 ```yaml
   deploy:
@@ -189,13 +190,13 @@ Ya'ni build natijasi vaqtincha saqlanadi, keyingi ish uni olib saytga chiqaradi.
         uses: actions/deploy-pages@v4
 ```
 
-`needs: build` — deploy faqat build muvaffaqiyatli bo'lsa boshlanadi. Build yiqilsa, eski sayt o'z joyida turadi — buzilgan versiya chiqmaydi.
+`needs: build` — deploy faqat build muvaffaqiyatli bölsa boşlanadi. Build yiqilsa, eski sayt öz joyida turadi — buzilgan versiya çiqmaydi.
 
-`environment: github-pages` — GitHub Pages muhiti. `url` — deploy'dan keyin sayt manzili shu yerda ko'rinadi.
+`environment: github-pages` — GitHub Pages muhiti. `url` — deploy'dan keyin sayt manzili şu yerda körinadi.
 
-## Pull request ochishdan oldin mahalliy tekshiruv
+## Pull request oçişdan oldin mahalliy tekşiruv
 
-CI bor degani, mahalliy tekshirmaslik mumkin degani emas. Pull request ochishdan oldin har doim shu uchta buyruqni ishga tushirgin:
+CI bor degani, mahalliy tekşirmaslik mumkin degani emas. Pull request oçişdan oldin har doim şu uçta buyruqni işga tuşirgin:
 
 ```bash
 bun install
@@ -203,17 +204,17 @@ bun run check
 bun run build
 ```
 
-Agar mahalliy build o'tsa, CI ham odatda o'tadi. Agar mahalliy build yiqilsa — CI ham yiqiladi, vaqt ketadi.
+Agar mahalliy build ötsa, CI ham odatda ötadi. Agar mahalliy build yiqilsa — CI ham yiqiladi, vaqt ketadi.
 
-## Eng ko'p uchraydigan 5 xato
+## Eng köp uçraydigan 5 xato
 
-| Xato | Sababi | Yechimi |
+| Xato | Sababi | Yeçimi |
 | --- | --- | --- |
-| Build mahalliy ishlaydi, CI'da yiqiladi | Lockfile'da versiya farqi | `bun install --frozen-lockfile` ishlat |
-| Pages ruxsati yo'q | `permissions`'da `pages: write` yo'q | Deploy workflow'ga qo'sh |
-| Sayt oq sahifa ko'rsatadi | `base` yo'li noto'g'ri | `astro.config.mjs`'da `base` ni tekshir |
-| Qidiruv ishlamaydi | Pagefind faqat build'da ishlaydi | `bun run preview` bilan tekshir, `dev`'da emas |
-| Ikkita deploy to'qnashdi | `concurrency` yo'q | `group: pages` qo'sh |
+| Build mahalliy işlaydi, CI'da yiqiladi | Lockfile'da versiya farqi | `bun install --frozen-lockfile` işlat |
+| Pages ruxsati yöq | `permissions`'da `pages: write` yöq | Deploy workflow'ga qöş |
+| Sayt oq sahifa körsatadi | `base` yöli notöğri | `astro.config.mjs`'da `base` ni tekşir |
+| Qidiruv işlamaydi | Pagefind faqat build'da işlaydi | `bun run preview` bilan tekşir, `dev`'da emas |
+| Ikkita deploy töqnaşdi | `concurrency` yöq | `group: pages` qöş |
 
 ## Nimalarni commit qilmaslik kerak?
 
@@ -223,15 +224,15 @@ node_modules/
 .astro/
 ```
 
-Bular build natijasi yoki mahalliy fayllar. Ular repo'ni og'irlashtiradi va deploy'ni buzadi. `.gitignore`'da borligini tekshirgin.
+Bular build natijasi yoki mahalliy fayllar. Ular repöni oğirlaştiradi va deploy'ni buzadi. `.gitignore`'da borligini tekşirgin.
 
 ## Xulosa
 
-Yaxshi CI/CD murakkab bo'lishi shart emas:
+Yaxşi CI/CD murakkab bölişi şart emas:
 
-1. **CI** — har bir push'da tekshir.
-2. **Deploy** — faqat `master`'da, faqat build o'tsa.
-3. **Frozen lockfile** — versiyalar bir xil bo'lsin.
+1. **CI** — har bir push'da tekşir.
+2. **Deploy** — faqat `master`'da, faqat build ötsa.
+3. **Frozen lockfile** — versiyalar bir xil bölsin.
 4. **Ruxsatlar** — har bir workflow'ga faqat kerakli ruxsat.
 
-Bir marta sozlab qo'ysang, keyin har bir maqola va har bir o'zgarish avtomatik, xavfsiz va tez production'ga chiqadi.
+Bir marta sozlab qöysang, keyin har bir maqola va har bir özgariş avtomatik, xavfsiz va tez production'ga çiqadi.

@@ -1,7 +1,8 @@
-﻿---
+---
 title: "GTA 6 haqida töliq ma'lumot: çiqiş sanasi, narxi, pre-order va qança pul ketgani"
 description: "Grand Theft Auto VI: 19-noyabr çiqiş sanasi, Standard va Ultimate naşrlar narxi, pre-order bonuslari, pre-load, platformalar, hikoya va budjet haqida rasmiy manbalarga asoslangan töliq tahlil."
 pubDate: 2026-11-07
+updatedDate: 2026-11-14
 tags: ["gta6", "rockstar", "oyinlar", "take-two", "pre-order"]
 ---
 
@@ -29,7 +30,7 @@ GTA 6 uçun dastlab 2025-yilning kuzi nazarda tutilgan edi. Keyin sana ikki mart
 1. **2025-yil 2-may:** çiqiş 2026-yil 26-mayga köçirildi.
 2. **2025-yil 6-noyabr:** Rockstar sanani yana köçirib, **19-noyabr 2026** deb belgiladi.
 
-Oxirgi sana özgarmay turibdi. Take-Two (Rockstar'ning egasi) 2026-yil avgustdagi moliyaviy hisobotida ham 19-noyabrni qayta tasdiqladi ([SEC hisoboti](https://www.sec.gov/Arçives/edgar/data/0000946581/000162828026054580/ttwo1q27earningsrelease.htm)).
+Oxirgi sana özgarmay turibdi. Take-Two (Rockstar'ning egasi) 2026-yil avgustdagi moliyaviy hisobotida ham 19-noyabrni qayta tasdiqladi ([SEC hisoboti](https://www.sec.gov/Archives/edgar/data/0000946581/000162828026054580/ttwo1q27earningsrelease.htm)).
 
 ## Platformalar: PC haqida nima deyiş mumkin?
 
@@ -63,7 +64,7 @@ Pre-orderlar **2026-yil 25-iyun** kuni mahalliy vaqt bilan yarim tunda oçildi. 
 
 ### Qutidagi nusxa: içida disk yöq
 
-Jismoniy nusxa ham bor, lekin u **code-in-box** formatida: qutida disk emas, yuklab oliş kodi böladi. Rockstar xabariga köra, bunday nusxalar dökonlarda **12-noyabrdan** sotuvga çiqişi kerak. Forbes yozişiça, alohida kolleksiya töplami ham bor: **The Goodtime State Vice City Collection**, narxi $399,99, lekin öyinning özi unga kirmaydi ([Forbes](https://www.forbes.com/sites/brianmazique/2026/10/28/gta-vis-physical-copy-has-a-twist---what-you-actually-get-at-launç/)).
+Jismoniy nusxa ham bor, lekin u **code-in-box** formatida: qutida disk emas, yuklab oliş kodi böladi. Rockstar xabariga köra, bunday nusxalar dökonlarda **12-noyabrdan** sotuvga çiqişi kerak. Forbes yozişiça, alohida kolleksiya töplami ham bor: **The Goodtime State Vice City Collection**, narxi $399,99, lekin öyinning özi unga kirmaydi ([Forbes](https://www.forbes.com/sites/brianmazique/2026/10/28/gta-vis-physical-copy-has-a-twist---what-you-actually-get-at-launch/)).
 
 ## Pre-load: 10-noyabr va 212 GB
 
@@ -124,8 +125,8 @@ GTA 6 — 19-noyabrda PS5 va Xbox Series X|S uçun çiqadigan, $79,99 dan boşla
 ## Manbalar
 
 - [Rockstar Games: GTA VI rasmiy sahifasi](https://www.rockstargames.com/VI)
-- [Rockstar Newswire: Pre-load 10-noyabrda boshlanadi](https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10)
-- [Rockstar Store: nashrlar va bonuslar](https://store.rockstargames.com/game/buy-gta-vi)
-- [Rockstar Support: platformalar va nashrlar](https://support.rockstargames.com/articles/4QfG4FmZCf5W1gS8jy4UVT/grand-theft-auto-vi-platform-editions-and-versions)
+- [Rockstar Newswire: Pre-load 10-noyabrda boşlanadi](https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10)
+- [Rockstar Store: naşrlar va bonuslar](https://store.rockstargames.com/game/buy-gta-vi)
+- [Rockstar Support: platformalar va naşrlar](https://support.rockstargames.com/articles/4QfG4FmZCf5W1gS8jy4UVT/grand-theft-auto-vi-platform-editions-and-versions)
 - [Take-Two 8-K hisoboti (2026-yil 7-avgust)](https://www.sec.gov/Arçives/edgar/data/0000946581/000162828026054580/ttwo1q27earningsrelease.htm)
 - [Forbes: GTA VI jismoniy nusxasi](https://www.forbes.com/sites/brianmazique/2026/10/28/gta-vis-physical-copy-has-a-twist---what-you-actually-get-at-launç/)

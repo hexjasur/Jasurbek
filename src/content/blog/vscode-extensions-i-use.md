@@ -1,4 +1,4 @@
-﻿---
+---
 title: "68 VS Code Extensions I Use: What They Do and Where to Get Them"
 description: "A personal list of 68 extensions installed in my VS Code profile, grouped by coding, Git, previews, APIs, themes, and small quality-of-life tools."
 pubDate: 2026-11-07
