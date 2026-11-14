@@ -128,7 +128,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       }
       try {
         const parsed = JSON.parse(raw);
-        const rootName = (rootNameInput?.value.trim() || 'RootResponse').replace(/[^a-zA-Z0-9_$]/g, '');
+        let rootName = (rootNameInput?.value.trim() || 'RootResponse').replace(/[^a-zA-Z0-9_$]/g, '');
+        if (!rootName || /^[0-9]/.test(rootName)) rootName = 'RootResponse';
         const interfaces = new Map<string, string>();
 
         if (Array.isArray(parsed)) {

@@ -14,8 +14,22 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
+  <div class="blog-intro">
+    <div class="blog-meta-date">First Published: 2026-11-13</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-14</div>
+  </div>
+
   <section class="tools-box">
-    <h2 class="page-title">📊 Markdown Table Visual Editor</h2>
+    <h2 class="page-title">
+      <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+        <path d="M3 9h18"></path>
+        <path d="M3 15h18"></path>
+        <path d="M9 3v18"></path>
+        <path d="M15 3v18"></path>
+      </svg>
+      Markdown Table Visual Editor
+    </h2>
     <p class="page-lead">
       Build GitHub Flavored Markdown tables in a spreadsheet-style grid. Everything runs in your browser; nothing is uploaded.
     </p>
@@ -53,10 +67,11 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       </div>
     </div>
     <label for="mt-import-text" class="field-label field-label-block">Paste here:</label>
-    <textarea id="mt-import-text" rows="6" style="font-family: ui-monospace, monospace;"></textarea>
+    <textarea id="mt-import-text" class="mt-textarea" placeholder="Paste your Markdown table, CSV, TSV or JSON array here..."></textarea>
     <div class="tools-buttons">
       <button type="button" class="btn" id="mt-apply">Apply to Grid</button>
       <button type="button" class="btn btn-secondary" id="mt-import-file-btn">Import File</button>
+      <button type="button" class="btn btn-secondary" id="mt-clear-import">Clear</button>
       <input type="file" id="mt-import-file" accept=".md,.markdown,.csv,.tsv,.txt,.json" hidden />
     </div>
     <p id="mt-import-error" class="mt-error" role="alert" hidden></p>
@@ -70,7 +85,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       <button type="button" role="tab" class="mt-tab" data-format="csv" aria-selected="false">CSV</button>
       <button type="button" role="tab" class="mt-tab" data-format="tsv" aria-selected="false">TSV</button>
     </div>
-    <textarea id="mt-output" readonly aria-label="Generated output" style="min-height: 180px; font-family: ui-monospace, monospace;"></textarea>
+    <textarea id="mt-output" class="mt-textarea" readonly aria-label="Generated output"></textarea>
     <div class="tools-buttons">
       <button type="button" class="btn" id="mt-copy">Copy</button>
       <button type="button" class="btn btn-secondary" id="mt-download">Download</button>
@@ -87,6 +102,14 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 </Layout>
 
 <style is:global>
+  .title-svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 0.35rem;
+    stroke: currentColor;
+  }
   .mt-toolbar { align-items: center; }
   .mt-size { font-size: 0.9rem; color: var(--text-soft); margin-left: auto; }
   .mt-scroll { overflow-x: auto; margin-top: 1rem; padding-bottom: 0.25rem; }
@@ -143,6 +166,30 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   }
   .mt-tab[aria-selected="true"] { background: var(--surface); color: var(--text-strong); font-weight: 700; }
   .mt-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+  .mt-textarea {
+    display: block;
+    width: 100%;
+    min-height: 220px;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text-strong);
+    font-size: 0.95rem;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    line-height: 1.55;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .mt-textarea:focus {
+    outline: none;
+    border-color: var(--focus);
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+  }
+  .mt-textarea[readonly] {
+    background: var(--surface-2);
+  }
 </style>
 
 <script>
@@ -152,17 +199,19 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   const MAX_HISTORY = 20;
 
-  let rows: string[][] = [['Header 1', 'Header 2', 'Header 3'], ['', '', ''], ['', '', '']];
-  let aligns: Align[] = [null, null, null];
-  let undoStack: Snapshot[] = [];
-  let redoStack: Snapshot[] = [];
-  let beforeEdit: Snapshot | null = null;
-  let activeFormat: Format = 'markdown';
+  function setupMarkdownTableEditor() {
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const grid = $<HTMLTableElement>('mt-grid');
+    const output = $<HTMLTextAreaElement>('mt-output');
+    if (!grid || !output) return;
 
-  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
-  const grid = $<HTMLTableElement>('mt-grid');
-  const output = $<HTMLTextAreaElement>('mt-output');
-  const sizeLabel = $<HTMLSpanElement>('mt-size');
+    let rows: string[][] = [['Header 1', 'Header 2', 'Header 3'], ['', '', ''], ['', '', '']];
+    let aligns: Align[] = [null, null, null];
+    let undoStack: Snapshot[] = [];
+    let redoStack: Snapshot[] = [];
+    let beforeEdit: Snapshot | null = null;
+    let activeFormat: Format = 'markdown';
+    const sizeLabel = $<HTMLSpanElement>('mt-size');
   const undoBtn = $<HTMLButtonElement>('mt-undo');
   const redoBtn = $<HTMLButtonElement>('mt-redo');
   const toast = $<HTMLSpanElement>('mt-toast');
@@ -576,6 +625,12 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   $<HTMLButtonElement>('mt-sample').addEventListener('click', loadSample);
   $<HTMLButtonElement>('mt-reset').addEventListener('click', resetTable);
 
+  $<HTMLButtonElement>('mt-clear-import').addEventListener('click', () => {
+    $<HTMLTextAreaElement>('mt-import-text').value = '';
+    importError.hidden = true;
+    $<HTMLTextAreaElement>('mt-import-text').focus();
+  });
+
   $<HTMLButtonElement>('mt-apply').addEventListener('click', () => {
     importError.hidden = true;
     try {
@@ -622,8 +677,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       flashToast('✓ Copied to clipboard!');
     } catch {
       output.select();
-      const ok = document.execCommand('copy');
-      flashToast(ok ? '✓ Copied to clipboard!' : 'Copy failed. Select the text and copy manually.');
+      flashToast('Please copy the selected text manually.');
     }
   });
 
@@ -646,4 +700,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   });
 
   refresh();
+  }
+
+  document.addEventListener('astro:page-load', setupMarkdownTableEditor);
 </script>

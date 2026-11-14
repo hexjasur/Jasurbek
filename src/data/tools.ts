@@ -25,8 +25,8 @@ export const toolsList: ToolEntry[] = [
   {
     id: 'credit-module-calculator',
     num: 8,
-    title: 'Kredit-Modul Hisoblagich (HEMIS / ECTS)',
-    description: "OTM talabalari uchun akademik qarzdorlik (qayta o'qish), fanlar farqi va 1 kredit qiymatini yillik kontrakt asosida aniq hisoblash kalkulyatori.",
+    title: 'Kredit-Modul Hisoblagiç (HEMIS / ECTS)',
+    description: "OTM talabalari uçun akademik qarzdorlik (qayta öqiş), fanlar farqi va 1 kredit qiymatini yillik kontrakt asosida aniq hisoblaş kalkulyatori.",
     slug: 'credit-module-calculator',
   },
   {

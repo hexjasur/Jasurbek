@@ -9,17 +9,18 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 <Layout 
   title={`Özbek alifbosi konvertori | ${SITE_CONFIG.author}`} 
-  description="Özbek matnini eski lotin (1995), yangi lotin (2026-yil 21-oktyabr) va kirill yozuvi orasida bepul, brauzerda ishlaydigan konvertor orqali almashtiring. Ma'lumotlaringiz serverga yuborilmaydi."
+  description="Özbek matnini eski lotin (1995), yangi lotin (2026-yil 21-oktyabr) va kirill yozuvi orasida bepul, brauzerda işlaydigan konvertor orqali almaştiring. Ma'lumotlaringiz serverga yuborilmaydi."
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
+  lang="uz"
 >
   <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytiş</a>
   </div>
 
   <div class="blog-intro">
-    <div class="blog-meta-date">Birinchi nashr: 2026-10-21</div>
-    <div class="blog-meta-date">Oxirgi yangilanish: 2026-11-11</div>
+    <div class="blog-meta-date">Birinçi naşr: 2026-10-21</div>
+    <div class="blog-meta-date">Oxirgi yangilaniş: 2026-11-14</div>
   </div>
 
   <section class="tools-box">
@@ -28,12 +29,12 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       Özbek alifbosi konvertori (2026-yil 21-oktyabr islohoti)
     </h2>
     <p class="page-lead">
-      Matnni eski lotin imlosi (1995), <strong>2026-yil 21-oktyabrda</strong> tasdiqlangan yangi lotin standarti (<strong>Ö, Ğ, Ç, Ş</strong> harflari bilan) va kirill yozuvi orasida erkin almashtiring.
+      Matnni eski lotin imlosi (1995), <strong>2026-yil 21-oktyabrda</strong> tasdiqlangan yangi lotin standarti (<strong>Ö, Ğ, Ç, Ş</strong> harflari bilan) va kirill yozuvi orasida erkin almaştiring.
     </p>
 
     <div class="tools-row">
       <label for="conversion-direction" class="field-label">
-        Yönalish:
+        Yönaliş:
       </label>
       <select id="conversion-direction" class="tools-select">
         <option value="old-to-new">Eski lotin (1995) &rarr; Yangi lotin (2026-yil 21-oktyabr)</option>
@@ -49,20 +50,20 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         <label for="input-text" class="field-label field-label-block">
           Kiritilgan matn:
         </label>
-        <textarea id="input-text" placeholder="Matnni shu yerga yozing yoki qo'ying..." spellcheck="false"></textarea>
+        <textarea id="input-text" placeholder="Matnni şu yerga yozing yoki qöying..." spellcheck="false"></textarea>
       </div>
       <div>
         <label for="output-text" class="field-label field-label-block">
           Natija:
         </label>
-        <textarea id="output-text" readonly aria-label="Natija" placeholder="Natija shu yerda darhol chiqadi..."></textarea>
+        <textarea id="output-text" readonly aria-label="Natija" placeholder="Natija şu yerda darhol çiqadi..."></textarea>
       </div>
     </div>
 
     <div class="tools-buttons">
-      <button class="btn" id="convert-btn">Hozir ögirish</button>
-      <button class="btn btn-secondary" id="copy-btn">Nusxa olish</button>
-      <button class="btn btn-secondary" id="clear-btn">Tozalash</button>
+      <button class="btn" id="convert-btn">Hozir ögiriş</button>
+      <button class="btn btn-secondary" id="copy-btn">Nusxa oliş</button>
+      <button class="btn btn-secondary" id="clear-btn">Tozalaş</button>
       <span id="copy-toast" class="copy-toast" role="status" aria-live="polite" style="display: none;">
         ✓ Buferga nusxalandi!
       </span>
@@ -144,7 +145,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   </section>
 
   <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytiş</a>
   </div>
 </Layout>
 
@@ -189,29 +190,30 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     };
 
     // Multi-character forms first: old digraphs and apostrophe letters.
+    const APOSTROPHES = "[ʻ'’`‘\\u02BC\\u02BB\\u00B4]";
     const latinDigraphs: [RegExp, string][] = [
-      [/O[ʻ'’`‘]/g, 'Ў'], [/o[ʻ'’`‘]/g, 'ў'],
-      [/G[ʻ'’`‘]/g, 'Ғ'], [/g[ʻ'’`‘]/g, 'ғ'],
-      [/SH/g, 'Ш'], [/Sh/g, 'Ш'], [/sh/g, 'ш'],
-      [/CH/g, 'Ч'], [/Ch/g, 'Ч'], [/ch/g, 'ч'],
-      [/TS/g, 'Ц'], [/Ts/g, 'Ц'], [/ts/g, 'ц'],
-      [/YO/g, 'Ё'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
-      [/YU/g, 'Ю'], [/Yu/g, 'Ю'], [/yu/g, 'ю'],
-      [/YA/g, 'Я'], [/Ya/g, 'Я'], [/ya/g, 'я'],
+      [new RegExp(`O${APOSTROPHES}`, "g"), "Ў"], [new RegExp(`o${APOSTROPHES}`, "g"), "ў"],
+      [new RegExp(`G${APOSTROPHES}`, "g"), "Ғ"], [new RegExp(`g${APOSTROPHES}`, "g"), "ғ"],
+      [/SH/g, "Ш"], [/Sh/g, "Ш"], [/sh/g, "ш"],
+      [/CH/g, "Ч"], [/Ch/g, "Ч"], [/ch/g, "ç"],
+      [/TS/g, "Ц"], [/Ts/g, "Ц"], [/ts/g, "ц"],
+      [/YO/g, "Ё"], [/Yo/g, "Ё"], [/yo/g, "ё"],
+      [/YU/g, "Ю"], [/Yu/g, "Ю"], [/yu/g, "ю"],
+      [/YA/g, "Я"], [/Ya/g, "Я"], [/ya/g, "я"],
     ];
 
     function oldToNew(text: string): string {
       return text
-        .replace(/O[ʻ'’`‘]/g, 'Ö')
-        .replace(/o[ʻ'’`‘]/g, 'ö')
-        .replace(/G[ʻ'’`‘]/g, 'Ğ')
-        .replace(/g[ʻ'’`‘]/g, 'ğ')
-        .replace(/SH/g, 'Ş')
-        .replace(/Sh/g, 'Ş')
-        .replace(/sh/g, 'ş')
-        .replace(/CH/g, 'Ç')
-        .replace(/Ch/g, 'Ç')
-        .replace(/ch/g, 'ç');
+        .replace(new RegExp(`O${APOSTROPHES}`, "g"), "Ö")
+        .replace(new RegExp(`o${APOSTROPHES}`, "g"), "ö")
+        .replace(new RegExp(`G${APOSTROPHES}`, "g"), "Ğ")
+        .replace(new RegExp(`g${APOSTROPHES}`, "g"), "ğ")
+        .replace(/SH/g, "Ş")
+        .replace(/Sh/g, "Ş")
+        .replace(/sh/g, "ş")
+        .replace(/CH/g, "Ç")
+        .replace(/Ch/g, "Ç")
+        .replace(/ch/g, "ç");
     }
 
     function newToOld(text: string): string {
