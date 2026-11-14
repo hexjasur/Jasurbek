@@ -2,7 +2,7 @@
 title: "Soliq nima? Özbekistonda soliqlar 2026: QQS, foyda, yer soliği, YaTT, MÇJ, AJ"
 description: "Özbekistonda 2026-yilgi asosiy soliqlar: kim tölaydi, stavka va çegaralar, muddatlar va bitta hisob-kitob misoli. Rasmiy manbalar bilan."
 pubDate: 2026-11-04
-updatedDate: 2026-11-14
+updatedDate: 2026-11-15
 tags: ["soliq", "uzbekistan", "iqtisodiyot", "biznes", "qqs"]
 ---
 
@@ -12,11 +12,22 @@ Maqola Özbekistondagi asosiy soliqlarni bir joyga yiğadi: kim tölaydi, stavka
 
 > **Holat sanasi: 2026-yil 14-noyabr.** Raqamlar 2026-yil sentyabrgaça bölgan özgarişlarni öz içiga oladi. Undan keyingisini [soliq.uz](https://soliq.uz) orqali tekşiring.
 
+## Qisqartmalar
+
+- **QQS** — qöşilgan qiymat soliği.
+- **BHM** — bazaviy hisoblaş miqdori. Köp çegaralar şu miqdorga boğlangan.
+- **YaTT** — yakka tartibdagi tadbirkor.
+- **MÇJ** — mas'uliyati çeklangan jamiyat.
+- **AJ** — aksiyadorlik jamiyati.
+- **JŞDS** — jismoniy şaxslardan olinadigan daromad soliği.
+- **ÖRQ** — Özbekiston Respublikasining qonuni. Masalan, ÖRQ-599 — Soliq kodeksi qonuni.
+- **mlrd** — milliard. **söm** — pul birligi (valyuta).
+
 ## Soliq nima?
 
 **Soliq** — davlat byudjetiga tölanadigan majburiy va qaytarilmaydigan pul tölovi. Asosiy qoidalar Soliq kodeksida. Kodeksning yangi tahriri [ÖRQ-599-son qonun](https://lex.uz/docs/-4674011) bilan tasdiqlangan; qonun 2020-yil 1-yanvardan kuçga kirgan.
 
-Soliq evaziga alohida xizmat bermaydi: pul umumiy byudjetga tuşadi. 2025-yilda byudjet daromadi **247,8 trln söm** bölgan, bu 2024-yilga nisbatan 24 foiz köp ([Kun.uz](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)). Eng katta uç manba:
+Soliq evaziga alohida xizmat bermaydi: pul umumiy byudjetga tuşadi. 2025-yilda byudjet daromadi **247,8 trln söm. bölgan, bu 2024-yilga nisbatan 24 foiz köp ([Kun.uz](https://kun.uz/en/news/2026/01/30/corporate-income-tax-emerges-as-largest-source-of-uzbekistans-budget-revenue)). Eng katta uç manba:
 
 | Soliq | 2025, trln söm | Ösiş | Uluşi* |
 | :--- | ---: | ---: | ---: |
@@ -123,8 +134,8 @@ Foyda, ijtimoiy soliq, JŞDS, aylanma va mol-mulk soliği muddatlari 2026-yil u�
 
 Şartlar: MÇJ, umumiy tartib, QQS 12%. Raqamlar öquv uçun tanlangan.
 
-1. Ulgurji bazadan tovar sotib oladi: 1 000 000 söm + QQS 12% (120 000) = **1 120 000 söm**.
-2. Mijozga sotadi: 1 500 000 söm + QQS 12% (180 000) = **1 680 000 söm**.
+1. Ulgurji bazadan tovar sotib oladi: 1 000 000 söm + QQS 12% (120 000) = **1 120 000 söm..
+2. Mijozga sotadi: 1 500 000 söm + QQS 12% (180 000) = **1 680 000 söm..
 3. Boşqa xarajatlar (ijara, kommunal va h.k.): 300 000 söm, QQSsiz.
 
 QQS tölovi:
@@ -140,7 +151,7 @@ Foyda = 1 500 000 − 1 000 000 − 300 000 = 200 000 söm
 Foyda soliği = 200 000 × 15% = 30 000 söm
 ```
 
-Bir oyda byudjetga jami: 60 000 + 30 000 = **90 000 söm**.
+Bir oyda byudjetga jami: 60 000 + 30 000 = **90 000 söm..
 
 Taqqoslaş: soddalaştirilgan 6% tartibda QQS = 1 500 000 × 6% = 90 000 söm, foyda soliği 0%. Şu raqamlarda ikkala tartib bir xil natija beradi. Natija xarid QQSi va xarajatlarning sotuvga nisbatiga qarab özgaradi. Hisob tölov muddatlarini va boşqa soliqlarni öz içiga olmaydi.
 

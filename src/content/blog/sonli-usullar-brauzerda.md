@@ -2,13 +2,13 @@
 title: "Sonli usullarni brauzerda örganiş: Numeric Methods interaktiv labi qanday işlaydi"
 description: "Numeric Methods: brauzerda işlaydigan interaktiv sonli usullar labi. Bisection, Newton, Simpson va boşqa usullar tajriba orqali örganiladi."
 pubDate: 2026-11-12
-updatedDate: 2026-11-14
+updatedDate: 2026-11-15
 tags: ["numeric-methods", "mathematics", "web", "education", "nextjs"]
 ---
 
 ## Muammo: sonli usullar faqat daftarda qoladi
 
-Oliy matematikada sonli usullar odatda şunday öreniladi: doskada formula, daftarda hisob, imtihonda javob.
+Oliy matematikada sonli usullar odatda şunday örganiladi: doskada formula, daftarda hisob, imtihonda javob.
 
 Formulani yodlaş mumkin, lekin usulning mohiyati tuşunilmaydi. Nega bisection sekin, lekin işonçli? Nega Newton tez, lekin ba'zan işlamay qoladi? Nega Simpson trapetsiyadan aniqroq?
 

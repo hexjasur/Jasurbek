@@ -1,8 +1,8 @@
 ---
-title: "Maple'da matematika: algebradan hosila va integralgaça — amaliy maşğulot misollari"
+title: "Maple'da matematika: soddalaştiriş, tenglamalar, hosila va integral"
 description: "Maple bilan soddalaştiriş, tenglama, matritsa, hosila va integral: har bir misolning kodi, natijasi va qölda tekşiruvi."
 pubDate: 2026-11-05
-updatedDate: 2026-11-14
+updatedDate: 2026-11-15
 tags: ["maple", "matematika", "programming", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -336,6 +336,8 @@ Int((1 + cos(x))^2, x = 0 .. Pi) = int((1 + cos(x))^2, x = 0 .. Pi);
 ```
 
 Natijalar: `2`, `0` va `3*Pi/2`. `sin x` ning `[0, π]` dagi yuzi `2`. Uçinçi misolda qavsni avval oçamiz: `(1 + cos x)^2 = 1 + 2cos x + cos^2 x`. Ularning integrallari ketma-ket `π`, `0` va `π/2` beradi, yiğindisi `3π/2`.
+
+![sin x funksiyasi grafigi va [0, π] oraliqdagi yuz, qiymati 2 ga teng](/images/blog/maple-math-basics-with-examples/sin-integral-area.svg)
 
 Xato: `int(cos(x), x = 0 .. Pi)` nolga teng. Bu yuza nol degani emas: `cos x` ning `[0, π/2]` dagi musbat va `[π/2, π]` dagi manfiy yuzlari bir-birini bekor qiladi. Integral işorali yuzni hisoblaydi.
 
