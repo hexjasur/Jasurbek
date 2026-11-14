@@ -20,7 +20,7 @@ const totalPosts = sortedPosts.length;
       Technical Articles & Notes | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-13</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-14</div>
     <div class="blog-meta-date">Total: {totalPosts} Published Posts</div>
 
     <p class="blog-desc">
@@ -83,7 +83,7 @@ const totalPosts = sortedPosts.length;
         <!-- Title & Description -->
         <div class="card-body">
           <h4 class="card-title">
-            <a href={`${baseUrl}blog/${post.id}`} class="card-title-link">
+            <a href={`${baseUrl}blog/${post.id}/`} class="card-title-link">
               {post.data.title}
             </a>
           </h4>
@@ -101,7 +101,7 @@ const totalPosts = sortedPosts.length;
               <span class="card-tag">#{tag}</span>
             ))}
           </div>
-          <a href={`${baseUrl}blog/${post.id}`} class="card-read-link" aria-label={`Read ${post.data.title}`}>
+          <a href={`${baseUrl}blog/${post.id}/`} class="card-read-link" aria-label={`Read ${post.data.title}`}>
             <span>Read</span>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
