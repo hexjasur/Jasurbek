@@ -16,6 +16,7 @@ const imageSizes: Record<string, [number, number]> = {
   'yolnoma-brand.webp': [1200, 675],
   'numeric-methods-main.webp': [1200, 600],
   'agents-md-readme.webp': [817, 696],
+  'izgara-admin-dashboard.jpg': [1919, 856],
 };
 const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200, 675];
 ---
@@ -32,8 +33,8 @@ const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200,
       Featured Projects & Software | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-14</div>
-    <div class="blog-meta-date">Total: {projects.length} Active Projects</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-15</div>
+    <div class="blog-meta-date">Total: {projects.length} Projects</div>
 
     <p class="blog-desc">
       Focused applications and developer tools built with intentionality — spanning cross-platform Tauri workspaces, numerical mathematics engines, and engineering workflows.
@@ -102,6 +103,12 @@ const sizeOf = (src: string) => imageSizes[src.split('/').pop() ?? ''] ?? [1200,
             {project.website && (
               <a href={project.website} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
                 <span>Live ↗</span>
+              </a>
+            )}
+
+            {project.slug === 'agents-md' && (
+              <a href={`${baseUrl}blog/agents-md-ai-project-guides`} class="btn btn-ghost" title="Installation & Usage Guide">
+                <span>Guide 📖</span>
               </a>
             )}
 
