@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-labelledby="t-title t-desc">
+  <title id="t-title">Dizayn tokenlarining uch qavati</title>
+  <desc id="t-desc">Chapda xom qiymatlar, o'rtada semantik tokenlar, o'ngda komponent tokenlari. Har bir strelka bir qavat ikkinchisiga var() orqali murojaat qilishini bildiradi.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2F4038"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" rx="12" fill="#FBF6EC"/>
+
+  <!-- Layer titles -->
+  <text x="140" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2F4038">1. Xom qiymatlar</text>
+  <text x="400" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2F4038">2. Semantik tokenlar</text>
+  <text x="660" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2F4038">3. Komponent tokenlari</text>
+
+  <!-- Layer 1 -->
+  <rect x="40" y="70" width="200" height="200" rx="10" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#2F4038">
+    <text x="60" y="110">sage-300  #C7D2B1</text>
+    <text x="60" y="145">clay-500  #B86752</text>
+  </g>
+  <text x="60" y="235" font-family="system-ui, sans-serif" font-size="13" fill="#3f5147">Qiymatlar faqat shu yerda</text>
+  <text x="60" y="255" font-family="system-ui, sans-serif" font-size="13" fill="#3f5147">yoziladi.</text>
+
+  <!-- Layer 2 -->
+  <rect x="300" y="70" width="200" height="200" rx="10" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#2F4038">
+    <text x="320" y="110">canvas  #F1E9DC</text>
+    <text x="320" y="138">paper   #FBF6EC</text>
+    <text x="320" y="166">ink     #2F4038</text>
+    <text x="320" y="194">primary → sage-300</text>
+    <text x="320" y="222">accent  → clay-500</text>
+  </g>
+
+  <!-- Layer 3 -->
+  <rect x="560" y="70" width="200" height="200" rx="10" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#2F4038">
+    <text x="580" y="110">card-bg     → paper</text>
+    <text x="580" y="138">card-border → ink</text>
+  </g>
+
+  <!-- Arrows: layer 3 -> 2 -> 1 meaning "refers to" -->
+  <line x1="245" y1="170" x2="295" y2="170" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="270" y="162" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2F4038">var()</text>
+  <line x1="505" y1="170" x2="555" y2="170" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="530" y="162" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2F4038">var()</text>
+
+  <!-- Bottom notes -->
+  <rect x="40" y="300" width="720" height="2" fill="#C7D2B1"/>
+  <text x="40" y="335" font-family="system-ui, sans-serif" font-size="14" fill="#2F4038">Komponentlar bg-paper, text-ink, bg-accent kabi klasslarni ishlatadi.</text>
+  <text x="40" y="360" font-family="system-ui, sans-serif" font-size="14" fill="#B86752">Rang özgarsa, faqat 1-qavatdagi qiymat özgaradi. Qolgan qavatlar var() orqali özi yangilanadi.</text>
+</svg>

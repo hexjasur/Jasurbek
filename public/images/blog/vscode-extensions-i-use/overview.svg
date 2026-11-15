@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="vsc-title vsc-desc">
+  <title id="vsc-title">VS Code profile: 68 extensions in seven categories</title>
+  <desc id="vsc-desc">Seven boxes, one per category, with the number of extensions in each: Editing and formatting 14, Languages and formats 16, Git and GitHub 6, APIs and data 4, Previews and servers 13, Productivity and feedback 8, Themes and appearance 7. The boxes add up to 68.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .head { fill: #18181b; font-size: 22px; font-weight: 700; }
+    .box { fill: #f4f4f5; stroke: #52525b; stroke-width: 1.5; }
+    .label { fill: #18181b; font-size: 15px; font-weight: 600; }
+    .count { fill: #3f3f46; font-size: 14px; }
+    @media (prefers-color-scheme: dark) {
+      .head { fill: #f4f4f5; }
+      .box { fill: #27272a; stroke: #a1a1aa; }
+      .label { fill: #f4f4f5; }
+      .count { fill: #d4d4d8; }
+    }
+  </style>
+  <text class="head" x="480" y="50" text-anchor="middle">VS Code profile: 68 extensions</text>
+
+  <rect class="box" x="40" y="90" width="200" height="100" rx="10"/>
+  <text class="label" x="140" y="136" text-anchor="middle">Editing and formatting</text>
+  <text class="count" x="140" y="164" text-anchor="middle">14 extensions</text>
+
+  <rect class="box" x="266" y="90" width="200" height="100" rx="10"/>
+  <text class="label" x="366" y="136" text-anchor="middle">Languages and formats</text>
+  <text class="count" x="366" y="164" text-anchor="middle">16 extensions</text>
+
+  <rect class="box" x="492" y="90" width="200" height="100" rx="10"/>
+  <text class="label" x="592" y="136" text-anchor="middle">Git and GitHub</text>
+  <text class="count" x="592" y="164" text-anchor="middle">6 extensions</text>
+
+  <rect class="box" x="718" y="90" width="200" height="100" rx="10"/>
+  <text class="label" x="818" y="136" text-anchor="middle">APIs and data</text>
+  <text class="count" x="818" y="164" text-anchor="middle">4 extensions</text>
+
+  <rect class="box" x="154" y="240" width="200" height="100" rx="10"/>
+  <text class="label" x="254" y="286" text-anchor="middle">Previews and servers</text>
+  <text class="count" x="254" y="314" text-anchor="middle">13 extensions</text>
+
+  <rect class="box" x="380" y="240" width="200" height="100" rx="10"/>
+  <text class="label" x="480" y="286" text-anchor="middle">Productivity and feedback</text>
+  <text class="count" x="480" y="314" text-anchor="middle">8 extensions</text>
+
+  <rect class="box" x="606" y="240" width="200" height="100" rx="10"/>
+  <text class="label" x="706" y="286" text-anchor="middle">Themes and appearance</text>
+  <text class="count" x="706" y="314" text-anchor="middle">7 extensions</text>
+</svg>

@@ -94,6 +94,10 @@ const jsonLd = {
 
     <p id="bgr-error" class="error-text" role="alert" hidden></p>
 
+    <p class="bgr-disclaimer-note">
+      <strong>Notice &amp; Disclaimer:</strong> Images are transmitted securely via HTTPS to external processing endpoints (remove.bg / poof.bg) strictly to isolate the background and are never stored or retained on our servers. You remain solely responsible for the images you upload and the rights associated with them. See our <a href={`${baseUrl}entry/privacy_policy#web-tools-disclaimer`}>Web Tools Disclaimer</a>.
+    </p>
+
     <!-- Side-by-Side Preview Container -->
     <div id="bgr-preview-container" class="bgr-preview-container" hidden>
       <div class="bgr-preview-grid">
@@ -220,6 +224,17 @@ const jsonLd = {
     font-size: 0.85rem;
     color: var(--text-muted, #57606a);
     margin: 0;
+  }
+  .bgr-disclaimer-note {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #57606a);
+    line-height: 1.5;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .bgr-disclaimer-note a {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
   }
   .bgr-status-box {
     display: flex;

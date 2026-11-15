@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 390" role="img" aria-labelledby="t1 d1">
+  <title id="t1">Birlik aylanada sin x = 1/2 yechimlari</title>
+  <desc id="d1">Birlik aylana ichida ikki nuqta: burchagi π/6 (30 gradus) va 5π/6 (150 gradus) bo'lgan nuqtalar y = 1/2 gorizontal chizig'ida joylashgan. Ularning x koordinatalari √3/2 va −√3/2. Umumiy yechim: x = π/6 + 2πk va x = 5π/6 + 2πk, bu yerda k butun son.</desc>
+  <rect width="440" height="390" fill="#F1E9DC"/>
+  <circle cx="200" cy="190" r="150" fill="#FBF6EC" stroke="#2F4038" stroke-width="2"/>
+  <line x1="20" y1="190" x2="420" y2="190" stroke="#1F2328" stroke-width="1"/>
+  <line x1="200" y1="20" x2="200" y2="360" stroke="#1F2328" stroke-width="1"/>
+  <polygon points="420,190 412,186 412,194" fill="#1F2328"/>
+  <polygon points="200,20 196,28 204,28" fill="#1F2328"/>
+  <text x="414" y="182" font-family="sans-serif" font-size="14" fill="#1F2328">x</text>
+  <text x="208" y="26" font-family="sans-serif" font-size="14" fill="#1F2328">y</text>
+  <line x1="40" y1="115.00" x2="380" y2="115.00" stroke="#B86752" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="384" y="133.00" font-family="sans-serif" font-size="14" fill="#B86752">y = 1/2</text>
+  <line x1="200" y1="190" x2="329.90" y2="115.00" stroke="#2F4038" stroke-width="2"/>
+  <line x1="200" y1="190" x2="70.10" y2="115.00" stroke="#2F4038" stroke-width="2"/>
+  <path d="M 245 190 A 45 45 0 0 0 238.97 167.50" fill="none" stroke="#2F4038" stroke-width="1.5"/>
+  <path d="M 161.03 167.50 A 45 45 0 0 0 155 190" fill="none" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="253" y="178" font-family="sans-serif" font-size="14" fill="#1F2328">π/6</text>
+  <text x="115" y="168" font-family="sans-serif" font-size="14" fill="#1F2328">5π/6</text>
+  <circle cx="329.90" cy="115.00" r="5" fill="#B86752"/>
+  <circle cx="70.10" cy="115.00" r="5" fill="#B86752"/>
+  <text x="329.90" y="101.00" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1F2328">(√3/2, 1/2)</text>
+  <text x="70.10" y="101.00" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1F2328">(−√3/2, 1/2)</text>
+  <text x="220" y="208" font-family="sans-serif" font-size="13" fill="#1F2328">0</text>
+  <text x="20" y="372" font-family="sans-serif" font-size="14" fill="#1F2328">sin x = 1/2:  x = π/6 + 2πk  yoki  x = 5π/6 + 2πk,  k ∈ ℤ</text>
+</svg>
