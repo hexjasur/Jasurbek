@@ -1,26 +1,41 @@
 {
-  "name": "jasurbek-haydarov",
+  "name": "jasurdev",
   "type": "module",
   "version": "3.6.5",
   "scripts": {
     "dev": "astro dev",
     "dev:host": "bun run dev -- --host 0.0.0.0",
+    "dev:tauri": "astro dev --port 1420",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "td": "tauri dev",
+    "tb": "tauri build",
+    "td:safe": "cross-env CARGO_BUILD_JOBS=1 tauri dev",
+    "tb:safe": "cross-env CARGO_BUILD_JOBS=1 tauri build",
+    "android:init": "tauri android init",
+    "android:dev": "tauri android dev",
+    "android:build": "tauri android build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
+    "@tauri-apps/api": "^2.12.4",
     "astro": "^5.7.0",
     "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@fontsource/dm-sans": "^5.3.0",
     "@fontsource/gelasio": "^5.3.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.0",
+    "@tauri-apps/cli": "^2.12.4",
+    "cross-env": "^10.1.0",
+    "husky": "^9.1.7",
     "pagefind": "^1.6.0",
     "satori": "^0.63.2",
     "tailwindcss": "^4.0.0",

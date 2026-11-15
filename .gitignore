@@ -1,6 +1,8 @@
 # Build output
 dist/
 .astro/
+src-tauri/target/
+src-tauri/gen/
 
 # Dependencies
 node_modules/
