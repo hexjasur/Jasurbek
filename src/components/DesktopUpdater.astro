@@ -1,0 +1,97 @@
+---
+/**
+ * Desktop-only update UI. On the website this renders nothing and loads nothing:
+ * the script only imports the desktop bundle when the Tauri runtime is present.
+ */
+---
+
+<script>
+  const w = window as Window & { __dskInit?: boolean };
+  if ('__TAURI_INTERNALS__' in window && !w.__dskInit) {
+    w.__dskInit = true;
+    import('../desktop/index').then(({ initDesktop }) => initDesktop());
+  }
+</script>
+
+<style is:global>
+  .dsk-dialog {
+    width: min(32rem, calc(100vw - 2rem));
+    max-height: min(80dvh, 40rem);
+    padding: 0;
+    border: 1px solid var(--border-color, #cfc6b4);
+    border-radius: 12px;
+    background: var(--card-bg, #fff);
+    color: var(--text-main, #2b2a26);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .dsk-dialog::backdrop { background: rgba(20, 18, 14, 0.45); }
+  .dsk-dialog > * { padding-inline: 1.25rem; }
+  .dsk-dialog > .dsk-title { padding-top: 1.25rem; }
+  .dsk-dialog > .dsk-actions { padding-bottom: 1.25rem; }
+  .dsk-title { margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-strong, #1f1e1b); }
+  .dsk-label { margin: 0.75rem 1.25rem 0.25rem; font-weight: 600; font-size: 0.9rem; }
+  .dsk-muted { margin: 0 0 0.5rem; font-size: 0.92rem; color: var(--text-soft, #5b5850); }
+  .dsk-notes {
+    flex: 1 1 auto;
+    min-height: 4rem;
+    max-height: 14rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    margin: 0 1.25rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: var(--flora-surface, #faf7f1);
+    font-size: 0.9rem;
+  }
+  .dsk-error { margin: 0.5rem 1.25rem 0; color: var(--danger, #a8402f); font-size: 0.9rem; }
+  .dsk-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+  .dsk-btn {
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--border-color, #cfc6b4);
+  }
+  .dsk-btn:disabled { opacity: 0.6; cursor: wait; }
+  .dsk-btn:focus-visible { outline: 3px solid var(--focus, #b86752); outline-offset: 2px; }
+  .dsk-btn-primary { background: var(--flora-green, #3d5a4a); color: #fff; border-color: transparent; }
+  .dsk-btn-secondary { background: transparent; color: var(--text-main, #2b2a26); }
+  .dsk-btn-floating {
+    background: var(--card-bg, #fff);
+    color: var(--text-main, #2b2a26);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+  }
+  .dsk-floating {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .dsk-status { margin: 0; font-size: 0.8rem; color: var(--text-soft, #5b5850); }
+
+  /* The update window replaces the site content entirely. */
+  .dsk-updater-window {
+    min-height: 100dvh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background: var(--bg-page, #faf7f1);
+    color: var(--text-main, #2b2a26);
+    font-family: inherit;
+  }
+  .dsk-panel { width: min(26rem, calc(100vw - 2rem)); padding: 1.5rem; }
+  .dsk-progress { width: 100%; height: 0.9rem; margin-top: 0.75rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .dsk-progress { transition: none; }
+  }
+</style>
