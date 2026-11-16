@@ -1,6 +1,8 @@
 # Build output
 dist/
 .astro/
+src-tauri/target/
+src-tauri/gen/
 
 # Dependencies
 node_modules/
@@ -18,6 +20,8 @@ pnpm-debug.log*
 .env.production
 .env.local
 .env.*.local
+
+keys
 
 # IDE & OS files
 .DS_Store

@@ -14,7 +14,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   <div class="blog-intro">
     <h2 class="page-title">Playground | {SITE_CONFIG.domain}</h2>
     <div class="blog-meta-date">First Published: 2026-11-02</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-02</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-17</div>
 
     <p class="blog-desc">
       A place for small things I build for fun: games, interaction experiments and UI ideas. No frameworks and no tracking,
@@ -25,11 +25,11 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   <h3 class="blog-entries-title section-gap">Experiments</h3>
 
   <div class="blog-grid">
-    {playgroundList.map((demo) => (
+    {[...playgroundList].sort((a, b) => b.num - a.num).map((demo) => (
       <article class="blog-card">
         <div class="blog-card-header">
           <span class="blog-card-num">{demo.num}.</span>
-          <a href={`${baseUrl}playground/${demo.slug}`}>{demo.title}</a>
+          <a href={demo.href ? `${baseUrl}${demo.href}` : `${baseUrl}playground/${demo.slug}`}>{demo.title}</a>
         </div>
         <p class="card-desc">{demo.description}</p>
       </article>

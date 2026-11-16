@@ -5,7 +5,7 @@ Instructions for AI coding agents working in this repository (Jasurbek Haydarov'
 ## Project overview
 
 - Static site built with **Astro 5**, **Tailwind CSS 4** and Markdown content collections.
-- Deployed to GitHub Pages: `site: https://hexjasur.github.io`, `base: /Jasurbek` (see `astro.config.mjs`).
+- Deployed to GitHub Pages: custom domain `https://jasurdev.uz`, served from the root path (no `base`; see `astro.config.mjs`). `public/CNAME` holds the domain.
 - Search is Pagefind (built after `astro build`), Open Graph images are generated at build time with Satori + sharp.
 - Package manager: **Bun** (`bun.lock`). pnpm also works.
 - Site-wide settings (domain, author, socials, SEO defaults) live in `src/config.ts`.
@@ -66,6 +66,8 @@ Rules:
 
 ## Blog posts
 
+Before writing or editing any post, read `docs/blog-writing.md` (structure, tone, pedagogy, checklist). Blog images and diagrams go in `public/images/blog/<post-slug>/` as SVG or optimized images with meaningful `alt` text.
+
 > **CRITICAL DATE RULE FOR AGENTS**: Every agent working in this repo MUST maintain dates strictly whenever creating or modifying blog content:
 > 1. **New post**: MUST set pubDate: YYYY-MM-DD to the CURRENT local date of creation. Never use past dates or placeholders.
 > 2. **Editing / Updating a post**: Whenever you touch, edit, expand, or revise an existing blog post, you **MUST ALWAYS** set or update updatedDate: YYYY-MM-DD to the CURRENT date of the revision. Do NOT change pubDate on updates; only set updatedDate.
@@ -89,7 +91,7 @@ Rules:
 - Start body sections at `##` (the page title is the `h1`). Use `###` for subsections so the table of contents works.
 - Post page, OG image, RSS entry, sitemap entry, tag pages and search entry are generated automatically. Do not add them by hand.
 - Factual posts (statistics, laws, rates, prices) must cite their sources with links, quote figures as the source states them, label your own calculations, and state the "as of" date. Prefer official sources (`lex.uz`, `gov.uz`, `stat.uz`, `soliq.uz`) over commercial blogs.
-- Internal links must include the base path, for example `/Jasurbek/tools/uzbek-alphabet`.
+- Internal links are site-root relative, for example `/tools/uzbek-alphabet`.
 
 ## Agent skills
 

@@ -1,0 +1,445 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Yozuv chempioni: o'zbek yozuvi tezlik testi | ${SITE_CONFIG.author}`}
+  description="60 soniyada 2026-yil islohot alifbosidagi so'zlarni (Ö, Ğ, Ş, Ç) imkon qadar tez va toğri yozing. Har xato harf sizga eslatiladi. Brauzerda, serversiz."
+  activePage="tools"
+  headerTitle={SITE_CONFIG.domain}
+  lang="uz"
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytiş</a>
+  </div>
+
+  <div class="blog-intro">
+    <div class="blog-meta-date">First Published: 2026-11-16</div>
+  </div>
+
+  <section class="tools-box typing-box">
+    <h2 class="page-title">
+      <svg class="title-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg> Yozuv chempioni
+    </h2>
+    <p class="page-lead">
+      60 soniyada imkon qadar köp so'zni yangi lotin alifbosida toğri yozing. Harflar: <strong>Ö, Ğ, Ş, Ç</strong>.
+      Xato qilsangiz, qaysi harf kerakligi darhol eslatiladi. Yozishni boşlaganda taymer ishlaydi.
+    </p>
+
+    <div class="typing-stats" aria-live="polite">
+      <span>Vaqt: <strong id="typing-time">60</strong> s</span>
+      <span>To'g'ri so'z: <strong id="typing-score">0</strong></span>
+      <span>Xato: <strong id="typing-errors">0</strong></span>
+      <span>Eng yaxshi: <strong id="typing-best">0</strong></span>
+    </div>
+
+    <div class="typing-stage">
+      <p id="typing-word" class="typing-word" aria-label="Yozish kerak bo'lgan so'z">Boşlaş tugmasini bosing</p>
+      <input
+        id="typing-input"
+        class="typing-input"
+        type="text"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label="So'zni shu yerga yozing"
+        placeholder="Şu yerga yozing..."
+      />
+      <p id="typing-hint" class="typing-hint" role="status" aria-live="polite">&nbsp;</p>
+    </div>
+
+    <div class="typing-keys" role="group" aria-label="Maxsus harflar">
+      <button type="button" class="typing-key" data-char="ö">Ö ö</button>
+      <button type="button" class="typing-key" data-char="ğ">Ğ ğ</button>
+      <button type="button" class="typing-key" data-char="ş">Ş ş</button>
+      <button type="button" class="typing-key" data-char="ç">Ç ç</button>
+    </div>
+
+    <div class="tools-buttons">
+      <button class="btn" id="typing-start" type="button">Boşlaş</button>
+      <button class="btn btn-secondary" id="typing-restart" type="button">Qaytadan</button>
+    </div>
+
+    <div id="typing-result" class="typing-result" hidden></div>
+  </section>
+
+  <section class="section-gap">
+    <h3 class="section-title">Eslab qöying: harf farqi</h3>
+    <div class="table-scroll">
+      <table class="alphabet-table">
+        <thead>
+          <tr>
+            <th>Harf</th>
+            <th>Oddiy belgi bilan adashtirmang</th>
+            <th>Qachon ishlatiladi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="reformed-char">Ö ö</td><td>o</td><td>Tutuqli o' ning yangi shakli (öqituvçi)</td></tr>
+          <tr><td class="reformed-char">Ğ ğ</td><td>g</td><td>Tutuqli g' ning yangi shakli (ğalaba)</td></tr>
+          <tr><td class="reformed-char">Ş ş</td><td>s</td><td>sh digrafi o'rniga (şahar)</td></tr>
+          <tr><td class="reformed-char">Ç ç</td><td>c</td><td>ch digrafi o'rniga (çoy)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="typing-footnote">
+      Alifboning rasmiy jadvali va matn konvertori: <a href={`${baseUrl}tools/uzbek-alphabet`}>Özbek alifbosi konvertori</a>.
+      Islohot haqida to'liq maqola: <a href={`${baseUrl}blog/uzbek-alphabet-2026/`}>Özbek alifbosi 2026</a>.
+    </p>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytiş</a>
+  </div>
+</Layout>
+
+<style>
+  .typing-box { text-align: center; }
+  .title-icon { display: inline-block; width: 1.1em; height: 1.1em; vertical-align: -0.15em; margin-right: 0.35rem; }
+  .typing-box .page-lead { max-width: 40rem; margin-inline: auto; }
+
+  .typing-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+  .typing-stats strong { color: var(--text-strong); font-variant-numeric: tabular-nums; }
+
+  .typing-stage { max-width: 34rem; margin: 0 auto; }
+
+  .typing-word {
+    min-height: 3.5rem;
+    margin: 0 0 1rem;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    word-break: break-word;
+    color: var(--text-main);
+  }
+  .typing-word .ok { color: var(--success, #4f7a5b); }
+  .typing-word .cur {
+    border-bottom: 3px solid var(--flora-orange, #b86752);
+    color: var(--text-strong);
+  }
+  .typing-word .rest { color: var(--text-faint, #8a8a8a); }
+  .typing-word.is-error { animation: typing-shake 0.3s; }
+
+  .typing-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface, #fff);
+    color: var(--text-main);
+  }
+  .typing-input:focus-visible { outline: 3px solid var(--focus, #b86752); outline-offset: 2px; }
+
+  .typing-hint {
+    min-height: 1.6rem;
+    margin: 0.75rem 0 0;
+    font-size: 0.95rem;
+    color: var(--danger, #a8402f);
+  }
+
+  .typing-keys {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .typing-key {
+    min-width: 4.5rem;
+    padding: 0.5rem 0.8rem;
+    font: inherit;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    border-bottom-width: 3px;
+    border-radius: 8px;
+    background: var(--card-bg, #fff);
+    color: var(--text-main);
+    cursor: pointer;
+  }
+  .typing-key:hover { background: var(--btn-bg-hover, #f3ece0); }
+  .typing-key:focus-visible { outline: 3px solid var(--focus, #b86752); outline-offset: 2px; }
+
+  .typing-result {
+    max-width: 34rem;
+    margin: 1.5rem auto 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg, #fff);
+    line-height: 1.7;
+  }
+  .typing-result[hidden] { display: none; }
+  .typing-result strong { color: var(--text-strong); }
+
+  .typing-footnote { margin-top: 0.75rem; font-size: 0.92rem; color: var(--text-soft); }
+
+  @keyframes typing-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .typing-word.is-error { animation: none; }
+  }
+</style>
+
+<script>
+  import { uzbekWords } from '../../data/uzbek-words';
+
+  const GAME_SECONDS = 60;
+  const BEST_KEY = 'uz-typing-best';
+
+  /** Hint shown when the player types the base letter instead of the reformed one. */
+  const SPECIAL_HINTS: Record<string, string> = {
+    'ö': 'Bu harf Ö. Oddiy o emas.',
+    'ğ': 'Bu harf Ğ. Oddiy g emas.',
+    'ş': 'Bu harf Ş. Oddiy s emas.',
+    'ç': 'Bu harf Ç. Oddiy c emas.',
+  };
+
+  function shuffle<T>(items: T[]): T[] {
+    const copy = [...items];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function readBest(): number {
+    try {
+      return Number(localStorage.getItem(BEST_KEY)) || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function saveBest(value: number) {
+    try {
+      localStorage.setItem(BEST_KEY, String(value));
+    } catch {
+      /* storage unavailable (private mode): the score simply is not kept */
+    }
+  }
+
+  let cleanup: (() => void) | undefined;
+
+  function setupTypingGame() {
+    cleanup?.();
+
+    const wordEl = document.getElementById('typing-word');
+    const input = document.getElementById('typing-input') as HTMLInputElement | null;
+    const hintEl = document.getElementById('typing-hint');
+    const timeEl = document.getElementById('typing-time');
+    const scoreEl = document.getElementById('typing-score');
+    const errorsEl = document.getElementById('typing-errors');
+    const bestEl = document.getElementById('typing-best');
+    const startBtn = document.getElementById('typing-start');
+    const restartBtn = document.getElementById('typing-restart');
+    const resultEl = document.getElementById('typing-result');
+    const keyButtons = document.querySelectorAll<HTMLButtonElement>('.typing-key');
+    if (!wordEl || !input || !hintEl || !timeEl || !scoreEl || !errorsEl || !bestEl || !startBtn || !restartBtn || !resultEl) return;
+
+    let pool: string[] = [];
+    let target = '';
+    let typed = '';
+    let score = 0;
+    let errors = 0;
+    let keystrokes = 0;
+    let correctKeystrokes = 0;
+    let remaining = GAME_SECONDS;
+    let timer: number | undefined;
+    let running = false;
+    let finished = false;
+    let best = readBest();
+
+    bestEl.textContent = String(best);
+
+    function nextWord() {
+      if (pool.length === 0) pool = shuffle(uzbekWords);
+      target = pool.pop() ?? '';
+      typed = '';
+      input!.value = '';
+      render();
+    }
+
+    /** Draw the target word: done letters, the current letter underlined, the rest dimmed. */
+    function render(flash = false) {
+      const done = document.createElement('span');
+      done.className = 'ok';
+      done.textContent = typed;
+
+      const current = document.createElement('span');
+      current.className = 'cur';
+      current.textContent = target[typed.length] ?? '';
+
+      const rest = document.createElement('span');
+      rest.className = 'rest';
+      rest.textContent = target.slice(typed.length + 1);
+
+      wordEl!.replaceChildren(done, current, rest);
+      wordEl!.setAttribute('aria-label', `Yozish kerak: ${target}`);
+      input!.value = typed;
+
+      if (flash) {
+        wordEl!.classList.remove('is-error');
+        void wordEl!.offsetWidth; // restart the CSS animation
+        wordEl!.classList.add('is-error');
+      }
+    }
+
+    function updateStats() {
+      timeEl!.textContent = String(remaining);
+      scoreEl!.textContent = String(score);
+      errorsEl!.textContent = String(errors);
+    }
+
+    function start() {
+      if (finished) return;
+      if (!target) nextWord();
+      if (running) return;
+      running = true;
+      timer = window.setInterval(() => {
+        remaining -= 1;
+        updateStats();
+        if (remaining <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame() {
+      window.clearInterval(timer);
+      running = false;
+      finished = true;
+      input!.disabled = true;
+
+      const accuracy = keystrokes ? Math.round((correctKeystrokes / keystrokes) * 100) : 0;
+      if (score > best) {
+        best = score;
+        saveBest(best);
+        bestEl!.textContent = String(best);
+      }
+
+      resultEl!.hidden = false;
+      resultEl!.innerHTML = '';
+      const lines = [
+        `Vaqt tugadi. To'g'ri so'zlar: <strong>${score}</strong>.`,
+        `Aniqlik: <strong>${accuracy}%</strong>, xatolar: <strong>${errors}</strong>.`,
+        `Eng yaxshi natija: <strong>${best}</strong>.`,
+      ];
+      resultEl!.innerHTML = lines.map((line) => `<p>${line}</p>`).join('');
+      hintEl!.textContent = '';
+      wordEl!.textContent = 'Tugadi. Qaytadan urinib köring.';
+    }
+
+    function reset() {
+      window.clearInterval(timer);
+      timer = undefined;
+      running = false;
+      finished = false;
+      remaining = GAME_SECONDS;
+      score = 0;
+      errors = 0;
+      keystrokes = 0;
+      correctKeystrokes = 0;
+      target = '';
+      typed = '';
+      input!.disabled = false;
+      input!.value = '';
+      resultEl!.hidden = true;
+      hintEl!.textContent = '';
+      wordEl!.classList.remove('is-error');
+      wordEl!.textContent = 'Boşlaş tugmasini bosing yoki yozishni boşlang';
+      updateStats();
+      input!.focus();
+    }
+
+    /** Accept only correct letters. A wrong letter is rejected and explained. */
+    function handleValue(value: string) {
+      if (finished) {
+        input!.value = typed;
+        return;
+      }
+
+      if (value.length < typed.length) {
+        typed = typed.slice(0, value.length);
+        input!.value = typed;
+        render();
+        return;
+      }
+
+      if (!value.startsWith(typed) || value.length !== typed.length + 1) {
+        // Paste or cursor jump: keep only the confirmed prefix.
+        input!.value = typed;
+        return;
+      }
+
+      start();
+      const char = value.slice(-1).toLocaleLowerCase('uz');
+      const expected = target[typed.length];
+      keystrokes += 1;
+
+      if (char === expected) {
+        correctKeystrokes += 1;
+        typed += char;
+        hintEl!.textContent = '';
+        if (typed === target) {
+          score += 1;
+          updateStats();
+          nextWord();
+          return;
+        }
+        render();
+        return;
+      }
+
+      errors += 1;
+      updateStats();
+      const hint = SPECIAL_HINTS[expected];
+      hintEl!.textContent = hint
+        ? `${hint} (siz "${char}" yozdingiz)`
+        : `Xato: "${expected}" harfi kerak edi, "${char}" emas.`;
+      render(true);
+    }
+
+    input.addEventListener('input', () => handleValue(input.value));
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') event.preventDefault();
+    });
+
+    keyButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const char = button.dataset.char ?? '';
+        if (!char) return;
+        handleValue(typed + char);
+        input.focus();
+      });
+    });
+
+    startBtn.addEventListener('click', () => {
+      if (finished) return;
+      start();
+      input.focus();
+    });
+    restartBtn.addEventListener('click', reset);
+
+    cleanup = () => window.clearInterval(timer);
+    reset();
+  }
+
+  document.addEventListener('astro:page-load', setupTypingGame);
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+</script>

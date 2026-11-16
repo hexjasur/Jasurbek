@@ -10,6 +10,7 @@ const blog = defineCollection({
     /** Set when a published post is meaningfully revised. Shown on the post and used as `dateModified`. */
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
+    draft: z.boolean().optional(),
   }),
 });
 

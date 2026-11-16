@@ -88,7 +88,7 @@ bun run check   # type-check and content schema
 bun run build   # production build + Pagefind index
 ```
 
-Internal links must include the base path (`/Jasurbek/...`). Do not commit `dist/`, `node_modules/` or `.astro/`. Work on a feature branch; CI runs on every branch except `master`, and a push to `master` deploys the site.
+Internal links must include the base path (`/...`). Do not commit `dist/`, `node_modules/` or `.astro/`. Work on a feature branch; CI runs on every branch except `master`, and a push to `master` deploys the site.
 
 ## Never
 

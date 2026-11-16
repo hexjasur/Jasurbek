@@ -9,10 +9,38 @@ export interface ToolEntry {
 /** Single source of truth for the tools list (index page, OG images, sitemap-friendly metadata). */
 export const toolsList: ToolEntry[] = [
   {
+    id: 'uzbek-typing-champion',
+    num: 12,
+    title: 'Yozuv Chempioni: Uzbek Typing Test',
+    description: 'A 60-second typing game for the 2026 reformed Uzbek Latin alphabet. Type Ö, Ğ, Ş and Ç words quickly, and every wrong letter is explained.',
+    slug: 'uzbek-typing-champion',
+  },
+  {
+    id: 'bg-remover',
+    num: 11,
+    title: 'AI Background Remover (Free Transparent PNG Maker)',
+    description: 'Instantly remove backgrounds from images online using AI. Create transparent PNG cutouts for products, portraits, and graphics with one click.',
+    slug: 'bg-remover',
+  },
+  {
+    id: 'markdown-table-editor',
+    num: 10,
+    title: 'Markdown Table Visual Editor (GFM, CSV, TSV, JSON)',
+    description: 'Edit Markdown tables in a spreadsheet-style grid with per-column alignment. Import CSV, TSV, JSON or existing GFM tables and export Markdown, HTML, CSV or TSV.',
+    slug: 'markdown-table-editor',
+  },
+  {
+    id: 'pagespeed-checker',
+    num: 9,
+    title: 'Website Speed & Performance Checker',
+    description: 'Enter any website URL and jump straight to its Google PageSpeed Insights report: Core Web Vitals, performance score, and mobile or desktop analysis.',
+    slug: 'pagespeed-checker',
+  },
+  {
     id: 'credit-module-calculator',
     num: 8,
-    title: 'Kredit-Modul Hisoblagich (HEMIS / ECTS)',
-    description: "OTM talabalari uchun akademik qarzdorlik (qayta o'qish), fanlar farqi va 1 kredit qiymatini yillik kontrakt asosida aniq hisoblash kalkulyatori.",
+    title: 'Kredit-Modul Hisoblagiç (HEMIS / ECTS)',
+    description: "OTM talabalari uçun akademik qarzdorlik (qayta öqiş), fanlar farqi va 1 kredit qiymatini yillik kontrakt asosida aniq hisoblaş kalkulyatori.",
     slug: 'credit-module-calculator',
   },
   {

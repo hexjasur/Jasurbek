@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { renderOgImage, type OgEntry } from '../../lib/og';
 import { toolsList } from '../../data/tools';
 import { playgroundList } from '../../data/playground';
+import { projectsList } from '../../data/projects';
 import { SITE_CONFIG } from '../../config';
 
 /**
@@ -61,6 +62,13 @@ export const getStaticPaths = (async () => {
       kicker: 'Tool',
       title: tool.title,
       description: tool.description,
+    })),
+    ...projectsList.map((project) => ({
+      slug: `projects/${project.slug}`,
+      kicker: 'Project',
+      title: project.title,
+      description: project.description,
+      tags: project.tags,
     })),
   ];
 

@@ -3,23 +3,23 @@ import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { BASE_URL as baseUrl } from '../../lib/url';
 
-const seoTitle = 'Kredit Modul Hisoblagich (HEMIS) — 1 Kredit Narxi va Akademik Qarzdorlik';
-const seoDescription = "OTM talabalari uchun HEMIS kredit-modul tizimida 1 kredit narxi, akademik qarzdorlik (qayta o'qish / peresdacha) va fanlar farqi (perevod) to'lovini yillik kontrakt asosida aniq va qulay hisoblash kalkulyatori.";
+const seoTitle = 'Kredit Modul Hisoblagiç (HEMIS) — 1 Kredit Narxi va Akademik Qarzdorlik';
+const seoDescription = "OTM talabalari uçun HEMIS kredit-modul tizimida 1 kredit narxi, akademik qarzdorlik (qayta öqiş / peresdacha) va fanlar farqi (perevod) tölovini yillik kontrakt asosida aniq va qulay hisoblaş kalkulyatori.";
 const seoTags = [
-  'kredit modul hisoblash',
-  'hemis kredit hisoblash',
+  'kredit modul hisoblaş',
+  'hemis kredit hisoblaş',
   '1 kredit narxi',
-  'kredit narxini hisoblash',
+  'kredit narxini hisoblaş',
   'kredit qiymati',
-  'akademik qarzdorlik hisoblash',
-  'qayta oqish tolovi',
+  'akademik qarzdorlik hisoblaş',
+  'qayta öqiş tolovi',
   'fanlar farqi tolovi',
   'peresdacha tolovi',
   'ects kalkulyator',
   'otm kontrakt narxi',
   'oliygoh kredit hisobi',
   'hemis tizimi',
-  'talabalar uchun kredit hisoblagich',
+  'talabalar uçun kredit hisoblagiç',
 ];
 ---
 
@@ -29,9 +29,10 @@ const seoTags = [
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
   tags={seoTags}
+  lang="uz"
 >
   <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barça vositalarga qaytiş</a>
   </div>
 
   <section class="tools-box credit-calculator-section">
@@ -40,7 +41,7 @@ const seoTags = [
         <span class="calc-badge">HEMIS / ECTS Standarti</span>
         <span class="calc-updated-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          Oxirgi yangilanish: 6-noyabr, 2026-yil
+          Oxirgi yangilaniş: 14-noyabr, 2026-yil
         </span>
       </div>
       <h1 class="page-title calc-title">
@@ -50,26 +51,26 @@ const seoTags = [
           <line x1="16" y1="14" x2="16" y2="18" />
           <path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01" />
         </svg>
-        Kredit-Modul va Qayta Oʻqish Hisoblagichi
+        Kredit-Modul va Qayta Öqiş Hisoblagiçi
       </h1>
       <p class="page-lead">
-        Oliy taʼlim muassasalarida (OTM) akademik qarzdorlikni yopish (qayta oʻqish) yoki fanlar farqi uchun <strong>1 ta kredit qiymati</strong> hamda <strong>jami toʻlov summasini</strong> hisoblang.
+        Oliy taʼlim muassasalarida (OTM) akademik qarzdorlikni yopiş (qayta öqiş) yoki fanlar farqi uçun <strong>1 ta kredit qiymati</strong> hamda <strong>jami tölov summasini</strong> hisoblang.
       </p>
     </div>
 
     <!-- Rasmiy formula infografikasi: Telefonda qatorlarga parchalanmaydi, yaxlit matematik formula holida turadi -->
     <div class="formula-banner">
       <div class="formula-banner-top">
-        <span class="formula-tag">Rasmiy hisoblash formulasi</span>
-        <span class="formula-source">Oʻzbekiston Respublikasi OTMlari</span>
+        <span class="formula-tag">Rasmiy hisoblaş formulasi</span>
+        <span class="formula-source">Özbekiston Respublikasi OTMlari</span>
       </div>
 
-      <div class="formula-scroll-wrap" tabindex="0" role="region" aria-label="Kredit hisoblash formulasi">
+      <div class="formula-scroll-wrap" tabindex="0" role="region" aria-label="Kredit hisoblaş formulasi">
         <div class="formula-visual">
           <div class="formula-side-lhs">1 kredit narxi</div>
           <div class="formula-operator">=</div>
           <div class="formula-fraction">
-            <div class="fraction-num">Yoʻnalishning 1 yillik kontrakt narxi (stipendiyasiz)</div>
+            <div class="fraction-num">Yönalişning 1 yillik kontrakt narxi (stipendiyasiz)</div>
             <div class="fraction-line"></div>
             <div class="fraction-den">1 yildagi umumiy kredit miqdori (odatda 60 kredit)</div>
           </div>
@@ -78,8 +79,8 @@ const seoTags = [
 
       <div class="formula-example">
         <span class="formula-example-label">Amaliy misol:</span>
-        Agar yoʻnalish yillik kontrakti <code>8 510 000 soʻm</code> boʻlsa:
-        <span class="formula-example-math">8 510 000 &divide; 60 = <strong>141 833 soʻm</strong></span>
+        Agar yönaliş yillik kontrakti <code>8 510 000 söm</code> bölsa:
+        <span class="formula-example-math">8 510 000 &divide; 60 = <strong>141 833 söm</strong></span>
       </div>
     </div>
 
@@ -89,7 +90,7 @@ const seoTags = [
       <div class="input-card">
         <div class="step-badge">1-qadam</div>
         <label for="contract-input" class="field-label-prominent">
-          Yillik kontrakt narxi (stipendiyasiz, soʻmda):
+          Yillik kontrakt narxi (stipendiyasiz, sömda):
         </label>
         <div class="input-with-addon">
           <input
@@ -101,10 +102,10 @@ const seoTags = [
             placeholder="8 510 000"
             aria-label="Yillik kontrakt miqdori"
           />
-          <span class="input-addon">soʻm</span>
+          <span class="input-addon">söm</span>
         </div>
 
-        <div class="preset-label">OTM yoʻnalishlari boʻyicha andazalar:</div>
+        <div class="preset-label">OTM yönalişlari böyiça andazalar:</div>
         <div class="preset-pills" id="contract-presets">
           <button type="button" class="preset-pill" data-amount="7400000" title="Pedagogika, gumanitar yoʻnalishlar">
             <span class="preset-sum">7 400 000</span>
@@ -137,14 +138,14 @@ const seoTags = [
       <div class="input-card">
         <div class="step-badge">2-qadam</div>
         <label class="field-label-prominent">
-          1 oʻquv yilidagi kreditlar soni:
+          1 öquv yilidagi kreditlar soni:
         </label>
         <div class="credits-base-selector">
           <label class="radio-chip">
             <input type="radio" name="credit-base" value="60" checked />
             <span class="chip-content">
               <strong>60 kredit</strong>
-              <small>Standart 1 oʻquv yili (2 semestr)</small>
+              <small>Standart 1 öquv yili (2 semestr)</small>
             </span>
           </label>
           <label class="radio-chip">
@@ -157,7 +158,7 @@ const seoTags = [
           <label class="radio-chip">
             <input type="radio" name="credit-base" value="custom" />
             <span class="chip-content">
-              <strong>Boshqa</strong>
+              <strong>Boşqa</strong>
               <small>Ixtiyoriy kredit soni</small>
             </span>
           </label>
@@ -176,12 +177,12 @@ const seoTags = [
       </div>
     </div>
 
-    <!-- 3-qadam: Hisoblash rejimi (Tabs) -->
+    <!-- 3-qadam: Hisoblaş rejimi (Tabs) -->
     <div class="calc-mode-card">
       <div class="step-badge">3-qadam</div>
       <div class="mode-tabs-header">
         <label class="field-label-prominent" style="margin-bottom: 0;">
-          Hisoblash usuli:
+          Hisoblaş usuli:
         </label>
         <div class="mode-tab-buttons" role="tablist">
           <button type="button" class="mode-tab active" id="tab-quick" role="tab" aria-selected="true">
@@ -195,7 +196,7 @@ const seoTags = [
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
             </svg>
-            Fanlar roʻyxati
+            Fanlar röyxati
           </button>
         </div>
       </div>
@@ -242,7 +243,7 @@ const seoTags = [
       <!-- 2-rejim: Fanlar ro'yxati -->
       <div id="mode-subjects-panel" class="mode-panel" style="display: none;">
         <p class="mode-description">
-          Har bir fanni nomi va krediti bilan kiriting. Har bir fanning alohida toʻlovi va umumiy summa avtomatik hisoblanadi.
+          Har bir fanni nomi va krediti bilan kiriting. Har bir fanning alohida tölovi va umumiy summa avtomatik hisoblanadi.
         </p>
 
         <div class="subjects-table-wrap">
@@ -251,8 +252,8 @@ const seoTags = [
               <tr>
                 <th style="width: 44%;">Fan nomi</th>
                 <th style="width: 20%;">Krediti</th>
-                <th style="width: 26%;">Toʻlov</th>
-                <th style="width: 10%; text-align: center;">Oʻchirish</th>
+                <th style="width: 26%;">Tölov</th>
+                <th style="width: 10%; text-align: center;">Öçiriş</th>
               </tr>
             </thead>
             <tbody id="subjects-list">
@@ -263,10 +264,10 @@ const seoTags = [
 
         <div class="subjects-actions">
           <button type="button" class="btn btn-secondary btn-sm" id="btn-add-subject">
-            + Yangi fan qoʻshish
+            + Yangi fan qöşiş
           </button>
           <button type="button" class="btn-link-subtle" id="btn-reset-subjects">
-            Tozalash
+            Tozalaş
           </button>
         </div>
       </div>
@@ -276,14 +277,14 @@ const seoTags = [
     <div class="results-container">
       <!-- Bosh natija kartasi (Hero) -->
       <div class="result-hero-card">
-        <div class="hero-top-label">Jami toʻlanishi kerak boʻlgan summa:</div>
+        <div class="hero-top-label">Jami tölanişi kerak bölgan summa:</div>
         <div class="hero-amount-wrap">
           <span class="hero-amount" id="result-total-amount">851 000</span>
-          <span class="hero-currency">soʻm</span>
+          <span class="hero-currency">söm</span>
         </div>
         <div class="hero-in-words-box">
-          <span class="in-words-label">Soʻz bilan:</span>
-          <span class="in-words-value" id="result-in-words">Sakkiz yuz ellik bir ming soʻm</span>
+          <span class="in-words-label">Söz bilan:</span>
+          <span class="in-words-value" id="result-in-words">Sakkiz yuz ellik bir ming söm</span>
         </div>
       </div>
 
@@ -298,8 +299,8 @@ const seoTags = [
           </div>
           <div class="metric-body">
             <div class="metric-label">1 kredit qiymati</div>
-            <div class="metric-value" id="result-per-credit">141 833 soʻm</div>
-            <div class="metric-sub" id="result-per-credit-raw">Aniq: 141 833.33 soʻm</div>
+            <div class="metric-value" id="result-per-credit">141 833 söm</div>
+            <div class="metric-sub" id="result-per-credit-raw">Aniq: 141 833.33 söm</div>
           </div>
         </div>
 
@@ -314,7 +315,7 @@ const seoTags = [
           <div class="metric-body">
             <div class="metric-label">Qarzdorlik hajmi</div>
             <div class="metric-value" id="result-total-credits">6 kredit</div>
-            <div class="metric-sub" id="result-subjects-count">1 ta yoʻnalish boʻyicha</div>
+            <div class="metric-sub" id="result-subjects-count">1 ta yönaliş böyiça</div>
           </div>
         </div>
 
@@ -326,7 +327,7 @@ const seoTags = [
             </svg>
           </div>
           <div class="metric-body">
-            <div class="metric-label">Oʻquv yuklamasi</div>
+            <div class="metric-label">Öquv yuklamasi</div>
             <div class="metric-value" id="result-total-hours">180 soat</div>
             <div class="metric-sub">1 kredit = 30 soat</div>
           </div>
@@ -343,7 +344,7 @@ const seoTags = [
           <div class="metric-body">
             <div class="metric-label">Kontraktga nisbati</div>
             <div class="metric-value" id="result-percent">10.0%</div>
-            <div class="metric-sub">Yillik toʻlov ulushi</div>
+            <div class="metric-sub">Yillik tölov uluşi</div>
           </div>
         </div>
       </div>
@@ -351,14 +352,14 @@ const seoTags = [
       <!-- Formulaning amaldagi hisobi -->
       <div class="calculation-breakdown">
         <div class="breakdown-title">
-          <span>Hisoblash bosqichlari:</span>
+          <span>Hisoblaş bosqiçlari:</span>
         </div>
         <div class="breakdown-steps">
           <div class="breakdown-step" id="breakdown-step-1">
-            <code>1 kredit narxi = 8 510 000 &divide; 60 = 141 833.33 soʻm</code>
+            <code>1 kredit narxi = 8 510 000 &divide; 60 = 141 833.33 söm</code>
           </div>
           <div class="breakdown-step" id="breakdown-step-2">
-            <code>Jami toʻlov = 141 833.33 &times; 6 = <strong>851 000 soʻm</strong></code>
+            <code>Jami tölov = 141 833.33 &times; 6 = <strong>851 000 söm</strong></code>
           </div>
         </div>
       </div>
@@ -370,17 +371,17 @@ const seoTags = [
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
           </svg>
-          Natijani nusxalash (Telegram / Xabar)
+          Natijani nusxalaş (Telegram / Xabar)
         </button>
         <button type="button" class="btn btn-secondary" id="btn-reset-all">
           <svg class="btn-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="1 4 1 10 7 10" />
             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
           </svg>
-          Boshlangʻich holatga qaytarish
+          Boşlanğiç holatga qaytariş
         </button>
         <span id="calc-toast" class="copy-toast" style="display: none;">
-          ✓ Toʻlov hisoboti nusxalandi!
+          ✓ Tölov hisoboti nusxalandi!
         </span>
       </div>
     </div>
@@ -389,56 +390,56 @@ const seoTags = [
   <!-- Savol-Javoblar va Nizom Qo'llanmasi -->
   <section class="section-gap info-section">
     <h2 class="section-title">
-      OTM Kredit-Modul Tizimi Boʻyicha Eslatma va Yoʻriqnoma
+      OTM Kredit-Modul Tizimi Böyiça Eslatma va Yöriqnoma
     </h2>
 
     <div class="faq-cards-grid">
       <div class="faq-card">
         <h3 class="faq-title">1. Kredit narxi qanday mezon asosida hisoblanadi?</h3>
         <p class="faq-text">
-          Oʻzbekiston Respublikasi Vazirlar Mahkamasining <strong>824-son qarori</strong>ga muvofiq, 1 ta kredit qiymati talaba taʼlim olayotgan muayyan yoʻnalish boʻyicha belgilangan <strong>yillik bazaviy (stipendiyasiz) kontrakt narxini</strong> oʻquv yilidagi jami kreditlar miqdoriga (odatda <strong>60 kredit</strong>ga) boʻlish orqali chiqariladi.
+          Özbekiston Respublikasi Vazirlar Mahkamasining <strong>824-son qarori</strong>ga muvofiq, 1 ta kredit qiymati talaba taʼlim olayotgan muayyan yönaliş böyiça belgilangan <strong>yillik bazaviy (stipendiyasiz) kontrakt narxini</strong> öquv yilidagi jami kreditlar miqdoriga (odatda <strong>60 kredit</strong>ga) böliş orqali çiqariladi.
         </p>
       </div>
 
       <div class="faq-card">
         <h3 class="faq-title">2. Stipendiyali kontrakt bilan stipendiyasiz kontrakt farqi bormi?</h3>
         <p class="faq-text">
-          <strong>Yoʻq, farq qilmaydi.</strong> Kredit qiymatini hisoblashda talaba stipendiyali yoki stipendiyasiz toʻlovda oʻqishidan qatʼi nazar, doimo <em>stipendiyasiz bazaviy kontrakt summasi</em> olinadi. OTM tomonidan talabaga ortiqcha toʻlov yuklanishi qonunga ziddir.
+          <strong>Yöq, farq qilmaydi.</strong> Kredit qiymatini hisoblaşda talaba stipendiyali yoki stipendiyasiz tölovda öqişidan qatʼi nazar, doimo <em>stipendiyasiz bazaviy kontrakt summasi</em> olinadi. OTM tomonidan talabaga ortiqça tölov yuklanişi qonunga ziddir.
         </p>
       </div>
 
       <div class="faq-card">
-        <h3 class="faq-title">3. Akademik qarzdorlikni (qayta oʻqishni) qachon va qanday yopiladi?</h3>
+        <h3 class="faq-title">3. Akademik qarzdorlikni (qayta öqişni) qaçon va qanday yopiladi?</h3>
         <p class="faq-text">
-          Oraliq yoki yakuniy nazoratlardan oʻta olmagan (qoniqarsiz baholangan) talaba mazkur fandan kredit toʻlovini toʻlaydi va semestrlar oraligʻida yoki yozgi taʼtilda fanni qayta oʻqib, qayta topshiradi. Kredit toʻlovi toʻlangach, talabaga dars jadvali va qayta topshirish ruxsatnomasi shakllantiriladi.
+          Oraliq yoki yakuniy nazoratlardan öta olmagan (qoniqarsiz baholangan) talaba mazkur fandan kredit tölovini tölaydi va semestrlar oraliğida yoki yozgi taʼtilda fanni qayta öqib, qayta topşiradi. Kredit tölovi tölangaç, talabaga dars jadvali va qayta topşiriş ruxsatnomasi şakllantiriladi.
         </p>
       </div>
 
       <div class="faq-card">
-        <h3 class="faq-title">4. Fanlar farqi (oʻqishni koʻchirish / perevod) qanday toʻlanadi?</h3>
+        <h3 class="faq-title">4. Fanlar farqi (öqişni körçiriş / perevod) qanday tölanadi?</h3>
         <p class="faq-text">
-          Boshqa OTMdan yoki boshqa taʼlim yoʻnalishidan oʻqishni koʻchirganda (yoki qayta tiklaganda), oʻquv rejasida mavjud boʻlmagan yoki soatlari toʻgʻri kelmagan fanlar farqi hisoblanadi. Talaba faqatgina farq qilgan fanlar kreditlari miqdori uchun toʻlov qiladi.
+          Boşqa OTMdan yoki boşqa taʼlim yönalişidan öqişni körçirganda (yoki qayta tiklaganda), öquv rejasida mavjud bölmagan yoki soatlari töğri kelmagan fanlar farqi hisoblanadi. Talaba faqatgina farq qilgan fanlar kreditlari miqdori uçun tölov qiladi.
         </p>
       </div>
 
       <div class="faq-card">
-        <h3 class="faq-title">5. 1 ta kredit necha akademik soatga teng?</h3>
+        <h3 class="faq-title">5. 1 ta kredit neça akademik soatga teng?</h3>
         <p class="faq-text">
-          Oʻzbekiston ECTS kredit-modul tizimida <strong>1 kredit = 30 akademik soat</strong> deb belgilangan. Bu soat auditoriya mashgʻulotlari (maʼruza, amaliy, laboratoriya) hamda talabaning mustaqil taʼlim soatlarini oʻz ichiga oladi. 1 yillik 60 kredit esa <strong>1800 soatlik</strong> oʻquv yuklamasini tashkil etadi.
+          Özbekiston ECTS kredit-modul tizimida <strong>1 kredit = 30 akademik soat</strong> deb belgilangan. Bu soat auditoriya maşğulotlari (maʼruza, amaliy, laboratoriya) hamda talabaning mustaqil taʼlim soatlarini öz içiga oladi. 1 yillik 60 kredit esa <strong>1800 soatlik</strong> öquv yuklamasini taşkil etadi.
         </p>
       </div>
 
       <div class="faq-card">
-        <h3 class="faq-title">6. Toʻlovni amalga oshirishda nimalarga eʼtibor berish kerak?</h3>
+        <h3 class="faq-title">6. Tölovni amalga oşirişda nimalarga eʼtibor beriş kerak?</h3>
         <p class="faq-text">
-          Bank kvitansiyasida yoki toʻlov ilovalari (Payme, Click, Uzum) orqali toʻlayotganda toʻlov maqsadida albatta: <em>«F.I.SH., HEMIS ID raqami, Qayta oʻqish / fanlar farqi toʻlovi»</em> deb aniq koʻrsatish tavsiya etiladi.
+          Bank kvitansiyasida yoki tölov ilovalari (Payme, Click, Uzum) orqali tölayotganda tölov maqsadida albatta: <em>«F.I.Ş., HEMIS ID raqami, Qayta öqiş / fanlar farqi tölovi»</em> deb aniq körsatiş tavsiya etiladi.
         </p>
       </div>
     </div>
   </section>
 
   <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytish</a>
+    <a href={`${baseUrl}tools`} class="back-link">&larr; Barça vositalarga qaytiş</a>
   </div>
 </Layout>
 
@@ -552,7 +553,7 @@ const seoTags = [
     font-size: 0.82rem;
   }
 
-  /* Formula gorizontal yaxlit turishi uchun maxsus o'ram */
+  /* Formula gorizontal yaxlit turişi uçun maxsus o'ram */
   .formula-scroll-wrap {
     width: 100%;
     overflow-x: auto;
@@ -1313,7 +1314,7 @@ const seoTags = [
   }
 
   /* ========================================================
-     RESPONSIVE DIZAYN (PLANSHET VA TELEFONLAR UCHUN MAXSUS)
+     RESPONSIVE DIZAYN (PLANSHET VA TELEFONLAR UÇUN MAXSUS)
      ======================================================== */
   @media (max-width: 768px) {
     .calc-grid {
@@ -1680,7 +1681,7 @@ const seoTags = [
       line-height: 1.4;
     }
 
-    /* Amallar tugmalari: barmoq bilan bosish oson bo'lishi uchun 100% enli */
+    /* Amallar tugmalari: barmoq bilan bosiş oson bo'lishi uçun 100% enli */
     .calc-action-bar {
       flex-direction: column;
       gap: 0.45rem;
@@ -1793,10 +1794,10 @@ const seoTags = [
     // Number to Uzbek Words converter
     function numberToUzbekWords(num: number): string {
       const rounded = Math.round(num);
-      if (isNaN(rounded) || rounded <= 0) return 'Nol soʻm';
+      if (isNaN(rounded) || rounded <= 0) return 'Nol söm';
 
-      const units = ['', 'bir', 'ikki', 'uch', 'toʻrt', 'besh', 'olti', 'yetti', 'sakkiz', 'toʻqqiz'];
-      const tens = ['', 'oʻn', 'yigirma', 'oʻttiz', 'qirq', 'ellik', 'oltmish', 'yetmish', 'sakson', 'toʻqson'];
+      const units = ['', 'bir', 'ikki', 'uç', 'tört', 'beş', 'olti', 'yetti', 'sakkiz', 'töqqiz'];
+      const tens = ['', 'ön', 'yigirma', 'öttiz', 'qirq', 'ellik', 'oltmiş', 'yetmiş', 'sakson', 'töqson'];
       const scales = ['', 'ming', 'million', 'milliard', 'trillion'];
 
       function parseChunk(n: number): string {
@@ -1832,8 +1833,8 @@ const seoTags = [
       }
 
       const text = resultChunks.join(' ').trim();
-      if (!text) return 'Nol soʻm';
-      return (text.charAt(0).toUpperCase() + text.slice(1)) + ' soʻm';
+      if (!text) return 'Nol söm';
+      return (text.charAt(0).toUpperCase() + text.slice(1)) + ' söm';
     }
 
     // Format thousands with space: 8510000 -> "8 510 000"
@@ -1902,7 +1903,7 @@ const seoTags = [
             />
           </td>
           <td class="subject-cost-cell">
-            ${formatNumber(subCost)} soʻm
+            ${formatNumber(subCost)} söm
           </td>
           <td style="text-align: center;">
             <button type="button" class="btn-remove-subject" data-id="${sub.id}" title="Fanni oʻchirish" aria-label="Fanni oʻchirish">
@@ -1969,15 +1970,15 @@ const seoTags = [
       const pricePerCredit = Math.round(pricePerCreditRaw);
 
       let totalCredits = 0;
-      let subjectsCountText = '1 ta yoʻnalish boʻyicha';
+      let subjectsCountText = '1 ta yönaliş böyiça';
 
       if (activeMode === 'quick') {
         const val = parseFloat(quickCreditsInput?.value || '0');
         totalCredits = isNaN(val) || val < 0 ? 0 : val;
-        subjectsCountText = 'Tezkor hisoblash';
+        subjectsCountText = 'Tezkor hisoblaş';
       } else {
         totalCredits = subjects.reduce((sum, s) => sum + s.credits, 0);
-        subjectsCountText = `${subjects.length} ta fan boʻyicha`;
+        subjectsCountText = `${subjects.length} ta fan böyiça`;
       }
 
       // Exact total calculation: using exact price per credit or rounded
@@ -1989,8 +1990,8 @@ const seoTags = [
       // Update Result Elements
       if (resultTotalAmount) resultTotalAmount.textContent = formatNumber(totalCost);
       if (resultInWords) resultInWords.textContent = numberToUzbekWords(totalCost);
-      if (resultPerCredit) resultPerCredit.textContent = `${formatNumber(pricePerCredit)} soʻm`;
-      if (resultPerCreditRaw) resultPerCreditRaw.textContent = `Aniq: ${pricePerCreditRaw.toFixed(2)} soʻm`;
+      if (resultPerCredit) resultPerCredit.textContent = `${formatNumber(pricePerCredit)} söm`;
+      if (resultPerCreditRaw) resultPerCreditRaw.textContent = `Aniq: ${pricePerCreditRaw.toFixed(2)} söm`;
       if (resultTotalCredits) resultTotalCredits.textContent = `${totalCredits} kredit`;
       if (resultSubjectsCount) resultSubjectsCount.textContent = subjectsCountText;
       if (resultTotalHours) resultTotalHours.textContent = `${totalHours} soat`;
@@ -1998,10 +1999,10 @@ const seoTags = [
 
       // Update Breakdown
       if (step1El) {
-        step1El.innerHTML = `<code>1 kredit narxi = ${formatNumber(contract)} &divide; ${base} = ${pricePerCreditRaw.toFixed(2)} soʻm (${formatNumber(pricePerCredit)} soʻm)</code>`;
+        step1El.innerHTML = `<code>1 kredit narxi = ${formatNumber(contract)} &divide; ${base} = ${pricePerCreditRaw.toFixed(2)} söm (${formatNumber(pricePerCredit)} söm)</code>`;
       }
       if (step2El) {
-        step2El.innerHTML = `<code>Jami toʻlov = ${pricePerCreditRaw.toFixed(2)} &times; ${totalCredits} kredit = <strong>${formatNumber(totalCost)} soʻm</strong></code>`;
+        step2El.innerHTML = `<code>Jami tölov = ${pricePerCreditRaw.toFixed(2)} &times; ${totalCredits} kredit = <strong>${formatNumber(totalCost)} söm</strong></code>`;
       }
 
       // If in subjects mode, update table cell values without re-rendering inputs
@@ -2009,7 +2010,7 @@ const seoTags = [
         const costCells = subjectsListEl.querySelectorAll('.subject-cost-cell');
         subjects.forEach((sub, idx) => {
           if (costCells[idx]) {
-            costCells[idx].textContent = `${formatNumber(Math.round(sub.credits * pricePerCreditRaw))} soʻm`;
+            costCells[idx].textContent = `${formatNumber(Math.round(sub.credits * pricePerCreditRaw))} söm`;
           }
         });
       }
@@ -2146,7 +2147,7 @@ const seoTags = [
     });
 
     btnResetSubjects?.addEventListener('click', () => {
-      if (confirm('Barcha fanlar roʻyxatini tozalashni xohlaysizmi?')) {
+      if (confirm('Barça fanlar roʻyxatini tozalashni xohlaysizmi?')) {
         subjects = [];
         saveSubjectsState();
         renderSubjectsTable();
@@ -2196,9 +2197,9 @@ const seoTags = [
         totalCredits = parseFloat(quickCreditsInput?.value || '0');
       } else {
         totalCredits = subjects.reduce((sum, s) => sum + s.credits, 0);
-        breakdownText = '\nFanlar roʻyxati:\n' + subjects.map((s, idx) => {
+        breakdownText = '\nFanlar röyxati:\n' + subjects.map((s, idx) => {
           const cost = Math.round(s.credits * (contract / base));
-          return `  ${idx + 1}. ${s.name}: ${s.credits} kredit (${formatNumber(cost)} soʻm)`;
+          return `  ${idx + 1}. ${s.name}: ${s.credits} kredit (${formatNumber(cost)} söm)`;
         }).join('\n') + '\n';
       }
 
@@ -2206,13 +2207,13 @@ const seoTags = [
       const inWords = numberToUzbekWords(totalCost);
       const hours = Math.round(totalCredits * 30);
 
-      const summary = `OTM HEMIS Kredit-Modul Toʻlov Hisobi:
-• Yillik kontrakt (stipendiyasiz): ${formatNumber(contract)} soʻm
-• 1 oʻquv yili kredit hajmi: ${base} kredit
-• 1 kredit qiymati: ${formatNumber(pricePerCredit)} soʻm
-• Qarzdorlik hajmi: ${totalCredits} kredit (${hours} soat oʻquv yuklamasi)${breakdownText}
-JAMI TOʻLOV SUMMASI: ${formatNumber(totalCost)} soʻm
-Soʻz bilan: ${inWords}
+      const summary = `OTM HEMIS Kredit-Modul Tölov Hisobi:
+• Yillik kontrakt (stipendiyasiz): ${formatNumber(contract)} söm
+• 1 öquv yili kredit hajmi: ${base} kredit
+• 1 kredit qiymati: ${formatNumber(pricePerCredit)} söm
+• Qarzdorlik hajmi: ${totalCredits} kredit (${hours} soat öquv yuklamasi)${breakdownText}
+JAMI TÖLOV SUMMASI: ${formatNumber(totalCost)} söm
+Söz bilan: ${inWords}
 
 Hisoblandi: ${window.location.href}`;
 

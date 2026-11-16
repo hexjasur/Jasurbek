@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Terminal from '../components/Terminal.astro';
+import { SITE_CONFIG } from '../config';
+import { buildTerminalData } from '../lib/terminal';
+import { BASE_URL as baseUrl } from '../lib/url';
+
+const data = await buildTerminalData();
+---
+
+<Layout
+  title={`Terminal | ${SITE_CONFIG.author}`}
+  description="A portfolio in a terminal. Run projects, tools, blog and playground to read the same site data as JSON."
+  activePage="playground"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+
+  <div class="blog-intro">
+    <div class="blog-meta-date">First Published: 2026-11-16</div>
+  </div>
+
+  <section class="tools-box">
+    <h2 class="page-title">Terminal</h2>
+    <p class="page-lead">
+      Type <code>help</code> to see the commands. Results are returned as JSON, built from the same data as the rest of the site.
+      Try <code>projects</code>, <code>projects numeric-methods</code> or <code>blog github</code>.
+    </p>
+    <Terminal data={data} />
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+</Layout>

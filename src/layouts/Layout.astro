@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import SearchPalette from '../components/SearchPalette.astro';
+import DesktopUpdater from '../components/DesktopUpdater.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
 import { toolsList } from '../data/tools';
@@ -33,6 +34,7 @@ interface Props {
   searchable?: boolean;
   /** Extra schema.org nodes (e.g. BlogPosting) merged into the page's JSON-LD graph. */
   schema?: SchemaNode | SchemaNode[];
+  lang?: string;
 }
 
 const { 
@@ -48,6 +50,7 @@ const {
   noindex = false,
   searchable = true,
   schema,
+  lang = SITE_CONFIG.language,
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
@@ -101,7 +104,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -158,6 +161,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
       <slot />
     </main>
     <Footer />
+    <DesktopUpdater />
   </div>
 
   <SearchPalette />
@@ -172,11 +176,11 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
       <div class="modal-body">
         <p class="modal-label">Direct Email Address:</p>
         <div class="email-display-card">
-          <code id="email-text">jasurhaydarovcode@gmail.com</code>
+          <code id="email-text">{SITE_CONFIG.email}</code>
         </div>
         <div class="modal-actions">
           <button id="copy-email-btn" class="btn">Copy Email</button>
-          <a id="mail-app-link" href="mailto:jasurhaydarovcode@gmail.com" class="btn btn-secondary">Open Mail App</a>
+          <a id="mail-app-link" href={`mailto:${SITE_CONFIG.email}`} class="btn btn-secondary">Open Mail App</a>
         </div>
         <div id="copy-success-msg" class="copy-success" style="display: none;">
           ✓ Email copied to clipboard!
@@ -188,6 +192,9 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <script>
     function setupEmailModal() {
       const modal = document.getElementById('email-modal');
+      if (!modal || modal.dataset.modalBound === 'true') return;
+      modal.dataset.modalBound = 'true';
+
       const closeBtn = document.getElementById('close-modal-btn');
       const copyBtn = document.getElementById('copy-email-btn');
       const copySuccess = document.getElementById('copy-success-msg');
@@ -246,7 +253,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
       });
 
       copyBtn?.addEventListener('click', () => {
-        navigator.clipboard.writeText('jasurhaydarovcode@gmail.com');
+        navigator.clipboard.writeText(document.getElementById('email-text')?.textContent?.trim() || '');
         if (copySuccess) {
           copySuccess.style.display = 'block';
           setTimeout(() => {
@@ -262,7 +269,8 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
     function setupThemeToggle() {
       const button = document.getElementById('theme-toggle');
-      if (!button) return;
+      if (!button || button.dataset.themeBound === 'true') return;
+      button.dataset.themeBound = 'true';
 
       const sync = () => {
         const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
@@ -271,11 +279,30 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
       };
 
-      button.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      const applyTheme = (next: 'light' | 'dark') => {
         document.documentElement.dataset.theme = next;
         try { localStorage.setItem('theme', next); } catch {}
         sync();
+      };
+
+      button.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        const root = document.documentElement;
+        const bounds = button.getBoundingClientRect();
+        root.style.setProperty('--theme-x', `${bounds.left + bounds.width / 2}px`);
+        root.style.setProperty('--theme-y', `${bounds.top + bounds.height / 2}px`);
+
+        const transitionDocument = document as Document & {
+          startViewTransition?: (update: () => void) => unknown;
+        };
+
+        if (typeof transitionDocument.startViewTransition === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          transitionDocument.startViewTransition(() => applyTheme(next));
+        } else {
+          root.classList.add('theme-is-changing');
+          applyTheme(next);
+          window.setTimeout(() => root.classList.remove('theme-is-changing'), 700);
+        }
       });
 
       sync();

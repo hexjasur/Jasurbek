@@ -16,14 +16,18 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       Tools & Utilities | {SITE_CONFIG.domain}
     </h2>
     <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-07</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-16</div>
 
     <p class="blog-desc">
-      A collection of client-side utilities designed for speed, privacy, and zero latency. All operations are processed entirely inside your browser — no inputs, tokens, or personal calculations are ever transmitted to any server.
+      A collection of client-side utilities designed for speed, privacy, and zero latency. Most operations are processed entirely inside your browser — no inputs, tokens, or personal calculations are ever transmitted to any server. A small number of tools connect to external APIs to deliver their functionality; those cases are clearly noted on each tool's page.
+    </p>
+    <p class="tools-disclaimer-note">
+      <strong>Disclaimer:</strong> These tools are provided "as is" without warranties. Use at your own risk and always verify results independently. By using these tools you accept the{' '}
+      <a href="/entry/privacy_policy#web-tools-disclaimer">Web Tools Disclaimer</a>.
     </p>
   </div>
 
-  <h3 class="blog-entries-title section-gap">Available Tools & Calculators</h3>
+  <h3 class="blog-entries-title section-gap">All Tools</h3>
 
   <div class="blog-grid">
     {toolsList.map((tool) => (
@@ -39,3 +43,17 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     ))}
   </div>
 </Layout>
+
+<style>
+  .tools-disclaimer-note {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .tools-disclaimer-note a {
+    color: var(--flora-orange, #b86752);
+    text-decoration: underline;
+  }
+</style>

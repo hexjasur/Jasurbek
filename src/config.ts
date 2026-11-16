@@ -2,11 +2,11 @@
  * Global Site Configuration
  */
 export const SITE_CONFIG = {
-  // Sayt sarlavhalari va footerda ko'rinadigan domen nomi
-  domain: 'hexjasur.github.io/Jasurbek',
+  // Sayt sarlavhalari va footerda körinadigan domen nomi
+  domain: 'jasurdev.uz',
 
-  // To'liq sayt URL manzili
-  siteUrl: 'https://hexjasur.github.io/Jasurbek',
+  // Töliq sayt URL manzili
+  siteUrl: 'https://jasurdev.uz',
 
   // Muallif va sayt ma'lumotlari
   title: 'Jasurbek Haydarov',
@@ -37,5 +37,12 @@ export const SITE_CONFIG = {
     repoId: 'R_kgDOVe23Jw',
     category: 'Announcements',
     categoryId: '',
+  },
+  // Third-party API keys for client-side tools (loaded securely from environment variables)
+  tools: {
+    bgRemover: {
+      removeBgKey: import.meta.env.PUBLIC_REMOVE_BG_KEY || '',
+      poofBgKey: import.meta.env.PUBLIC_POOF_BG_KEY || '',
+    },
   },
 };

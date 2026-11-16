@@ -4,7 +4,7 @@ import { SITE_CONFIG } from '../config';
 import { absoluteUrl } from '../lib/url';
 
 export async function GET() {
-  const posts = (await getCollection('blog')).sort(
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
     (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
   );
 

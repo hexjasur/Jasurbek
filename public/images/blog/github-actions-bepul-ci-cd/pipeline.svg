@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="system-ui, Arial, sans-serif" role="img" aria-labelledby="pipe-title pipe-desc">
+  <title id="pipe-title">CI va deploy jarayoni: branch, master va GitHub Pages</title>
+  <desc id="pipe-desc">Branch'ga push yoki pull request ci.yml ichidagi verify job ni işga tuşiradi: check, keyin build. master'ga push bölsa deploy.yml build job ni işga tuşiradi: check, build, dist/ artefakt. Keyin deploy job artefaktni GitHub Pages'ga çiqaradi.</desc>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0 0 L10 4 L0 8 z" fill="#B86752"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="400" rx="16" fill="#F1E9DC"/>
+
+  <!-- CI konteyner -->
+  <rect x="30" y="50" width="840" height="146" rx="14" fill="none" stroke="#2F4038" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="50" y="76" font-size="15" font-weight="700" fill="#2F4038">CI: ci.yml (branch push va pull_request)</text>
+
+  <rect x="50" y="100" width="190" height="80" rx="10" fill="#C7D2B1" stroke="#2F4038" stroke-width="2"/>
+  <text x="145" y="134" text-anchor="middle" font-size="15" font-weight="700" fill="#1F2328">Branch'ga push</text>
+  <text x="145" y="155" text-anchor="middle" font-size="14" fill="#1F2328">yoki pull request</text>
+
+  <line x1="240" y1="140" x2="298" y2="140" stroke="#B86752" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <rect x="300" y="100" width="300" height="80" rx="10" fill="#C7D2B1" stroke="#2F4038" stroke-width="2"/>
+  <text x="450" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2328">verify job</text>
+  <rect x="320" y="132" width="125" height="38" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="382.5" y="156" text-anchor="middle" font-size="14" fill="#1F2328">check</text>
+  <rect x="455" y="132" width="125" height="38" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="517.5" y="156" text-anchor="middle" font-size="14" fill="#1F2328">build</text>
+  <line x1="445" y1="151" x2="455" y2="151" stroke="#B86752" stroke-width="2"/>
+
+  <text x="640" y="124" font-size="14" fill="#1F2328">Branch va pull request:</text>
+  <text x="640" y="146" font-size="14" fill="#1F2328">faqat tekshiruv, deploy yöq</text>
+
+  <!-- master'ga merge -->
+  <path d="M450 180 V216 H145 V282" fill="none" stroke="#B86752" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="300" y="211" font-size="13" fill="#1F2328">master'ga merge</text>
+
+  <!-- Deploy konteyner -->
+  <rect x="30" y="236" width="840" height="140" rx="14" fill="none" stroke="#2F4038" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="870" y="262" text-anchor="end" font-size="15" font-weight="700" fill="#2F4038">Deploy: deploy.yml (master, workflow_dispatch)</text>
+
+  <rect x="50" y="286" width="190" height="70" rx="10" fill="#C7D2B1" stroke="#2F4038" stroke-width="2"/>
+  <text x="145" y="316" text-anchor="middle" font-size="15" font-weight="700" fill="#1F2328">master'ga push</text>
+  <text x="145" y="338" text-anchor="middle" font-size="13" fill="#1F2328">yoki qölda işga tuşiriş</text>
+
+  <line x1="240" y1="321" x2="268" y2="321" stroke="#B86752" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <rect x="270" y="286" width="250" height="70" rx="10" fill="#C7D2B1" stroke="#2F4038" stroke-width="2"/>
+  <text x="395" y="308" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2328">build job</text>
+  <text x="395" y="328" text-anchor="middle" font-size="13" fill="#1F2328">check, build</text>
+  <text x="395" y="346" text-anchor="middle" font-size="13" fill="#1F2328">dist/ artefakt yuklanadi</text>
+
+  <line x1="520" y1="321" x2="548" y2="321" stroke="#B86752" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="534" y="278" text-anchor="middle" font-size="12" fill="#1F2328">needs: build</text>
+
+  <rect x="550" y="286" width="170" height="70" rx="10" fill="#C7D2B1" stroke="#2F4038" stroke-width="2"/>
+  <text x="635" y="308" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2328">deploy job</text>
+  <text x="635" y="330" text-anchor="middle" font-size="13" fill="#1F2328">deploy-pages</text>
+
+  <line x1="720" y1="321" x2="748" y2="321" stroke="#B86752" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <rect x="750" y="286" width="110" height="70" rx="10" fill="#2F4038"/>
+  <text x="805" y="314" text-anchor="middle" font-size="14" font-weight="700" fill="#F1E9DC">GitHub</text>
+  <text x="805" y="334" text-anchor="middle" font-size="14" font-weight="700" fill="#F1E9DC">Pages</text>
+</svg>

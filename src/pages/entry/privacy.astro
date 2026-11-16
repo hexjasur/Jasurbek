@@ -1,5 +1,16 @@
 ---
-import PrivacyPage from './privacy_policy.astro';
+import { BASE_URL } from '../../lib/url';
+const target = `${BASE_URL}entry/privacy_policy/`;
 ---
-
-<PrivacyPage />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content={`0;url=${target}`} />
+  <link rel="canonical" href={target} />
+  <title>Redirecting to Privacy Policy...</title>
+</head>
+<body>
+  <p>Redirecting to <a href={target}>Privacy Policy</a>...</p>
+</body>
+</html>

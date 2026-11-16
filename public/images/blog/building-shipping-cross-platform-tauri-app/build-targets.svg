@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="b-title b-desc">
+  <title id="b-title">From web build to desktop and Android targets</title>
+  <desc id="b-desc">bun run build writes the static export to out/. The Tauri shell loads out/ and packages it for Windows, Linux and Android. The same out/ files can also be served by a website.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2F4038"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="720" height="420" rx="12" fill="#FBF6EC"/>
+
+  <!-- Row 1: web build -->
+  <rect x="20" y="40" width="160" height="60" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="100" y="66" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2F4038">Next.js + React</text>
+  <text x="100" y="86" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#3f5147">bun run build</text>
+
+  <line x1="180" y1="70" x2="268" y2="70" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="270" y="40" width="160" height="60" rx="8" fill="#C7D2B1" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="350" y="66" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="700" fill="#2F4038">out/</text>
+  <text x="350" y="86" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#2F4038">static frontend files</text>
+
+  <line x1="432" y1="70" x2="498" y2="70" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="500" y="40" width="200" height="60" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="600" y="66" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2F4038">Website</text>
+  <text x="600" y="86" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#3f5147">serves the same out/ files</text>
+
+  <!-- Row 2: Tauri shell -->
+  <line x1="350" y1="100" x2="350" y2="168" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="362" y="138" font-family="system-ui, sans-serif" font-size="12" fill="#3f5147">loaded by</text>
+
+  <rect x="270" y="170" width="160" height="60" rx="8" fill="#B86752" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="350" y="196" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#FBF6EC">Tauri shell</text>
+  <text x="350" y="216" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#FBF6EC">Rust, src-tauri/</text>
+
+  <!-- Row 3: targets -->
+  <line x1="320" y1="230" x2="120" y2="296" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="350" y1="230" x2="350" y2="296" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="380" y1="230" x2="580" y2="296" stroke="#2F4038" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="20" y="300" width="200" height="60" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="120" y="326" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2F4038">Windows</text>
+  <text x="120" y="346" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#3f5147">.exe, .msi</text>
+
+  <rect x="260" y="300" width="200" height="60" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="360" y="326" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2F4038">Linux</text>
+  <text x="360" y="346" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#3f5147">.deb, .AppImage</text>
+
+  <rect x="500" y="300" width="200" height="60" rx="8" fill="#F1E9DC" stroke="#2F4038" stroke-width="1.5"/>
+  <text x="600" y="326" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2F4038">Android</text>
+  <text x="600" y="346" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#3f5147">APK</text>
+
+  <text x="20" y="395" font-family="system-ui, sans-serif" font-size="13" fill="#3f5147">One web export, one Tauri shell, separate packaging and testing per target.</text>
+</svg>
