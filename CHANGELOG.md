@@ -2,19 +2,18 @@
 
 ## [3.7.1] - 2026-11-16
 
-- Yangilanishni tekshirish tugmasi "Check update" deb nomlandi.
-- Tasdiqlash oynasi tugmalari ingliz tilida: "Update now" va "Later".
-- Yangilash oynasi sarlavhasi "Jasurdev.uz Update" qilindi.
-- Yangilash tugmasidagi "ACL" xatosi tuzatildi: asosiy oyna endi yangilanishni tekshira oladi.
-- Asosiy oynaning eng kichik o'lchami belgilandi (360×640), shuning uchun u mobil ko'rinishgacha siqilmaydi.
-- Oyna o'lchami va joylashuvi eslab qolinadi.
-- Android build xatolari tuzatildi: yangilanish ruxsatlari va oyna kodi faqat desktop uchun ishlaydi.
+- Renamed the manual update button to "Check update".
+- Update prompt buttons are now "Update now" and "Later".
+- Update window title is now "Jasurdev.uz Update".
+- Fixed "plugin:updater|check not allowed by ACL" error: the main window can now check for updates.
+- Set a minimum window size for the main window (360x640) so it does not shrink below mobile width.
+- The window size and position are now remembered between launches.
+- Fixed Android build errors: updater permissions and the update window are desktop-only.
 
 ## [3.7.0] - 2026-11-16
 
-- Desktop ilovaga avtomatik yangilanish tekshiruvi qo'shildi: dastur ochilganda tasdiqlash oynasi chiqadi.
-- Yangilash alohida oynada bajariladi: yuklab olish, o'rnatish va qayta ishga tushirish progress bilan ko'rinadi.
-- O'rnatish davomida dasturni yopish, qayta yuklash va kontekst menyusi bloklanadi.
-- Release jarayoni: Windows o'rnatuvchisi, imzolangan yangilanish manifesti va Android APK GitHub Release'ga yuklanadi.
-- Yangilanish kaliti `tauri.conf.json` ichiga qo'shildi.
-- Versiyalarni tekshiruvchi skript package.json, tauri.conf.json, Cargo.toml va CHANGELOG bir xil ekanini tasdiqlaydi.
+- Desktop app: automatic update check on launch, with a confirmation prompt and a separate update window.
+- Desktop app: installs are protected from closing, reloading, and the context menu while they run.
+- Release pipeline: Windows installer, signed updater manifest, and Android APK attached to a GitHub Release.
+- Updater public key configured in `tauri.conf.json`.
+- Version check script ensures package.json, tauri.conf.json, Cargo.toml and CHANGELOG agree.
