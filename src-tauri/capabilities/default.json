@@ -1,14 +1,11 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Permissions for the main window and the update window",
+  "description": "Website main window permissions (all platforms)",
   "windows": [
-    "main",
-    "updater"
+    "main"
   ],
   "permissions": [
-    "core:default",
-    "updater:default",
-    "process:allow-restart"
+    "core:default"
   ]
 }
