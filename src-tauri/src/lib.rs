@@ -21,15 +21,25 @@ fn open_updater_window(app: tauri::AppHandle) -> Result<(), String> {
     return Ok(());
   }
 
-  WebviewWindowBuilder::new(&app, UPDATER_LABEL, WebviewUrl::App("index.html".into()))
-    .title("Jasurdev.uz: yangilaniş")
-    .inner_size(460.0, 300.0)
-    .resizable(false)
-    .center()
-    .build()
-    .map_err(|e| e.to_string())?;
+  #[cfg(desktop)]
+  {
+    WebviewWindowBuilder::new(&app, UPDATER_LABEL, WebviewUrl::App("index.html".into()))
+      .title("Jasurdev.uz: yangilaniş")
+      .inner_size(460.0, 300.0)
+      .resizable(false)
+      .center()
+      .build()
+      .map_err(|e| e.to_string())?;
 
-  Ok(())
+    Ok(())
+  }
+
+  // The update window only exists on desktop; mobile builds never call this.
+  #[cfg(not(desktop))]
+  {
+    let _ = app;
+    Err("Update window is desktop-only.".into())
+  }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
