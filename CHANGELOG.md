@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.7.1] - 2026-11-16
+
+- Yangilanishni tekshirish tugmasi "Check update" deb nomlandi.
+- Tasdiqlash oynasi tugmalari ingliz tilida: "Update now" va "Later".
+- Yangilash oynasi sarlavhasi "Jasurdev.uz Update" qilindi.
+- Yangilash tugmasidagi "ACL" xatosi tuzatildi: asosiy oyna endi yangilanishni tekshira oladi.
+- Asosiy oynaning eng kichik o'lchami belgilandi (360×640), shuning uchun u mobil ko'rinishgacha siqilmaydi.
+- Oyna o'lchami va joylashuvi eslab qolinadi.
+- Android build xatolari tuzatildi: yangilanish ruxsatlari va oyna kodi faqat desktop uchun ishlaydi.
+
 ## [3.7.0] - 2026-11-16
 
 - Desktop ilovaga avtomatik yangilanish tekshiruvi qo'shildi: dastur ochilganda tasdiqlash oynasi chiqadi.
