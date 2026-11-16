@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import SearchPalette from '../components/SearchPalette.astro';
+import DesktopUpdater from '../components/DesktopUpdater.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
 import { toolsList } from '../data/tools';
@@ -160,6 +161,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
       <slot />
     </main>
     <Footer />
+    <DesktopUpdater />
   </div>
 
   <SearchPalette />
