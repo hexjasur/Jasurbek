@@ -2,7 +2,7 @@
 title: "Uzbek Alphabet 2026 Reform: Transition to Diacritics (Ö, Ğ, Ç, Ş)"
 description: "The reformed Uzbek Latin alphabet, finalized on October 21, 2026, replaces the 1995 Oʻ, Gʻ, Sh and Ch spellings with the letters Ö, Ğ, Ş and Ç."
 pubDate: 2026-10-21
-updatedDate: 2026-11-15
+updatedDate: 2026-11-16
 tags: ["uzbek", "linguistics", "unicode", "standards"]
 ---
 
@@ -36,3 +36,5 @@ Reformed spelling (from October 21, 2026):
 ## Converting text
 
 The site has a converter that changes text between the 1995 spelling, the reformed spelling, and Cyrillic: [Uzbek alphabet converter](/tools/uzbek-alphabet). It runs in your browser, so the text is not sent to a server. Check the output by hand before you publish it.
+
+To get used to the four new letters, try the [Yozuv chempioni typing test](/tools/uzbek-typing-champion). You have 60 seconds to type reformed words, and each wrong letter tells you which special letter was needed.

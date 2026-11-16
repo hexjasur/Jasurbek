@@ -2,7 +2,7 @@
 title: "Git'ni noldan örganing: örnatiş, sozlaş, branch va push"
 description: "Git'ni örnatiş, sozlaş, commit yaratiş, branch ajratiş va GitHub'ga push qiliş böyiça noldan qöllanma. Buyruqlar jadvali va tipik xatolar bilan."
 pubDate: 2026-11-12
-updatedDate: 2026-11-15
+updatedDate: 2026-11-16
 tags: ["git", "github", "tutorial", "claude"]
 ---
 
@@ -174,5 +174,7 @@ Manba: [Git tarixi — git-scm.com](https://git-scm.com/book/en/v2/Getting-Start
 - **`Permission denied (publickey)`** — SSH kalit ulanmagan. `ssh-keygen -t ed25519` qiling va oçiq kalitni GitHub Settings → SSH keys ga qöşing.
 
 ## Keyingi qadam
+
+Buyruqlarni brauzerda xavfsiz sinab köring: [Git Playground](/playground/git-playground/). Commit, branch va merge qadamlarini grafda kuzatasiz, vazifalar esa öz-özini tekşiradi.
 
 Commit'lar GitHub'ga yetgaç, ularni avtomatik tekşiriş mumkin: [GitHub Actions bilan bepul CI/CD](/blog/github-actions-bepul-ci-cd/).
