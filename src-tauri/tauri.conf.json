@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "jasurdev",
-  "version": "3.6.5",
+  "version": "3.7.0",
   "identifier": "uz.jasurdev.app",
   "build": {
     "frontendDist": "../dist",
@@ -46,7 +46,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "REPLACE_WITH_UPDATER_PUBLIC_KEY",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRBQjkyNEVFMUFERjk2QjcKUldTM2x0OGE3aVM1U3Z1d1JmSzBmazVlMVN2UUlUbU1HV3FhczR2SkpjNUpod0p2cHF6SzA5NzUK",
       "endpoints": [
         "https://github.com/hexjasur/Jasurbek/releases/latest/download/latest.json"
       ],
