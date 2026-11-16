@@ -3,6 +3,7 @@
   "identifier": "desktop",
   "description": "Desktop-only permissions for the update window",
   "windows": [
+    "main",
     "updater"
   ],
   "platforms": [
