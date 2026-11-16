@@ -55,12 +55,12 @@ function showUpdateDialog(update: Update) {
   notes.tabIndex = 0;
 
   const actions = el('div', 'dsk-actions');
-  const later = button('Keyinroq', 'dsk-btn-secondary', () => {
+  const later = button('Later', 'dsk-btn-secondary', () => {
     dismissVersion(info.version);
     void update.close();
     dialog.close();
   });
-  const updateNow = button('Yangilash', 'dsk-btn-primary', async () => {
+  const updateNow = button('Update now', 'dsk-btn-primary', async () => {
     updateNow.disabled = true;
     try {
       await openUpdaterWindow();

@@ -24,7 +24,7 @@ fn open_updater_window(app: tauri::AppHandle) -> Result<(), String> {
   #[cfg(desktop)]
   {
     WebviewWindowBuilder::new(&app, UPDATER_LABEL, WebviewUrl::App("index.html".into()))
-      .title("Jasurdev.uz: yangilaniş")
+      .title("Jasurdev.uz Update")
       .inner_size(460.0, 300.0)
       .resizable(false)
       .center()
