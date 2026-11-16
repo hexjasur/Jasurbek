@@ -1,0 +1,57 @@
+---
+// Desktop update window. Opened only by the Tauri app; the website never links here.
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Jasurdev.uz Update</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #faf7f1;
+        --fg: #2b2a26;
+        --muted: #5b5850;
+        --line: #cfc6b4;
+        --green: #3d5a4a;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg: #1d1c19; --fg: #f0ede6; --muted: #aaa59a; --line: #4a463d; --green: #5f8a72; }
+      }
+      html, body { height: 100%; margin: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        display: grid;
+        place-items: center;
+      }
+      .dsk-panel { width: min(24rem, calc(100vw - 2rem)); padding: 1.5rem; }
+      .dsk-title { margin: 0 0 0.5rem; font-size: 1.3rem; font-weight: 700; }
+      .dsk-muted { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+      .dsk-progress { width: 100%; height: 0.9rem; }
+      .dsk-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+      .dsk-btn {
+        padding: 0.5rem 1rem;
+        font: inherit;
+        font-weight: 600;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        cursor: pointer;
+      }
+      .dsk-btn-primary { background: var(--green); color: #fff; border-color: transparent; }
+      .dsk-btn-secondary { background: transparent; color: var(--fg); }
+      .dsk-btn:disabled { opacity: 0.6; cursor: wait; }
+      .dsk-btn:focus-visible { outline: 3px solid #b86752; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <noscript>Open this page from the Jasurdev.uz desktop app.</noscript>
+    <script>
+      import { initUpdaterWindow } from '../desktop/index';
+      if ('__TAURI_INTERNALS__' in window) initUpdaterWindow();
+    </script>
+  </body>
+</html>

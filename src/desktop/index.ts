@@ -13,17 +13,17 @@ import {
   type InstallEvent,
 } from './updater';
 
-const UPDATER_LABEL = 'updater';
+const NO_NOTES = 'No release notes for this version.';
 
-/** Entry point, loaded only inside the desktop app. The website never imports this module. */
-export async function initDesktop() {
-  const label = getCurrentWebviewWindow().label;
-  if (label === UPDATER_LABEL) {
-    runUpdaterWindow();
-    return;
-  }
+/** Main window: update prompt and manual check. Loaded only inside the desktop app. */
+export function initDesktop() {
   scheduleAutoCheck((update) => showUpdateDialog(update));
   addManualCheckButton();
+}
+
+/** Update window (page /updater/). Downloads and installs after the user confirms. */
+export function initUpdaterWindow() {
+  runUpdaterWindow();
 }
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string) {
@@ -40,19 +40,25 @@ function button(label: string, className: string, onClick: () => void) {
   return node;
 }
 
+function describe(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
 /** Update prompt in the main window. Nothing is downloaded until the user confirms. */
 function showUpdateDialog(update: Update) {
   const info = toInfo(update);
   const dialog = el('dialog', 'dsk-dialog');
   dialog.setAttribute('aria-labelledby', 'dsk-update-title');
 
-  const title = el('h2', 'dsk-title', 'Yangi versiya mavjud');
+  const title = el('h2', 'dsk-title', 'New version available');
   title.id = 'dsk-update-title';
-  const versions = el('p', 'dsk-muted', `Joriy versiya: ${info.currentVersion}. Yangi versiya: ${info.version}.`);
-  const notesLabel = el('p', 'dsk-label', 'Özgarişlar');
-  const notes = el('div', 'dsk-notes');
-  notes.textContent = info.notes || "Qöşimça ma'lumot yöq.";
+  const versions = el('p', 'dsk-muted', `Current: ${info.currentVersion} · New: ${info.version}`);
+  const notesLabel = el('p', 'dsk-label', "What's new");
+  const notes = el('div', 'dsk-notes', info.notes || NO_NOTES);
   notes.tabIndex = 0;
+
+  const message = el('p', 'dsk-error');
+  message.setAttribute('role', 'alert');
 
   const actions = el('div', 'dsk-actions');
   const later = button('Later', 'dsk-btn-secondary', () => {
@@ -67,18 +73,17 @@ function showUpdateDialog(update: Update) {
       dialog.close();
     } catch (error) {
       updateNow.disabled = false;
-      message.textContent = `Xatolik: ${describe(error)}`;
+      message.textContent = `Error: ${describe(error)}`;
     }
   });
-  const message = el('p', 'dsk-error');
-  message.setAttribute('role', 'alert');
-
   actions.append(later, updateNow);
+
   dialog.append(title, versions, notesLabel, notes, message, actions);
   dialog.addEventListener('cancel', (event) => {
     event.preventDefault();
     later.click();
   });
+  dialog.addEventListener('close', () => dialog.remove());
   document.body.append(dialog);
   dialog.showModal();
   updateNow.focus();
@@ -90,13 +95,13 @@ function addManualCheckButton() {
   status.setAttribute('role', 'status');
   const trigger = button('Check update', 'dsk-btn-floating', async () => {
     trigger.disabled = true;
-    status.textContent = 'Tekşirilmoqda...';
+    status.textContent = 'Checking...';
     try {
       const update = await findUpdate();
-      status.textContent = update ? '' : 'Yangi versiya yöq.';
+      status.textContent = update ? '' : 'You are on the latest version.';
       if (update) showUpdateDialog(update);
     } catch (error) {
-      status.textContent = `Xatolik: ${describe(error)}`;
+      status.textContent = `Error: ${describe(error)}`;
     } finally {
       trigger.disabled = false;
     }
@@ -106,79 +111,71 @@ function addManualCheckButton() {
   document.body.append(wrap);
 }
 
-/** Separate window: downloads and installs the update the user just confirmed. */
+/** Update window: downloads and installs the update the user just confirmed. */
 function runUpdaterWindow() {
-  document.body.className = 'dsk-updater-window';
   document.body.replaceChildren();
 
   const panel = el('main', 'dsk-panel');
-  const heading = el('h1', 'dsk-title', 'Yangilaniş');
-  const status = el('p', 'dsk-muted', 'Tekşirilmoqda...');
+  const heading = el('h1', 'dsk-title', 'Updating Jasurdev.uz');
+  const status = el('p', 'dsk-muted', 'Checking for the update...');
   status.setAttribute('role', 'status');
   const progress = el('progress', 'dsk-progress');
   progress.hidden = true;
-  progress.setAttribute('aria-label', 'Yangilaniş jarayoni');
+  progress.setAttribute('aria-label', 'Update progress');
   const actions = el('div', 'dsk-actions');
   panel.append(heading, status, progress, actions);
   document.body.append(panel);
 
-  const closeWindow = button('Yopiş', 'dsk-btn-secondary', () => {
+  const closeWindow = button('Close', 'dsk-btn-secondary', () => {
     void getCurrentWebviewWindow().close();
   });
-  const retry = button('Qayta uriniş', 'dsk-btn-primary', () => {
+  const retry = button('Try again', 'dsk-btn-primary', () => {
     actions.replaceChildren();
     void start();
   });
 
-  const setIdle = () => {
-    actions.replaceChildren(closeWindow);
-  };
-
   const onEvent = (event: InstallEvent) => {
     if (event.phase === 'downloading') {
       progress.hidden = false;
-      status.textContent = 'Yuklab olinmoqda...';
+      status.textContent = 'Downloading...';
       if (event.total) {
-        progress.removeAttribute('value');
         progress.max = event.total;
         progress.value = event.downloaded;
       } else {
-        progress.removeAttribute('value'); // indeterminate: size unknown
+        progress.removeAttribute('value'); // size unknown: indeterminate
       }
     } else {
       progress.removeAttribute('value');
-      status.textContent = 'Örnatilmoqda... Oyna avtomatik yopilişi mumkin.';
+      status.textContent = 'Installing... The app will restart automatically.';
     }
   };
 
   const start = async () => {
     if (isInstallRunning()) return;
     actions.replaceChildren();
-    status.textContent = 'Tekşirilmoqda...';
+    progress.hidden = true;
+    status.textContent = 'Checking for the update...';
     try {
       const update = await findUpdate();
       if (!update) {
-        progress.hidden = true;
-        status.textContent = 'Yangi versiya yöq. Siz eng sönggi versiyadasiz.';
-        setIdle();
+        status.textContent = 'You are already on the latest version.';
+        actions.replaceChildren(closeWindow);
         return;
       }
-      status.textContent = `Versiya ${update.version} yuklab olinmoqda...`;
+      status.textContent = `Downloading version ${update.version}...`;
       await installUpdate(update, onEvent);
     } catch (error) {
       progress.hidden = true;
-      status.textContent = `Xatolik: ${describe(error)}`;
+      status.textContent = `Error: ${describe(error)}`;
       status.setAttribute('role', 'alert');
       actions.replaceChildren(retry, closeWindow);
     }
   };
 
   // A reload or crash mid-install leaves a lock behind. Do not restart the download silently.
-  const interrupted = installingVersion();
-  if (interrupted) {
-    progress.hidden = true;
-    status.textContent = 'Oldingi yangilaniş töxtagan bölişi mumkin. Qayta tekşiring.';
-    const recheck = button('Qayta tekşiriş', 'dsk-btn-primary', () => {
+  if (installingVersion()) {
+    status.textContent = 'The previous update may have been interrupted.';
+    const recheck = button('Check again', 'dsk-btn-primary', () => {
       clearInstallLock();
       actions.replaceChildren();
       void start();
@@ -188,8 +185,4 @@ function runUpdaterWindow() {
   }
 
   void start();
-}
-
-function describe(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
 }
