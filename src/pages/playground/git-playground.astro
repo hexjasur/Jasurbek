@@ -2,11 +2,81 @@
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { BASE_URL as baseUrl } from '../../lib/url';
+
+/*
+ * Each script is a complete, self-contained bash script. The same lines are
+ * shown on the page and executed by the lab, so the page never drifts from
+ * what actually runs. Lines starting with "#" are comments.
+ * "edit" and "teammate" are lab-only commands (see the note under Scripts).
+ */
+const SCRIPTS = [
+  {
+    id: 'start-feature',
+    file: 'start-feature.sh',
+    title: 'Start a feature from origin/main',
+    summary: 'The usual team routine: update main, branch from the latest remote main, commit twice, publish.',
+    lines: [
+      '#!/usr/bin/env bash',
+      '# Start a feature from the latest origin/main, then publish it.',
+      'git switch main',
+      'git fetch origin',
+      'git pull',
+      'git switch -c feature/login origin/main',
+      'edit',
+      'git add -A',
+      'git commit -m "Add login form"',
+      'edit',
+      'git add -A',
+      'git commit -m "Validate login input"',
+      'git push -u origin feature/login',
+      'echo "Feature branch published to origin."',
+    ],
+  },
+  {
+    id: 'sync-main',
+    file: 'sync-main.sh',
+    title: 'Sync local main with origin',
+    summary: 'Fetch first to see what changed, then fast-forward main. Your other branches are not touched.',
+    lines: [
+      '#!/usr/bin/env bash',
+      '# Update local main from origin without touching your own work.',
+      '# lab only: a teammate pushes a commit to origin/main',
+      'teammate',
+      '# fetch downloads the new commits and moves origin/main, nothing else',
+      'git fetch origin',
+      'git switch main',
+      '# pull fetches again, then fast-forwards main to origin/main',
+      'git pull',
+      'git log --oneline',
+      'echo "main is in sync with origin/main."',
+    ],
+  },
+  {
+    id: 'finish-feature',
+    file: 'finish-feature.sh',
+    title: 'Finish a feature and clean up',
+    summary: 'Work on a branch, merge it into main, then delete it. Git refuses to delete a branch that is not merged yet.',
+    lines: [
+      '#!/usr/bin/env bash',
+      '# Branch, commit, merge into main, delete the branch.',
+      'git switch -c feature',
+      'edit',
+      'git add -A',
+      'git commit -m "Add feature"',
+      'git switch main',
+      'git merge feature',
+      'git branch -d feature',
+      'git log --oneline',
+      'echo "Feature merged and cleaned up."',
+    ],
+  },
+];
+
 ---
 
 <Layout
-  title={`Git Playground: learn commits, branches and merges | ${SITE_CONFIG.author}`}
-  description="An interactive Git sandbox in your browser. Make commits, create branches, merge and reset while watching the commit graph update. Simulated, nothing touches a real repository."
+  title={`Git Playground: branches, fetch, push and scripts | ${SITE_CONFIG.author}`}
+  description="An interactive Git sandbox in your browser. Create branches from main, fetch and pull from origin, push, merge and run complete scripts while the commit graph updates. Simulated, nothing touches a real repository."
   activePage="playground"
   headerTitle={SITE_CONFIG.domain}
 >
@@ -16,15 +86,34 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   <div class="blog-intro">
     <div class="blog-meta-date">First Published: 2026-11-16</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-17</div>
   </div>
 
   <section class="tools-box git-box">
     <h2 class="page-title"><svg class="title-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2" /><circle cx="6" cy="19" r="2" /><circle cx="18" cy="8" r="2" /><path d="M6 7v10" /><path d="M18 10c0 4-6 3-11 7" /></svg> Git Playground</h2>
     <p class="page-lead">
-      Learn Git by doing. Edit a file, stage it, commit, branch and merge, and watch the graph change.
+      Learn Git by doing. Edit a file, stage it, commit, branch, sync with a remote and watch the graph change.
       Every command is simulated in your browser, so you can break things safely. New to Git?
       Read the <a href={`${baseUrl}blog/git-qollanma/`}>Git guide</a> first.
     </p>
+
+    <ol class="git-how" aria-label="How to use this lab">
+      <li><strong>Read.</strong> Look at the script first. A complete worked example teaches faster than a blank prompt.</li>
+      <li><strong>Predict.</strong> Guess what the status line or graph will show before you run the command.</li>
+      <li><strong>Run.</strong> Type the command, or run the whole script in a fresh lab.</li>
+      <li><strong>Check.</strong> Compare the graph and the status line with your guess, then fix any gap.</li>
+    </ol>
+
+    <figure class="git-figure">
+      <img
+        src={`${baseUrl}git/git-areas.svg`}
+        alt="Four places your changes move through: the working directory, the staging area, the local repository and the remote origin. Git add, git commit and git push move changes forward, and git fetch or git pull bring them back."
+        width="760"
+        height="230"
+        loading="lazy"
+      />
+      <figcaption>Every change passes through these four places. Each command moves it one step.</figcaption>
+    </figure>
 
     <div class="git-layout">
       <div class="git-main">
@@ -37,40 +126,126 @@ import { BASE_URL as baseUrl } from '../../lib/url';
           <p id="git-status" class="git-status" aria-live="polite"></p>
         </div>
 
-        <div class="git-panel git-terminal-panel">
+        <div class="git-panel git-terminal-panel" id="git-terminal">
           <div id="git-log" class="git-log" role="log" aria-live="polite" aria-label="Terminal output"></div>
           <form id="git-form" class="git-form" autocomplete="off">
             <label for="git-input" class="git-prompt">$</label>
-            <input id="git-input" class="git-input" type="text" spellcheck="false" autocapitalize="off" placeholder='git commit -m "message"' aria-label="Type a Git command" />
+            <input id="git-input" class="git-input" type="text" spellcheck="false" autocapitalize="off" placeholder='git switch -c feature origin/main' aria-label="Type a Git command" />
           </form>
         </div>
       </div>
 
       <aside class="git-side" aria-label="Lab tools">
         <div class="git-panel">
-          <h3 class="git-panel-title">Challenges</h3>
-          <ol id="git-challenges" class="git-challenges"></ol>
+          <h3 class="git-panel-title">Missions</h3>
+          <p id="git-progress" class="git-progress" aria-live="polite"></p>
+          <ol id="git-missions" class="git-missions"></ol>
           <button type="button" class="btn btn-secondary btn-sm" id="git-reset-lab">Reset lab</button>
         </div>
 
         <div class="git-panel">
           <h3 class="git-panel-title">Quick actions</h3>
           <div class="git-quick">
-            <button type="button" class="btn btn-secondary btn-sm" data-cmd="edit">Edit a file</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="edit">edit (change a file)</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd="git status">git status</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd="git add -A">git add -A</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd='git commit -m "Update"'>git commit</button>
-            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git branch feature">git branch feature</button>
-            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git switch feature">git switch feature</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git switch -c feature">git switch -c feature</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd="git switch main">git switch main</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd="git merge feature">git merge feature</button>
-            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git log --oneline">git log</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git log --oneline">git log --oneline</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="teammate">teammate (pushes to origin)</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git fetch">git fetch</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git pull">git pull</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git push -u origin feature">git push -u origin feature</button>
             <button type="button" class="btn btn-secondary btn-sm" data-cmd="git reset --hard HEAD~1">git reset --hard HEAD~1</button>
           </div>
-          <p class="git-note">Type <code>help</code> in the terminal for the full list of supported commands.</p>
+          <p class="git-note">Type <code>help</code> in the terminal for every supported command.</p>
         </div>
       </aside>
     </div>
+  </section>
+
+  <section class="tools-box git-box" aria-labelledby="git-remote-title">
+    <h2 id="git-remote-title" class="git-section-title">Fetch vs pull</h2>
+    <p class="git-lead">
+      Both commands talk to <code>origin</code>. The difference is what they change on your machine.
+    </p>
+    <div class="git-remote-grid">
+      <figure class="git-figure">
+        <img
+          src={`${baseUrl}git/git-fetch-pull.svg`}
+          alt="Three rows of commits. The server origin has a new commit from a teammate. Git fetch copies that commit to origin/main on your machine. Your main has its own commit, so git pull merges both histories into main."
+          width="760"
+          height="270"
+          loading="lazy"
+        />
+        <figcaption>The teammate's commit reaches your <code>origin/main</code> with fetch. Pull then merges it into <code>main</code>.</figcaption>
+      </figure>
+      <div class="git-remote-notes">
+        <h3>git fetch</h3>
+        <p>Downloads new commits and moves your <code>origin/*</code> refs. Your branches and your files stay exactly as they were. It is safe to run at any time.</p>
+        <h3>git pull</h3>
+        <p>Runs a fetch, then merges <code>origin/&lt;branch&gt;</code> into your current branch. Use it when you want your branch to catch up.</p>
+        <h3>git push</h3>
+        <p>Sends your commits to origin. Git rejects the push when origin has commits you do not have. Fetch, merge, then push again.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tools-box git-box" aria-labelledby="git-scripts-title">
+    <h2 id="git-scripts-title" class="git-section-title">Scripts</h2>
+    <p class="git-lead">
+      Each script is complete and self-contained. Run one in a fresh lab, watch every command, and read the comments as you go.
+      The lab stops at the first failing command, the same as <code>set -e</code> in bash.
+    </p>
+
+    <div class="git-scripts">
+      {SCRIPTS.map((script) => (
+        <article class="git-script" data-title={script.title} data-lines={JSON.stringify(script.lines)}>
+          <header class="git-script-head">
+            <h3>{script.title}</h3>
+            <span class="git-file">{script.file}</span>
+          </header>
+          <p class="git-script-sum">{script.summary}</p>
+          <pre class="git-code" tabindex="0"><code>{script.lines.join('\n')}</code></pre>
+          <button type="button" class="btn btn-secondary btn-sm" data-run-script>Run in a fresh lab</button>
+        </article>
+      ))}
+    </div>
+
+    <p class="git-note-block">
+      <strong>Lab-only commands.</strong> <code>edit</code> stands in for changing a file. In a real repository you would write
+      the change with your editor or with <code>echo "text" &gt;&gt; file</code>. <code>teammate</code> simulates someone else
+      pushing to <code>origin/main</code>, so you can practise fetching it.
+    </p>
+
+    <details class="git-quiz">
+      <summary>Predict first, then check</summary>
+      <ol>
+        <li>
+          <p>You ran <code>git fetch</code> after a teammate pushed. Did your local <code>main</code> change?</p>
+          <details>
+            <summary>Answer</summary>
+            <p>No. Fetch only moves <code>origin/main</code>. <code>git pull</code> is the command that also merges into <code>main</code>.</p>
+          </details>
+        </li>
+        <li>
+          <p>Your branch is 1 commit ahead and 2 behind <code>origin/main</code>. What does <code>git push</code> do?</p>
+          <details>
+            <summary>Answer</summary>
+            <p>It is rejected as non-fast-forward. Fetch, merge or rebase onto <code>origin/main</code>, then push again.</p>
+          </details>
+        </li>
+        <li>
+          <p>What is the difference between <code>git switch -c hotfix</code> and <code>git switch -c hotfix origin/main</code>?</p>
+          <details>
+            <summary>Answer</summary>
+            <p>The second starts from the latest <code>origin/main</code> you fetched and records it as the upstream, so later pulls and pushes know where to go.</p>
+          </details>
+        </li>
+      </ol>
+    </details>
   </section>
 
   <div class="page-footer-nav">
@@ -82,6 +257,34 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   .git-box { max-width: 72rem; }
   .title-icon { display: inline-block; width: 1.1em; height: 1.1em; vertical-align: -0.15em; margin-right: 0.35rem; }
   .git-box .page-lead { max-width: 46rem; }
+  .git-lead { max-width: 46rem; margin: 0 0 1rem; color: var(--text-main); line-height: 1.6; }
+  .git-section-title { margin: 0 0 0.5rem; font-size: 1.35rem; color: var(--text-strong); }
+  .git-box code, .git-note-block code, .git-quiz code { font-size: 0.85em; }
+
+  .git-how {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 0 0 1.2rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .git-how li {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    background: var(--card-bg, #fff);
+  }
+  .git-how strong { display: block; margin-bottom: 0.2rem; color: var(--text-strong); }
+  @media (max-width: 52rem) { .git-how { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .git-figure { margin: 0 0 1.2rem; }
+  .git-figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
+  .git-figure figcaption { margin-top: 0.4rem; font-size: 0.88rem; color: var(--text-soft); }
 
   .git-layout {
     display: grid;
@@ -107,7 +310,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   .git-graph {
     overflow-x: auto;
-    min-height: 12rem;
+    min-height: 13rem;
     border-radius: 8px;
     background: var(--flora-surface, #faf7f1);
   }
@@ -119,7 +322,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
   .git-terminal-panel { padding: 0; overflow: hidden; background: #1f1d1a; border-color: #1f1d1a; }
   .git-log {
-    height: 15rem;
+    height: 16rem;
     overflow-y: auto;
     padding: 0.8rem 1rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -150,24 +353,99 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   .git-input:focus-visible { outline: 2px solid #f2c28c; outline-offset: 2px; border-radius: 4px; }
   .git-input::placeholder { color: #7d7669; }
 
-  .git-challenges { margin: 0 0 0.8rem; padding-left: 0; list-style: none; display: grid; gap: 0.5rem; }
-  .git-challenges li {
+  .git-progress { margin: 0 0 0.5rem; font-size: 0.82rem; color: var(--text-soft); }
+  .git-missions { margin: 0 0 0.8rem; padding-left: 0; list-style: none; display: grid; gap: 0.5rem; }
+  .git-missions li {
     display: flex; gap: 0.5rem; align-items: flex-start;
     font-size: 0.9rem; color: var(--text-main); line-height: 1.45;
   }
-  .git-challenges .mark {
+  .git-missions li.git-group {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .git-missions .mark {
     flex: none; width: 1.2rem; height: 1.2rem; border-radius: 50%;
     border: 2px solid var(--border-color);
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 0.75rem; color: transparent;
   }
-  .git-challenges li.done .mark { background: var(--success, #4f7a5b); border-color: var(--success, #4f7a5b); color: #fff; }
-  .git-challenges li.done { color: var(--text-soft); }
+  .git-missions li.done .mark { background: var(--success, #4f7a5b); border-color: var(--success, #4f7a5b); color: #fff; }
+  .git-missions li.done:not(.git-group) { color: var(--text-soft); }
 
   .git-quick { display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
   .git-quick .btn-sm { text-align: left; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
   .git-note { margin: 0.7rem 0 0; font-size: 0.85rem; color: var(--text-soft); }
-  .git-note code, .git-panel code { font-size: 0.85em; }
+  .git-panel code { font-size: 0.85em; }
+
+  .git-remote-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: start;
+  }
+  @media (max-width: 52rem) { .git-remote-grid { grid-template-columns: 1fr; } }
+  .git-remote-notes h3 { margin: 0.8rem 0 0.2rem; font-size: 1rem; color: var(--text-strong); }
+  .git-remote-notes h3:first-child { margin-top: 0; }
+  .git-remote-notes p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--text-main); }
+
+  .git-scripts { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1rem; }
+  .git-script {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg, #fff);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+  .git-script-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+  .git-script-head h3 { margin: 0; font-size: 1rem; color: var(--text-strong); }
+  .git-file { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.78rem; color: var(--text-soft); }
+  .git-script-sum { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--text-main); }
+  .git-code {
+    margin: 0;
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+    background: #1f1d1a;
+    color: #e9e3d6;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .git-code:focus-visible { outline: 2px solid var(--focus, #b86752); outline-offset: 2px; }
+  .git-script .btn { align-self: flex-start; }
+
+  .git-note-block {
+    margin: 1rem 0 0;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--flora-accent, #b86752);
+    background: var(--flora-surface, #faf7f1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-main);
+  }
+
+  .git-quiz {
+    margin-top: 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    background: var(--card-bg, #fff);
+  }
+  .git-quiz > summary { cursor: pointer; font-weight: 700; color: var(--text-strong); }
+  .git-quiz ol { margin: 0.8rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.8rem; }
+  .git-quiz p { margin: 0 0 0.3rem; line-height: 1.55; color: var(--text-main); }
+  .git-quiz details summary { cursor: pointer; font-size: 0.88rem; color: var(--text-soft); }
+  .git-quiz details p { margin-top: 0.4rem; }
 </style>
 
 <script>
@@ -181,25 +459,44 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     dirty: number;
     staged: number;
     counter: number;
+    remoteUrl: string;
+    remoteBranches: Record<string, string>;
+    remoteRefs: Record<string, string>;
+    upstream: Record<string, string>;
+    teamPushes: number;
+    done: Record<string, boolean>;
   };
+  type Mission = { id: string; group: 'Core' | 'Remote'; label: string; check: (s: LabState) => boolean };
 
+  const REMOTE_URL = 'https://github.com/you/playground.git';
   const LANE_COLORS = ['#b86752', '#4f7a5b', '#3d6a9e', '#9a6fb0', '#c79a2e', '#2e8b8b'];
+  const REMOTE_PILL = '#7d7669';
+  const TEAM_MESSAGES = ['Add search to the docs', 'Fix typo in README', 'Bump dependencies', 'Refactor API client'];
+
   const COMMAND_HELP = [
-    'git status                 show branch and working tree state',
-    'edit                       simulate changing a file (adds unstaged changes)',
-    'git add -A                 stage all changes',
-    'git commit -m "message"    save staged changes as a commit',
-    'git branch [name]          list branches, or create one',
-    'git branch -d <name>       delete a merged branch',
-    'git switch <name>          switch to a branch',
-    'git switch -c <name>       create a branch and switch to it',
-    'git merge <name>           merge a branch into the current one',
-    'git log [--oneline]        show commit history',
-    'git reset --hard <ref>     move the branch back (HEAD, HEAD~1, commit id)',
-    'clear                      clear the terminal',
+    'git status                    show branch, tracking and working tree state',
+    'edit                          simulate changing a file (adds unstaged changes)',
+    'git add -A                    stage all changes',
+    'git commit -m "message"       save staged changes as a commit',
+    'git branch [name] [from]      list branches, or create one from a commit or origin/main',
+    'git branch -a                 list local and remote-tracking branches',
+    'git branch -d <name>          delete a merged branch',
+    'git switch <name>             switch to a branch',
+    'git switch -c <name> [from]   create a branch (for example from origin/main) and switch to it',
+    'git merge <name>              merge a branch, or origin/main, into the current one',
+    'git fetch                     download origin updates without changing your branches',
+    'git pull                      fetch, then merge origin/<branch> into the current branch',
+    'git push [-u] origin <name>   publish a branch to origin',
+    'git remote -v                 show the origin URL',
+    'git log [--oneline]           show commit history',
+    'git reset --hard <ref>        move the branch (HEAD, HEAD~1, origin/main, commit id)',
+    'teammate                      lab only: a teammate pushes a commit to origin/main',
+    'echo <text>                   print text',
+    'clear                         clear the terminal',
   ];
 
   let state: LabState;
+  let lastFailed = false;
   const history: string[] = [];
   let historyIndex = -1;
 
@@ -218,6 +515,12 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       dirty: 0,
       staged: 0,
       counter: 1,
+      remoteUrl: REMOTE_URL,
+      remoteBranches: { main: root.id },
+      remoteRefs: { 'origin/main': root.id },
+      upstream: { main: 'origin/main' },
+      teamPushes: 0,
+      done: {},
     };
   }
 
@@ -245,12 +548,38 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   function reachable(s: LabState): Set<string> {
     const all = new Set<string>();
     Object.values(s.branches).forEach((id) => ancestors(s, id).forEach((x) => all.add(x)));
+    Object.values(s.remoteRefs).forEach((id) => ancestors(s, id).forEach((x) => all.add(x)));
     if (s.detachedAt) ancestors(s, s.detachedAt).forEach((x) => all.add(x));
     return all;
   }
 
   function nextLane(s: LabState): number {
     return Math.max(-1, ...Object.values(s.lanes)) + 1;
+  }
+
+  function aheadBehind(s: LabState, local: string, remote: string): { ahead: number; behind: number } {
+    const mine = ancestors(s, local);
+    const theirs = ancestors(s, remote);
+    let ahead = 0;
+    let behind = 0;
+    mine.forEach((id) => { if (!theirs.has(id)) ahead += 1; });
+    theirs.forEach((id) => { if (!mine.has(id)) behind += 1; });
+    return { ahead, behind };
+  }
+
+  function trackingMessage(ref: string, ahead: number, behind: number): string {
+    const count = (n: number) => `${n} commit${n === 1 ? '' : 's'}`;
+    if (!ahead && !behind) return `Your branch is up to date with '${ref}'.`;
+    if (ahead && !behind) return `Your branch is ahead of '${ref}' by ${count(ahead)}.`;
+    if (behind && !ahead) return `Your branch is behind '${ref}' by ${count(behind)}, and can be fast-forwarded.`;
+    return `Your branch and '${ref}' have diverged: ${count(ahead)} here, ${count(behind)} on '${ref}'.`;
+  }
+
+  function newCommit(s: LabState, message: string, parents: string[], lane: number): string {
+    s.counter += 1;
+    const id = hashFor(s.counter);
+    s.commits.push({ id, message, parents, lane });
+    return id;
   }
 
   function escapeHtml(text: string): string {
@@ -269,7 +598,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   const graphEl = document.getElementById('git-graph')!;
   const statusEl = document.getElementById('git-status')!;
   const headLabelEl = document.getElementById('git-head-label')!;
-  const challengesEl = document.getElementById('git-challenges')!;
+  const missionsEl = document.getElementById('git-missions')!;
+  const progressEl = document.getElementById('git-progress')!;
   const inputEl = document.getElementById('git-input') as HTMLInputElement;
   const formEl = document.getElementById('git-form') as HTMLFormElement;
 
@@ -283,21 +613,23 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     logEl.scrollTop = logEl.scrollHeight;
   }
 
-  function fail(message: string) {
-    print([message], 'err');
-  }
-
   function ok(lines: string | string[]) {
     print(Array.isArray(lines) ? lines : [lines], 'out');
+  }
+
+  function fail(message: string | string[]) {
+    lastFailed = true;
+    print(Array.isArray(message) ? message : [message], 'err');
   }
 
   function short(id: string) {
     return id.slice(0, 7);
   }
 
-  function refsAt(s: LabState, id: string): string[] {
-    const names = Object.entries(s.branches).filter(([, value]) => value === id).map(([name]) => name);
-    return names;
+  function refsAt(s: LabState, id: string): { name: string; remote: boolean }[] {
+    const local = Object.entries(s.branches).filter(([, value]) => value === id).map(([name]) => ({ name, remote: false }));
+    const remote = Object.entries(s.remoteRefs).filter(([, value]) => value === id).map(([name]) => ({ name, remote: true }));
+    return [...local, ...remote];
   }
 
   function resolveRef(s: LabState, ref: string): string | undefined {
@@ -313,17 +645,62 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       return id;
     }
     if (s.branches[ref]) return s.branches[ref];
+    if (s.remoteRefs[ref]) return s.remoteRefs[ref];
     return s.commits.find((c) => c.id.startsWith(ref))?.id;
   }
 
   function commitOnHead(s: LabState, message: string): string {
-    s.counter += 1;
-    const id = hashFor(s.counter);
     const parent = currentId(s);
     const lane = s.head ? s.lanes[s.head] : 0;
-    s.commits.push({ id, message, parents: parent ? [parent] : [], lane });
+    const id = newCommit(s, message, parent ? [parent] : [], lane);
     if (s.head) s.branches[s.head] = id;
     else s.detachedAt = id;
+    return id;
+  }
+
+  /** Download origin's branches into origin/* refs. Local branches never move. */
+  function fetchOrigin(s: LabState): string[] {
+    const lines: string[] = [];
+    for (const [name, id] of Object.entries(s.remoteBranches)) {
+      const ref = `origin/${name}`;
+      const before = s.remoteRefs[ref];
+      if (before === id) continue;
+      if (before === undefined) lines.push(` * [new branch]      ${name} -> ${ref}`);
+      else lines.push(`   ${short(before)}..${short(id)}  ${name} -> ${ref}`);
+      s.remoteRefs[ref] = id;
+    }
+    return lines;
+  }
+
+  function createBranch(s: LabState, name: string, start?: string): string | undefined {
+    const id = start ? resolveRef(s, start) : currentId(s);
+    if (!id) return undefined;
+    s.branches[name] = id;
+    s.lanes[name] = nextLane(s);
+    if (start && s.remoteRefs[start]) s.upstream[name] = start;
+    return id;
+  }
+
+  /** Merge `other` into the current branch. Returns the message git would print. */
+  function mergeInto(s: LabState, other: string, message: string): string {
+    const head = s.head!;
+    const current = s.branches[head];
+    if (ancestors(s, current).has(other)) return 'Already up to date.';
+    if (ancestors(s, other).has(current)) {
+      s.branches[head] = other;
+      return `Fast-forward: ${head} moved to ${short(other)}.`;
+    }
+    const id = newCommit(s, message, [current, other], s.lanes[head]);
+    s.branches[head] = id;
+    return `Merge made by the 'ort' strategy. ${head} is now ${short(id)}.`;
+  }
+
+  /** Simulates a teammate pushing one commit to origin/main. Your origin/main stays old until you fetch. */
+  function teammatePush(s: LabState): string {
+    const message = TEAM_MESSAGES[s.teamPushes % TEAM_MESSAGES.length];
+    const id = newCommit(s, message, [s.remoteBranches.main], s.lanes.main ?? 0);
+    s.remoteBranches.main = id;
+    s.teamPushes += 1;
     return id;
   }
 
@@ -336,6 +713,11 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
       case 'status': {
         const lines = [s.head ? `On branch ${s.head}` : `HEAD detached at ${short(s.detachedAt)}`];
+        const upstream = s.head ? s.upstream[s.head] : undefined;
+        if (s.head && upstream && s.remoteRefs[upstream]) {
+          const { ahead, behind } = aheadBehind(s, s.branches[s.head], s.remoteRefs[upstream]);
+          lines.push(trackingMessage(upstream, ahead, behind));
+        }
         if (s.staged) lines.push(`Changes to be committed: ${s.staged} file(s) staged`);
         if (s.dirty) lines.push(`Changes not staged for commit: ${s.dirty} file(s) modified`);
         if (!s.staged && !s.dirty) lines.push('nothing to commit, working tree clean');
@@ -344,10 +726,10 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
       case 'add': {
         if (s.dirty === 0) return ok('nothing to add');
-        s.staged += s.dirty;
-        ok(`Staged ${s.dirty} file(s).`);
+        const count = s.dirty;
+        s.staged += count;
         s.dirty = 0;
-        return;
+        return ok(`Staged ${count} file(s).`);
       }
 
       case 'commit': {
@@ -365,6 +747,11 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       }
 
       case 'branch': {
+        if (rest[0] === '-a' || rest[0] === '--all') {
+          const locals = Object.keys(s.branches).sort().map((b) => `${b === s.head ? '* ' : '  '}${b}`);
+          const remotes = Object.keys(s.remoteRefs).sort().map((r) => `  remotes/${r}`);
+          return ok([...locals, ...remotes]);
+        }
         if (rest[0] === '-d' || rest[0] === '-D') {
           const name = rest[1];
           if (!name || !s.branches[name]) return fail(`error: branch '${name ?? ''}' not found.`);
@@ -373,6 +760,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
             return fail(`error: the branch '${name}' is not fully merged. Use -D to force.`);
           }
           delete s.branches[name];
+          delete s.upstream[name];
           return ok(`Deleted branch ${name}.`);
         }
         const name = rest[0];
@@ -381,9 +769,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
           return ok(list);
         }
         if (s.branches[name]) return fail(`fatal: a branch named '${name}' already exists`);
-        s.branches[name] = currentId(s);
-        s.lanes[name] = nextLane(s);
-        return ok(`Created branch ${name}.`);
+        if (!createBranch(s, name, rest[1])) return fail(`fatal: not a valid object name: '${rest[1]}'`);
+        return ok(`Created branch ${name}${rest[1] ? ` from ${rest[1]}` : ''}.`);
       }
 
       case 'switch':
@@ -393,42 +780,93 @@ import { BASE_URL as baseUrl } from '../../lib/url';
         if (!name) return fail('fatal: missing branch name');
         if (create) {
           if (s.branches[name]) return fail(`fatal: a branch named '${name}' already exists`);
-          s.branches[name] = currentId(s);
-          s.lanes[name] = nextLane(s);
+          if (!createBranch(s, name, rest[2])) return fail(`fatal: invalid reference: ${rest[2]}`);
         } else if (!s.branches[name]) {
           return fail(`fatal: invalid reference: ${name}`);
         }
         s.head = name;
         s.detachedAt = '';
-        return ok(`Switched to branch '${name}'`);
+        return ok(create ? `Switched to a new branch '${name}'` : `Switched to branch '${name}'`);
       }
 
       case 'merge': {
         const name = rest[0];
         if (!name) return fail('usage: git merge <branch>');
-        if (!s.branches[name]) return fail(`merge: ${name} - not something we can merge`);
+        const other = s.branches[name] ?? s.remoteRefs[name];
+        if (!other) return fail(`merge: ${name} - not something we can merge`);
         if (!s.head) return fail('You are in detached HEAD state. Switch to a branch before merging.');
-        const current = s.branches[s.head];
-        const other = s.branches[name];
-        if (ancestors(s, current).has(other)) return ok('Already up to date.');
-        if (ancestors(s, other).has(current)) {
-          s.branches[s.head] = other;
-          return ok(`Fast-forward: ${s.head} moved to ${short(other)}.`);
+        return ok(mergeInto(s, other, `Merge branch '${name}'`));
+      }
+
+      case 'fetch': {
+        const lines = fetchOrigin(s);
+        return ok(lines.length ? [`From ${s.remoteUrl}`, ...lines] : ['Already up to date with origin.']);
+      }
+
+      case 'pull': {
+        const fetched = fetchOrigin(s);
+        if (fetched.length) ok([`From ${s.remoteUrl}`, ...fetched]);
+        if (!s.head) return fail('You are not currently on a branch. Switch to a branch first.');
+        const upstream = s.upstream[s.head];
+        if (!upstream || !s.remoteRefs[upstream]) {
+          return fail(`There is no tracking information for the current branch. Publish it with: git push -u origin ${s.head}`);
         }
-        s.counter += 1;
-        const id = hashFor(s.counter);
-        s.commits.push({ id, message: `Merge branch '${name}'`, parents: [current, other], lane: s.lanes[s.head] });
-        s.branches[s.head] = id;
-        return ok(`Merge made by the 'ort' strategy. ${s.head} is now ${short(id)}.`);
+        return ok(mergeInto(s, s.remoteRefs[upstream], `Merge remote-tracking branch '${upstream}'`));
+      }
+
+      case 'push': {
+        const setUpstream = rest.includes('-u') || rest.includes('--set-upstream');
+        const positional = rest.filter((arg) => !arg.startsWith('-'));
+        if (positional.length && positional[0] !== 'origin') {
+          return fail(`fatal: '${positional[0]}' does not appear to be a git repository`);
+        }
+        const branch = positional[1] ?? s.head;
+        if (!branch) return fail('fatal: You are not currently on a branch.');
+        const local = s.branches[branch];
+        if (!local) return fail(`error: src refspec ${branch} does not match any`);
+
+        const ref = `origin/${branch}`;
+        const header = `To ${s.remoteUrl}`;
+        const tracking = setUpstream ? [`branch '${branch}' set up to track '${ref}'.`] : [];
+        const remoteTip = s.remoteBranches[branch];
+
+        if (remoteTip === undefined) {
+          s.remoteBranches[branch] = local;
+          s.remoteRefs[ref] = local;
+          if (setUpstream) s.upstream[branch] = ref;
+          return ok([header, ` * [new branch]      ${branch} -> ${branch}`, ...tracking]);
+        }
+        if (remoteTip === local) return ok('Everything up-to-date');
+        if (!ancestors(s, local).has(remoteTip)) {
+          return fail([
+            header,
+            ` ! [rejected]        ${branch} -> ${branch} (non-fast-forward)`,
+            'error: failed to push some refs to origin',
+            "hint: origin has commits you don't have locally. Fetch, merge or rebase, then push again.",
+          ]);
+        }
+        s.remoteBranches[branch] = local;
+        s.remoteRefs[ref] = local;
+        if (setUpstream) s.upstream[branch] = ref;
+        return ok([header, `   ${short(remoteTip)}..${short(local)}  ${branch} -> ${branch}`, ...tracking]);
+      }
+
+      case 'remote': {
+        if (rest[0] === '-v' || rest[0] === '--verbose') {
+          return ok([`origin\t${s.remoteUrl} (fetch)`, `origin\t${s.remoteUrl} (push)`]);
+        }
+        return ok('origin');
       }
 
       case 'log': {
-        const seen = [...ancestors(s, currentId(s))];
-        const ordered = s.commits.filter((c) => seen.includes(c.id)).reverse();
+        const seen = ancestors(s, currentId(s));
+        const ordered = s.commits.filter((c) => seen.has(c.id)).reverse();
         if (!ordered.length) return ok('No commits yet.');
         return ok(ordered.map((c) => {
           const refs = refsAt(s, c.id);
-          const labels = refs.length ? ` (${refs.map((r) => (r === s.head ? `HEAD -> ${r}` : r)).join(', ')})` : '';
+          const labels = refs.length
+            ? ` (${refs.map((r) => (!r.remote && r.name === s.head ? `HEAD -> ${r.name}` : r.name)).join(', ')})`
+            : '';
           return `${short(c.id)}${labels} ${c.message}`;
         }));
       }
@@ -456,17 +894,22 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     if (!line) return;
     history.unshift(line);
     historyIndex = -1;
+    lastFailed = false;
     print([`$ ${line}`], 'cmd');
 
-    const tokens = tokenize(line);
-    const [cmd, ...args] = tokens;
+    const [cmd, ...args] = tokenize(line);
     if (cmd === 'clear') {
       logEl.replaceChildren();
     } else if (cmd === 'edit') {
       state.dirty += 1;
       ok(`Modified file: ${state.dirty} unstaged change(s).`);
+    } else if (cmd === 'teammate') {
+      const id = teammatePush(state);
+      ok([`A teammate pushed ${short(id)} to origin/main.`, 'Your origin/main is not updated yet. Run: git fetch']);
     } else if (cmd === 'git') {
       runGit(state, args);
+    } else if (cmd === 'echo') {
+      ok(args.join(' '));
     } else if (cmd === 'help') {
       ok(COMMAND_HELP);
     } else {
@@ -485,7 +928,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     const xGap = 110;
     const yGap = 78;
     const padX = 60;
-    const padY = 96;
+    const padY = 120;
     const maxLane = Math.max(0, ...s.commits.map((c) => c.lane));
     const width = padX * 2 + (s.commits.length - 1) * xGap;
     const height = padY + maxLane * yGap + 90;
@@ -511,12 +954,14 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       const isHead = c.id === current;
       const dim = live.has(c.id) ? 1 : 0.35;
       const r = isHead ? 13 : 10;
-      const pills = refs.map((name) => {
-        const label = name === s.head ? `HEAD → ${name}` : name;
+      const pills = refs.map((ref, index) => {
+        const isHeadRef = !ref.remote && ref.name === s.head;
+        const label = isHeadRef ? `HEAD → ${ref.name}` : ref.name;
+        const fill = ref.remote ? REMOTE_PILL : color;
         const w = label.length * 7.4 + 16;
         const px = to.x - w / 2;
-        const py = to.y - 44 - refs.indexOf(name) * 22;
-        return `<g><rect x="${px}" y="${py}" width="${w}" height="18" rx="9" fill="${color}" /><text x="${px + w / 2}" y="${py + 12.5}" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace" fill="#fff">${escapeHtml(label)}</text></g>`;
+        const py = to.y - 44 - index * 22;
+        return `<g><rect x="${px}" y="${py}" width="${w}" height="18" rx="9" fill="${fill}" /><text x="${px + w / 2}" y="${py + 12.5}" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace" fill="#fff">${escapeHtml(label)}</text></g>`;
       }).join('');
 
       nodes.push(
@@ -538,6 +983,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     const parts = [`${s.commits.length} commit(s)`];
     parts.push(s.staged ? `${s.staged} staged` : 'nothing staged');
     parts.push(s.dirty ? `${s.dirty} modified` : 'clean working tree');
+    parts.push(`origin/main at ${short(s.remoteRefs['origin/main'] ?? '')}`);
     statusEl.textContent = parts.join(' · ');
   }
 
@@ -548,45 +994,107 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     return s.commits.filter((c) => c.lane === lane).length;
   }
 
-  const CHALLENGES: { label: string; check: (s: LabState) => boolean }[] = [
+  /** Missions stay complete once achieved, so a later command cannot undo a lesson. */
+  const MISSIONS: Mission[] = [
     {
-      label: 'Create a branch called "feature" and switch to it',
+      id: 'feature-branch',
+      group: 'Core',
+      label: 'Create "feature" and switch to it: git switch -c feature',
       check: (s) => Boolean(s.branches.feature) && (s.head === 'feature' || featureCommitCount(s) > 0),
     },
     {
-      label: 'Make at least two commits on "feature"',
+      id: 'two-commits',
+      group: 'Core',
+      label: 'Make two commits on "feature"',
       check: (s) => featureCommitCount(s) >= 2,
     },
     {
-      label: 'Merge "feature" into "main"',
+      id: 'merge-feature',
+      group: 'Core',
+      label: 'Merge "feature" into "main": git switch main, then git merge feature',
       check: (s) => featureCommitCount(s) >= 2 && Boolean(s.branches.main) && ancestors(s, s.branches.main).has(s.branches.feature),
+    },
+    {
+      id: 'teammate-fetch',
+      group: 'Remote',
+      label: 'Run "teammate", then "git fetch" to see their commit on origin/main',
+      check: (s) => s.teamPushes > 0 && s.remoteRefs['origin/main'] === s.remoteBranches.main,
+    },
+    {
+      id: 'hotfix-from-origin',
+      group: 'Remote',
+      label: 'Create "hotfix" from origin/main: git switch -c hotfix origin/main',
+      check: (s) => Boolean(s.branches.hotfix) && s.upstream.hotfix === 'origin/main',
+    },
+    {
+      id: 'publish-hotfix',
+      group: 'Remote',
+      label: 'Publish "hotfix": git push -u origin hotfix',
+      check: (s) => Boolean(s.remoteBranches.hotfix) && s.upstream.hotfix === 'origin/hotfix',
     },
   ];
 
-  function renderChallenges() {
-    challengesEl.innerHTML = CHALLENGES.map((c) => {
-      const done = c.check(state);
-      return `<li class="${done ? 'done' : ''}"><span class="mark" aria-hidden="true">✓</span><span>${escapeHtml(c.label)}${done ? ' (done)' : ''}</span></li>`;
-    }).join('');
+  function evaluateMissions(s: LabState) {
+    for (const mission of MISSIONS) {
+      if (!s.done[mission.id] && mission.check(s)) s.done[mission.id] = true;
+    }
+  }
+
+  function renderMissions() {
+    evaluateMissions(state);
+    let html = '';
+    let group = '';
+    for (const mission of MISSIONS) {
+      if (mission.group !== group) {
+        group = mission.group;
+        html += `<li class="git-group">${escapeHtml(group)}</li>`;
+      }
+      const done = Boolean(state.done[mission.id]);
+      html += `<li class="${done ? 'done' : ''}"><span class="mark" aria-hidden="true">✓</span><span>${escapeHtml(mission.label)}</span></li>`;
+    }
+    missionsEl.innerHTML = html;
+    const completed = MISSIONS.filter((mission) => state.done[mission.id]).length;
+    progressEl.textContent = `${completed} of ${MISSIONS.length} missions complete`;
   }
 
   function render() {
     renderGraph();
-    renderChallenges();
+    renderMissions();
   }
 
   function resetLab() {
     state = freshState();
     logEl.replaceChildren();
-    ok(['Lab reset. Type "help" for commands, or try the Quick actions.'], );
-    print(['Tip: "edit" a file, "git add -A", then "git commit -m \\"message\\"".'], 'info');
+    print(['Lab reset. Type "help" for commands, or run a script below.'], 'info');
     render();
+  }
+
+  /** Runs a script in a fresh lab. Comments are printed, and the run stops at the first failing command. */
+  function runScript(title: string, lines: string[]) {
+    state = freshState();
+    logEl.replaceChildren();
+    print([`Running "${title}" in a fresh lab.`], 'info');
+    render();
+    for (const raw of lines) {
+      const line = raw.trim();
+      if (!line) continue;
+      if (line.startsWith('#')) {
+        print([line], 'info');
+        continue;
+      }
+      run(line);
+      if (lastFailed) {
+        print(['Script stopped: a command failed. Read the error above, fix it, then run the script again.'], 'err');
+        return;
+      }
+    }
+    print(['Script finished.'], 'info');
   }
 
   function setupGitPlayground() {
     state = freshState();
     logEl.replaceChildren();
-    print(['Welcome to the Git playground. Type "help" to see the commands.'], 'info');
+    print(['Welcome to the Git playground. Type "help" to see the commands, or run a script below.'], 'info');
     render();
 
     formEl.addEventListener('submit', (event) => {
@@ -610,7 +1118,17 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     document.querySelectorAll<HTMLButtonElement>('[data-cmd]').forEach((button) => {
       button.addEventListener('click', () => {
         run(button.dataset.cmd ?? '');
-        inputEl.focus();
+        inputEl.focus({ preventScroll: true });
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-run-script]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const card = button.closest<HTMLElement>('.git-script');
+        if (!card) return;
+        const lines: string[] = JSON.parse(card.dataset.lines ?? '[]');
+        runScript(card.dataset.title ?? 'script', lines);
+        inputEl.focus({ preventScroll: true });
       });
     });
 

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="areas-title areas-desc">
+  <title id="areas-title">Four places your changes move through</title>
+  <desc id="areas-desc">Changes move from the working directory to the staging area with git add, from staging to the local repository with git commit, and from the local repository to origin with git push. Git fetch and git pull bring changes back from origin.</desc>
+  <defs>
+    <marker id="arrow-forward" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#b86752" />
+    </marker>
+    <marker id="arrow-back" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#3d6a9e" />
+    </marker>
+  </defs>
+
+  <rect width="760" height="230" rx="16" fill="#faf7f1" />
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <rect x="16" y="70" width="150" height="84" rx="12" fill="#fffdf8" stroke="#4f7a5b" stroke-width="2" />
+    <text x="91" y="98" font-size="15" font-weight="700" fill="#3c372f">Working</text>
+    <text x="91" y="118" font-size="15" font-weight="700" fill="#3c372f">directory</text>
+    <text x="91" y="138" font-size="12" fill="#8a8273">your files</text>
+
+    <rect x="206" y="70" width="150" height="84" rx="12" fill="#fffdf8" stroke="#4f7a5b" stroke-width="2" />
+    <text x="281" y="98" font-size="15" font-weight="700" fill="#3c372f">Staging</text>
+    <text x="281" y="118" font-size="15" font-weight="700" fill="#3c372f">area</text>
+    <text x="281" y="138" font-size="12" fill="#8a8273">the index</text>
+
+    <rect x="396" y="70" width="150" height="84" rx="12" fill="#fffdf8" stroke="#4f7a5b" stroke-width="2" />
+    <text x="471" y="98" font-size="15" font-weight="700" fill="#3c372f">Local</text>
+    <text x="471" y="118" font-size="15" font-weight="700" fill="#3c372f">repository</text>
+    <text x="471" y="138" font-size="12" fill="#8a8273">commits in .git</text>
+
+    <rect x="586" y="70" width="150" height="84" rx="12" fill="#fffdf8" stroke="#3d6a9e" stroke-width="2" />
+    <text x="661" y="98" font-size="15" font-weight="700" fill="#3c372f">Remote</text>
+    <text x="661" y="118" font-size="15" font-weight="700" fill="#3c372f">origin</text>
+    <text x="661" y="138" font-size="12" fill="#8a8273">GitHub, shared</text>
+  </g>
+
+  <g stroke="#b86752" stroke-width="2.5" fill="none" marker-end="url(#arrow-forward)">
+    <line x1="170" y1="112" x2="202" y2="112" />
+    <line x1="360" y1="112" x2="392" y2="112" />
+    <line x1="550" y1="112" x2="582" y2="112" />
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" text-anchor="middle" fill="#b86752">
+    <text x="186" y="58">git add</text>
+    <text x="376" y="58">git commit</text>
+    <text x="566" y="58">git push</text>
+  </g>
+
+  <path d="M 661 158 C 661 205, 91 205, 91 158" stroke="#3d6a9e" stroke-width="2.5" fill="none" stroke-dasharray="6 5" marker-end="url(#arrow-back)" />
+  <text x="376" y="218" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3d6a9e">git fetch · git pull (back to your copy)</text>
+</svg>

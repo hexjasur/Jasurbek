@@ -28,7 +28,7 @@ export const playgroundList: PlaygroundEntry[] = [
     id: 'git-playground',
     num: 3,
     title: 'Git Playground',
-    description: 'Learn Git visually: edit, stage, commit, branch, merge and reset while the commit graph updates. Guided challenges included.',
+    description: 'Learn Git visually: branch from origin/main, fetch and pull, push, merge and reset while the commit graph updates. Missions and complete scripts included.',
     slug: 'git-playground',
   },
   {
