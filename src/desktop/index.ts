@@ -88,7 +88,7 @@ function showUpdateDialog(update: Update) {
 function addManualCheckButton() {
   const status = el('p', 'dsk-status');
   status.setAttribute('role', 'status');
-  const trigger = button('Yangilanişni tekşiriş', 'dsk-btn-floating', async () => {
+  const trigger = button('Check update', 'dsk-btn-floating', async () => {
     trigger.disabled = true;
     status.textContent = 'Tekşirilmoqda...';
     try {
