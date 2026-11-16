@@ -1,6 +1,6 @@
 [package]
 name = "jasurdev"
-version = "3.6.5"
+version = "3.7.0"
 description = "Jasurdev Desktop App"
 authors = ["Jasurbek Haydarov"]
 edition = "2024"
