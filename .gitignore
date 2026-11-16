@@ -21,6 +21,8 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
+keys
+
 # IDE & OS files
 .DS_Store
 Thumbs.db
