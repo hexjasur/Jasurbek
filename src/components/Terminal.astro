@@ -1,0 +1,296 @@
+---
+import type { TerminalData } from '../lib/terminal';
+
+interface Props {
+  data: TerminalData;
+  /** Visible title of the window bar. */
+  title?: string;
+}
+
+const { data, title = 'jasur@portfolio: ~' } = Astro.props;
+// Escape "<" so the JSON cannot close the script tag early.
+const payload = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<div class="terminal" data-terminal>
+  <div class="term-bar" aria-hidden="true">
+    <span class="term-dot term-dot-red"></span>
+    <span class="term-dot term-dot-yellow"></span>
+    <span class="term-dot term-dot-green"></span>
+    <span class="term-title">{title}</span>
+  </div>
+  <div class="term-output" data-output role="log" aria-live="polite" aria-label="Terminal output"></div>
+  <form class="term-form" data-form autocomplete="off">
+    <label class="term-prompt" for="terminal-input">jasur@portfolio:~$</label>
+    <input
+      id="terminal-input"
+      class="term-input"
+      data-input
+      type="text"
+      spellcheck="false"
+      autocapitalize="off"
+      autocorrect="off"
+      placeholder="help"
+    />
+  </form>
+  <script is:inline type="application/json" data-terminal-data set:html={payload}></script>
+</div>
+
+<style>
+  .terminal {
+    width: 100%;
+    max-width: 52rem;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1d1b18;
+    color: #e9e3d6;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    text-align: left;
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.8rem;
+    background: #2a2722;
+    border-bottom: 1px solid #3a362f;
+  }
+  .term-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; }
+  .term-dot-red { background: #e07a6b; }
+  .term-dot-yellow { background: #e0b96b; }
+  .term-dot-green { background: #8dbb8a; }
+  .term-title {
+    margin-left: 0.5rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    color: #a89f8e;
+  }
+
+  .term-output {
+    height: min(60vh, 32rem);
+    overflow-y: auto;
+    padding: 0.9rem 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .term-entry + .term-entry { margin-top: 0.9rem; }
+  .term-cmd { color: #f2c28c; white-space: pre-wrap; word-break: break-word; }
+  .term-cmd::before { content: "$ "; color: #9fc6a8; }
+  .term-json { margin: 0.35rem 0 0; white-space: pre-wrap; word-break: break-word; color: #e9e3d6; }
+  .term-error { color: #ef9a88; }
+  .term-info { color: #a89f8e; white-space: pre-wrap; }
+
+  .tk-key { color: #9fc6a8; }
+  .tk-str { color: #e6d3a3; }
+  .tk-num { color: #b7c9e8; }
+  .tk-lit { color: #d9a3d9; }
+
+  .term-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-top: 1px solid #3a362f;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86rem;
+  }
+  .term-prompt { color: #9fc6a8; white-space: nowrap; }
+  .term-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.35rem 0.2rem;
+    border: 0;
+    background: transparent;
+    color: #f5efe3;
+    font: inherit;
+  }
+  .term-input::placeholder { color: #6f675a; }
+  .term-input:focus-visible { outline: 2px solid #f2c28c; outline-offset: 2px; border-radius: 4px; }
+</style>
+
+<script>
+  type Handler = (args: string[]) => unknown;
+  type Command = { usage: string; description: string; run: Handler };
+
+  function renderJson(json: string): DocumentFragment {
+    const frag = document.createDocumentFragment();
+    const re = /("(?:[^"\\]|\\.)*")(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?/g;
+    let last = 0;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(json))) {
+      frag.append(json.slice(last, m.index));
+      const span = document.createElement('span');
+      if (m[1]) {
+        span.className = m[2] ? 'tk-key' : 'tk-str';
+        span.textContent = m[1];
+        frag.append(span);
+        if (m[2]) frag.append(m[2]);
+      } else {
+        span.className = m[3] ? 'tk-lit' : 'tk-num';
+        span.textContent = m[0];
+        frag.append(span);
+      }
+      last = re.lastIndex;
+    }
+    frag.append(json.slice(last));
+    return frag;
+  }
+
+  function setupTerminal() {
+    const root = document.querySelector<HTMLElement>('[data-terminal]');
+    if (!root || root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    const dataEl = root.querySelector('[data-terminal-data]');
+    const outputEl = root.querySelector<HTMLElement>('[data-output]');
+    const form = root.querySelector<HTMLFormElement>('[data-form]');
+    const input = root.querySelector<HTMLInputElement>('[data-input]');
+    if (!dataEl || !outputEl || !form || !input) return;
+
+    const d = JSON.parse(dataEl.textContent ?? '{}') as {
+      profile: Record<string, string>;
+      projects: { slug: string; title: string; tagline: string; status: string; year: string; tags: string[]; url: string }[];
+      tools: unknown[];
+      playground: unknown[];
+      blog: { tags: string[] }[];
+    };
+
+    /**
+     * Commands read the shared site data. Output is always JSON, so the same
+     * terminal works for people and for scripts that copy the result.
+     */
+    const commands: Record<string, Command> = {
+      help: {
+        usage: 'help',
+        description: 'List every command and what it returns',
+        run: () => Object.entries(commands).map(([name, c]) => ({ command: c.usage, name, description: c.description })),
+      },
+      whoami: {
+        usage: 'whoami',
+        description: 'Profile and contact details',
+        run: () => d.profile,
+      },
+      projects: {
+        usage: 'projects [slug]',
+        description: 'All projects as a summary, or one project in full',
+        run: (args) => {
+          if (!args[0]) return d.projects.map(({ slug, title, tagline, status, year, tags, url }) => ({ slug, title, tagline, status, year, tags, url }));
+          return d.projects.find((p) => p.slug === args[0]) ?? { error: `No project named "${args[0]}"`, slugs: d.projects.map((p) => p.slug) };
+        },
+      },
+      blog: {
+        usage: 'blog [tag]',
+        description: 'Blog posts, newest first, optionally filtered by tag',
+        run: (args) => {
+          const tag = args[0]?.toLowerCase();
+          const posts = tag ? d.blog.filter((p) => p.tags.map((t) => t.toLowerCase()).includes(tag)) : d.blog;
+          return posts;
+        },
+      },
+      tools: {
+        usage: 'tools',
+        description: 'Free browser tools and converters',
+        run: () => d.tools,
+      },
+      playground: {
+        usage: 'playground',
+        description: 'Games and interactive experiments',
+        run: () => d.playground,
+      },
+      contact: {
+        usage: 'contact',
+        description: 'How to reach me',
+        run: () => ({ email: d.profile.email, telegram: d.profile.telegram, github: d.profile.github }),
+      },
+      clear: {
+        usage: 'clear',
+        description: 'Clear the screen',
+        run: () => null,
+      },
+    };
+
+    function append(command: string, body: unknown, isError = false) {
+      const entry = document.createElement('div');
+      entry.className = 'term-entry';
+
+      const cmd = document.createElement('div');
+      cmd.className = 'term-cmd';
+      cmd.textContent = command;
+      entry.append(cmd);
+
+      if (body !== null) {
+        const pre = document.createElement('pre');
+        pre.className = isError ? 'term-json term-error' : 'term-json';
+        const text = JSON.stringify(body, null, 2);
+        if (isError) pre.textContent = text;
+        else pre.append(renderJson(text));
+        entry.append(pre);
+      }
+
+      outputEl!.append(entry);
+      outputEl!.scrollTop = outputEl!.scrollHeight;
+    }
+
+    function execute(line: string) {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      const [name, ...args] = trimmed.split(/\s+/);
+      const key = name.toLowerCase();
+
+      if (key === 'clear') {
+        outputEl!.replaceChildren();
+        return;
+      }
+
+      const command = commands[key];
+      if (!command) {
+        append(trimmed, { error: `Unknown command: ${name}`, hint: 'Type "help" to list commands' }, true);
+        return;
+      }
+      append(trimmed, command.run(args));
+    }
+
+    const history: string[] = [];
+    let historyIndex = -1;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = input.value;
+      if (value.trim()) history.unshift(value);
+      historyIndex = -1;
+      execute(value);
+      input.value = '';
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (historyIndex < history.length - 1) historyIndex += 1;
+        input.value = history[historyIndex] ?? '';
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        historyIndex = Math.max(-1, historyIndex - 1);
+        input.value = historyIndex >= 0 ? history[historyIndex] : '';
+      } else if (event.key === 'Tab') {
+        const prefix = input.value.trim().toLowerCase();
+        if (!prefix || prefix.includes(' ')) return;
+        const matches = Object.keys(commands).filter((c) => c.startsWith(prefix));
+        if (matches.length === 1) {
+          event.preventDefault();
+          input.value = matches[0] + ' ';
+        }
+      }
+    });
+
+    outputEl.append(Object.assign(document.createElement('div'), {
+      className: 'term-info',
+      textContent: 'Type "help" to list commands. Use Tab to complete a command name and the arrow keys for history.',
+    }));
+    input.focus({ preventScroll: true });
+  }
+
+  document.addEventListener('astro:page-load', setupTerminal);
+</script>

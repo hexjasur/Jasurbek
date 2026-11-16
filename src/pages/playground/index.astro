@@ -29,7 +29,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
       <article class="blog-card">
         <div class="blog-card-header">
           <span class="blog-card-num">{demo.num}.</span>
-          <a href={`${baseUrl}playground/${demo.slug}`}>{demo.title}</a>
+          <a href={demo.href ? `${baseUrl}${demo.href}` : `${baseUrl}playground/${demo.slug}`}>{demo.title}</a>
         </div>
         <p class="card-desc">{demo.description}</p>
       </article>

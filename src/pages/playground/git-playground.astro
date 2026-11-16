@@ -1,0 +1,623 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+import { BASE_URL as baseUrl } from '../../lib/url';
+---
+
+<Layout
+  title={`Git Playground: learn commits, branches and merges | ${SITE_CONFIG.author}`}
+  description="An interactive Git sandbox in your browser. Make commits, create branches, merge and reset while watching the commit graph update. Simulated, nothing touches a real repository."
+  activePage="playground"
+  headerTitle={SITE_CONFIG.domain}
+>
+  <div class="back-link-wrap">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+
+  <section class="tools-box git-box">
+    <h2 class="page-title">🌿 Git Playground</h2>
+    <p class="page-lead">
+      Learn Git by doing. Edit a file, stage it, commit, branch and merge, and watch the graph change.
+      Every command is simulated in your browser, so you can break things safely. New to Git?
+      Read the <a href={`${baseUrl}blog/git-qollanma/`}>Git guide</a> first.
+    </p>
+
+    <div class="git-layout">
+      <div class="git-main">
+        <div class="git-panel">
+          <div class="git-panel-head">
+            <span class="git-panel-title">Commit graph</span>
+            <span id="git-head-label" class="git-head-label" aria-live="polite"></span>
+          </div>
+          <div id="git-graph" class="git-graph" role="region" aria-label="Commit graph" tabindex="0"></div>
+          <p id="git-status" class="git-status" aria-live="polite"></p>
+        </div>
+
+        <div class="git-panel git-terminal-panel">
+          <div id="git-log" class="git-log" role="log" aria-live="polite" aria-label="Terminal output"></div>
+          <form id="git-form" class="git-form" autocomplete="off">
+            <label for="git-input" class="git-prompt">$</label>
+            <input id="git-input" class="git-input" type="text" spellcheck="false" autocapitalize="off" placeholder='git commit -m "message"' aria-label="Type a Git command" />
+          </form>
+        </div>
+      </div>
+
+      <aside class="git-side" aria-label="Lab tools">
+        <div class="git-panel">
+          <h3 class="git-panel-title">Challenges</h3>
+          <ol id="git-challenges" class="git-challenges"></ol>
+          <button type="button" class="btn btn-secondary btn-sm" id="git-reset-lab">Reset lab</button>
+        </div>
+
+        <div class="git-panel">
+          <h3 class="git-panel-title">Quick actions</h3>
+          <div class="git-quick">
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="edit">Edit a file</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git status">git status</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git add -A">git add -A</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd='git commit -m "Update"'>git commit</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git branch feature">git branch feature</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git switch feature">git switch feature</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git switch main">git switch main</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git merge feature">git merge feature</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git log --oneline">git log</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-cmd="git reset --hard HEAD~1">git reset --hard HEAD~1</button>
+          </div>
+          <p class="git-note">Type <code>help</code> in the terminal for the full list of supported commands.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="page-footer-nav">
+    <a href={`${baseUrl}playground`} class="back-link">&larr; Back to playground</a>
+  </div>
+</Layout>
+
+<style>
+  .git-box { max-width: 72rem; }
+  .git-box .page-lead { max-width: 46rem; }
+
+  .git-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+    gap: 1rem;
+    align-items: start;
+  }
+  .git-main, .git-side { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+  @media (max-width: 52rem) {
+    .git-layout { grid-template-columns: 1fr; }
+  }
+
+  .git-panel {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg, #fff);
+    padding: 0.9rem 1rem;
+    min-width: 0;
+  }
+  .git-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .git-panel-title { margin: 0 0 0.5rem; font-size: 0.95rem; font-weight: 700; color: var(--text-strong); }
+  .git-head-label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--text-soft); }
+
+  .git-graph {
+    overflow-x: auto;
+    min-height: 12rem;
+    border-radius: 8px;
+    background: var(--flora-surface, #faf7f1);
+  }
+  .git-graph:focus-visible { outline: 3px solid var(--focus, #b86752); outline-offset: 2px; }
+  .git-graph svg { display: block; }
+  .git-graph .empty { padding: 1rem; color: var(--text-soft); }
+
+  .git-status { margin: 0.6rem 0 0; font-size: 0.9rem; color: var(--text-soft); }
+
+  .git-terminal-panel { padding: 0; overflow: hidden; background: #1f1d1a; border-color: #1f1d1a; }
+  .git-log {
+    height: 15rem;
+    overflow-y: auto;
+    padding: 0.8rem 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #e9e3d6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .git-log .line-cmd { color: #f2c28c; }
+  .git-log .line-err { color: #ef9a88; }
+  .git-log .line-info { color: #9fc6a8; }
+  .git-log .line-out { color: #e9e3d6; }
+
+  .git-form { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; border-top: 1px solid #3a362f; }
+  .git-prompt { color: #9fc6a8; font-family: ui-monospace, monospace; font-weight: 700; }
+  .git-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.4rem 0.2rem;
+    border: 0;
+    background: transparent;
+    color: #f5efe3;
+    font: inherit;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+  }
+  .git-input:focus-visible { outline: 2px solid #f2c28c; outline-offset: 2px; border-radius: 4px; }
+  .git-input::placeholder { color: #7d7669; }
+
+  .git-challenges { margin: 0 0 0.8rem; padding-left: 0; list-style: none; display: grid; gap: 0.5rem; }
+  .git-challenges li {
+    display: flex; gap: 0.5rem; align-items: flex-start;
+    font-size: 0.9rem; color: var(--text-main); line-height: 1.45;
+  }
+  .git-challenges .mark {
+    flex: none; width: 1.2rem; height: 1.2rem; border-radius: 50%;
+    border: 2px solid var(--border-color);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: transparent;
+  }
+  .git-challenges li.done .mark { background: var(--success, #4f7a5b); border-color: var(--success, #4f7a5b); color: #fff; }
+  .git-challenges li.done { color: var(--text-soft); }
+
+  .git-quick { display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
+  .git-quick .btn-sm { text-align: left; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
+  .git-note { margin: 0.7rem 0 0; font-size: 0.85rem; color: var(--text-soft); }
+  .git-note code, .git-panel code { font-size: 0.85em; }
+</style>
+
+<script>
+  type Commit = { id: string; message: string; parents: string[]; lane: number };
+  type LabState = {
+    commits: Commit[];
+    branches: Record<string, string>;
+    lanes: Record<string, number>;
+    head: string | null;
+    detachedAt: string;
+    dirty: number;
+    staged: number;
+    counter: number;
+  };
+
+  const LANE_COLORS = ['#b86752', '#4f7a5b', '#3d6a9e', '#9a6fb0', '#c79a2e', '#2e8b8b'];
+  const COMMAND_HELP = [
+    'git status                 show branch and working tree state',
+    'edit                       simulate changing a file (adds unstaged changes)',
+    'git add -A                 stage all changes',
+    'git commit -m "message"    save staged changes as a commit',
+    'git branch [name]          list branches, or create one',
+    'git branch -d <name>       delete a merged branch',
+    'git switch <name>          switch to a branch',
+    'git switch -c <name>       create a branch and switch to it',
+    'git merge <name>           merge a branch into the current one',
+    'git log [--oneline]        show commit history',
+    'git reset --hard <ref>     move the branch back (HEAD, HEAD~1, commit id)',
+    'clear                      clear the terminal',
+  ];
+
+  let state: LabState;
+  const history: string[] = [];
+  let historyIndex = -1;
+
+  function hashFor(n: number): string {
+    return ((Math.imul(n, 2654435761) >>> 0).toString(16)).padStart(8, '0');
+  }
+
+  function freshState(): LabState {
+    const root: Commit = { id: hashFor(1), message: 'Initial commit', parents: [], lane: 0 };
+    return {
+      commits: [root],
+      branches: { main: root.id },
+      lanes: { main: 0 },
+      head: 'main',
+      detachedAt: '',
+      dirty: 0,
+      staged: 0,
+      counter: 1,
+    };
+  }
+
+  function currentId(s: LabState): string {
+    return s.head ? s.branches[s.head] : s.detachedAt;
+  }
+
+  function byId(s: LabState, id: string): Commit | undefined {
+    return s.commits.find((c) => c.id === id);
+  }
+
+  /** The commit itself plus every commit reachable through parent links. */
+  function ancestors(s: LabState, id: string): Set<string> {
+    const seen = new Set<string>();
+    const stack = [id];
+    while (stack.length) {
+      const next = stack.pop()!;
+      if (seen.has(next)) continue;
+      seen.add(next);
+      byId(s, next)?.parents.forEach((p) => stack.push(p));
+    }
+    return seen;
+  }
+
+  function reachable(s: LabState): Set<string> {
+    const all = new Set<string>();
+    Object.values(s.branches).forEach((id) => ancestors(s, id).forEach((x) => all.add(x)));
+    if (s.detachedAt) ancestors(s, s.detachedAt).forEach((x) => all.add(x));
+    return all;
+  }
+
+  function nextLane(s: LabState): number {
+    return Math.max(-1, ...Object.values(s.lanes)) + 1;
+  }
+
+  function escapeHtml(text: string): string {
+    return text.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch] as string));
+  }
+
+  function tokenize(input: string): string[] {
+    const tokens: string[] = [];
+    const re = /"([^"]*)"|'([^']*)'|(\S+)/g;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(input))) tokens.push(m[1] ?? m[2] ?? m[3]);
+    return tokens;
+  }
+
+  const logEl = document.getElementById('git-log')!;
+  const graphEl = document.getElementById('git-graph')!;
+  const statusEl = document.getElementById('git-status')!;
+  const headLabelEl = document.getElementById('git-head-label')!;
+  const challengesEl = document.getElementById('git-challenges')!;
+  const inputEl = document.getElementById('git-input') as HTMLInputElement;
+  const formEl = document.getElementById('git-form') as HTMLFormElement;
+
+  function print(lines: string[], kind: 'cmd' | 'out' | 'err' | 'info' = 'out') {
+    for (const line of lines) {
+      const div = document.createElement('div');
+      div.className = `line-${kind}`;
+      div.textContent = line;
+      logEl.appendChild(div);
+    }
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function fail(message: string) {
+    print([message], 'err');
+  }
+
+  function ok(lines: string | string[]) {
+    print(Array.isArray(lines) ? lines : [lines], 'out');
+  }
+
+  function short(id: string) {
+    return id.slice(0, 7);
+  }
+
+  function refsAt(s: LabState, id: string): string[] {
+    const names = Object.entries(s.branches).filter(([, value]) => value === id).map(([name]) => name);
+    return names;
+  }
+
+  function resolveRef(s: LabState, ref: string): string | undefined {
+    if (!ref || ref === 'HEAD') return currentId(s);
+    const headRel = ref.match(/^HEAD~(\d+)$/);
+    if (headRel) {
+      let id = currentId(s);
+      for (let i = 0; i < Number(headRel[1]); i++) {
+        const parent = byId(s, id)?.parents[0];
+        if (!parent) return undefined;
+        id = parent;
+      }
+      return id;
+    }
+    if (s.branches[ref]) return s.branches[ref];
+    return s.commits.find((c) => c.id.startsWith(ref))?.id;
+  }
+
+  function commitOnHead(s: LabState, message: string): string {
+    s.counter += 1;
+    const id = hashFor(s.counter);
+    const parent = currentId(s);
+    const lane = s.head ? s.lanes[s.head] : 0;
+    s.commits.push({ id, message, parents: parent ? [parent] : [], lane });
+    if (s.head) s.branches[s.head] = id;
+    else s.detachedAt = id;
+    return id;
+  }
+
+  function runGit(s: LabState, args: string[]): void {
+    const [sub, ...rest] = args;
+    switch (sub) {
+      case undefined:
+      case 'help':
+        return ok(COMMAND_HELP);
+
+      case 'status': {
+        const lines = [s.head ? `On branch ${s.head}` : `HEAD detached at ${short(s.detachedAt)}`];
+        if (s.staged) lines.push(`Changes to be committed: ${s.staged} file(s) staged`);
+        if (s.dirty) lines.push(`Changes not staged for commit: ${s.dirty} file(s) modified`);
+        if (!s.staged && !s.dirty) lines.push('nothing to commit, working tree clean');
+        return ok(lines);
+      }
+
+      case 'add': {
+        if (s.dirty === 0) return ok('nothing to add');
+        s.staged += s.dirty;
+        ok(`Staged ${s.dirty} file(s).`);
+        s.dirty = 0;
+        return;
+      }
+
+      case 'commit': {
+        const mIndex = rest.indexOf('-m');
+        const message = mIndex >= 0 ? rest[mIndex + 1] : undefined;
+        if (!message) return fail('Aborting commit: a message is required. Use: git commit -m "message"');
+        if (s.staged === 0) {
+          if (s.dirty > 0) return fail('no changes added to commit (use "git add")');
+          return fail('nothing to commit, working tree clean');
+        }
+        if (!s.head) ok('warning: committing on a detached HEAD. Create a branch to keep these commits.');
+        const id = commitOnHead(s, message);
+        s.staged = 0;
+        return ok(`[${s.head ?? 'detached'} ${short(id)}] ${message}`);
+      }
+
+      case 'branch': {
+        if (rest[0] === '-d' || rest[0] === '-D') {
+          const name = rest[1];
+          if (!name || !s.branches[name]) return fail(`error: branch '${name ?? ''}' not found.`);
+          if (name === s.head) return fail(`error: cannot delete branch '${name}' checked out right now.`);
+          if (rest[0] === '-d' && !ancestors(s, currentId(s)).has(s.branches[name])) {
+            return fail(`error: the branch '${name}' is not fully merged. Use -D to force.`);
+          }
+          delete s.branches[name];
+          return ok(`Deleted branch ${name}.`);
+        }
+        const name = rest[0];
+        if (!name) {
+          const list = Object.keys(s.branches).sort().map((b) => `${b === s.head ? '* ' : '  '}${b}`);
+          return ok(list);
+        }
+        if (s.branches[name]) return fail(`fatal: a branch named '${name}' already exists`);
+        s.branches[name] = currentId(s);
+        s.lanes[name] = nextLane(s);
+        return ok(`Created branch ${name}.`);
+      }
+
+      case 'switch':
+      case 'checkout': {
+        const create = rest[0] === '-c' || rest[0] === '-b';
+        const name = create ? rest[1] : rest[0];
+        if (!name) return fail('fatal: missing branch name');
+        if (create) {
+          if (s.branches[name]) return fail(`fatal: a branch named '${name}' already exists`);
+          s.branches[name] = currentId(s);
+          s.lanes[name] = nextLane(s);
+        } else if (!s.branches[name]) {
+          return fail(`fatal: invalid reference: ${name}`);
+        }
+        s.head = name;
+        s.detachedAt = '';
+        return ok(`Switched to branch '${name}'`);
+      }
+
+      case 'merge': {
+        const name = rest[0];
+        if (!name) return fail('usage: git merge <branch>');
+        if (!s.branches[name]) return fail(`merge: ${name} - not something we can merge`);
+        if (!s.head) return fail('You are in detached HEAD state. Switch to a branch before merging.');
+        const current = s.branches[s.head];
+        const other = s.branches[name];
+        if (ancestors(s, current).has(other)) return ok('Already up to date.');
+        if (ancestors(s, other).has(current)) {
+          s.branches[s.head] = other;
+          return ok(`Fast-forward: ${s.head} moved to ${short(other)}.`);
+        }
+        s.counter += 1;
+        const id = hashFor(s.counter);
+        s.commits.push({ id, message: `Merge branch '${name}'`, parents: [current, other], lane: s.lanes[s.head] });
+        s.branches[s.head] = id;
+        return ok(`Merge made by the 'ort' strategy. ${s.head} is now ${short(id)}.`);
+      }
+
+      case 'log': {
+        const seen = [...ancestors(s, currentId(s))];
+        const ordered = s.commits.filter((c) => seen.includes(c.id)).reverse();
+        if (!ordered.length) return ok('No commits yet.');
+        return ok(ordered.map((c) => {
+          const refs = refsAt(s, c.id);
+          const labels = refs.length ? ` (${refs.map((r) => (r === s.head ? `HEAD -> ${r}` : r)).join(', ')})` : '';
+          return `${short(c.id)}${labels} ${c.message}`;
+        }));
+      }
+
+      case 'reset': {
+        if (!rest.includes('--hard')) return fail('This playground supports: git reset --hard <ref>');
+        const ref = rest.filter((r) => r !== '--hard')[0] ?? 'HEAD';
+        const target = resolveRef(s, ref);
+        if (!target) return fail(`fatal: ambiguous argument '${ref}': unknown revision`);
+        if (s.head) s.branches[s.head] = target;
+        else s.detachedAt = target;
+        s.dirty = 0;
+        s.staged = 0;
+        const message = byId(s, target)?.message ?? '';
+        return ok(`HEAD is now at ${short(target)} ${message}`);
+      }
+
+      default:
+        return fail(`git: '${sub}' is not a git command. See 'git help'.`);
+    }
+  }
+
+  function run(raw: string) {
+    const line = raw.trim();
+    if (!line) return;
+    history.unshift(line);
+    historyIndex = -1;
+    print([`$ ${line}`], 'cmd');
+
+    const tokens = tokenize(line);
+    const [cmd, ...args] = tokens;
+    if (cmd === 'clear') {
+      logEl.replaceChildren();
+    } else if (cmd === 'edit') {
+      state.dirty += 1;
+      ok(`Modified file: ${state.dirty} unstaged change(s).`);
+    } else if (cmd === 'git') {
+      runGit(state, args);
+    } else if (cmd === 'help') {
+      ok(COMMAND_HELP);
+    } else {
+      fail(`${cmd}: command not found. Type "help" to see the commands.`);
+    }
+
+    render();
+  }
+
+  function renderGraph() {
+    const s = state;
+    if (!s.commits.length) {
+      graphEl.innerHTML = '<p class="empty">No commits yet.</p>';
+      return;
+    }
+    const xGap = 110;
+    const yGap = 78;
+    const padX = 60;
+    const padY = 96;
+    const maxLane = Math.max(0, ...s.commits.map((c) => c.lane));
+    const width = padX * 2 + (s.commits.length - 1) * xGap;
+    const height = padY + maxLane * yGap + 90;
+    const pos = new Map(s.commits.map((c, i) => [c.id, { x: padX + i * xGap, y: padY + c.lane * yGap }]));
+    const live = reachable(s);
+    const current = currentId(s);
+
+    const edges: string[] = [];
+    const nodes: string[] = [];
+    for (const c of s.commits) {
+      const to = pos.get(c.id)!;
+      const color = LANE_COLORS[c.lane % LANE_COLORS.length];
+      for (const parent of c.parents) {
+        const from = pos.get(parent);
+        if (!from) continue;
+        const dx = (to.x - from.x) / 2;
+        edges.push(
+          `<path d="M ${from.x} ${from.y} C ${from.x + dx} ${from.y}, ${to.x - dx} ${to.y}, ${to.x} ${to.y}" fill="none" stroke="${color}" stroke-width="3" opacity="${live.has(c.id) ? 0.85 : 0.25}" />`,
+        );
+      }
+
+      const refs = refsAt(s, c.id);
+      const isHead = c.id === current;
+      const dim = live.has(c.id) ? 1 : 0.35;
+      const r = isHead ? 13 : 10;
+      const pills = refs.map((name) => {
+        const label = name === s.head ? `HEAD → ${name}` : name;
+        const w = label.length * 7.4 + 16;
+        const px = to.x - w / 2;
+        const py = to.y - 44 - refs.indexOf(name) * 22;
+        return `<g><rect x="${px}" y="${py}" width="${w}" height="18" rx="9" fill="${color}" /><text x="${px + w / 2}" y="${py + 12.5}" text-anchor="middle" font-size="11" font-family="ui-monospace, monospace" fill="#fff">${escapeHtml(label)}</text></g>`;
+      }).join('');
+
+      nodes.push(
+        `<g opacity="${dim}"><title>${escapeHtml(c.message)} (${c.id})</title>` +
+        (isHead ? `<circle cx="${to.x}" cy="${to.y}" r="${r + 5}" fill="none" stroke="${color}" stroke-width="2" stroke-dasharray="3 3" />` : '') +
+        `<circle cx="${to.x}" cy="${to.y}" r="${r}" fill="${color}" stroke="#fffdf8" stroke-width="3" />` +
+        `<text x="${to.x}" y="${to.y + 34}" text-anchor="middle" font-size="12" fill="#3c372f">${escapeHtml(c.message.length > 20 ? c.message.slice(0, 19) + '…' : c.message)}</text>` +
+        `<text x="${to.x}" y="${to.y + 50}" text-anchor="middle" font-size="10.5" font-family="ui-monospace, monospace" fill="#8a8273">${short(c.id)}</text>` +
+        pills +
+        '</g>',
+      );
+    }
+
+    graphEl.innerHTML =
+      `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Commit graph with ${s.commits.length} commits">` +
+      edges.join('') + nodes.join('') + '</svg>';
+
+    headLabelEl.textContent = s.head ? `HEAD → ${s.head}` : `HEAD detached at ${short(s.detachedAt)}`;
+    const parts = [`${s.commits.length} commit(s)`];
+    parts.push(s.staged ? `${s.staged} staged` : 'nothing staged');
+    parts.push(s.dirty ? `${s.dirty} modified` : 'clean working tree');
+    statusEl.textContent = parts.join(' · ');
+  }
+
+  /** Commits made on the feature lane (lane is fixed when the branch is created). */
+  function featureCommitCount(s: LabState): number {
+    const lane = s.lanes.feature;
+    if (lane === undefined || !s.branches.feature) return 0;
+    return s.commits.filter((c) => c.lane === lane).length;
+  }
+
+  const CHALLENGES: { label: string; check: (s: LabState) => boolean }[] = [
+    {
+      label: 'Create a branch called "feature" and switch to it',
+      check: (s) => Boolean(s.branches.feature) && (s.head === 'feature' || featureCommitCount(s) > 0),
+    },
+    {
+      label: 'Make at least two commits on "feature"',
+      check: (s) => featureCommitCount(s) >= 2,
+    },
+    {
+      label: 'Merge "feature" into "main"',
+      check: (s) => featureCommitCount(s) >= 2 && Boolean(s.branches.main) && ancestors(s, s.branches.main).has(s.branches.feature),
+    },
+  ];
+
+  function renderChallenges() {
+    challengesEl.innerHTML = CHALLENGES.map((c) => {
+      const done = c.check(state);
+      return `<li class="${done ? 'done' : ''}"><span class="mark" aria-hidden="true">✓</span><span>${escapeHtml(c.label)}${done ? ' (done)' : ''}</span></li>`;
+    }).join('');
+  }
+
+  function render() {
+    renderGraph();
+    renderChallenges();
+  }
+
+  function resetLab() {
+    state = freshState();
+    logEl.replaceChildren();
+    ok(['Lab reset. Type "help" for commands, or try the Quick actions.'], );
+    print(['Tip: "edit" a file, "git add -A", then "git commit -m \\"message\\"".'], 'info');
+    render();
+  }
+
+  function setupGitPlayground() {
+    state = freshState();
+    logEl.replaceChildren();
+    print(['Welcome to the Git playground. Type "help" to see the commands.'], 'info');
+    render();
+
+    formEl.addEventListener('submit', (event) => {
+      event.preventDefault();
+      run(inputEl.value);
+      inputEl.value = '';
+    });
+
+    inputEl.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (historyIndex < history.length - 1) historyIndex += 1;
+        inputEl.value = history[historyIndex] ?? '';
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        historyIndex = Math.max(-1, historyIndex - 1);
+        inputEl.value = historyIndex >= 0 ? history[historyIndex] : '';
+      }
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-cmd]').forEach((button) => {
+      button.addEventListener('click', () => {
+        run(button.dataset.cmd ?? '');
+        inputEl.focus();
+      });
+    });
+
+    document.getElementById('git-reset-lab')?.addEventListener('click', resetLab);
+  }
+
+  let cleanup: (() => void) | undefined;
+  function boot() {
+    cleanup?.();
+    setupGitPlayground();
+  }
+
+  document.addEventListener('astro:page-load', boot);
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+</script>
