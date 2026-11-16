@@ -11,7 +11,7 @@ export const toolsList: ToolEntry[] = [
   {
     id: 'uzbek-typing-champion',
     num: 12,
-    title: 'Yozuv chempioni: Uzbek Alphabet Typing Speed Test (Ö, Ğ, Ş, Ç)',
+    title: 'Yozuv Chempioni: Uzbek Typing Test',
     description: 'A 60-second typing game for the 2026 reformed Uzbek Latin alphabet. Type Ö, Ğ, Ş and Ç words quickly, and every wrong letter is explained.',
     slug: 'uzbek-typing-champion',
   },
