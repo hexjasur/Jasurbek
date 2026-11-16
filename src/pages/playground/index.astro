@@ -25,7 +25,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   <h3 class="blog-entries-title section-gap">Experiments</h3>
 
   <div class="blog-grid">
-    {playgroundList.map((demo) => (
+    {[...playgroundList].sort((a, b) => b.num - a.num).map((demo) => (
       <article class="blog-card">
         <div class="blog-card-header">
           <span class="blog-card-num">{demo.num}.</span>
