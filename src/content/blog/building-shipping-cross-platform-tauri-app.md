@@ -2,8 +2,8 @@
 title: "Building and Shipping a Cross-Platform Tauri App"
 description: "A practical look at packaging a Next.js and Rust application for Windows, Linux, and Android, using Numeric Methods as a real-world example."
 pubDate: 2026-11-01
-updatedDate: 2026-11-15
-tags: ["tauri", "rust", "nextjs", "android", "desktop", "release-engineering"]
+updatedDate: 2026-11-17
+tags: ["tauri-frontend", "tauri", "rust", "nextjs", "android", "desktop", "release-engineering"]
 ---
 
 Each operating system has its own build tools, package formats, permissions, signing requirements, and update path, so one codebase does not mean one release process. This guide walks through those differences using [Numeric Methods](https://github.com/hexjasur/numeric-methods), an interactive numerical-computing application built for the web, desktop, and Android.

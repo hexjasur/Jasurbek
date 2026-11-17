@@ -2,8 +2,8 @@
 title: "@hexjasur/AGENTS.md: Install and Update AI Agent Guides"
 description: "A short guide to what @hexjasur/agents-md does and how to install and update project instructions and Agent Skills."
 pubDate: 2026-11-01
-updatedDate: 2026-11-15
-tags: ["ai", "agents", "developer-tools", "documentation"]
+updatedDate: 2026-11-17
+tags: ["claude-ai", "ai", "agents", "developer-tools", "documentation"]
 ---
 
 ## What is AGENTS.md?

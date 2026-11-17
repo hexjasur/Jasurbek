@@ -2,7 +2,7 @@
 title: "Fixing WinGet on Windows: Update, Repair, and Troubleshooting"
 description: "Diagnose and repair a broken or crashing WinGet on Windows 10 and 11: check the version, update sources, run the official PowerShell repair, and verify."
 pubDate: 2026-11-09
-updatedDate: 2026-11-15
+updatedDate: 2026-11-17
 tags: ["windows", "winget", "powershell", "developer-tools", "troubleshooting"]
 ---
 

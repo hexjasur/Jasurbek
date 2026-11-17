@@ -2,8 +2,8 @@
 title: "Setting Up Tauri 2 on Windows: Installation Guide"
 description: "Install Rust, the MSVC toolchain, Visual Studio C++ Build Tools and WebView2, then create or build a Tauri 2 app on Windows 10 or 11."
 pubDate: 2026-11-09
-updatedDate: 2026-11-15
-tags: ["tauri", "rust", "windows", "webview2", "desktop"]
+updatedDate: 2026-11-17
+tags: ["tauri-frontend", "tauri", "rust", "windows", "webview2", "desktop"]
 ---
 
 Tauri builds desktop apps from web technologies. The interface is HTML, CSS and JavaScript (React, Vue, Svelte or plain JS), and Rust handles the native side. This guide sets up Tauri 2.x on Windows 10 and Windows 11, in the order the tools depend on each other.

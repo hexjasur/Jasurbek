@@ -2,8 +2,8 @@
 title: "Claude'da model va effort tanlaş: git commit'dan katta promptlargaça amaliy qöllanma"
 description: "2026-yil 14-noyabr holatiga: model va effort darajasini qanday tanlaş, effort nimani özgartirmaydi, narx hisobi va routing misoli."
 pubDate: 2026-11-09
-updatedDate: 2026-11-15
-tags: ["anthropic", "claude", "ai", "llm", "api", "effort"]
+updatedDate: 2026-11-17
+tags: ["claude-ai", "anthropic", "claude", "ai", "llm", "api", "effort"]
 ---
 
 > **Holat sanasi:** 2026-yil 14-noyabr. Modellar, API ID'lar va narxlar [lineup postida](/blog/anthropic-claude-modellari-benchmark-2026). Effort qoidalari şu kuni rasmiy sahifadan qayta öqildi; sahifada sana yöq (pastda «Tekşirilmagan»).

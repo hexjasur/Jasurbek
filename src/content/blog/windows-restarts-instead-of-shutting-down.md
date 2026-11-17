@@ -2,8 +2,8 @@
 title: "Windows Restarts Instead of Shutting Down: How to Fix It"
 description: "When Windows 10 or 11 restarts instead of shutting down, Fast Startup is a common cause. Turn it off in Power Options, or disable hibernation with powercfg."
 pubDate: 2026-11-11
-updatedDate: 2026-11-15
-tags: ["windows-11", "windows-10", "fast-startup", "shutdown", "cmd", "win-troubleshooting"]
+updatedDate: 2026-11-17
+tags: ["windows", "windows-11", "windows-10", "fast-startup", "shutdown", "cmd", "win-troubleshooting"]
 ---
 
 On some Windows 10 and Windows 11 laptops, choosing **Shut down** from the Start menu restarts the machine. Running `shutdown /s /f /t 0` from Command Prompt may power it off correctly. If that is your case, check Fast Startup first.

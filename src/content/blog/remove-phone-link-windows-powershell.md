@@ -2,7 +2,8 @@
 title: "Remove Phone Link on Windows 11 with PowerShell"
 description: "Uninstall Microsoft Phone Link (package Microsoft.YourPhone) on Windows 10 and 11 with one admin PowerShell command, then reinstall it from the Microsoft Store if needed."
 pubDate: 2026-11-17
-tags: ["windows-11", "windows-10", "powershell", "phone-link", "win-troubleshooting"]
+updatedDate: 2026-11-17
+tags: ["windows", "windows-11", "windows-10", "powershell", "phone-link", "win-troubleshooting"]
 ---
 
 Phone Link, formerly Your Phone, ships with Windows 10 and 11. If you never use it, you can remove it with one PowerShell command. The package keeps its old name, `Microsoft.YourPhone`, and the command depends on that name.

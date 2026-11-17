@@ -2,8 +2,8 @@
 title: "Tailwind CSS 4'da dizayn tokenlari: ranglarni bitta joyda boşqariş"
 description: "Tailwind CSS 4'da @theme bilan dizayn tokenlarini quriş: rang, şrift, masofa va soyalarni bitta joyda boşqariş, takrorlanişni kamaytiriş."
 pubDate: 2026-11-12
-updatedDate: 2026-11-15
-tags: ["tailwind", "css", "design-tokens", "frontend", "design-system"]
+updatedDate: 2026-11-17
+tags: ["tauri-frontend", "tailwind", "css", "design-tokens", "frontend", "design-system"]
 ---
 
 ## Muammo: rang hamma joyda tarqab ketadi
