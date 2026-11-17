@@ -48,16 +48,17 @@ Soliq evaziga alohida xizmat bermaydi: pul umumiy byudjetga tuşadi. 2025-yilda 
 
 Taşkiliy şakl javobgarlikni ham belgilaydi:
 
-- **YaTT** — yuridik şaxs tuzmasdan tadbirkorlik qiluvçi jismoniy şaxs. Biznes majburiyatlari uçun şaxsiy mol-mulki bilan töliq javob beradi.
+- **YaTT** — yuridik şaxs tuzmasdan tadbirkorlik qiluvçi jismoniy şaxs. Biznes majburiyatlari uçun şaxsiy mol-mulki bilan töliq javob beradi. Uy-joy va boşqa mol-mulk, egasi nomiga rasmiylaşgan bölsa ham, qarz uçun musodara qilinişi mumkin.
 - **MÇJ** — ustav kapitali uluşlarga bölingan yuridik şaxs. Iştirokçilar faqat öz uluşi doirasida javob beradi. 2025-yil 1-may holatiga 292 885 ta MÇJ bölgan ([Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/), tekşirilmagan).
 - **AJ** — ustav fondi aksiyalarga bölingan yuridik şaxs. Aksiyador aksiyasi qiymati doirasida javob beradi. 2025-yil 1-may holatiga 644 ta AJ bölgan (manba yuqoridagisi bilan bir xil, tekşirilmagan).
 
 ## YaTT yoki MÇJ: ta'sisçilar va umumiy yiğiliş
 
-Javobgarlik yuqorida aytildi. Bu bölimda boşqa farqlar: kim qaror qiladi, kapital qanday tuzilgan va soliq qaysi bazadan hisoblanadi.
+Eng katta farq musodarada. YaTT da biznes qarzi uçun şaxsiy mol-mulk, şu jumladan uy-joy, musodara qilinişi mumkin. MÇJ da esa iştirokçi faqat ustav uluşini yöqotadi. Bu bölimda boşqa farqlar: kim qaror qiladi, kapital qanday tuzilgan va soliq qaysi bazadan hisoblanadi.
 
 | Mezon | YaTT | MÇJ |
 | :--- | :--- | :--- |
+| Qarz uçun musodara | Şaxsiy mol-mulk, uy-joy kiradi | Ustav uluşi doirasida. Şaxsiy mol-mulk, odatda, musodara qilinmaydi (şaxsiy kafolat bersangiz, istisno) |
 | Ta'sisçi | Yöq. Bitta egasi bor | Bir yoki köp ta'sisçi, ustav şartnomasini imzolaydi |
 | Ustav kapitali | Yöq | Bor, uluşlarga bölinadi |
 | Eng yuqori qaror organi | Tadbirkorning özi | Umumiy yiğiliş (iştirokçilar yiğiliş) |
