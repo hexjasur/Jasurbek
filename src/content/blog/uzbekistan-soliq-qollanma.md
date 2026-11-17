@@ -2,7 +2,7 @@
 title: "Soliq nima? Özbekistonda soliqlar 2026: QQS, foyda, yer soliği, YaTT, MÇJ, AJ"
 description: "Özbekistonda 2026-yilgi asosiy soliqlar: kim tölaydi, stavka va çegaralar, muddatlar va bitta hisob-kitob misoli. Rasmiy manbalar bilan."
 pubDate: 2026-11-04
-updatedDate: 2026-11-15
+updatedDate: 2026-11-17
 tags: ["soliq", "uzbekistan", "iqtisodiyot", "biznes", "qqs"]
 ---
 
@@ -51,6 +51,20 @@ Taşkiliy şakl javobgarlikni ham belgilaydi:
 - **YaTT** — yuridik şaxs tuzmasdan tadbirkorlik qiluvçi jismoniy şaxs. Biznes majburiyatlari uçun şaxsiy mol-mulki bilan töliq javob beradi.
 - **MÇJ** — ustav kapitali uluşlarga bölingan yuridik şaxs. Iştirokçilar faqat öz uluşi doirasida javob beradi. 2025-yil 1-may holatiga 292 885 ta MÇJ bölgan ([Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/), tekşirilmagan).
 - **AJ** — ustav fondi aksiyalarga bölingan yuridik şaxs. Aksiyador aksiyasi qiymati doirasida javob beradi. 2025-yil 1-may holatiga 644 ta AJ bölgan (manba yuqoridagisi bilan bir xil, tekşirilmagan).
+
+## YaTT yoki MÇJ: ta'sisçilar va umumiy yiğiliş
+
+Javobgarlik yuqorida aytildi. Bu bölimda boşqa farqlar: kim qaror qiladi, kapital qanday tuzilgan va soliq qaysi bazadan hisoblanadi.
+
+| Mezon | YaTT | MÇJ |
+| :--- | :--- | :--- |
+| Ta'sisçi | Yöq. Bitta egasi bor | Bir yoki köp ta'sisçi, ustav şartnomasini imzolaydi |
+| Ustav kapitali | Yöq | Bor, uluşlarga bölinadi |
+| Eng yuqori qaror organi | Tadbirkorning özi | Umumiy yiğiliş (iştirokçilar yiğiliş) |
+| Foydani taqsimlaş | Foyda tadbirkorniki, alohida qaror kerak emas | Umumiy yiğiliş qarori bilan, uluşlarga qarab |
+| Asosiy soliq | Aylanmadan 1% (yillik tuşum 1 mlrd söm gaça) | QQS 12%, foyda soliği 15% va boşqalar |
+
+Amalda bu şunday ketadi: MÇJ da bir ta'sisçi ham bölsa, yillik hisobot va foydani taqsimlaş umumiy yiğiliş orqali rasmiylaşadi. YaTT da bu bosqiç yöq, lekin foyda tadbirkorning şaxsiy daromadiga aylanadi. Taqsimlangan foydadan qanday soliq tölanişi bu maqolada tekşirilmagan (pastga qarang).
 
 ## Asosiy stavkalar va çegaralar (2026)
 
@@ -168,6 +182,7 @@ Taqqoslaş: soddalaştirilgan 6% tartibda QQS = 1 500 000 × 6% = 90 000 söm, f
 - **MÇJ qonuni:** yangi tahrir 2026-yil aprelda qabul qilingani [Kun.uz](https://kun.uz/en/news/2026/04/23/uzbekistan-overhauls-llc-legislation-to-modernize-corporate-governance) bilan tasdiqlangan. 21-aprel sanasi, ÖRQ-1137 raqami va 71 modda tekşirilmagan.
 - **MÇJ va AJ soni** (2025-yil 1-may): [Anhor.uz](https://anhor.uz/uzl/news/ozbekistonda-tijorat-korxonalarining/). Oçilmadi.
 - **Javobgarlik tavsifi** (YaTT, MÇJ, AJ): lex.uz matni bilan solişturilmadi.
+- **Ta'sisçilar, umumiy yiğiliş va foyda taqsimoti** (MÇJ jadvali): MÇJ qonuni matni öqilmadi. Taqsimlangan foydadan soliq stavkasi va ta'sisçilar soni çegarasi tekşirilmagan.
 - **Soliq kodeksi havolasi:** lex.uz/docs/-4674902 oçilmadi. Örniga ÖRQ-599 havolasi qoldirildi.
 
 ## Manbalar
