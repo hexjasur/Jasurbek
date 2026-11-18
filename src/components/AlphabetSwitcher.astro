@@ -1,0 +1,90 @@
+---
+/**
+ * Shows an Uzbek blog post in the reformed Latin (default), legacy Latin or Cyrillic script.
+ * Only mount it on posts whose `lang` is "uz". The text is converted in the browser; the original
+ * reformed-Latin text is kept so switching back is lossless. Code blocks are never touched.
+ */
+interface Props {
+  /** Selector of the element whose text nodes are converted. */
+  target?: string;
+}
+const { target = '.prose' } = Astro.props;
+---
+
+<div class="alphabet-switcher" data-target={target} role="group" aria-label="Alifboni tanlang">
+  <span class="alphabet-switcher-label">Yozuv:</span>
+  <button type="button" class="alphabet-switcher-btn" data-script="new" aria-pressed="true">Isloh lotin</button>
+  <button type="button" class="alphabet-switcher-btn" data-script="old" aria-pressed="false">Amaldagi lotin</button>
+  <button type="button" class="alphabet-switcher-btn" data-script="cyrillic" aria-pressed="false">Кирилл</button>
+</div>
+
+<script>
+  import { convertFromNew, type UzbekScript } from '../utils/uzbek-converter';
+
+  const SKIP = new Set(['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP', 'TEXTAREA']);
+  // Original text nodes -> their reformed-Latin source, so conversion is reversible.
+  const originals = new WeakMap<Text, string>();
+
+  function textNodes(root: Element): Text[] {
+    const out: Text[] = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        let el = node.parentElement;
+        while (el && el !== root) {
+          if (SKIP.has(el.tagName)) return NodeFilter.FILTER_REJECT;
+          el = el.parentElement;
+        }
+        return node.nodeValue?.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      },
+    });
+    while (walker.nextNode()) out.push(walker.currentNode as Text);
+    return out;
+  }
+
+  function apply(root: Element, script: UzbekScript) {
+    for (const node of textNodes(root)) {
+      if (!originals.has(node)) originals.set(node, node.nodeValue ?? '');
+      node.nodeValue = convertFromNew(originals.get(node)!, script);
+    }
+    root.setAttribute('lang', script === 'cyrillic' ? 'uz-Cyrl' : 'uz');
+  }
+
+  document.querySelectorAll<HTMLElement>('.alphabet-switcher').forEach((switcher) => {
+    const root = document.querySelector<Element>(switcher.dataset.target ?? '.prose');
+    if (!root) return;
+    switcher.addEventListener('click', (event) => {
+      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-script]');
+      if (!btn) return;
+      const script = btn.dataset.script as UzbekScript;
+      apply(root, script);
+      switcher.querySelectorAll<HTMLButtonElement>('[data-script]').forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === btn)),
+      );
+    });
+  });
+</script>
+
+<style>
+  .alphabet-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .alphabet-switcher-label { opacity: 0.75; margin-right: 0.25rem; }
+  .alphabet-switcher-btn {
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .alphabet-switcher-btn[aria-pressed='true'] { font-weight: 700; text-decoration: underline; }
+  .alphabet-switcher-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .alphabet-switcher-btn { transition: opacity 0.15s ease; }
+  }
+</style>

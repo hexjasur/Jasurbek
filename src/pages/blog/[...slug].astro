@@ -8,6 +8,8 @@ import { SITE_CONFIG } from '../../config';
 import { absoluteUrl, BASE_URL as baseUrl } from '../../lib/url';
 import { blogPostingSchema } from '../../lib/schema';
 import { getSortedPosts, readingTime, formatDate, tagSlug } from '../../lib/blog';
+import AlphabetSwitcher from '../../components/AlphabetSwitcher.astro';
+import { asciiFold, newToOld } from '../../utils/uzbek-converter';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
@@ -33,6 +35,13 @@ const showUpdated = !!updatedDate && dayOf(updatedDate) !== dayOf(pubDate);
 const updatedISO = showUpdated ? new Date(updatedDate).toISOString() : undefined;
 const formattedUpdated = showUpdated ? formatDate(updatedDate) : undefined;
 const minutes = readingTime(post.body);
+const isUz = post.data.lang === 'uz';
+// Hidden search aliases so Pagefind matches legacy and ASCII spellings too
+// (e.g. "ozbek", "o'zbekiston" finds "Özbekiston ...").
+const aliasSeed = [post.data.title, post.data.description, ...(post.data.tags ?? [])].join(' ');
+const searchAlias = [
+  ...new Set([asciiFold(aliasSeed), newToOld(aliasSeed), newToOld(aliasSeed).replace(/ʻ/g, "'")]),
+].join(' ');
 
 const postSchema = blogPostingSchema({
   title: post.data.title,
@@ -86,6 +95,9 @@ const postSchema = blogPostingSchema({
     )}
 
     <Toc headings={headings} />
+
+    {isUz && <AlphabetSwitcher />}
+    <p hidden>{searchAlias}</p>
 
     <div class="prose">
       <Content />

@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "dev:host": "bun run dev -- --host 0.0.0.0",
     "dev:tauri": "astro dev --port 1420",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist --force-language en --include-characters \"ÖöĞğŞşÇçʻ\"",
     "preview": "astro preview",
     "check": "astro check",
     "td": "tauri dev",
