@@ -50,6 +50,7 @@ const postSchema = blogPostingSchema({
   description={post.data.description}
   activePage="blog"
   headerTitle={SITE_CONFIG.domain}
+  lang={post.data.lang ?? SITE_CONFIG.language}
   type="article"
   publishedTime={pubDate}
   modifiedTime={updatedDate}

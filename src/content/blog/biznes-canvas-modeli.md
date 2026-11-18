@@ -1,6 +1,7 @@
 ---
 title: "Biznes canvas modeli: 9 ta blok va ularni qanday töldiriş"
 description: "Business Model Canvas'ning 9 ta blogi: har biri nimaga javob beradi, qaysi savolni tekşiriş kerak va bitta uydirma misol bilan."
+lang: "uz"
 pubDate: 2026-11-17
 tags: ["biznes", "canvas", "strategiya", "startap"]
 ---

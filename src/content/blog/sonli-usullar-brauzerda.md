@@ -1,6 +1,7 @@
 ---
 title: "Sonli usullarni brauzerda örganiş: Numeric Methods interaktiv labi qanday işlaydi"
 description: "Numeric Methods: brauzerda işlaydigan interaktiv sonli usullar labi. Bisection, Newton, Simpson va boşqa usullar tajriba orqali örganiladi."
+lang: "uz"
 pubDate: 2026-11-12
 updatedDate: 2026-11-15
 tags: ["numeric-methods", "mathematics", "web", "education", "nextjs"]

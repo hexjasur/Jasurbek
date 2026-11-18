@@ -1,6 +1,7 @@
 ---
 title: "Claude'da model va effort tanlaş: git commit'dan katta promptlargaça amaliy qöllanma"
 description: "2026-yil 14-noyabr holatiga: model va effort darajasini qanday tanlaş, effort nimani özgartirmaydi, narx hisobi va routing misoli."
+lang: "uz"
 pubDate: 2026-11-09
 updatedDate: 2026-11-15
 tags: ["anthropic", "claude", "ai", "llm", "api", "effort"]

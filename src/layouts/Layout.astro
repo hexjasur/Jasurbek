@@ -142,6 +142,10 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
   <title>{title}</title>
   <ClientRouter />
+  <script type="speculationrules" set:html={JSON.stringify({
+    prerender: [{ where: { and: [{ href_matches: '/*' }, { not: { href_matches: '/*\\?*' } }, { not: { selector_matches: '[download], [rel~=nofollow]' } }] }, eagerness: 'moderate' }],
+    prefetch: [{ where: { href_matches: '/*' }, eagerness: 'conservative' }],
+  })} />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>

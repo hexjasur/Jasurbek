@@ -1,6 +1,7 @@
 ---
 title: "GTA 6 haqida töliq ma'lumot: çiqiş sanasi, narxi, pre-order va qança pul ketgani"
 description: "GTA 6: 19-noyabr çiqiş sanasi, Standard va Ultimate narxi, pre-order bonuslari, pre-load, platformalar va budjet haqida manbalar bilan."
+lang: "uz"
 pubDate: 2026-11-07
 updatedDate: 2026-11-15
 tags: ["gta6", "rockstar", "oyinlar", "take-two", "pre-order"]

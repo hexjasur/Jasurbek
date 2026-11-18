@@ -10,6 +10,8 @@ const blog = defineCollection({
     /** Set when a published post is meaningfully revised. Shown on the post and used as `dateModified`. */
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
+    /** Language of the post body. Sets <html lang> and the Pagefind/SEO language. Defaults to the site language. */
+    lang: z.enum(['en', 'uz']).optional(),
     draft: z.boolean().optional(),
   }),
 });

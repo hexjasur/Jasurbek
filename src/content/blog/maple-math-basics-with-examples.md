@@ -1,6 +1,7 @@
 ---
 title: "Maple'da matematika: soddalaştiriş, tenglamalar, hosila va integral"
 description: "Maple bilan soddalaştiriş, tenglama, matritsa, hosila va integral: har bir misolning kodi, natijasi va qölda tekşiruvi."
+lang: "uz"
 pubDate: 2026-11-05
 updatedDate: 2026-11-15
 tags: ["maple", "matematika", "programming", "universitet", "algebra", "hosila", "integral"]

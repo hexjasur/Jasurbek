@@ -1,6 +1,7 @@
 ---
 title: "GitHub Actions bilan bepul CI/CD: portfoliödan production'gaça"
 description: "Portfolio saytining ci.yml va deploy.yml workflow'larini qator-qator tuşuntiraman: tekşiriş, build va GitHub Pages'ga avtomatik deploy."
+lang: "uz"
 pubDate: 2026-11-12
 updatedDate: 2026-11-15
 tags: ["github-actions", "ci-cd", "github-pages", "astro", "devops"]

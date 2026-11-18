@@ -1,6 +1,7 @@
 ---
 title: "GitHub Workflow nima? GitHub Actions bilan avtomatlaştirişni boşlaş"
 description: "GitHub workflow nima va trigger, job, step, runner nimani anglatişini bitta minimal YAML misolida tuşuntiraman. Töliq CI/CD alohida maqolada."
+lang: "uz"
 pubDate: 2026-11-11
 updatedDate: 2026-11-15
 tags: ["github", "devops", "automation", "cicd", "workflow", "astro"]

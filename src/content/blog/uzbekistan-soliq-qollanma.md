@@ -1,6 +1,7 @@
 ---
 title: "Soliq nima? Özbekistonda soliqlar 2026: QQS, foyda, yer soliği, YaTT, MÇJ, AJ"
 description: "Özbekistonda 2026-yilgi asosiy soliqlar: kim tölaydi, stavka va çegaralar, muddatlar va bitta hisob-kitob misoli. Rasmiy manbalar bilan."
+lang: "uz"
 pubDate: 2026-11-04
 updatedDate: 2026-11-17
 tags: ["soliq", "uzbekistan", "iqtisodiyot", "biznes", "qqs"]

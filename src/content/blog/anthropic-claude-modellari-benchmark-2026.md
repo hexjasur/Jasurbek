@@ -1,6 +1,7 @@
 ---
 title: "Anthropic Claude modellari 2026: Fable 5.2, Opus 5.5, Sonnet 5.5 va Haiku 5.5 — lineup, narxlar, benchmarklar"
 description: "2026-yil 14-noyabr holatiga Claude modellari: API ID, narx, nima uçun möljallanganligi va Anthropic e'lon qilgan benchmark raqamlari."
+lang: "uz"
 pubDate: 2026-11-07
 updatedDate: 2026-11-15
 tags: ["anthropic", "claude", "ai", "benchmark", "llm", "api"]

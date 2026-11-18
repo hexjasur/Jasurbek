@@ -1,6 +1,7 @@
 ---
 title: "Git'ni noldan örganing: örnatiş, sozlaş, branch va push"
 description: "Git'ni örnatiş, sozlaş, commit yaratiş, branch ajratiş va GitHub'ga push qiliş böyiça noldan qöllanma. Buyruqlar jadvali va tipik xatolar bilan."
+lang: "uz"
 pubDate: 2026-11-12
 updatedDate: 2026-11-16
 tags: ["git", "github", "tutorial", "claude"]
