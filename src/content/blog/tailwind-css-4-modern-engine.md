@@ -2,8 +2,8 @@
 title: "What Changed in Tailwind CSS 4"
 description: "Tailwind CSS 4 moves configuration into CSS, rewrites the build engine, adds a first-party Vite plugin and includes container queries in the core."
 pubDate: 2026-10-12
-updatedDate: 2026-11-15
-tags: ["tailwindcss", "css", "frontend", "tooling"]
+updatedDate: 2026-11-17
+tags: ["tauri-frontend", "tailwindcss", "css", "frontend", "tooling"]
 ---
 
 Tailwind CSS 4 is a rewrite. Four changes matter in daily work: the configuration is CSS, the build engine is new, the Vite integration is a first-party plugin, and container queries are part of the core.

@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "dev:host": "bun run dev -- --host 0.0.0.0",
     "dev:tauri": "astro dev --port 1420",
-    "build": "astro build && pagefind --site dist",
+    "build": "node scripts/clean-astro-cache.mjs && astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",
     "td": "tauri dev",

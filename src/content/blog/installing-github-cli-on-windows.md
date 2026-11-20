@@ -2,7 +2,7 @@
 title: "Installing GitHub CLI on Windows: WinGet and the Manual Installer"
 description: "Install GitHub CLI (gh) on Windows with WinGet or the MSI installer, then verify the install, sign in, and run the everyday commands."
 pubDate: 2026-11-09
-updatedDate: 2026-11-15
+updatedDate: 2026-11-17
 tags: ["windows", "github", "cli", "developer-tools", "git"]
 ---
 

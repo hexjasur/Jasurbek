@@ -2,7 +2,7 @@
 title: "Maple'da matematika: soddalaştiriş, tenglamalar, hosila va integral"
 description: "Maple bilan soddalaştiriş, tenglama, matritsa, hosila va integral: har bir misolning kodi, natijasi va qölda tekşiruvi."
 pubDate: 2026-11-05
-updatedDate: 2026-11-15
+updatedDate: 2026-11-17
 tags: ["maple", "matematika", "programming", "universitet", "algebra", "hosila", "integral"]
 ---
 
@@ -475,6 +475,8 @@ s(x);
 ```
 
 Bu yerda `extrema` faqat ekstremum qiymatini (`{-x^3/(x^2 - 4)}`) qaytaradi. `s(x)` esa boğlanmagan holiça qoladi. Töğri yoziluv: `extrema(y, {}, x, 's')`, şundan keyin `s;` nuqtalarni körsatadi.
+
+<span id="16-grafiklar-plot-va-implicitplot"></span>
 
 ## 8. Grafiklar
 
