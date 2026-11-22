@@ -9,7 +9,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
 <Layout 
   title={`UUID & NanoID Generator | ${SITE_CONFIG.author}`} 
-  description="Generate secure version 4 UUIDs and URL-safe NanoIDs in your browser with the Web Crypto API. No data is sent to a server."
+  description="Generate cryptographically secure version 4 UUIDs and URL-safe NanoIDs directly in your browser with the Web Crypto API. Zero server calls."
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
@@ -17,16 +17,28 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
   </div>
 
+  <div class="blog-intro">
+    <div class="blog-meta-date">First Published: 2026-11-01</div>
+    <div class="blog-meta-date">Last Updated: 2026-11-22</div>
+  </div>
+
   <section class="tools-box">
     <h2 class="page-title">
-      🔑 Cryptographic UUID & NanoID Generator
+      <svg class="title-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="7.5" cy="15.5" r="5.5"></circle>
+        <path d="m21 2-9.6 9.6"></path>
+        <path d="m15.5 7.5 3 3"></path>
+        <path d="m18.5 4.5 3 3"></path>
+      </svg>
+      Cryptographic UUID &amp; NanoID Generator
     </h2>
     <p class="page-lead">
-      Generate cryptographically secure version 4 UUIDs or URL-friendly NanoIDs using your browser's native Web Crypto API (<code>crypto.randomUUID()</code>).
+      Generate cryptographically secure version 4 UUIDs or URL-friendly NanoIDs in your browser using the native Web Crypto API (<code>crypto.randomUUID()</code> and <code>crypto.getRandomValues()</code>).
     </p>
 
-    <div class="tools-row">
-      <div>
+    <!-- Controls Row -->
+    <div class="tools-row uuid-controls-row">
+      <div class="control-group">
         <label for="uuid-count" class="field-label field-label-inline">
           Quantity:
         </label>
@@ -35,36 +47,122 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
           <option value="5" selected>5 IDs</option>
           <option value="10">10 IDs</option>
           <option value="25">25 IDs</option>
+          <option value="50">50 IDs</option>
+          <option value="100">100 IDs</option>
         </select>
       </div>
 
-      <div>
+      <div class="control-group">
         <label for="uuid-format" class="field-label field-label-inline">
           Format:
         </label>
         <select id="uuid-format" class="tools-select">
-          <option value="uuid-standard">Standard UUID v4 (hyphenated)</option>
+          <option value="uuid-standard" selected>Standard UUID v4 (hyphenated)</option>
           <option value="uuid-nohyphen">UUID v4 (without hyphens)</option>
           <option value="uuid-upper">UUID v4 (UPPERCASE)</option>
           <option value="nanoid">NanoID (21 chars, URL-safe)</option>
+          <option value="nanoid-short">Short NanoID (10 chars)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="uuid-wrap" class="field-label field-label-inline">
+          Output Wrapper:
+        </label>
+        <select id="uuid-wrap" class="tools-select">
+          <option value="plain" selected>Plain (Line by line)</option>
+          <option value="quotes">Double Quotes ("...")</option>
+          <option value="json">JSON Array ([...])</option>
+          <option value="comma">Comma-separated</option>
+          <option value="sql">SQL VALUES ('...'),</option>
         </select>
       </div>
     </div>
 
-    <div style="margin-top: 1rem;">
-      <label for="uuid-output" class="field-label field-label-block">
-        Generated Identifiers:
-      </label>
-      <textarea id="uuid-output" readonly style="min-height: 160px; font-family: ui-monospace, monospace;" placeholder="Click 'Generate IDs' to generate..."></textarea>
+    <!-- Output Area (Full-Width, Un-squished) -->
+    <div class="uuid-output-wrapper">
+      <div class="uuid-output-header">
+        <div class="uuid-output-label-box">
+          <label for="uuid-output" class="field-label">
+            Generated Identifiers:
+          </label>
+          <span id="uuid-meta-badge" class="stats-badge">5 IDs &bull; 180 chars</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="uuid-quick-copy-btn" title="Copy to clipboard">
+          <svg class="btn-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+          </svg>
+          Copy
+        </button>
+      </div>
+      <textarea 
+        id="uuid-output" 
+        class="uuid-output-textarea" 
+        readonly 
+        spellcheck="false" 
+        placeholder="Click 'Generate New IDs' to produce identifiers..."
+      ></textarea>
     </div>
 
+    <!-- Buttons Bar -->
     <div class="tools-buttons">
-      <button class="btn" id="uuid-generate-btn">Generate New IDs</button>
-      <button class="btn btn-secondary" id="uuid-copy-btn">Copy All</button>
-      <button class="btn btn-secondary" id="uuid-clear-btn">Clear</button>
+      <button class="btn" id="uuid-generate-btn" type="button">
+        <svg class="btn-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+        </svg>
+        Generate New IDs
+      </button>
+      <button class="btn btn-secondary" id="uuid-copy-btn" type="button">
+        <svg class="btn-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+        </svg>
+        Copy All
+      </button>
+      <button class="btn btn-secondary" id="uuid-download-btn" type="button">
+        <svg class="btn-svg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" x2="12" y1="15" y2="3"></line>
+        </svg>
+        Download .txt
+      </button>
+      <button class="btn btn-secondary" id="uuid-clear-btn" type="button">
+        Clear
+      </button>
       <span id="uuid-copy-toast" class="copy-toast" style="display: none;">
-        ✓ Copied IDs to clipboard!
+        ✓ Copied to clipboard!
       </span>
+    </div>
+
+    <!-- Security & Architecture Information Card -->
+    <div class="uuid-specs-grid">
+      <div class="uuid-spec-card">
+        <h3 class="uuid-spec-title">
+          <svg class="spec-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          122 Bits of Cryptographic Entropy
+        </h3>
+        <p class="uuid-spec-desc">
+          Version 4 UUIDs provide $2^{122}$ possible values. Generating a billion UUIDs every second for 100 years results in a collision probability lower than one in a billion.
+        </p>
+      </div>
+
+      <div class="uuid-spec-card">
+        <h3 class="uuid-spec-title">
+          <svg class="spec-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+          Kernel-Backed WebCrypto CSPRNG
+        </h3>
+        <p class="uuid-spec-desc">
+          IDs are sampled directly from your operating system's kernel entropy pool (via <code>crypto.randomUUID()</code>). Everything runs offline in your browser; zero telemetry or network traffic.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -73,17 +171,162 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   </div>
 </Layout>
 
+<style is:global>
+  .title-svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.45rem;
+    height: 1.45rem;
+    margin-right: 0.45rem;
+    color: var(--flora-orange, #aa5a46);
+  }
+
+  .btn-svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.35rem;
+  }
+
+  .uuid-controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .uuid-controls-row .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .uuid-output-wrapper {
+    margin-top: 1.15rem;
+    width: 100%;
+  }
+
+  .uuid-output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.45rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .uuid-output-label-box {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .uuid-output-label-box .field-label {
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+
+  .stats-badge {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--reformed-bg, rgba(199, 210, 177, 0.42));
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+  }
+
+  /* Full-width, un-squished code area */
+  .uuid-output-textarea {
+    display: block;
+    width: 100%;
+    min-height: 190px;
+    box-sizing: border-box;
+    padding: 0.9rem 1.1rem;
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    white-space: pre;
+    word-break: normal;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--flora-surface, var(--surface));
+    color: var(--text-strong);
+    box-shadow: inset 2px 2px 0 rgba(49, 71, 59, 0.08);
+    resize: vertical;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .uuid-output-textarea:focus {
+    outline: none;
+    border-color: var(--flora-orange, #aa5a46);
+    box-shadow: 0 0 0 3px rgba(170, 90, 70, 0.2);
+  }
+
+  /* Security / Specs Grid */
+  .uuid-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1.5px dashed var(--line-soft, #d0d7de);
+  }
+
+  .uuid-spec-card {
+    padding: 0.85rem 1rem;
+    background: var(--reformed-bg, rgba(199, 210, 177, 0.18));
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+
+  .uuid-spec-title {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem 0;
+    color: var(--text-main);
+  }
+
+  .spec-icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    color: var(--flora-orange, #aa5a46);
+    flex-shrink: 0;
+  }
+
+  .uuid-spec-desc {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+</style>
+
 <script>
   function setupUuidGen() {
     const uuidCountEl = document.getElementById('uuid-count') as HTMLSelectElement;
     const uuidFormatEl = document.getElementById('uuid-format') as HTMLSelectElement;
+    const uuidWrapEl = document.getElementById('uuid-wrap') as HTMLSelectElement;
     const uuidOutput = document.getElementById('uuid-output') as HTMLTextAreaElement;
+    const metaBadge = document.getElementById('uuid-meta-badge');
+    
     const uuidGenBtn = document.getElementById('uuid-generate-btn');
     const uuidCopyBtn = document.getElementById('uuid-copy-btn');
+    const uuidQuickCopyBtn = document.getElementById('uuid-quick-copy-btn');
+    const uuidDownloadBtn = document.getElementById('uuid-download-btn');
     const uuidClearBtn = document.getElementById('uuid-clear-btn');
     const copyToast = document.getElementById('uuid-copy-toast');
 
-    if (!uuidCountEl || !uuidFormatEl || !uuidOutput) return;
+    if (!uuidCountEl || !uuidFormatEl || !uuidWrapEl || !uuidOutput) return;
 
     function generateNanoId(size = 21): string {
       const chars = 'useandom-26T1983_40PX75pxJACKVERYMINDBUSHWOLFGQZbfghjklqvwyzrict';
@@ -98,38 +341,85 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     function runUuidGenerate() {
       const count = parseInt(uuidCountEl.value || '5', 10);
       const format = uuidFormatEl.value || 'uuid-standard';
-      const list: string[] = [];
+      const wrap = uuidWrapEl.value || 'plain';
+      const rawList: string[] = [];
 
       for (let i = 0; i < count; i++) {
         let val = '';
         if (format === 'nanoid') {
           val = generateNanoId(21);
+        } else if (format === 'nanoid-short') {
+          val = generateNanoId(10);
         } else {
           val = crypto.randomUUID();
           if (format === 'uuid-nohyphen') val = val.replace(/-/g, '');
           else if (format === 'uuid-upper') val = val.toUpperCase();
         }
-        list.push(val);
+        rawList.push(val);
       }
-      uuidOutput.value = list.join('\n');
+
+      let formattedOutput = '';
+      if (wrap === 'quotes') {
+        formattedOutput = rawList.map(id => `"${id}"`).join('\n');
+      } else if (wrap === 'json') {
+        formattedOutput = JSON.stringify(rawList, null, 2);
+      } else if (wrap === 'comma') {
+        formattedOutput = rawList.join(', ');
+      } else if (wrap === 'sql') {
+        formattedOutput = rawList.map(id => `('${id}')`).join(',\n') + ';';
+      } else {
+        formattedOutput = rawList.join('\n');
+      }
+
+      uuidOutput.value = formattedOutput;
+
+      if (metaBadge) {
+        metaBadge.textContent = `${count} ID${count > 1 ? 's' : ''} • ${formattedOutput.length} chars`;
+      }
+    }
+
+    function showToast() {
+      if (copyToast) {
+        copyToast.style.display = 'inline';
+        setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
+      }
+    }
+
+    function copyToClipboard() {
+      if (uuidOutput.value) {
+        navigator.clipboard.writeText(uuidOutput.value).then(showToast);
+      }
+    }
+
+    function downloadAsFile() {
+      if (!uuidOutput.value) return;
+      const format = uuidFormatEl.value;
+      const blob = new Blob([uuidOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${format}-generated.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     uuidGenBtn?.addEventListener('click', runUuidGenerate);
     uuidCountEl.addEventListener('change', runUuidGenerate);
     uuidFormatEl.addEventListener('change', runUuidGenerate);
-    uuidCopyBtn?.addEventListener('click', () => {
-      if (uuidOutput.value) {
-        navigator.clipboard.writeText(uuidOutput.value);
-        if (copyToast) {
-          copyToast.style.display = 'inline';
-          setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
-        }
-      }
-    });
+    uuidWrapEl.addEventListener('change', runUuidGenerate);
+
+    uuidCopyBtn?.addEventListener('click', copyToClipboard);
+    uuidQuickCopyBtn?.addEventListener('click', copyToClipboard);
+    uuidDownloadBtn?.addEventListener('click', downloadAsFile);
+
     uuidClearBtn?.addEventListener('click', () => {
       uuidOutput.value = '';
+      if (metaBadge) metaBadge.textContent = '0 IDs • 0 chars';
     });
 
+    // Initial generation
     runUuidGenerate();
   }
 

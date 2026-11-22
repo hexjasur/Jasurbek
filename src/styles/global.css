@@ -1620,7 +1620,7 @@ textarea[readonly] { background: var(--surface-2); }
   background: var(--chip-bg);
   color: var(--text-main);
   box-shadow: 2px 2px 0 var(--card-shadow-color);
-  cursor: pointer;
+  cursor: var(--cursor-pointer, pointer);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
@@ -2442,5 +2442,58 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
 @media (prefers-reduced-motion: reduce) {
   .mobile-menu {
     transition: none;
+  }
+}
+
+/* ===== Custom High-Contrast Cursors (Flora Theme - Inline Base64 SVG) ===== */
+:root {
+  --cursor-default: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KICA8cGF0aCBkPSJNMiAyTDIgMTlMNi44IDE0LjhMMTAuOCAyMi41TDEzLjIgMjEuMkw5LjIgMTMuOEwxNS44IDEzLjhMMiAyWiIgZmlsbD0iIzI0MzMyQyIgc3Ryb2tlPSIjRkJGNkVDIiBzdHJva2Utd2lkdGg9IjEuNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjUuNSIgY3k9IjguNSIgcj0iMS4yIiBmaWxsPSIjQUE1QTQ2Ii8+Cjwvc3ZnPg==") 2 2, default;
+  --cursor-pointer: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTYgMUM1LjE3IDEgNC41IDEuNjcgNC41IDIuNVYxMS4yTDMuOCAxMC41QzMuMDUgOS44IDEuOSA5LjkgMS4yNSAxMC43QzAuNjUgMTEuNDUgMC43IDEyLjU1IDEuNDUgMTMuMkw0LjggMTYuNUM1LjkgMTcuNSA3LjM1IDE4LjEgOC44NSAxOC4xSDEwLjVDMTMuMjYgMTguMSAxNS41IDE1Ljg2IDE1LjUgMTMuMVYxMC42QzE1LjUgOS44IDE0Ljg1IDkuMTUgMTQuMDUgOS4xNUMxMy44NSA5LjE1IDEzLjY1IDkuMiAxMy40OCA5LjNDMTMuMTUgOC42NSAxMi41IDguMiAxMS43NSA4LjJDMTEuNTUgOC4yIDExLjM1IDguMjUgMTEuMTggOC4zNUMxMC44MiA3LjcgMTAuMTUgNy4yNSA5LjM1IDcuMjVDOS4xNSA3LjI1IDguOTUgNy4zIDguOCA3LjM4VjIuNUM4LjggMS42NyA4LjEzIDEgNy4zIDFINloiIGZpbGw9IiMyNDMzMkMiIHN0cm9rZT0iI0ZCRjZFQyIgc3Ryb2tlLXdpZHRoPSIxLjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSI5LjIiIGN5PSIxNCIgcj0iMS4zIiBmaWxsPSIjQUE1QTQ2Ii8+Cjwvc3ZnPg==") 6 1, pointer;
+  --cursor-text: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDIwIDI0IiBmaWxsPSJub25lIj4KICA8cGF0aCBkPSJNNSAzLjVIMTVNMTAgMy41VjIwLjVNNSAyMC41SDE1IiBzdHJva2U9IiNGQkY2RUMiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNNSAzLjVIMTVNMTAgMy41VjIwLjVNNSAyMC41SDE1IiBzdHJva2U9IiMyNDMzMkMiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIxMCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjQUE1QTQ2Ii8+Cjwvc3ZnPg==") 10 12, text;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* 1. Base default arrow */
+  body {
+    cursor: var(--cursor-default);
+  }
+
+  /* 2. Interactive actionable targets (links, buttons, toggles, controls) */
+  a,
+  button,
+  [role="button"],
+  select,
+  label[for],
+  summary,
+  [tabindex]:not([tabindex="-1"]),
+  .theme-toggle,
+  .search-trigger,
+  .menu-toggle,
+  .btn,
+  .tools-tab-btn,
+  .close-btn,
+  .toc-title,
+  .cursor-pointer,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    cursor: var(--cursor-pointer) !important;
+  }
+
+  /* 3. Text inputs */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: var(--cursor-text);
+  }
+
+  /* 4. Preserve not-allowed state for disabled controls */
+  button:disabled,
+  input:disabled,
+  textarea:disabled,
+  select:disabled,
+  [aria-disabled="true"],
+  [disabled] {
+    cursor: not-allowed !important;
   }
 }
