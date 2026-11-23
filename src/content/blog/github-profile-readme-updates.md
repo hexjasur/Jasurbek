@@ -9,6 +9,8 @@ My GitHub profile README is the first thing people see when they open my account
 
 ## Pac-Man contribution graph
 
+![Pac-Man contribution graph](https://raw.githubusercontent.com/hexjasur/hexjasur/output/dist/pacman-contribution-graph.svg)
+
 The Pac-Man block is generated from my contribution grid by the `abozanona/pacman-contribution-graph` action. I use the pinned version `v5.0.0`, so an upstream release cannot change the behavior of the workflow without my approval.
 
 The workflow lives in `.github/workflows/pacman.yml`. It runs in three cases:
@@ -19,20 +21,49 @@ The workflow lives in `.github/workflows/pacman.yml`. It runs in three cases:
 
 The action writes the generated SVG to `dist/pacman-contribution-graph.svg` on an `output` branch. The README points at that file through its raw URL, so the image updates without a commit to `main`.
 
+Workflow (`.github/workflows/pacman.yml`):
+
 ```yaml
+name: Generate Pacman Contribution Graph
+
 on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
   push:
     branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: abozanona/pacman-contribution-graph@v5.0.0
+        with:
+          github_user_name: hexjasur
+          outputs: dist/pacman-contribution-graph.svg
+          branch: output
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Before the first run, the `output` branch does not exist, and the image shows as broken. Run the workflow once by hand from the Actions tab to create it.
+README embed (the image URL is the raw file on the `output` branch):
+
+```html
+<img src="https://raw.githubusercontent.com/hexjasur/hexjasur/output/dist/pacman-contribution-graph.svg" alt="Pac-Man contribution graph" width="760" />
+```
+
+Before the first run, the `output` branch does not exist, so the image URL returns 404. Run the workflow once from the Actions tab to create the branch and the SVG.
 
 ## Profile view counter
 
-The counter is an image from `count.getloli.com`, keyed to my username. Each page load increments the count on their side. I did not host it myself, so if that service goes down, the image goes with it. The `alt` text stays in the markup, so the page still reads correctly without the image.
+The counter is an image from `count.getloli.com`, keyed to my username. Each page load increments the count on their side. I did not host it myself, so if that service goes down, the image goes with it.
+
+```html
+<img src="https://count.getloli.com/@:hexjasur?theme=booru-twifanartsfw&padding=7&scale=1&align=top&pixelated=1&darkmode=auto" alt="Profile views" />
+```
 
 ## Input names
 
