@@ -190,6 +190,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   </div>
 
   <script>
+    import { copyText } from '../lib/clipboard';
     function setupEmailModal() {
       const modal = document.getElementById('email-modal');
       if (!modal || modal.dataset.modalBound === 'true') return;
@@ -253,13 +254,13 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
       });
 
       copyBtn?.addEventListener('click', () => {
-        navigator.clipboard.writeText(document.getElementById('email-text')?.textContent?.trim() || '');
-        if (copySuccess) {
+        copyText(document.getElementById('email-text')?.textContent?.trim() || '').then((ok) => {
+          if (!ok || !copySuccess) return;
           copySuccess.style.display = 'block';
           setTimeout(() => {
             if (copySuccess) copySuccess.style.display = 'none';
           }, 3000);
-        }
+        });
       });
     }
 

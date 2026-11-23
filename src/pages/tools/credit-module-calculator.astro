@@ -1724,6 +1724,7 @@ const seoTags = [
 </style>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   interface SubjectItem {
     id: string;
     name: string;
@@ -2217,8 +2218,8 @@ Söz bilan: ${inWords}
 
 Hisoblandi: ${window.location.href}`;
 
-      navigator.clipboard.writeText(summary).then(() => {
-        if (calcToast) {
+      copyText(summary).then((ok) => {
+        if (ok && calcToast) {
           calcToast.style.display = 'inline';
           setTimeout(() => {
             calcToast.style.display = 'none';

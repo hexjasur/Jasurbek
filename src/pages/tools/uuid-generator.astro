@@ -312,6 +312,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </style>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   function setupUuidGen() {
     const uuidCountEl = document.getElementById('uuid-count') as HTMLSelectElement;
     const uuidFormatEl = document.getElementById('uuid-format') as HTMLSelectElement;
@@ -387,7 +388,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
     function copyToClipboard() {
       if (uuidOutput.value) {
-        navigator.clipboard.writeText(uuidOutput.value).then(showToast);
+        copyText(uuidOutput.value, uuidOutput).then((ok) => { if (ok) showToast(); });
       }
     }
 

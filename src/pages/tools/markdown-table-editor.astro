@@ -193,6 +193,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 </style>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   type Align = 'left' | 'center' | 'right' | null;
   type Snapshot = { rows: string[][]; aligns: Align[] };
   type Format = 'markdown' | 'html' | 'csv' | 'tsv';
@@ -672,13 +673,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   }
 
   $<HTMLButtonElement>('mt-copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(output.value);
-      flashToast('✓ Copied to clipboard!');
-    } catch {
-      output.select();
-      flashToast('Please copy the selected text manually.');
-    }
+    const ok = await copyText(output.value, output);
+    flashToast(ok ? '✓ Copied to clipboard!' : 'Please copy the selected text manually.');
   });
 
   $<HTMLButtonElement>('mt-download').addEventListener('click', () => {
