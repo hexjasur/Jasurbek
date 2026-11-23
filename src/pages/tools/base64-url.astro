@@ -66,6 +66,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 </Layout>
 
 <script>
+  import { copyText, flashElement } from '../../lib/clipboard';
   function toBase64(text: string): string {
     const bytes = new TextEncoder().encode(text);
     let binary = '';
@@ -120,11 +121,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
     $('b64-copy-btn')?.addEventListener('click', async () => {
       if (!output!.value) return;
-      try { await navigator.clipboard.writeText(output!.value); } catch { output!.select(); }
-      if (toast) {
-        toast.hidden = false;
-        setTimeout(() => { toast.hidden = true; }, 2200);
-      }
+      await copyText(output!.value, output!);
+      flashElement(toast);
     });
 
     $('b64-swap-btn')?.addEventListener('click', () => {

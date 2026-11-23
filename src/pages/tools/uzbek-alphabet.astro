@@ -153,6 +153,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </Layout>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   function setupUzbekConverter() {
     const dirSelect = document.getElementById('conversion-direction') as HTMLSelectElement;
     const uzInput = document.getElementById('input-text') as HTMLTextAreaElement;
@@ -272,13 +273,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 
     uzCopyBtn?.addEventListener('click', async () => {
       if (!uzOutput.value) return;
-      try {
-        await navigator.clipboard.writeText(uzOutput.value);
-        showToast('✓ Buferga nusxalandi!');
-      } catch {
-        uzOutput.select();
-        showToast("Nusxalab bo'lmadi. Matn tanlandi, Ctrl+C bosing.");
-      }
+      const ok = await copyText(uzOutput.value, uzOutput);
+      showToast(ok ? '✓ Buferga nusxalandi!' : "Nusxalab bo'lmadi. Matn tanlandi, Ctrl+C bosing.");
     });
 
     uzClearBtn?.addEventListener('click', () => {
