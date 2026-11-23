@@ -1,9 +1,8 @@
 ---
-import { BASE_URL } from '../../lib/url';
+import BackLink from '../../components/BackLink.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 
-const baseUrl = BASE_URL;
 ---
 
 <Layout 
@@ -12,9 +11,7 @@ const baseUrl = BASE_URL;
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink />
 
   <section class="tools-box">
     <h2 class="page-title">
@@ -65,9 +62,7 @@ const baseUrl = BASE_URL;
     </div>
   </section>
 
-  <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink position="bottom" />
 </Layout>
 
 <script>

@@ -1,7 +1,7 @@
 ---
+import BackLink from '../../components/BackLink.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
-import { BASE_URL as baseUrl } from '../../lib/url';
 ---
 
 <Layout
@@ -10,9 +10,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink />
 
   <div class="blog-intro">
     <div class="blog-meta-date">First Published: 2026-11-13</div>
@@ -96,9 +94,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     </p>
   </section>
 
-  <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink position="bottom" />
 </Layout>
 
 <style is:global>
