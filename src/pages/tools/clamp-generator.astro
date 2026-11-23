@@ -68,6 +68,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 </Layout>
 
 <script>
+  import { copyText, flashElement } from '../../lib/clipboard';
   const round = (n: number) => Number.parseFloat(n.toFixed(4)).toString();
 
   function setupClamp() {
@@ -118,11 +119,8 @@ import { BASE_URL as baseUrl } from '../../lib/url';
 
     copy?.addEventListener('click', async () => {
       if (!out!.value) return;
-      try { await navigator.clipboard.writeText(out!.value); } catch { out!.select(); }
-      if (toast) {
-        toast.hidden = false;
-        setTimeout(() => { toast.hidden = true; }, 2200);
-      }
+      await copyText(out!.value, out!);
+      flashElement(toast);
     });
 
     compute();

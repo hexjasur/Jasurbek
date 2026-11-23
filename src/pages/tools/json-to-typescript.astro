@@ -72,6 +72,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </Layout>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   function setupJsonToTs() {
     const jsonInput = document.getElementById('json-input') as HTMLTextAreaElement;
     const tsOutput = document.getElementById('ts-output') as HTMLTextAreaElement;
@@ -156,7 +157,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     tsGenBtn?.addEventListener('click', runJsonToTs);
     tsCopyBtn?.addEventListener('click', () => {
       if (tsOutput.value) {
-        navigator.clipboard.writeText(tsOutput.value);
+        copyText(tsOutput.value, tsOutput);
         if (copyToast) {
           copyToast.style.display = 'inline';
           setTimeout(() => { copyToast.style.display = 'none'; }, 2500);

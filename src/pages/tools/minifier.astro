@@ -85,6 +85,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </Layout>
 
 <script>
+  import { copyText } from '../../lib/clipboard';
   function setupMinifier() {
     const minTypeEl = document.getElementById('minify-type') as HTMLSelectElement;
     const minActionEl = document.getElementById('minify-action') as HTMLSelectElement;
@@ -176,7 +177,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     minRunBtn?.addEventListener('click', runMinification);
     minCopyBtn?.addEventListener('click', () => {
       if (minOutput.value) {
-        navigator.clipboard.writeText(minOutput.value);
+        copyText(minOutput.value, minOutput);
         if (copyToast) {
           copyToast.style.display = 'inline';
           setTimeout(() => { copyToast.style.display = 'none'; }, 2500);
