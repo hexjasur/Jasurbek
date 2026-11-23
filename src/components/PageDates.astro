@@ -1,0 +1,14 @@
+---
+// "First Published / Last Updated" line shown under a page's header. Pass `updated` only when it differs.
+interface Props {
+  published: string;
+  updated?: string;
+}
+
+const { published, updated } = Astro.props;
+---
+
+<div class="blog-intro">
+  <div class="blog-meta-date">First Published: {published}</div>
+  {updated && <div class="blog-meta-date">Last Updated: {updated}</div>}
+</div>

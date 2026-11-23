@@ -1,4 +1,5 @@
 ---
+import PageDates from '../../components/PageDates.astro';
 import BackLink from '../../components/BackLink.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
@@ -39,9 +40,7 @@ const jsonLd = {
 
   <BackLink />
 
-  <div class="blog-intro">
-    <div class="blog-meta-date">First Published: 2026-11-14</div>
-  </div>
+  <PageDates published="2026-11-14" />
 
   <section class="tools-box">
     <h2 class="page-title">
