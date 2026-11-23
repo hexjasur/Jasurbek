@@ -249,25 +249,6 @@ for (let year = currentYear; year >= minYear; year--) {
     opacity: 0.45;
   }
 
-  .heatmap-tip {
-    position: fixed;
-    z-index: 1000;
-    pointer-events: none;
-    padding: 0.3rem 0.5rem;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.72rem;
-    white-space: nowrap;
-    color: #fff;
-    background: #1c2621;
-    border-radius: 4px;
-    transform: translate(-50%, calc(-100% - 8px));
-    opacity: 0;
-    transition: opacity 0.1s;
-  }
-
-  .heatmap-tip[data-show='true'] {
-    opacity: 1;
-  }
 
   .day-cell[data-level='1'] {
     background: var(--flora-sage, #c7d2b1);
@@ -348,6 +329,9 @@ for (let year = currentYear; year >= minYear; year--) {
         el.hidden = el.dataset.heatmap !== key;
       });
       const panel = document.querySelector<HTMLElement>(`[data-heatmap="${key}"]`);
+      // Start at the newest month (right edge); the grid is scrolled while visible so widths are real.
+      const scroller = panel?.querySelector<HTMLElement>('.heatmap-scroll');
+      if (scroller) scroller.scrollLeft = scroller.scrollWidth;
       const total = document.querySelector<HTMLElement>('[data-heatmap-total]');
       if (total && panel) {
         total.textContent = `${panel.dataset.total} posts in ${panel.dataset.label}`;
@@ -376,3 +360,25 @@ for (let year = currentYear; year >= minYear; year--) {
 
   document.addEventListener('astro:page-load', setupHeatmap);
 </script>
+
+<style is:global>
+  .heatmap-tip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    padding: 0.3rem 0.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    color: #fff;
+    background: #1c2621;
+    border-radius: 4px;
+    transform: translate(-50%, calc(-100% - 8px));
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .heatmap-tip[data-show='true'] {
+    opacity: 1;
+  }
+</style>
