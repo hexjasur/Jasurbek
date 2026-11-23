@@ -1,0 +1,244 @@
+---
+interface Props {
+  dates: Date[];
+}
+
+const { dates } = Astro.props;
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAY_MS = 86_400_000;
+
+const counts = new Map<string, number>();
+for (const d of dates) {
+  const key = d.toISOString().slice(0, 10);
+  counts.set(key, (counts.get(key) ?? 0) + 1);
+}
+
+const years = [...new Set(dates.map((d) => d.getUTCFullYear()))].sort((a, b) => b - a);
+const latestYear = years[0] ?? new Date().getUTCFullYear();
+
+type Cell = { row: number; col: number; count: number; label: string };
+
+function buildYear(year: number) {
+  const start = Date.UTC(year, 0, 1);
+  const end = Date.UTC(year, 11, 31);
+  // Monday-first offset: Monday = 0 … Sunday = 6
+  const firstRow = (new Date(start).getUTCDay() + 6) % 7;
+  const cells: Cell[] = [];
+  const monthCols: { label: string; col: number }[] = [];
+  let total = 0;
+  let maxCol = 0;
+  let lastMonth = -1;
+
+  for (let t = start; t <= end; t += DAY_MS) {
+    const day = new Date(t);
+    const dayIndex = Math.round((t - start) / DAY_MS);
+    const col = Math.floor((dayIndex + firstRow) / 7);
+    const row = (day.getUTCDay() + 6) % 7;
+    const key = day.toISOString().slice(0, 10);
+    const count = counts.get(key) ?? 0;
+    total += count;
+    maxCol = Math.max(maxCol, col);
+
+    if (day.getUTCMonth() !== lastMonth) {
+      lastMonth = day.getUTCMonth();
+      monthCols.push({ label: MONTHS[lastMonth], col });
+    }
+    cells.push({ row, col, count, label: `${key}: ${count} post${count === 1 ? '' : 's'}` });
+  }
+
+  return { cells, monthCols, total, columns: maxCol + 1 };
+}
+
+const yearData = years.map((year) => ({ year, ...buildYear(year) }));
+---
+
+<section class="heatmap" aria-labelledby="heatmap-title">
+  <div class="heatmap-head">
+    <h2 id="heatmap-title" class="heatmap-title">Posts per day</h2>
+    <div class="heatmap-controls">
+      <span class="heatmap-total" data-heatmap-total>
+        {yearData.find((y) => y.year === latestYear)?.total} posts in {latestYear}
+      </span>
+      <div class="year-switch" role="group" aria-label="Select year">
+        {yearData.map(({ year }) => (
+          <button
+            type="button"
+            class="year-btn"
+            data-year-btn={year}
+            aria-pressed={year === latestYear ? 'true' : 'false'}
+          >
+            {year}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {yearData.map(({ year, cells, monthCols, total, columns }) => (
+    <div
+      class="heatmap-year"
+      data-heatmap={year}
+      data-total={total}
+      hidden={year !== latestYear}
+    >
+      <div class="heatmap-grid" style={`grid-template-columns: repeat(${columns}, 1fr);`}>
+        {monthCols.map((m) => (
+          <span class="month-label" style={`grid-column: ${m.col + 1}; grid-row: 1;`}>{m.label}</span>
+        ))}
+        {cells.map((c) => (
+          <span
+            class="day-cell"
+            data-level={c.count === 0 ? '0' : c.count === 1 ? '1' : '2'}
+            style={`grid-column: ${c.col + 1}; grid-row: ${c.row + 2};`}
+            title={c.label}
+            aria-label={c.label}
+          />
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .heatmap {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-soft, rgba(0, 0, 0, 0.1));
+  }
+
+  .heatmap-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .heatmap-title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .heatmap-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .heatmap-total {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    color: var(--text-faint, #888);
+  }
+
+  .year-switch {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+
+  .year-btn {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    background: var(--chip-bg, #f3ede2);
+    color: var(--text-strong, #1c2621);
+    border: 1px solid var(--border-color, #2e2e2e);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .year-btn[aria-pressed='true'] {
+    background: var(--flora-orange, #b86752);
+    color: #fff;
+    border-color: var(--flora-orange, #b86752);
+  }
+
+  .year-btn:focus-visible {
+    outline: 2px solid var(--flora-orange, #b86752);
+    outline-offset: 2px;
+  }
+
+  .heatmap-year[hidden] {
+    display: none;
+  }
+
+  .heatmap-grid {
+    display: grid;
+    grid-auto-rows: minmax(10px, 12px);
+    gap: 3px;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .month-label {
+    font-size: 0.78rem;
+    color: var(--text-soft, #666);
+    white-space: nowrap;
+  }
+
+  .day-cell {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    background: var(--surface-2, rgba(0, 0, 0, 0.06));
+  }
+
+  .day-cell[data-level='1'] {
+    background: var(--flora-sage, #c7d2b1);
+  }
+
+  .day-cell[data-level='2'] {
+    background: var(--flora-orange, #b86752);
+  }
+</style>
+
+<script>
+  function setupHeatmap() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-year-btn]');
+    if (!buttons.length) return;
+
+    const params = new URLSearchParams(location.search);
+    const requested = params.get('year');
+    const selectedYear = requested && document.querySelector(`[data-heatmap="${requested}"]`)
+      ? requested
+      : buttons[0].dataset.yearBtn!;
+
+    const select = (year: string) => {
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.yearBtn === year)));
+      document.querySelectorAll<HTMLElement>('[data-heatmap]').forEach((el) => {
+        el.hidden = el.dataset.heatmap !== year;
+      });
+      const total = document.querySelector<HTMLElement>('[data-heatmap-total]');
+      const panel = document.querySelector<HTMLElement>(`[data-heatmap="${year}"]`);
+      if (total && panel) total.textContent = `${panel.dataset.total} posts in ${year}`;
+    };
+
+    // Merge into the current query string so `q` and `page` are kept.
+    const writeYear = (year: string) => {
+      const p = new URLSearchParams(location.search);
+      if (year === buttons[0].dataset.yearBtn) p.delete('year');
+      else p.set('year', year);
+      const qs = p.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    };
+
+    select(selectedYear);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const year = btn.dataset.yearBtn!;
+        select(year);
+        writeYear(year);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupHeatmap);
+</script>
