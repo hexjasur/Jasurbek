@@ -1,4 +1,5 @@
 ---
+import PageDates from '../../components/PageDates.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { BASE_URL as baseUrl } from '../../lib/url';
@@ -14,8 +15,7 @@ const pageTitle = `Privacy Policy | ${SITE_CONFIG.domain}`;
 >
   <div class="blog-intro">
     <h2 class="page-title">{pageTitle}</h2>
-    <div class="blog-meta-date">First Published: 2026-11-07</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-15</div>
+    <PageDates published="2026-11-07" updated="2026-11-15" />
 
     <p class="blog-desc">
       This Privacy Policy and Web Tools Disclaimer outlines how personal information, web utilities, and technical data are handled across {SITE_CONFIG.domain}. We operate on a privacy-first principle: no third-party trackers, no unnecessary data acquisition, and completely local execution for interactive tools.
