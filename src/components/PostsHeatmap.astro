@@ -1,0 +1,384 @@
+---
+interface Props {
+  dates: Date[];
+}
+
+const { dates } = Astro.props;
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAY_MS = 86_400_000;
+const MIN_LABEL_GAP = 3; // columns between two month labels, so text never collides
+
+const now = new Date();
+const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+const currentYear = new Date(today).getUTCFullYear();
+
+const counts = new Map<string, number>();
+for (const d of dates) {
+  const key = d.toISOString().slice(0, 10);
+  counts.set(key, (counts.get(key) ?? 0) + 1);
+}
+
+const minYear = dates.length
+  ? Math.min(...dates.map((d) => d.getUTCFullYear()))
+  : currentYear;
+
+type Cell = { row: number; col: number; count: number; label: string; off: boolean };
+type Label = { text: string; col: number };
+type Panel = { id: string; name: string; cells: Cell[]; labels: Label[]; total: number; columns: number };
+
+function buildPanel(id: string, name: string, start: number, end: number): Panel {
+  // Monday-first rows: Monday = 0 … Sunday = 6
+  const firstRow = (new Date(start).getUTCDay() + 6) % 7;
+  const cells: Cell[] = [];
+  const labels: Label[] = [];
+  let total = 0;
+  let maxCol = 0;
+  let lastMonth = -1;
+  let lastLabelCol = -Infinity;
+
+  // Pad the final week to Sunday so the last column is complete.
+  let paddedEnd = end;
+  while ((Math.round((paddedEnd - start) / DAY_MS) + firstRow) % 7 !== 6) paddedEnd += DAY_MS;
+
+  for (let t = start; t <= paddedEnd; t += DAY_MS) {
+    const day = new Date(t);
+    const dayIndex = Math.round((t - start) / DAY_MS);
+    const col = Math.floor((dayIndex + firstRow) / 7);
+    const row = (day.getUTCDay() + 6) % 7;
+    const key = day.toISOString().slice(0, 10);
+    const off = t > end; // days after today (or after the period) are shown dimmed, never counted
+    const count = off ? 0 : (counts.get(key) ?? 0);
+    total += count;
+    maxCol = Math.max(maxCol, col);
+
+    const month = day.getUTCMonth();
+    if (month !== lastMonth) {
+      lastMonth = month;
+      if (col - lastLabelCol >= MIN_LABEL_GAP) {
+        labels.push({ text: MONTHS[month], col });
+        lastLabelCol = col;
+      }
+    }
+
+    const label = off
+      ? `${key}: upcoming`
+      : `${key}: ${count} post${count === 1 ? '' : 's'}`;
+    cells.push({ row, col, count, label, off });
+  }
+
+  return { id, name, cells, labels, total, columns: maxCol + 1 };
+}
+
+// Default view: the last 12 months, ending with the current month.
+const rollingStart = Date.UTC(new Date(today).getUTCFullYear(), new Date(today).getUTCMonth() - 11, 1);
+const panels: Panel[] = [
+  buildPanel('last', 'last 12 months', rollingStart, today),
+];
+
+// One calendar-year view per year, newest first. Future days are never drawn.
+for (let year = currentYear; year >= minYear; year--) {
+  panels.push(
+    buildPanel(String(year), String(year), Date.UTC(year, 0, 1), Math.min(Date.UTC(year, 11, 31), today)),
+  );
+}
+---
+
+<section class="heatmap" aria-labelledby="heatmap-title">
+  <div class="heatmap-head">
+    <h2 id="heatmap-title" class="heatmap-title">Posts per day</h2>
+    <div class="heatmap-controls">
+      <span class="heatmap-total" data-heatmap-total>
+        {panels[0].total} posts in the last 12 months
+      </span>
+      <div class="year-switch" role="group" aria-label="Select period">
+        {panels.map((p) => (
+          <button
+            type="button"
+            class="year-btn"
+            data-year-btn={p.id}
+            aria-pressed={p.id === 'last' ? 'true' : 'false'}
+          >
+            {p.id === 'last' ? 'Last 12 months' : p.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {panels.map((p) => (
+    <div
+      class="heatmap-year"
+      data-heatmap={p.id}
+      data-total={p.total}
+      data-label={p.id === 'last' ? 'last 12 months' : p.name}
+      hidden={p.id !== 'last'}
+    >
+      <div class="heatmap-scroll">
+        <div class="heatmap-grid" style={`--cols: ${p.columns};`}>
+          {p.labels.map((l) => (
+            <span class="month-label" style={`grid-column: ${l.col + 1}; grid-row: 1;`}>{l.text}</span>
+          ))}
+          {p.cells.map((c) => (
+            <span
+              class:list={['day-cell', c.off && 'is-off']}
+              data-level={c.count === 0 ? '0' : c.count === 1 ? '1' : '2'}
+              style={`grid-column: ${c.col + 1}; grid-row: ${c.row + 2};`}
+              data-tip={c.label}
+              aria-label={c.label}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  ))}
+
+  <div class="heatmap-legend" aria-hidden="true">
+    <span>Less</span>
+    <span class="day-cell" data-level="0"></span>
+    <span class="day-cell" data-level="1"></span>
+    <span class="day-cell" data-level="2"></span>
+    <span>More</span>
+  </div>
+</section>
+
+<style>
+  .heatmap {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-soft, rgba(0, 0, 0, 0.1));
+  }
+
+  .heatmap-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .heatmap-title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .heatmap-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .heatmap-total {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    color: var(--text-faint, #888);
+  }
+
+  .year-switch {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .year-btn {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    background: var(--chip-bg, #f3ede2);
+    color: var(--text-strong, #1c2621);
+    border: 1px solid var(--border-color, #2e2e2e);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .year-btn[aria-pressed='true'] {
+    background: var(--flora-orange, #b86752);
+    color: #fff;
+    border-color: var(--flora-orange, #b86752);
+  }
+
+  .year-btn:focus-visible {
+    outline: 2px solid var(--flora-orange, #b86752);
+    outline-offset: 2px;
+  }
+
+  .heatmap-year[hidden] {
+    display: none;
+  }
+
+  .heatmap-scroll {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  /* Label row is its own fixed-height track, so text never overlaps the cells. */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 11px);
+    grid-template-rows: 16px repeat(7, 11px);
+    gap: 3px;
+    width: max-content;
+  }
+
+  .month-label {
+    font-size: 0.78rem;
+    line-height: 16px;
+    color: var(--text-soft, #666);
+    white-space: nowrap;
+  }
+
+  .day-cell {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--surface-2, rgba(128, 128, 128, 0.18));
+    box-shadow: inset 0 0 0 1px var(--cell-border, rgba(128, 128, 128, 0.35));
+  }
+
+  .day-cell.is-off {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--cell-border, rgba(128, 128, 128, 0.35));
+    border: none;
+    opacity: 0.45;
+  }
+
+
+  .day-cell[data-level='1'] {
+    background: var(--flora-sage, #c7d2b1);
+  }
+
+  .day-cell[data-level='2'] {
+    background: var(--flora-orange, #b86752);
+  }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: var(--text-faint, #888);
+  }
+
+  .heatmap-legend .day-cell {
+    width: 11px;
+    height: 11px;
+  }
+</style>
+
+<script>
+  let tip: HTMLDivElement | null = null;
+
+  function getTip() {
+    if (!tip) {
+      tip = document.createElement('div');
+      tip.className = 'heatmap-tip';
+      tip.setAttribute('role', 'tooltip');
+      document.body.appendChild(tip);
+    }
+    return tip;
+  }
+
+  function showTip(cell: HTMLElement) {
+    const el = getTip();
+    el.textContent = cell.dataset.tip ?? '';
+    const r = cell.getBoundingClientRect();
+    el.style.left = `${r.left + r.width / 2}px`;
+    el.style.top = `${r.top}px`;
+    el.dataset.show = 'true';
+  }
+
+  function hideTip() {
+    if (tip) tip.dataset.show = 'false';
+  }
+
+  if (!(window as any).__heatmapTipBound) {
+    (window as any).__heatmapTipBound = true;
+    document.addEventListener('mouseover', (e) => {
+      const cell = (e.target as HTMLElement).closest<HTMLElement>('.day-cell[data-tip]');
+      if (cell) showTip(cell);
+      else hideTip();
+    });
+    document.addEventListener('mouseleave', hideTip, true);
+    window.addEventListener('scroll', hideTip, true);
+  }
+
+  function setupHeatmap() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-year-btn]');
+    if (!buttons.length) return;
+
+    const defaultKey = buttons[0].dataset.yearBtn!;
+    const params = new URLSearchParams(location.search);
+    const requested = params.get('year');
+    const selected = requested && document.querySelector(`[data-heatmap="${requested}"]`)
+      ? requested
+      : defaultKey;
+
+    const select = (key: string) => {
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.yearBtn === key)));
+      document.querySelectorAll<HTMLElement>('[data-heatmap]').forEach((el) => {
+        el.hidden = el.dataset.heatmap !== key;
+      });
+      const panel = document.querySelector<HTMLElement>(`[data-heatmap="${key}"]`);
+      // Start at the newest month (right edge); the grid is scrolled while visible so widths are real.
+      const scroller = panel?.querySelector<HTMLElement>('.heatmap-scroll');
+      if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+      const total = document.querySelector<HTMLElement>('[data-heatmap-total]');
+      if (total && panel) {
+        total.textContent = `${panel.dataset.total} posts in ${panel.dataset.label}`;
+      }
+    };
+
+    // Keep q/page and any other params; only add or remove `year`.
+    const writeYear = (key: string) => {
+      const p = new URLSearchParams(location.search);
+      if (key === defaultKey) p.delete('year');
+      else p.set('year', key);
+      const qs = p.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    };
+
+    select(selected);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.yearBtn!;
+        select(key);
+        writeYear(key);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupHeatmap);
+</script>
+
+<style is:global>
+  .heatmap-tip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    padding: 0.3rem 0.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    color: #fff;
+    background: #1c2621;
+    border-radius: 4px;
+    transform: translate(-50%, calc(-100% - 8px));
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .heatmap-tip[data-show='true'] {
+    opacity: 1;
+  }
+</style>

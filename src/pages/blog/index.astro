@@ -1,5 +1,6 @@
 ---
 import PageDates from '../../components/PageDates.astro';
+import PostsHeatmap from '../../components/PostsHeatmap.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getSortedPosts, formatDate, readingTime } from '../../lib/blog';
 import { BASE_URL as baseUrl } from '../../lib/url';
@@ -20,7 +21,7 @@ const totalPosts = sortedPosts.length;
     <h2 class="page-title">
       Technical Articles & Notes | {SITE_CONFIG.domain}
     </h2>
-    <PageDates published="2026-11-01" updated="2026-11-22" />
+    <PageDates published="2026-11-01" updated="2026-11-24" />
     <div class="blog-meta-date">Total: {totalPosts} Published Posts</div>
 
     <p class="blog-desc">
@@ -110,9 +111,13 @@ const totalPosts = sortedPosts.length;
     ))}
   </div>
 
-  <div id="no-results-msg" class="no-results" style="display: none;">
+  <div id="no-results-msg" class="no-results" hidden>
     No matching articles found. Try another search term.
   </div>
+
+  <nav class="pager" id="blog-pager" aria-label="Blog pages" hidden></nav>
+
+  <PostsHeatmap dates={sortedPosts.map((post) => new Date(post.data.pubDate))} />
 </Layout>
 
 <style>
@@ -380,6 +385,51 @@ const totalPosts = sortedPosts.length;
     font-size: 0.95rem;
   }
 
+  /* Cards are toggled with the `hidden` attribute by the page script */
+  .blog-card[hidden] {
+    display: none !important;
+  }
+
+  /* ===== Pagination ===== */
+  .pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+  }
+
+  .pager[hidden] {
+    display: none;
+  }
+
+  .pager-link {
+    color: var(--link-color, #b86752);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .pager-link:hover {
+    text-decoration: underline;
+  }
+
+  .pager-link[aria-disabled='true'] {
+    color: var(--text-faint, #888);
+    pointer-events: none;
+    text-decoration: none;
+  }
+
+  .pager-info {
+    color: var(--text-faint, #888);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+  }
+
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
     .blog-grid {
@@ -398,31 +448,106 @@ const totalPosts = sortedPosts.length;
 </style>
 
 <script>
-  function setupSearch() {
-    const searchInput = document.getElementById('site-search-input') as HTMLInputElement;
+  const PAGE_SIZE = 10;
+
+  function setupBlogList() {
+    const searchInput = document.getElementById('site-search-input') as HTMLInputElement | null;
     const grid = document.getElementById('blog-grid');
     const noResults = document.getElementById('no-results-msg');
     const counter = document.getElementById('entries-count');
-    if (!searchInput || !grid || !noResults) return;
+    const pager = document.getElementById('blog-pager');
+    if (!searchInput || !grid || !noResults || !pager) return;
 
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase().trim();
-      const cards = grid.querySelectorAll('.blog-card') as NodeListOf<HTMLElement>;
-      let visibleCount = 0;
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.blog-card'));
+    const params = new URLSearchParams(location.search);
 
-      cards.forEach(card => {
-        const title = card.dataset.title || '';
-        const desc = card.dataset.desc || '';
-        const tags = card.dataset.tags || '';
-        const matches = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
-        card.style.display = matches ? 'flex' : 'none';
-        if (matches) visibleCount++;
+    let query = params.get('q') ?? '';
+    let page = Math.max(1, parseInt(params.get('page') ?? '1', 10) || 1);
+    searchInput.value = query;
+
+    // Merge state into the current query string so `year` (set by the heatmap) is kept.
+    function writeUrl() {
+      const p = new URLSearchParams(location.search);
+      query ? p.set('q', query) : p.delete('q');
+      page > 1 ? p.set('page', String(page)) : p.delete('page');
+      const qs = p.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    }
+
+    function pageHref(target: number) {
+      const p = new URLSearchParams(location.search);
+      query ? p.set('q', query) : p.delete('q');
+      target > 1 ? p.set('page', String(target)) : p.delete('page');
+      const qs = p.toString();
+      return qs ? `?${qs}` : location.pathname;
+    }
+
+    function renderPager(totalPages: number) {
+      pager!.innerHTML = '';
+      pager!.hidden = totalPages <= 1;
+      if (totalPages <= 1) return;
+
+      const make = (label: string, target: number, disabled: boolean) => {
+        const a = document.createElement('a');
+        a.className = 'pager-link';
+        a.textContent = label;
+        a.href = pageHref(target);
+        a.dataset.page = String(target);
+        if (disabled) a.setAttribute('aria-disabled', 'true');
+        return a;
+      };
+
+      pager!.append(make('← Prev', page - 1, page <= 1));
+      const info = document.createElement('span');
+      info.className = 'pager-info';
+      info.textContent = `Page ${page} of ${totalPages}`;
+      pager!.append(info);
+      pager!.append(make('Next →', page + 1, page >= totalPages));
+    }
+
+    function render() {
+      const q = query.toLowerCase().trim();
+      const matched = cards.filter((card) => {
+        if (!q) return true;
+        return (
+          (card.dataset.title ?? '').includes(q) ||
+          (card.dataset.desc ?? '').includes(q) ||
+          (card.dataset.tags ?? '').includes(q)
+        );
       });
 
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-      if (counter) counter.textContent = `(${visibleCount})`;
+      const totalPages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+      page = Math.min(page, totalPages);
+      const start = (page - 1) * PAGE_SIZE;
+      const visible = new Set(matched.slice(start, start + PAGE_SIZE));
+
+      cards.forEach((card) => {
+        card.hidden = !visible.has(card);
+      });
+
+      noResults!.hidden = matched.length > 0;
+      if (counter) counter.textContent = `(${matched.length})`;
+      renderPager(totalPages);
+      writeUrl();
+    }
+
+    searchInput.addEventListener('input', () => {
+      query = searchInput.value;
+      page = 1;
+      render();
     });
+
+    pager.addEventListener('click', (event) => {
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a.pager-link');
+      if (!link || link.getAttribute('aria-disabled') === 'true') return;
+      event.preventDefault();
+      page = Number(link.dataset.page);
+      render();
+      grid!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    render();
   }
 
-  document.addEventListener('astro:page-load', setupSearch);
+  document.addEventListener('astro:page-load', setupBlogList);
 </script>

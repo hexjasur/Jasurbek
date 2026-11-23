@@ -198,6 +198,8 @@ Reuse the theme tokens from `src/styles/global.css` instead of introducing new c
 
 ## Writing content
 
+**Last updated:** 2026-11-24
+
 **Blog post:** add `src/content/blog/<ascii-slug>.md`:
 
 ```yaml
