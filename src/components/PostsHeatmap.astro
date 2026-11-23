@@ -7,6 +7,11 @@ const { dates } = Astro.props;
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAY_MS = 86_400_000;
+const MIN_LABEL_GAP = 3; // columns between two month labels, so text never collides
+
+const now = new Date();
+const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+const currentYear = new Date(today).getUTCFullYear();
 
 const counts = new Map<string, number>();
 for (const d of dates) {
@@ -14,21 +19,23 @@ for (const d of dates) {
   counts.set(key, (counts.get(key) ?? 0) + 1);
 }
 
-const years = [...new Set(dates.map((d) => d.getUTCFullYear()))].sort((a, b) => b - a);
-const latestYear = years[0] ?? new Date().getUTCFullYear();
+const minYear = dates.length
+  ? Math.min(...dates.map((d) => d.getUTCFullYear()))
+  : currentYear;
 
 type Cell = { row: number; col: number; count: number; label: string };
+type Label = { text: string; col: number };
+type Panel = { id: string; name: string; cells: Cell[]; labels: Label[]; total: number; columns: number };
 
-function buildYear(year: number) {
-  const start = Date.UTC(year, 0, 1);
-  const end = Date.UTC(year, 11, 31);
-  // Monday-first offset: Monday = 0 … Sunday = 6
+function buildPanel(id: string, name: string, start: number, end: number): Panel {
+  // Monday-first rows: Monday = 0 … Sunday = 6
   const firstRow = (new Date(start).getUTCDay() + 6) % 7;
   const cells: Cell[] = [];
-  const monthCols: { label: string; col: number }[] = [];
+  const labels: Label[] = [];
   let total = 0;
   let maxCol = 0;
   let lastMonth = -1;
+  let lastLabelCol = -Infinity;
 
   for (let t = start; t <= end; t += DAY_MS) {
     const day = new Date(t);
@@ -40,17 +47,33 @@ function buildYear(year: number) {
     total += count;
     maxCol = Math.max(maxCol, col);
 
-    if (day.getUTCMonth() !== lastMonth) {
-      lastMonth = day.getUTCMonth();
-      monthCols.push({ label: MONTHS[lastMonth], col });
+    const month = day.getUTCMonth();
+    if (month !== lastMonth) {
+      lastMonth = month;
+      if (col - lastLabelCol >= MIN_LABEL_GAP) {
+        labels.push({ text: MONTHS[month], col });
+        lastLabelCol = col;
+      }
     }
+
     cells.push({ row, col, count, label: `${key}: ${count} post${count === 1 ? '' : 's'}` });
   }
 
-  return { cells, monthCols, total, columns: maxCol + 1 };
+  return { id, name, cells, labels, total, columns: maxCol + 1 };
 }
 
-const yearData = years.map((year) => ({ year, ...buildYear(year) }));
+// Default view: the last 12 months, ending with the current month.
+const rollingStart = Date.UTC(new Date(today).getUTCFullYear(), new Date(today).getUTCMonth() - 11, 1);
+const panels: Panel[] = [
+  buildPanel('last', 'last 12 months', rollingStart, today),
+];
+
+// One calendar-year view per year, newest first. Future days are never drawn.
+for (let year = currentYear; year >= minYear; year--) {
+  panels.push(
+    buildPanel(String(year), String(year), Date.UTC(year, 0, 1), Math.min(Date.UTC(year, 11, 31), today)),
+  );
+}
 ---
 
 <section class="heatmap" aria-labelledby="heatmap-title">
@@ -58,46 +81,57 @@ const yearData = years.map((year) => ({ year, ...buildYear(year) }));
     <h2 id="heatmap-title" class="heatmap-title">Posts per day</h2>
     <div class="heatmap-controls">
       <span class="heatmap-total" data-heatmap-total>
-        {yearData.find((y) => y.year === latestYear)?.total} posts in {latestYear}
+        {panels[0].total} posts in the last 12 months
       </span>
-      <div class="year-switch" role="group" aria-label="Select year">
-        {yearData.map(({ year }) => (
+      <div class="year-switch" role="group" aria-label="Select period">
+        {panels.map((p) => (
           <button
             type="button"
             class="year-btn"
-            data-year-btn={year}
-            aria-pressed={year === latestYear ? 'true' : 'false'}
+            data-year-btn={p.id}
+            aria-pressed={p.id === 'last' ? 'true' : 'false'}
           >
-            {year}
+            {p.id === 'last' ? 'Last 12 months' : p.name}
           </button>
         ))}
       </div>
     </div>
   </div>
 
-  {yearData.map(({ year, cells, monthCols, total, columns }) => (
+  {panels.map((p) => (
     <div
       class="heatmap-year"
-      data-heatmap={year}
-      data-total={total}
-      hidden={year !== latestYear}
+      data-heatmap={p.id}
+      data-total={p.total}
+      data-label={p.id === 'last' ? 'last 12 months' : p.name}
+      hidden={p.id !== 'last'}
     >
-      <div class="heatmap-grid" style={`grid-template-columns: repeat(${columns}, 1fr);`}>
-        {monthCols.map((m) => (
-          <span class="month-label" style={`grid-column: ${m.col + 1}; grid-row: 1;`}>{m.label}</span>
-        ))}
-        {cells.map((c) => (
-          <span
-            class="day-cell"
-            data-level={c.count === 0 ? '0' : c.count === 1 ? '1' : '2'}
-            style={`grid-column: ${c.col + 1}; grid-row: ${c.row + 2};`}
-            title={c.label}
-            aria-label={c.label}
-          />
-        ))}
+      <div class="heatmap-scroll">
+        <div class="heatmap-grid" style={`--cols: ${p.columns};`}>
+          {p.labels.map((l) => (
+            <span class="month-label" style={`grid-column: ${l.col + 1}; grid-row: 1;`}>{l.text}</span>
+          ))}
+          {p.cells.map((c) => (
+            <span
+              class="day-cell"
+              data-level={c.count === 0 ? '0' : c.count === 1 ? '1' : '2'}
+              style={`grid-column: ${c.col + 1}; grid-row: ${c.row + 2};`}
+              title={c.label}
+              aria-label={c.label}
+            />
+          ))}
+        </div>
       </div>
     </div>
   ))}
+
+  <div class="heatmap-legend" aria-hidden="true">
+    <span>Less</span>
+    <span class="day-cell" data-level="0"></span>
+    <span class="day-cell" data-level="1"></span>
+    <span class="day-cell" data-level="2"></span>
+    <span>More</span>
+  </div>
 </section>
 
 <style>
@@ -139,6 +173,7 @@ const yearData = years.map((year) => ({ year, ...buildYear(year) }));
 
   .year-switch {
     display: inline-flex;
+    flex-wrap: wrap;
     gap: 0.35rem;
   }
 
@@ -169,23 +204,31 @@ const yearData = years.map((year) => ({ year, ...buildYear(year) }));
     display: none;
   }
 
-  .heatmap-grid {
-    display: grid;
-    grid-auto-rows: minmax(10px, 12px);
-    gap: 3px;
+  .heatmap-scroll {
     overflow-x: auto;
     padding-bottom: 0.25rem;
   }
 
+  /* Label row is its own fixed-height track, so text never overlaps the cells. */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 11px);
+    grid-template-rows: 16px repeat(7, 11px);
+    gap: 3px;
+    width: max-content;
+  }
+
   .month-label {
     font-size: 0.78rem;
+    line-height: 16px;
     color: var(--text-soft, #666);
     white-space: nowrap;
   }
 
   .day-cell {
-    width: 100%;
-    height: 100%;
+    display: block;
+    width: 11px;
+    height: 11px;
     border-radius: 2px;
     background: var(--surface-2, rgba(0, 0, 0, 0.06));
   }
@@ -197,6 +240,22 @@ const yearData = years.map((year) => ({ year, ...buildYear(year) }));
   .day-cell[data-level='2'] {
     background: var(--flora-orange, #b86752);
   }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: var(--text-faint, #888);
+  }
+
+  .heatmap-legend .day-cell {
+    width: 11px;
+    height: 11px;
+  }
 </style>
 
 <script>
@@ -204,38 +263,41 @@ const yearData = years.map((year) => ({ year, ...buildYear(year) }));
     const buttons = document.querySelectorAll<HTMLButtonElement>('[data-year-btn]');
     if (!buttons.length) return;
 
+    const defaultKey = buttons[0].dataset.yearBtn!;
     const params = new URLSearchParams(location.search);
     const requested = params.get('year');
-    const selectedYear = requested && document.querySelector(`[data-heatmap="${requested}"]`)
+    const selected = requested && document.querySelector(`[data-heatmap="${requested}"]`)
       ? requested
-      : buttons[0].dataset.yearBtn!;
+      : defaultKey;
 
-    const select = (year: string) => {
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.yearBtn === year)));
+    const select = (key: string) => {
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.yearBtn === key)));
       document.querySelectorAll<HTMLElement>('[data-heatmap]').forEach((el) => {
-        el.hidden = el.dataset.heatmap !== year;
+        el.hidden = el.dataset.heatmap !== key;
       });
+      const panel = document.querySelector<HTMLElement>(`[data-heatmap="${key}"]`);
       const total = document.querySelector<HTMLElement>('[data-heatmap-total]');
-      const panel = document.querySelector<HTMLElement>(`[data-heatmap="${year}"]`);
-      if (total && panel) total.textContent = `${panel.dataset.total} posts in ${year}`;
+      if (total && panel) {
+        total.textContent = `${panel.dataset.total} posts in ${panel.dataset.label}`;
+      }
     };
 
-    // Merge into the current query string so `q` and `page` are kept.
-    const writeYear = (year: string) => {
+    // Keep q/page and any other params; only add or remove `year`.
+    const writeYear = (key: string) => {
       const p = new URLSearchParams(location.search);
-      if (year === buttons[0].dataset.yearBtn) p.delete('year');
-      else p.set('year', year);
+      if (key === defaultKey) p.delete('year');
+      else p.set('year', key);
       const qs = p.toString();
       history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
     };
 
-    select(selectedYear);
+    select(selected);
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const year = btn.dataset.yearBtn!;
-        select(year);
-        writeYear(year);
+        const key = btn.dataset.yearBtn!;
+        select(key);
+        writeYear(key);
       });
     });
   }
