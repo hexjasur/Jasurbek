@@ -23,7 +23,7 @@ const minYear = dates.length
   ? Math.min(...dates.map((d) => d.getUTCFullYear()))
   : currentYear;
 
-type Cell = { row: number; col: number; count: number; label: string };
+type Cell = { row: number; col: number; count: number; label: string; off: boolean };
 type Label = { text: string; col: number };
 type Panel = { id: string; name: string; cells: Cell[]; labels: Label[]; total: number; columns: number };
 
@@ -37,13 +37,18 @@ function buildPanel(id: string, name: string, start: number, end: number): Panel
   let lastMonth = -1;
   let lastLabelCol = -Infinity;
 
-  for (let t = start; t <= end; t += DAY_MS) {
+  // Pad the final week to Sunday so the last column is complete.
+  let paddedEnd = end;
+  while ((Math.round((paddedEnd - start) / DAY_MS) + firstRow) % 7 !== 6) paddedEnd += DAY_MS;
+
+  for (let t = start; t <= paddedEnd; t += DAY_MS) {
     const day = new Date(t);
     const dayIndex = Math.round((t - start) / DAY_MS);
     const col = Math.floor((dayIndex + firstRow) / 7);
     const row = (day.getUTCDay() + 6) % 7;
     const key = day.toISOString().slice(0, 10);
-    const count = counts.get(key) ?? 0;
+    const off = t > end; // days after today (or after the period) are shown dimmed, never counted
+    const count = off ? 0 : (counts.get(key) ?? 0);
     total += count;
     maxCol = Math.max(maxCol, col);
 
@@ -56,7 +61,10 @@ function buildPanel(id: string, name: string, start: number, end: number): Panel
       }
     }
 
-    cells.push({ row, col, count, label: `${key}: ${count} post${count === 1 ? '' : 's'}` });
+    const label = off
+      ? `${key}: upcoming`
+      : `${key}: ${count} post${count === 1 ? '' : 's'}`;
+    cells.push({ row, col, count, label, off });
   }
 
   return { id, name, cells, labels, total, columns: maxCol + 1 };
@@ -113,10 +121,10 @@ for (let year = currentYear; year >= minYear; year--) {
           ))}
           {p.cells.map((c) => (
             <span
-              class="day-cell"
+              class:list={['day-cell', c.off && 'is-off']}
               data-level={c.count === 0 ? '0' : c.count === 1 ? '1' : '2'}
               style={`grid-column: ${c.col + 1}; grid-row: ${c.row + 2};`}
-              title={c.label}
+              data-tip={c.label}
               aria-label={c.label}
             />
           ))}
@@ -230,7 +238,35 @@ for (let year = currentYear; year >= minYear; year--) {
     width: 11px;
     height: 11px;
     border-radius: 2px;
-    background: var(--surface-2, rgba(0, 0, 0, 0.06));
+    background: var(--surface-2, rgba(128, 128, 128, 0.18));
+    box-shadow: inset 0 0 0 1px var(--cell-border, rgba(128, 128, 128, 0.35));
+  }
+
+  .day-cell.is-off {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--cell-border, rgba(128, 128, 128, 0.35));
+    border: none;
+    opacity: 0.45;
+  }
+
+  .heatmap-tip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    padding: 0.3rem 0.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    color: #fff;
+    background: #1c2621;
+    border-radius: 4px;
+    transform: translate(-50%, calc(-100% - 8px));
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .heatmap-tip[data-show='true'] {
+    opacity: 1;
   }
 
   .day-cell[data-level='1'] {
@@ -259,6 +295,42 @@ for (let year = currentYear; year >= minYear; year--) {
 </style>
 
 <script>
+  let tip: HTMLDivElement | null = null;
+
+  function getTip() {
+    if (!tip) {
+      tip = document.createElement('div');
+      tip.className = 'heatmap-tip';
+      tip.setAttribute('role', 'tooltip');
+      document.body.appendChild(tip);
+    }
+    return tip;
+  }
+
+  function showTip(cell: HTMLElement) {
+    const el = getTip();
+    el.textContent = cell.dataset.tip ?? '';
+    const r = cell.getBoundingClientRect();
+    el.style.left = `${r.left + r.width / 2}px`;
+    el.style.top = `${r.top}px`;
+    el.dataset.show = 'true';
+  }
+
+  function hideTip() {
+    if (tip) tip.dataset.show = 'false';
+  }
+
+  if (!(window as any).__heatmapTipBound) {
+    (window as any).__heatmapTipBound = true;
+    document.addEventListener('mouseover', (e) => {
+      const cell = (e.target as HTMLElement).closest<HTMLElement>('.day-cell[data-tip]');
+      if (cell) showTip(cell);
+      else hideTip();
+    });
+    document.addEventListener('mouseleave', hideTip, true);
+    window.addEventListener('scroll', hideTip, true);
+  }
+
   function setupHeatmap() {
     const buttons = document.querySelectorAll<HTMLButtonElement>('[data-year-btn]');
     if (!buttons.length) return;
