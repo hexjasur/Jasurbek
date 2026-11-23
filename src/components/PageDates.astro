@@ -1,0 +1,13 @@
+---
+// "First Published / Last Updated" lines. Render them inside the page's `.blog-intro` wrapper.
+// Pass `updated` only when it differs from `published`.
+interface Props {
+  published: string;
+  updated?: string;
+}
+
+const { published, updated } = Astro.props;
+---
+
+<div class="blog-meta-date">First Published: {published}</div>
+{updated && <div class="blog-meta-date">Last Updated: {updated}</div>}

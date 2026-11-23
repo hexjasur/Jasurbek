@@ -1,4 +1,5 @@
 ---
+import PageDates from '../../components/PageDates.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { BASE_URL as baseUrl } from '../../lib/url';
@@ -15,9 +16,7 @@ import { BASE_URL as baseUrl } from '../../lib/url';
     <a href={`${baseUrl}tools`} class="back-link">&larr; Barcha vositalarga qaytiş</a>
   </div>
 
-  <div class="blog-intro">
-    <div class="blog-meta-date">First Published: 2026-11-16</div>
-  </div>
+  <div class="blog-intro"><PageDates published="2026-11-16" /></div>
 
   <section class="tools-box typing-box">
     <h2 class="page-title">

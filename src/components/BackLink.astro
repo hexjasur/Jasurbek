@@ -1,0 +1,21 @@
+---
+// "← Back to all tools" link. `position="top"` sits under the header, `"bottom"` in the page footer nav.
+import { BASE_URL } from '../lib/url';
+
+interface Props {
+  position?: 'top' | 'bottom';
+}
+
+const { position = 'top' } = Astro.props;
+const href = `${BASE_URL}tools`;
+---
+
+{position === 'top' ? (
+  <div class="back-link-wrap">
+    <a href={href} class="back-link">&larr; Back to all tools</a>
+  </div>
+) : (
+  <div class="page-footer-nav">
+    <a href={href} class="back-link">&larr; Back to all tools</a>
+  </div>
+)}

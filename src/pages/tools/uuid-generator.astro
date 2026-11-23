@@ -1,10 +1,9 @@
 ---
+import PageDates from '../../components/PageDates.astro';
+import BackLink from '../../components/BackLink.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 
-const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
-  ? import.meta.env.BASE_URL 
-  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout 
@@ -13,14 +12,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink />
 
-  <div class="blog-intro">
-    <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-22</div>
-  </div>
+  <div class="blog-intro"><PageDates published="2026-11-01" updated="2026-11-22" /></div>
 
   <section class="tools-box">
     <h2 class="page-title">
@@ -166,9 +160,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     </div>
   </section>
 
-  <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink position="bottom" />
 </Layout>
 
 <style is:global>

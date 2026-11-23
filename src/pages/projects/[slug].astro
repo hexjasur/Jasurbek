@@ -1,11 +1,10 @@
 ---
+import { BASE_URL } from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 import { projectsList, projectsMap } from '../../data/projects';
 
-const baseUrl = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+const baseUrl = BASE_URL;
 
 export function getStaticPaths() {
   return projectsList.map((p) => ({ params: { slug: p.slug } }));

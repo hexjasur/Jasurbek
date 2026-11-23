@@ -1,4 +1,5 @@
 ---
+import PageDates from '../../components/PageDates.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getSortedPosts, formatDate, readingTime } from '../../lib/blog';
 import { BASE_URL as baseUrl } from '../../lib/url';
@@ -19,8 +20,7 @@ const totalPosts = sortedPosts.length;
     <h2 class="page-title">
       Technical Articles & Notes | {SITE_CONFIG.domain}
     </h2>
-    <div class="blog-meta-date">First Published: 2026-11-01</div>
-    <div class="blog-meta-date">Last Updated: 2026-11-22</div>
+    <PageDates published="2026-11-01" updated="2026-11-22" />
     <div class="blog-meta-date">Total: {totalPosts} Published Posts</div>
 
     <p class="blog-desc">

@@ -1,10 +1,8 @@
 ---
+import BackLink from '../../components/BackLink.astro';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_CONFIG } from '../../config';
 
-const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
-  ? import.meta.env.BASE_URL 
-  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout 
@@ -13,9 +11,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   activePage="tools"
   headerTitle={SITE_CONFIG.domain}
 >
-  <div class="back-link-wrap">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink />
 
   <section class="tools-box">
     <h2 class="page-title">
@@ -79,9 +75,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     </div>
   </section>
 
-  <div class="page-footer-nav">
-    <a href={`${baseUrl}tools`} class="back-link">&larr; Back to all tools</a>
-  </div>
+  <BackLink position="bottom" />
 </Layout>
 
 <script>
