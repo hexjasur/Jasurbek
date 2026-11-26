@@ -672,7 +672,7 @@ Maple kadri `t = 1` da. Yuqori çap burçakda parametr qiymati çiqadi.
 
 <img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-kadr.webp" alt="Maple animatsiyasidan kadr: sin(x·t)·cos(y·t), t = 1" loading="lazy" decoding="async" />
 
-Bu animatsiyani Maple'da Play tugmasi bilan boşlaş mumkin. Quyida uning matplotlib bilan çizilgan nusxasi, t 1 dan 3 gaçha. Formula Maple'dagi bilan bir xil, lekin rang va kamera burçagi farq qiladi (Maple'da ranglar `x + y` ga qarab bölinadi, bu yerda `viridis` palitrasi işlatilgan).
+Bu animatsiyani Maple'da Play tugmasi bilan boşlaş mumkin. Quyida uning matplotlib bilan çizilgan nusxasi, t 1 dan 3 gaçha. Formula Maple'dagi bilan bir xil. Rang (`x + y` ga qarab) va şaffoflik Maple'dagiga yaqinlaşdirilgan, lekin kamera burçagi aynan bir xil emas.
 
 <img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp" alt="sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha; Maple animatsiyasining matplotlib nusxasi" loading="lazy" decoding="async" />
 
