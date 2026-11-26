@@ -696,6 +696,6 @@ Qayta çizilgan animatsiya, t 1 dan 3 gaçha:
 | `plot3d` | uç ölçamli sirt (`grid`, `axes`, `color` parametrlari bilan) |
 | `spacecurve` | fazoviy egri çiziq (`with(plots)` kerak) |
 | `sphereplot` | sfera (`theta`, `phi` burçaklari bilan) |
-| `animate` | parametr böyicha kadrlar ketma-ketligi (`with(plots)` kerak) |
+| `animate` | parametr qiymatlari bilan kadrlar ketma-ketligi (`with(plots)` kerak) |
 
 Maple buyruqni bajaradi, lekin nötöğri kiritilgan ifodaga ham natija beradi. Şuning uçun har bir natijani qölda, heç bölmasa bitta misolda tekşiring.
