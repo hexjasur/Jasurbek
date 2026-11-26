@@ -1779,7 +1779,7 @@ body,
 /* Smooth color changes when toggling, but never for people who prefer reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
   body, .site-wrapper, .blog-card, .project-card, .tools-box, .site-footer, .btn {
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    transition: background-color 0.1s linear, border-color 0.1s linear, color 0.1s linear;
   }
 }
 
