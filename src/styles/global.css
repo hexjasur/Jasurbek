@@ -2385,7 +2385,7 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.55rem 0.7rem;
     padding: 0.75rem;
-    background: var(--wrapper-bg);
+    background-color: #fbf6ec;
     border: 1px solid var(--border-color);
     border-radius: 12px;
     opacity: 0;
@@ -2393,6 +2393,10 @@ a.tag-badge:hover { text-decoration: none; background: var(--sage-hover); }
     transform: translateY(-6px);
     pointer-events: none;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out, visibility 0.15s ease-out;
+  }
+
+  :root[data-theme='dark'] .mobile-menu {
+    background-color: #18201c;
   }
 
   .mobile-menu.is-open {
