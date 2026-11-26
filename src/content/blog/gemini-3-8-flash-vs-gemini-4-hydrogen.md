@@ -99,6 +99,10 @@ Har bir natijani qölda tekşiring. Benchmarkdan köra özingiz işlatadigan vaz
 - **Murakkab mulohaza, köp bosqiçli kodlaş, terminal vazifalari**: 4 Hydrogen. High rejimi köpçilik uçun yetarli, Xhigh esa eng qiyin masalalar uçun.
 - **Eng past keçikiş kerak bölsa**: 3.8 Flash ba'zi holatda oldinda, çunki Hydrogen Xhigh rejimida birinçi tokenni ança kutadi.
 
+## Kiçik hazil
+
+Google modellarini davriy jadvaldan tanlayotganga öxşaydi. Hydrogen — jadvaldagi eng yengil element. 3.8 Flash esa nomi bilan tezligini oşkor qiliş. BenchLM röyxatida Gemini 4 Carbon va Neon ham bor, şuning uçun keyingi model nomi qanday bölişini taxmin qilish qiyin emas. Lekin nomga emas, raqamlarga qaraymiz.
+
 ## Manbalar
 
 - [Google blogi: Gemini 4 Hydrogen](https://blog.google/)
