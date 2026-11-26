@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import SearchPalette from '../components/SearchPalette.astro';
 import DesktopUpdater from '../components/DesktopUpdater.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
 import { toolsList } from '../data/tools';
@@ -161,6 +162,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     </main>
     <Footer />
     <DesktopUpdater />
+    <BackToTop />
   </div>
 
   <SearchPalette />
