@@ -1,14 +1,14 @@
 ---
 title: "Maple'da matematika: soddalaştiriş, tenglamalar, hosila va integral"
-description: "Maple bilan soddalaştiriş, tenglama, matritsa, hosila va integral: har bir misolning kodi, natijasi va qölda tekşiruvi."
+description: "Maple bilan soddalaştiriş, tenglama, matritsa, hosila, integral, 2D va 3D grafiklar hamda animatsiyalar: har bir misolning kodi, natijasi va qölda tekşiruvi."
 pubDate: 2026-11-05
-updatedDate: 2026-11-17
-tags: ["maple", "matematika", "programming", "universitet", "algebra", "hosila", "integral"]
+updatedDate: 2026-11-26
+tags: ["maple", "matematika", "programming", "universitet", "algebra", "hosila", "integral", "grafik", "3d", "animatsiya"]
 ---
 
 4-kurs, 7-semestrda Maple dasturida amaliy maşğulotlar ötkazdik. Maple — ifodalarni soddalaştiradigan, tenglamalarni yeçadigan, hosila va integral hisoblaydigan kompyuter algebra tizimi.
 
-Bu maqolada maşğulotlardagi misollarimni mavzu böyiça yiğdim: algebradan boşlab hosila va integralgaça. Har bir misolda kod, natija va natijani qölda tekşiriş yoli bor. Maqsad — buyruqlarni yodlaş emas, har bir natijaning nega şunday çiqqanini tuşunuş.
+Bu maqolada maşğulotlardagi misollarimni mavzu böyiça yiğdim: algebradan boşlab hosila, integral va uç ölçamli grafiklargaça. Har bir misolda kod, natija va natijani qölda tekşiriş yoli bor. Maqsad — buyruqlarni yodlaş emas, har bir natijaning nega şunday çiqqanini tuşunuş.
 
 ## Işga tayyorlaniş
 
@@ -537,6 +537,143 @@ Umumiy köriniş: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
 
 Xato: `plot` buyruğiga `infinity` bilan çeksiz oraliq bermang. Uning örniga katta çekli son bering, masalan `x = -40 .. 40`.
 
+## 9. Uç ölçamli grafiklar
+
+Oldingi bölimda tekis (2D) grafiklar bor edi. Bu bölimda uçinçi öq — z — qöşiladi. İki özgaruvçili `z = f(x, y)` funksiya sirt hosil qiladi, fazoviy egri çiziq esa `(x(t), y(t), z(t))` körinişida beriladi. Bularning hammasi `plot3d`, `spacecurve`, `sphereplot` va `animate` buyruqlari bilan chiziladi.
+
+### Sirt: plot3d
+
+Umumiy köriniş:
+
+```maple
+plot3d(f(x, y), x = a .. b, y = c .. d, grid = [m, n], axes = FRAMED, color = x + y);
+```
+
+- `x = a .. b`, `y = c .. d` — ikki özgaruvçining oraliqlari.
+- `grid = [m, n]` — sirt m qator va n ustunli setka bilan chiziladi. Son katta bölsa, sirt silliqroq chiqadi, lekin chizish sekinlashadi.
+- `axes = FRAMED` — öqlar çerçeve ichida chiqadi.
+- `color = x + y` — rang x + y qiymatiga qarab beriladi.
+
+Birinçi misol: sinusli sirt.
+
+```maple
+plot3d((x + sin(x*y)), x = -Pi .. Pi, y = -Pi .. Pi, axes = FRAMED, color = x + y);
+```
+
+![x + sin(x·y) sirti: tölqinli sirt, ranglar x + y ga qarab bölingan](/images/blog/maple-math-basics-with-examples/plot3d-sin-xy.webp)
+
+Sinus argumenti `x·y` bölgani uçun tölqinlar bir öqqa parallel emas: x va y ortgani sari sirt tebranişi kücheyadi. Rasmda bu tebranişlar körinadi.
+
+İkkinçi misol: `grid` parametri bilan.
+
+```maple
+plot3d((x - cos(x*y)), x = -Pi .. Pi, y = -Pi .. Pi, grid = [30, 30], axes = FRAMED, color = x + y);
+```
+
+![x − cos(x·y) sirti: setka 30 × 30, rang x + y böyicha](/images/blog/maple-math-basics-with-examples/plot3d-cos-xy.webp)
+
+Uçinçi misol: paraboloid. Qölda tekşiriş: `z = (x + 2)²/2 + (y − 1)²/6` ning eng kiçik qiymati `(x, y) = (−2, 1)` nuqtada, z = 0. Oraliq `[−10, 10]` shu nuqtani öz ichiga oladi, şuning uçun sirtning tubi chizilgan bölişi kerak. Rasmda faqat chet qismi körinadi.
+
+```maple
+plot3d((x + 2)^2/2 + (y - 1)^2/6, x = -10 .. 10, y = -10 .. 10, grid = [30, 30], axes = FRAMED, color = x + y);
+```
+
+![(x + 2)²/2 + (y − 1)²/6 paraboloidi: chetki qismi körinadi, egri çiziq yuqoriga ökadi](/images/blog/maple-math-basics-with-examples/plot3d-paraboloid.webp)
+
+Törtinçi misol: figurali qavs ichida ikki sirt bir grafikda. İkkinçisi `√(x² + y²) − 7` — konus, lekin z ni pastga 7 birlikka suradi. x va y `[−π, π]` oraliqda bölgani uçun `r = √(x² + y²) ≤ π√2 ≈ 4,44`. Demak `z = r − 7` har doim manfiy, `−7` dan `−2,56` gaçha. Rasmdagi pastki sirt shu.
+
+```maple
+plot3d({x*sin(2*y) + y*cos(3*x), sqrt(x^2 + y^2) - 7}, x = -Pi .. Pi, y = -Pi .. Pi, grid = [30, 30], axes = FRAMED, color = x + y);
+```
+
+![Ikki sirt bir grafikda: yuqorida tölqinli sirt, pastda konus; rang x + y böyicha](/images/blog/maple-math-basics-with-examples/plot3d-sirt-funksiya.webp)
+
+Xato: `grid` ni kvadrat qavs bilan yozmang. Quyidagi buyruq Maple'da xato beradi:
+
+```maple
+plot3d((y + sin(x*y)), x = -Pi .. Pi, y = -Pi .. Pi, grid[30, 30], axes = FRAMED, color = x + y);
+```
+
+Natija: `Error, (in plot3d) unexpected option: grid[30, 30]`. Sabab: `grid` — parametr, qiymati `=` bilan beriladi. Töğri yozuv: `grid = [30, 30]`.
+
+### Fazoviy egri çiziq: spacecurve
+
+`spacecurve` uçun avval `plots` paketini ulaymiz:
+
+```maple
+with(plots):
+spacecurve([sin(t), cos(t), exp(t)], t = 1 .. 5, thickness = 2, axes = BOXED);
+```
+
+Körinişi: `[x(t), y(t), z(t)]`, bu yerda `x = sin t`, `y = cos t`, `z = e^t`. `thickness` egri qalinligini, `axes = BOXED` esa öqlarni qutida beradi.
+
+![sin t, cos t, e^t fazoviy egri çiziği: x va y ±1 oraliqda, z esa 148 gaçha ösadi](/images/blog/maple-math-basics-with-examples/spacecurve.webp)
+
+Qölda tekşiriş: `t = 5` da `z = e^5 ≈ 148,4`. x va y ±1 oraliqda, z esa 148 gaçha, şuning uçun egri deyarli vertikal körinadi. Rasmdagi z öqi ham shu tartibda.
+
+### Sfera: sphereplot
+
+```maple
+sphereplot(1, theta = 0 .. 2*Pi, phi = 0 .. Pi, shading = ZGREYSCALE);
+```
+
+Birinçi argument — radius. `theta` — ekvator böylab burçak (0 dan 2π gaçha, bir marta aylanish). `phi` — z öqidan, qutbdan burçak (0 dan π gaçha). Qölda tekşiriş: `phi = 0` da z = r, `phi = π` da z = −r. Bu qutblar.
+
+![Birlik sfera, kulrang shading (ZGREYSCALE)](/images/blog/maple-math-basics-with-examples/sphereplot-greyscale.webp)
+
+Ikkinçi rasm — rangli variant.
+
+![Birlik sfera, rangli sirt](/images/blog/maple-math-basics-with-examples/sphereplot-rangli.webp)
+
+### Animatsiya: animate
+
+`animate` — bitta funksiyani parametrning har bir qiymati uçun chizadi va kadrlarni ketma-ket körsatadi. `frames = 50` — kadrlar soni. Parametr oraliq (`c = 0.5 .. 3`) bilan beriladi.
+
+Tekis funksiya uçun:
+
+```maple
+with(plots):
+animate(sin(c*x), x = -10 .. 10, c = 0.5 .. 3, frames = 50);
+```
+
+Maple'dan olingan kadr, `c = 0.5` ga mos: sinus nollari `±2π` da, bu `sin(0.5x)` degani.
+
+![Maple animatsiyasidan bitta kadr: sin(0.5x) grafigi, nollar x = ±2π da](/images/blog/maple-math-basics-with-examples/animate-sin-kadr.webp)
+
+Quyidagi GIF-ga o'xshash animatsiya shu formulani va `c` oraligini ishlatadi. U Maple natijasi emas: matplotlib bilan qayta chizilgan nusxa.
+
+![sin(c·x) animatsiyasi, c 0.5 dan 3 gaçha, qayta chizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-sin-c.webp)
+
+Aylana uçun, `implicitplot` bilan:
+
+```maple
+with(plots):
+animate(implicitplot, [x^2 + y^2 = r^2, x = -6 .. 6, y = -6 .. 6], r = 1 .. 5, scaling = constrained);
+```
+
+![Maple'dan olingan kadr: r = 1 aylanasi, burçakli chiqqan](/images/blog/maple-math-basics-with-examples/implicitplot-doira.webp)
+
+Aylana burçakli körinadi, chunki `implicitplot` nuqtalarni kam oladi. Silliqroq bo'lishi uçun `numpoints` parametrini oshirib ko'ring (bu maslahat hali özim tekshirmagan).
+
+Quyidagi animatsiya r = 1 dan 5 gaçha kengayishni körsatadi. U ham matplotlib bilan qayta chizilgan.
+
+![x² + y² = r² aylanasi, r 1 dan 5 gaçha kengayadi, qayta chizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-aylana-r.webp)
+
+Uç ölçamli animatsiya:
+
+```maple
+with(plots):
+animate(plot3d, [sin(x*t)*cos(y*t), x = -Pi .. Pi, y = -Pi .. Pi], t = 1 .. 3, frames = 50);
+```
+
+Maple kadri `t = 1` da. Yuqori chap burçakda parametr qiymati chiqadi.
+
+![Maple animatsiyasidan kadr: sin(x·t)·cos(y·t), t = 1](/images/blog/maple-math-basics-with-examples/animate-plot3d-kadr.webp)
+
+Qayta chizilgan animatsiya, t 1 dan 3 gaçha:
+
+![sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha, qayta chizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp)
+
 ## Buyruqlar jadvali
 
 | Buyruq | Vazifasi |
@@ -556,5 +693,9 @@ Xato: `plot` buyruğiga `infinity` bilan çeksiz oraliq bermang. Uning örniga k
 | `extrema` | lokal ekstremumlar |
 | `maximize` / `minimize` | oraliqdagi eng katta / eng kiçik qiymat |
 | `readlib` | eski kutubxona funksiyasini yuklaş |
+| `plot3d` | uç ölçamli sirt (`grid`, `axes`, `color` parametrlari bilan) |
+| `spacecurve` | fazoviy egri çiziq (`with(plots)` kerak) |
+| `sphereplot` | sfera (`theta`, `phi` burçaklari bilan) |
+| `animate` | parametr böyicha kadrlar ketma-ketligi (`with(plots)` kerak) |
 
 Maple buyruqni bajaradi, lekin nötöğri kiritilgan ifodaga ham natija beradi. Şuning uçun har bir natijani qölda, heç bölmasa bitta misolda tekşiring.
