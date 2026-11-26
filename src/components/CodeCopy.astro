@@ -22,8 +22,13 @@
         setTimeout(() => { button.textContent = 'Copy'; }, 2000);
       });
 
-      pre.classList.add('has-copy');
-      pre.appendChild(button);
+      // Wrap <pre> so the button sits outside the horizontally scrolling element
+      // and stays pinned to the block's corner while the code scrolls.
+      const wrap = document.createElement('div');
+      wrap.className = 'code-block';
+      pre.parentNode?.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+      wrap.appendChild(button);
     });
   }
 

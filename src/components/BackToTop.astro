@@ -1,0 +1,54 @@
+---
+// Compact "back to top" button. Appears after the user scrolls down, stays out of the way otherwise.
+---
+
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Sahifa boshiga qaytish" title="Boshiga qaytish" tabindex="-1">
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+    <path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</button>
+
+<script>
+  const SHOW_AFTER_PX = 600;
+  let ticking = false;
+
+  function setup() {
+    const btn = document.getElementById('back-to-top') as HTMLButtonElement | null;
+    if (!btn || btn.dataset.bound === 'true') return;
+    btn.dataset.bound = 'true';
+
+    const update = () => {
+      ticking = false;
+      const visible = window.scrollY > SHOW_AFTER_PX;
+      btn.classList.toggle('is-visible', visible);
+      btn.tabIndex = visible ? 0 : -1;
+    };
+
+    btn.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+
+    // One window listener, throttled to one update per frame.
+    if (!(window as Window & { __backToTop?: boolean }).__backToTop) {
+      (window as Window & { __backToTop?: boolean }).__backToTop = true;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            const el = document.getElementById('back-to-top');
+            if (el) {
+              const v = window.scrollY > SHOW_AFTER_PX;
+              el.classList.toggle('is-visible', v);
+              (el as HTMLButtonElement).tabIndex = v ? 0 : -1;
+            }
+            ticking = false;
+          });
+        }
+      }, { passive: true });
+    }
+    update();
+  }
+
+  document.addEventListener('astro:page-load', setup);
+</script>

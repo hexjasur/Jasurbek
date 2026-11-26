@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import SearchPalette from '../components/SearchPalette.astro';
 import DesktopUpdater from '../components/DesktopUpdater.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '../config';
 import { toolsList } from '../data/tools';
@@ -161,6 +162,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     </main>
     <Footer />
     <DesktopUpdater />
+    <BackToTop />
   </div>
 
   <SearchPalette />
@@ -287,22 +289,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
       button.addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        const root = document.documentElement;
-        const bounds = button.getBoundingClientRect();
-        root.style.setProperty('--theme-x', `${bounds.left + bounds.width / 2}px`);
-        root.style.setProperty('--theme-y', `${bounds.top + bounds.height / 2}px`);
-
-        const transitionDocument = document as Document & {
-          startViewTransition?: (update: () => void) => unknown;
-        };
-
-        if (typeof transitionDocument.startViewTransition === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          transitionDocument.startViewTransition(() => applyTheme(next));
-        } else {
-          root.classList.add('theme-is-changing');
-          applyTheme(next);
-          window.setTimeout(() => root.classList.remove('theme-is-changing'), 700);
-        }
+        applyTheme(next);
       });
 
       sync();
