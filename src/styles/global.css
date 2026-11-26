@@ -1859,7 +1859,7 @@ body,
 .prose :is(h2, h3) { scroll-margin-top: 1rem; }
 
 /* ===== Code block copy button ===== */
-.prose pre.has-copy { position: relative; }
+.code-block { position: relative; }
 
 .code-copy-btn {
   position: absolute;
@@ -1878,7 +1878,7 @@ body,
   transition: opacity 0.15s ease, background-color 0.15s ease;
 }
 
-.prose pre:hover .code-copy-btn,
+.code-block:hover .code-copy-btn,
 .code-copy-btn:focus-visible { opacity: 1; background: rgba(255, 255, 255, 0.22); }
 
 /* ===== Tags ===== */
