@@ -101,7 +101,7 @@ Har bir natijani qölda tekşiring. Benchmarkdan köra özingiz işlatadigan vaz
 
 ## Kiçik hazil
 
-Google modellarini davriy jadvaldan tanlayotganga öxşaydi. Hydrogen — jadvaldagi eng yengil element. 3.8 Flash esa nomi bilan tezligini oşkor qiliş. BenchLM röyxatida Gemini 4 Carbon va Neon ham bor, şuning uçun keyingi model nomi qanday bölişini taxmin qilish qiyin emas. Lekin nomga emas, raqamlarga qaraymiz.
+Google modellarini davriy jadvaldan tanlayotganga öxşaydi. Hydrogen — jadvaldagi eng yengil element. 3.8 Flash esa nomi bilan tezligini oşkor qiliş. BenchLM röyxatida Gemini 4 Carbon va Neon ham bor, şuning uçun keyingi model nomi qanday bölişini taxmin qiliş qiyin emas. Lekin nomga emas, raqamlarga qaraymiz.
 
 ## Manbalar
 
