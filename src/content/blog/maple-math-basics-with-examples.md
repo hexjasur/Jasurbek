@@ -117,7 +117,7 @@ solve(sin(x) = 1/2, x);
 
 Natijalar: `x = Pi/6 + 2*Pi*_Z1` va `x = 5*Pi/6 + 2*Pi*_Z1`. Matematikada bu `x = π/6 + 2πk` va `x = 5π/6 + 2πk`, bu yerda `k ∈ ℤ`.
 
-![Birlik aylanada sin x = 1/2 tenglamaning ikki yeçimi: π/6 va 5π/6 burçaklari, y = 1/2 çiziği bilan kesişgan nuqtalar](/images/blog/maple-math-basics-with-examples/sin-half-solutions.svg)
+<img src="/images/blog/maple-math-basics-with-examples/sin-half-solutions.svg" alt="Birlik aylanada sin x = 1/2 tenglamaning ikki yeçimi: π/6 va 5π/6 burçaklari, y = 1/2 çiziği bilan kesişgan nuqtalar" loading="lazy" decoding="async" />
 
 Bu rasmda iki yeçim birlik aylanadagi ikki nuqta. Har biri `2π` qadamda takrorlanadi, şuning uçun natijada `2*Pi*_Z1` qöşiladi.
 
@@ -337,7 +337,7 @@ Int((1 + cos(x))^2, x = 0 .. Pi) = int((1 + cos(x))^2, x = 0 .. Pi);
 
 Natijalar: `2`, `0` va `3*Pi/2`. `sin x` ning `[0, π]` dagi yuzi `2`. Uçinçi misolda qavsni avval oçamiz: `(1 + cos x)^2 = 1 + 2cos x + cos^2 x`. Ularning integrallari ketma-ket `π`, `0` va `π/2` beradi, yiğindisi `3π/2`.
 
-![sin x funksiyasi grafigi va [0, π] oraliqdagi yuz, qiymati 2 ga teng](/images/blog/maple-math-basics-with-examples/sin-integral-area.svg)
+<img src="/images/blog/maple-math-basics-with-examples/sin-integral-area.svg" alt="sin x funksiyasi grafigi va [0, π] oraliqdagi yuz, qiymati 2 ga teng" loading="lazy" decoding="async" />
 
 Xato: `int(cos(x), x = 0 .. Pi)` nolga teng. Bu yuza nol degani emas: `cos x` ning `[0, π/2]` dagi musbat va `[π/2, π]` dagi manfiy yuzlari bir-birini bekor qiladi. Integral işorali yuzni hisoblaydi.
 
@@ -488,7 +488,7 @@ Quyidagi grafiklar `plot` va `implicitplot` bilan çizilgan. Har bir rasmning al
 plot(sin(x)/x, x = -4*Pi .. 4*Pi, labels = [x, y], labelfont = [Times, ITALIC, 12], thickness = 3);
 ```
 
-![sin(x)/x funksiyasining grafigi, x oraliqi −4π dan 4π gaça; x = 0 atrofida egri 1 ga yaqinlaşadi](/images/maple/plot-sinc.svg)
+<img src="/images/maple/plot-sinc.svg" alt="sin(x)/x funksiyasining grafigi, x oraliqi −4π dan 4π gaça; x = 0 atrofida egri 1 ga yaqinlaşadi" loading="lazy" decoding="async" />
 
 Funksiya `x = 0` da aniqlanmagan (`0/0`), lekin limit mavjud va `1` ga teng. Bu bartaraf etiladigan uziliş.
 
@@ -498,7 +498,7 @@ Funksiya `x = 0` da aniqlanmagan (`0/0`), lekin limit mavjud va `1` ga teng. Bu 
 plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
 ```
 
-![x^2 - x + 3 parabolasi va 2x + 3 töğri çiziği, x dan −10 gaça 10 gaça, y dan 0 gaça 30 gaça](/images/maple/plot-parabola-line.svg)
+<img src="/images/maple/plot-parabola-line.svg" alt="x^2 - x + 3 parabolasi va 2x + 3 töğri çiziği, x dan −10 gaça 10 gaça, y dan 0 gaça 30 gaça" loading="lazy" decoding="async" />
 
 `y = 0 .. 30` oraliqdan taşqaridagi parabola qismi çizilmaydi.
 
@@ -510,7 +510,7 @@ plot([x^2-x+3, 2*x+3], x = -10 .. 10, y = 0 .. 30, labels = [x, y]);
 plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, labels = [x, y], color = purple, thickness = 6);
 ```
 
-![sin(2t) va cos(3t) parametrik egri çiziği; x va y koordinatalari −1 dan 1 gaça](/images/maple/plot-lissajous.svg)
+<img src="/images/maple/plot-lissajous.svg" alt="sin(2t) va cos(3t) parametrik egri çiziği; x va y koordinatalari −1 dan 1 gaça" loading="lazy" decoding="async" />
 
 ### Kvadrat funksiya
 
@@ -518,7 +518,7 @@ plot([sin(2*t), cos(3*t), t = 0 .. 2*Pi], axes = BOXED, labels = [x, y], color =
 plot([x^2-5*x+6], x = -10 .. 15, labels = [x, y]);
 ```
 
-![x^2 - 5x + 6 parabolasi; x öqini x = 2 va x = 3 nuqtalarda kesadi](/images/maple/plot-quadratic.svg)
+<img src="/images/maple/plot-quadratic.svg" alt="x^2 - 5x + 6 parabolasi; x öqini x = 2 va x = 3 nuqtalarda kesadi" loading="lazy" decoding="async" />
 
 Parabola x öqini `x = 2` va `x = 3` da kesadi. Bular `x^2 - 5x + 6 = 0` tenglamaning yeçimlari.
 
@@ -531,7 +531,7 @@ with(plots):
 implicitplot((1/4)*x^2-(1/2)*y^2 = 16, x = -20 .. 20, y = -16 .. 16);
 ```
 
-![(1/4)x^2 - (1/2)y^2 = 16 giperbolasi; ikki tarmoqli, tarmoqlar x = ±8 nuqtalardan boşlanadi](/images/maple/plot-hyperbola.svg)
+<img src="/images/maple/plot-hyperbola.svg" alt="(1/4)x^2 - (1/2)y^2 = 16 giperbolasi; ikki tarmoqli, tarmoqlar x = ±8 nuqtalardan boşlanadi" loading="lazy" decoding="async" />
 
 Umumiy köriniş: `implicitplot(tenglama, x = a .. b, y = c .. d)`.
 
@@ -560,7 +560,7 @@ Birinçi misol: sinusli sirt.
 plot3d((x + sin(x*y)), x = -Pi .. Pi, y = -Pi .. Pi, axes = FRAMED, color = x + y);
 ```
 
-![x + sin(x·y) sirti: tölqinli sirt, ranglar x + y ga qarab bölingan](/images/blog/maple-math-basics-with-examples/plot3d-sin-xy.webp)
+<img src="/images/blog/maple-math-basics-with-examples/plot3d-sin-xy.webp" alt="x + sin(x·y) sirti: tölqinli sirt, ranglar x + y ga qarab bölingan" loading="lazy" decoding="async" />
 
 Sinus argumenti `x·y` bölgani uçun tölqinlar bir öqqa parallel emas: x va y ortgani sari sirt tebranişi kuçayadi. Rasmda bu tebranişlar körinadi.
 
@@ -570,7 +570,7 @@ Ikkinçi misol: `grid` parametri bilan.
 plot3d((x - cos(x*y)), x = -Pi .. Pi, y = -Pi .. Pi, grid = [30, 30], axes = FRAMED, color = x + y);
 ```
 
-![x − cos(x·y) sirti: setka 30 × 30, rang x + y böyiça](/images/blog/maple-math-basics-with-examples/plot3d-cos-xy.webp)
+<img src="/images/blog/maple-math-basics-with-examples/plot3d-cos-xy.webp" alt="x − cos(x·y) sirti: setka 30 × 30, rang x + y böyiça" loading="lazy" decoding="async" />
 
 Uçinçi misol: paraboloid. Qölda tekşiriş: `z = (x + 2)²/2 + (y − 1)²/6` ning eng kiçik qiymati `(x, y) = (−2, 1)` nuqtada, z = 0. Oraliq `[−10, 10]` şu nuqtani öz içiga oladi, şuning uçun sirtning tubi çizilgan bölişi kerak. Rasmda faqat çet qismi körinadi.
 
@@ -578,7 +578,7 @@ Uçinçi misol: paraboloid. Qölda tekşiriş: `z = (x + 2)²/2 + (y − 1)²/6`
 plot3d((x + 2)^2/2 + (y - 1)^2/6, x = -10 .. 10, y = -10 .. 10, grid = [30, 30], axes = FRAMED, color = x + y);
 ```
 
-![(x + 2)²/2 + (y − 1)²/6 paraboloidi: çetki qismi körinadi, egri çiziq yuqoriga ökadi](/images/blog/maple-math-basics-with-examples/plot3d-paraboloid.webp)
+<img src="/images/blog/maple-math-basics-with-examples/plot3d-paraboloid.webp" alt="(x + 2)²/2 + (y − 1)²/6 paraboloidi: çetki qismi körinadi, egri çiziq yuqoriga ökadi" loading="lazy" decoding="async" />
 
 Törtinçi misol: figurali qavs içida ikki sirt bir grafikda. Ikkinçisi `√(x² + y²) − 7` — konus, lekin z ni pastga 7 birlikka suradi. x va y `[−π, π]` oraliqda bölgani uçun `r = √(x² + y²) ≤ π√2 ≈ 4,44`. Demak `z = r − 7` har doim manfiy, `−7` dan `−2,56` gaçha. Rasmdagi pastki sirt şu.
 
@@ -586,7 +586,7 @@ Törtinçi misol: figurali qavs içida ikki sirt bir grafikda. Ikkinçisi `√(x
 plot3d({x*sin(2*y) + y*cos(3*x), sqrt(x^2 + y^2) - 7}, x = -Pi .. Pi, y = -Pi .. Pi, grid = [30, 30], axes = FRAMED, color = x + y);
 ```
 
-![Ikki sirt bir grafikda: yuqorida tölqinli sirt, pastda konus; rang x + y böyiça](/images/blog/maple-math-basics-with-examples/plot3d-sirt-funksiya.webp)
+<img src="/images/blog/maple-math-basics-with-examples/plot3d-sirt-funksiya.webp" alt="Ikki sirt bir grafikda: yuqorida tölqinli sirt, pastda konus; rang x + y böyiça" loading="lazy" decoding="async" />
 
 Xato: `grid` ni kvadrat qavs bilan yozmang. Quyidagi buyruq Maple'da xato beradi:
 
@@ -607,7 +607,7 @@ spacecurve([sin(t), cos(t), exp(t)], t = 1 .. 5, thickness = 2, axes = BOXED);
 
 Körinişi: `[x(t), y(t), z(t)]`, bu yerda `x = sin t`, `y = cos t`, `z = e^t`. `thickness` egri qalinligini, `axes = BOXED` esa öqlarni qutida beradi.
 
-![sin t, cos t, e^t fazoviy egri çiziği: x va y ±1 oraliqda, z esa 148 gaçha ösadi](/images/blog/maple-math-basics-with-examples/spacecurve.webp)
+<img src="/images/blog/maple-math-basics-with-examples/spacecurve.webp" alt="sin t, cos t, e^t fazoviy egri çiziği: x va y ±1 oraliqda, z esa 148 gaçha ösadi" loading="lazy" decoding="async" />
 
 Qölda tekşiriş: `t = 5` da `z = e^5 ≈ 148,4`. x va y ±1 oraliqda, z esa 148 gaçha, şuning uçun egri deyarli vertikal körinadi. Rasmdagi z öqi ham şu tartibda.
 
@@ -619,11 +619,11 @@ sphereplot(1, theta = 0 .. 2*Pi, phi = 0 .. Pi, shading = ZGREYSCALE);
 
 Birinçi argument — radius. `theta` — ekvator böylab burçak (0 dan 2π gaçha, bir marta aylaniş). `phi` — z öqidan, qutbdan burçak (0 dan π gaçha). Qölda tekşiriş: `phi = 0` da z = r, `phi = π` da z = −r. Bu qutblar.
 
-![Birlik sfera, kulrang şading (ZGREYSCALE)](/images/blog/maple-math-basics-with-examples/sphereplot-greyscale.webp)
+<img src="/images/blog/maple-math-basics-with-examples/sphereplot-greyscale.webp" alt="Birlik sfera, kulrang şading (ZGREYSCALE)" loading="lazy" decoding="async" />
 
 Ikkinçi rasm — rangli variant.
 
-![Birlik sfera, rangli sirt](/images/blog/maple-math-basics-with-examples/sphereplot-rangli.webp)
+<img src="/images/blog/maple-math-basics-with-examples/sphereplot-rangli.webp" alt="Birlik sfera, rangli sirt" loading="lazy" decoding="async" />
 
 ### Animatsiya: animate
 
@@ -638,11 +638,11 @@ animate(sin(c*x), x = -10 .. 10, c = 0.5 .. 3, frames = 50);
 
 Maple'dan olingan kadr, `c = 0.5` ga mos: sinus nollari `±2π` da, bu `sin(0.5x)` degani.
 
-![Maple animatsiyasidan bitta kadr: sin(0.5x) grafigi, nollar x = ±2π da](/images/blog/maple-math-basics-with-examples/animate-sin-kadr.webp)
+<img src="/images/blog/maple-math-basics-with-examples/animate-sin-kadr.webp" alt="Maple animatsiyasidan bitta kadr: sin(0.5x) grafigi, nollar x = ±2π da" loading="lazy" decoding="async" />
 
 Quyidagi GIF-ga öxşaş animatsiya şu formulani va `c` oraligini işlatadi. U Maple natijasi emas: matplotlib bilan qayta çizilgan nusxa.
 
-![sin(c·x) animatsiyasi, c 0.5 dan 3 gaçha, qayta çizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-sin-c.webp)
+<img src="/images/blog/maple-math-basics-with-examples/animate-sin-c.webp" alt="sin(c·x) animatsiyasi, c 0.5 dan 3 gaçha, qayta çizilgan nusxa" loading="lazy" decoding="async" />
 
 Aylana uçun, `implicitplot` bilan:
 
@@ -651,13 +651,13 @@ with(plots):
 animate(implicitplot, [x^2 + y^2 = r^2, x = -6 .. 6, y = -6 .. 6], r = 1 .. 5, scaling = constrained);
 ```
 
-![Maple'dan olingan kadr: r = 1 aylanasi, burçakli çiqqan](/images/blog/maple-math-basics-with-examples/implicitplot-doira.webp)
+<img src="/images/blog/maple-math-basics-with-examples/implicitplot-doira.webp" alt="Maple'dan olingan kadr: r = 1 aylanasi, burçakli çiqqan" loading="lazy" decoding="async" />
 
 Aylana burçakli körinadi, çunki `implicitplot` nuqtalarni kam oladi. Silliqroq bölişi uçun `numpoints` parametrini oşirib köring (bu maslahat hali özim tekşirmagan).
 
 Quyidagi animatsiya r = 1 dan 5 gaçha kengayişni körsatadi. U ham matplotlib bilan qayta çizilgan.
 
-![x² + y² = r² aylanasi, r 1 dan 5 gaçha kengayadi, qayta çizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-aylana-r.webp)
+<img src="/images/blog/maple-math-basics-with-examples/animate-aylana-r.webp" alt="x² + y² = r² aylanasi, r 1 dan 5 gaçha kengayadi, qayta çizilgan nusxa" loading="lazy" decoding="async" />
 
 Uç ölçamli animatsiya:
 
@@ -668,11 +668,11 @@ animate(plot3d, [sin(x*t)*cos(y*t), x = -Pi .. Pi, y = -Pi .. Pi], t = 1 .. 3, f
 
 Maple kadri `t = 1` da. Yuqori çap burçakda parametr qiymati çiqadi.
 
-![Maple animatsiyasidan kadr: sin(x·t)·cos(y·t), t = 1](/images/blog/maple-math-basics-with-examples/animate-plot3d-kadr.webp)
+<img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-kadr.webp" alt="Maple animatsiyasidan kadr: sin(x·t)·cos(y·t), t = 1" loading="lazy" decoding="async" />
 
 Qayta çizilgan animatsiya, t 1 dan 3 gaçha:
 
-![sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha, qayta çizilgan nusxa](/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp)
+<img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp" alt="sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha, qayta çizilgan nusxa" loading="lazy" decoding="async" />
 
 ## Buyruqlar jadvali
 
