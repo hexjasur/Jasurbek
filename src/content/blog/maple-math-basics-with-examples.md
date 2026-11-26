@@ -629,6 +629,8 @@ Ikkinçi rasm — rangli variant.
 
 `animate` — bitta funksiyani parametrning har bir qiymati uçun çizadi va kadrlarni ketma-ket körsatadi. `frames = 50` — kadrlar soni. Parametr oraliq (`c = 0.5 .. 3`) bilan beriladi.
 
+Maple'da animatsiya Animation panelidan boşqariladi: Play (boşlaş), Current Frame (kadr raqami) va FPS (kadr tezligi). Grafikni boşlaş uçun Play tugmasini bosing.
+
 Tekis funksiya uçun:
 
 ```maple
@@ -640,9 +642,9 @@ Maple'dan olingan kadr, `c = 0.5` ga mos: sinus nollari `±2π` da, bu `sin(0.5x
 
 <img src="/images/blog/maple-math-basics-with-examples/animate-sin-kadr.webp" alt="Maple animatsiyasidan bitta kadr: sin(0.5x) grafigi, nollar x = ±2π da" loading="lazy" decoding="async" />
 
-Quyidagi animatsiya misol tariqasida berilgan. U Maple'da çiqmaydi, balki şu formula va `c` oraligi asosida matplotlib bilan çizilgan.
+Bu animatsiyani Maple'da Play tugmasi bilan boşlaş mumkin. Quyida uning matplotlib bilan çizilgan nusxasi körsatilgan, u şu formula va `c` oraligi asosida yasalgan.
 
-<img src="/images/blog/maple-math-basics-with-examples/animate-sin-c.webp" alt="sin(c·x) animatsiyasi, c 0.5 dan 3 gaçha; misol tariqasida, matplotlib bilan çizilgan" loading="lazy" decoding="async" />
+<img src="/images/blog/maple-math-basics-with-examples/animate-sin-c.webp" alt="sin(c·x) animatsiyasi, c 0.5 dan 3 gaçha; Maple animatsiyasining matplotlib nusxasi" loading="lazy" decoding="async" />
 
 Aylana uçun, `implicitplot` bilan:
 
@@ -655,9 +657,9 @@ animate(implicitplot, [x^2 + y^2 = r^2, x = -6 .. 6, y = -6 .. 6], r = 1 .. 5, s
 
 Aylana burçakli körinadi, çunki `implicitplot` nuqtalarni kam oladi. Silliqroq bölişi uçun `numpoints` parametrini oşirib köring (bu maslahat hali özim tekşirmagan).
 
-Quyidagi animatsiya misol tariqasida: r = 1 dan 5 gaçha kengayişni körsatadi. U ham matplotlib bilan çizilgan, Maple natijasi emas.
+Aylana animatsiyasini ham Maple'da boşlaş mumkin. Quyida uning matplotlib bilan çizilgan nusxasi r = 1 dan 5 gaçha kengayişni körsatadi.
 
-<img src="/images/blog/maple-math-basics-with-examples/animate-aylana-r.webp" alt="x² + y² = r² aylanasi, r 1 dan 5 gaçha kengayadi; misol tariqasida, matplotlib bilan çizilgan" loading="lazy" decoding="async" />
+<img src="/images/blog/maple-math-basics-with-examples/animate-aylana-r.webp" alt="x² + y² = r² aylanasi, r 1 dan 5 gaçha kengayadi; Maple animatsiyasining matplotlib nusxasi" loading="lazy" decoding="async" />
 
 Uç ölçamli animatsiya:
 
@@ -670,9 +672,9 @@ Maple kadri `t = 1` da. Yuqori çap burçakda parametr qiymati çiqadi.
 
 <img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-kadr.webp" alt="Maple animatsiyasidan kadr: sin(x·t)·cos(y·t), t = 1" loading="lazy" decoding="async" />
 
-Quyidagi animatsiya misol tariqasida, t 1 dan 3 gaçha. Formula Maple'dagi bilan bir xil, lekin rang va kamera burçagi farq qiladi (Maple'da ranglar `x + y` ga qarab bölinadi, bu yerda `viridis` palitrasi işlatilgan). U matplotlib bilan çizilgan, Maple natijasi emas.
+Bu animatsiyani Maple'da Play tugmasi bilan boşlaş mumkin. Quyida uning matplotlib bilan çizilgan nusxasi, t 1 dan 3 gaçha. Formula Maple'dagi bilan bir xil, lekin rang va kamera burçagi farq qiladi (Maple'da ranglar `x + y` ga qarab bölinadi, bu yerda `viridis` palitrasi işlatilgan).
 
-<img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp" alt="sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha; misol tariqasida, matplotlib bilan çizilgan" loading="lazy" decoding="async" />
+<img src="/images/blog/maple-math-basics-with-examples/animate-plot3d-t.webp" alt="sin(x·t)·cos(y·t) sirti animatsiyasi, t 1 dan 3 gaçha; Maple animatsiyasining matplotlib nusxasi" loading="lazy" decoding="async" />
 
 ## Buyruqlar jadvali
 
